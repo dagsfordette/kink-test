@@ -1,0 +1,36 @@
+{
+  "plan": "06-scoring-results-and-boundaries",
+  "fromPrototypeVersion": "0.3.8",
+  "toPrototypeVersion": "0.3.9",
+  "questionnaireVersion": "1.0.8",
+  "catalogSchemaVersion": "1.9.0",
+  "exportSchemaVersion": "1.6.0",
+  "resultsModelVersion": "2.0.0",
+  "answerKeyMigrationRequired": false,
+  "conceptIdMigrationRequired": false,
+  "categoryIdMigrationRequired": false,
+  "storedAnswerMutationRequired": false,
+  "aggregationChange": {
+    "before": "perspective records averaged directly into categories",
+    "after": "perspective -> canonical concept -> primary category -> domain",
+    "defaultCategoryWeighting": "equal concept weight per scored dimension"
+  },
+  "boundaryHandling": {
+    "conceptHardLimitsInPreferenceAverages": false,
+    "detailHardLimitsInPreferenceAverages": false,
+    "categoryHardLimitsInPreferenceAverages": false,
+    "categoryGateScoreContribution": "none"
+  },
+  "legacyWillingnessResultNormalization": {
+    "unknown": "unsure",
+    "curious": "open_to_it",
+    "want_to_try": "interested_in_trying",
+    "would_try": "open_to_it",
+    "would_do": "actively_want",
+    "would_not_try": "not_interested"
+  },
+  "legacyNormalizationMutatesSavedAnswers": false,
+  "primaryNumericPercentageRemovedFromUi": true,
+  "internalIndexRetainedForCompatibility": true,
+  "internalIndexMeaning": "linear transform of -2..2 preference average; not psychometric"
+}

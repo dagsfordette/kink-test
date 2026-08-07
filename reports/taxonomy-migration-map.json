@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "plan": "02-taxonomy-and-information-architecture",
+  "from": {
+    "catalogSchemaVersion": "1.4.0",
+    "questionnaireVersion": "1.0.3"
+  },
+  "to": {
+    "catalogSchemaVersion": "1.5.0",
+    "questionnaireVersion": "1.0.4"
+  },
+  "conceptIdMigrations": {},
+  "categoryIdMigrations": {},
+  "answerKeyMigrations": {},
+  "structuralChanges": [
+    {
+      "path": "domains",
+      "action": "added",
+      "note": "Eight top-level navigation domains were added."
+    },
+    {
+      "path": "categories[*].domainId",
+      "action": "added",
+      "note": "Every existing category is mapped to exactly one domain; category IDs are unchanged."
+    },
+    {
+      "path": "concepts[*].canonicalId",
+      "action": "added",
+      "note": "All Plan 02 concepts remain self-canonical, so existing answer keys stay valid."
+    },
+    {
+      "path": "concepts[*].primaryCategory",
+      "action": "added",
+      "note": "Equivalent to the former first categoryIds entry."
+    },
+    {
+      "path": "concepts[*].relatedCategories",
+      "action": "added",
+      "note": "Equivalent to former secondary categoryIds entries plus curated Plan 02 cross-navigation references."
+    },
+    {
+      "path": "concepts[*].domain",
+      "action": "added",
+      "note": "Inherited from primaryCategory ownership."
+    },
+    {
+      "path": "concepts[*].semanticTags",
+      "action": "added",
+      "note": "Machine-readable semantic/domain/category tags."
+    },
+    {
+      "path": "concepts[*].categoryIds",
+      "action": "retained_compatibility_mirror",
+      "note": "Must equal [primaryCategory, ...relatedCategories]."
+    }
+  ],
+  "dataMigrationRequired": false,
+  "compatibilityNote": "No concept IDs, category IDs, or answer-key identities changed in Plan 02. Existing saved/exported answers remain valid."
+}

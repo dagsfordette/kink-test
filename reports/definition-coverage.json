@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "definitionEligibleConcepts": 562,
+  "substantiveDefinitions": 562,
+  "withoutSubstantiveDefinitions": 0,
+  "boilerplateDescriptions": 0,
+  "coveragePercent": 100.0,
+  "branchGateCompatibilityMarkersExcluded": 32,
+  "prioritySpecialistDefinitions": [
+    {
+      "id": "compersion_play",
+      "label": "Compersion-focused partner-sharing",
+      "description": "Compersion is pleasure or positive feeling about a partner’s pleasure with someone else; this item focuses on that response rather than partner-sharing generally."
+    },
+    {
+      "id": "predicament_bondage",
+      "label": "Predicament bondage",
+      "description": "Predicament bondage uses a negotiated restraint setup in which maintaining or changing one position creates a different discomfort or challenge; it is distinct from simple immobilization."
+    },
+    {
+      "id": "dollification",
+      "label": "Dollification",
+      "description": "Dollification is negotiated roleplay centered on being treated, posed, dressed, or presented like a doll or mannequin, usually emphasizing stillness, appearance, or object-like presentation."
+    },
+    {
+      "id": "brat_taming",
+      "label": "Brat-taming dynamic",
+      "description": "Brat-taming is a negotiated power-exchange style where playful defiance is met with firm, playful, or corrective dominance; it is distinct from genuinely unwanted conflict."
+    },
+    {
+      "id": "ruined_orgasm_fantasy",
+      "label": "Ruined-orgasm fantasy / play",
+      "description": "A ruined orgasm is an orgasm-control theme where stimulation or timing is intentionally altered so the climax feels incomplete, reduced, or interrupted; fantasy interest can be separate from real-world desire."
+    },
+    {
+      "id": "primal_play",
+      "label": "Primal play",
+      "description": "Primal play emphasizes instinctive, physical, or animalistic energy such as chasing, growling, wrestling, or biting within negotiated adult play, rather than literal animal identity."
+    },
+    {
+      "id": "formal_protocol",
+      "label": "Formal protocol",
+      "description": "Formal protocol uses agreed rules, rituals, positions, titles, or etiquette to give a power-exchange dynamic a structured feel."
+    },
+    {
+      "id": "service_submission",
+      "label": "Service-oriented submission",
+      "description": "Service submission centers on expressing submission through useful acts, tasks, attention, or caretaking rather than through pain or humiliation necessarily."
+    },
+    {
+      "id": "objectification_general",
+      "label": "Objectification as a dynamic",
+      "description": "Objectification as a dynamic is negotiated play in which someone is treated more like an object, tool, possession, or function than as an equal conversational partner for the duration of the scene or fantasy."
+    },
+    {
+      "id": "consensual_nonconsent_roleplay",
+      "label": "Consensual non-consent (CNC) fantasy roleplay",
+      "description": "Consensual non-consent (CNC) is pre-negotiated adult roleplay that imitates resistance, coercion, or lack of consent while relying on actual prior consent, boundaries, and a clear way to stop."
+    },
+    {
+      "id": "mummification",
+      "label": "Wrapping / mummification restraint",
+      "description": "Mummification restraint wraps much of the body to create strong immobilization or enclosure; it is distinct from ordinary limb restraint and warrants attention to comfort, circulation, and communication."
+    },
+    {
+      "id": "edging",
+      "label": "Edging",
+      "description": "Edging is orgasm control that repeatedly approaches climax and then reduces or pauses stimulation to delay orgasm."
+    },
+    {
+      "id": "chastity",
+      "label": "Chastity",
+      "description": "Chastity in kink refers to negotiated limits on sexual stimulation, masturbation, or orgasm, with or without a physical device."
+    },
+    {
+      "id": "urethral_sounding",
+      "label": "Urethral sounding",
+      "description": "Urethral sounding is a medical-adjacent sexual interest involving purpose-made insertion into the urethra; this inventory records interest and boundaries only and does not provide procedural guidance."
+    }
+  ],
+  "remainingEditorialWarnings": [
+    {
+      "code": "NEAR_DUPLICATE_LABEL",
+      "severity": "warning",
+      "message": "Suspiciously similar concept labels: “A partner watching” / “Watching a partner”.",
+      "affectedIds": [
+        "partner_watches",
+        "watching_partner"
+      ],
+      "details": {
+        "similarity": 1
+      }
+    },
+    {
+      "code": "NEAR_DUPLICATE_LABEL",
+      "severity": "warning",
+      "message": "Suspiciously similar concept labels: “Foot worship” / “Boot worship”.",
+      "affectedIds": [
+        "boot_worship",
+        "foot_worship"
+      ],
+      "details": {
+        "similarity": 0.9167
+      }
+    }
+  ]
+}

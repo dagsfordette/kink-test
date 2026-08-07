@@ -1,0 +1,39 @@
+{
+  "name": "adult-kink-inventory-prototype",
+  "private": true,
+  "version": "0.4.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "audit": "node scripts/catalog-audit.mjs",
+    "validate:catalog": "node scripts/catalog-validate.mjs",
+    "test:catalog": "node --test scripts/catalog-validate.test.mjs",
+    "test": "npm run test:catalog && npm run test:taxonomy && npm run test:semantic && npm run test:adaptive && npm run test:depth && npm run test:results && npm run test:negotiation && npm run test:content && npm run test:compatibility && npm run test:fixtures && npm run test:response-format && npm run test:user-testing && npm run test:print-export && npm run test:release-process && npm run validate:catalog",
+    "audit:check": "node scripts/catalog-audit-check.mjs",
+    "test:taxonomy": "node --test scripts/taxonomy.test.mjs",
+    "test:semantic": "node --test scripts/semantic-question-model.test.mjs",
+    "test:adaptive": "node --test scripts/adaptive-detail-system.test.mjs",
+    "test:depth": "node --test scripts/depth-modes-and-gates.test.mjs",
+    "test:results": "node --test scripts/scoring-results-and-boundaries.test.mjs",
+    "test:negotiation": "node --test scripts/negotiation-risk-privacy-care.test.mjs",
+    "test:content": "node --test scripts/content-expansion-editorial.test.mjs",
+    "test:compatibility": "node --test scripts/compatibility.test.mjs",
+    "test:fixtures": "node --test scripts/regression-fixtures.test.mjs",
+    "test:response-format": "node --test scripts/response-format.test.mjs",
+    "test:user-testing": "node --test scripts/user-testing-branching.test.mjs",
+    "test:print-export": "node --test scripts/print-export.test.mjs",
+    "test:release-process": "node --test scripts/release-process.test.mjs",
+    "release:verify": "npm test && npm run audit:check",
+    "release:check": "npm run release:verify && npm run build"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.0.0"
+  }
+}

@@ -1,0 +1,863 @@
+{
+  "plan": "05-depth-modes-and-category-gates",
+  "fromPrototypeVersion": "0.3.7",
+  "toPrototypeVersion": "0.3.8",
+  "catalogSchemaVersion": "1.8.0",
+  "questionnaireVersion": "1.0.7",
+  "depthModeVersion": "1.0.0",
+  "categoryGateModelVersion": "1.0.0",
+  "totals": {
+    "quick": 191,
+    "standard": 356,
+    "exhaustive": 691
+  },
+  "categories": [
+    {
+      "categoryId": "power_exchange",
+      "label": "Power exchange",
+      "quick": [
+        "dominance",
+        "submission",
+        "switching",
+        "giving_commands",
+        "receiving_commands",
+        "permission_protocol"
+      ],
+      "standard": [
+        "dominance",
+        "submission",
+        "switching",
+        "giving_commands",
+        "receiving_commands",
+        "permission_protocol",
+        "obedience",
+        "rule_setting",
+        "rule_following",
+        "reward_system",
+        "punishment_dynamic",
+        "ownership_roleplay",
+        "master_slave_dynamic",
+        "authority_dynamic",
+        "formal_titles",
+        "collaring_dynamic"
+      ],
+      "exhaustiveCount": 98
+    },
+    {
+      "categoryId": "service_protocol",
+      "label": "Service & protocol",
+      "quick": [
+        "service_submission",
+        "service_receiving",
+        "domestic_service",
+        "sexual_service",
+        "rituals",
+        "task_assignment"
+      ],
+      "standard": [
+        "service_submission",
+        "service_receiving",
+        "domestic_service",
+        "sexual_service",
+        "rituals",
+        "task_assignment",
+        "personal_service",
+        "formal_protocol",
+        "greeting_protocol"
+      ],
+      "exhaustiveCount": 15
+    },
+    {
+      "categoryId": "bondage_restraint",
+      "label": "Bondage & restraint",
+      "quick": [
+        "wrist_restraint",
+        "ankle_restraint",
+        "cuffs",
+        "fabric_restraints",
+        "bed_restraint",
+        "full_body_restraint"
+      ],
+      "standard": [
+        "wrist_restraint",
+        "ankle_restraint",
+        "cuffs",
+        "fabric_restraints",
+        "bed_restraint",
+        "full_body_restraint",
+        "arm_restraint",
+        "leg_restraint",
+        "hands_behind_back",
+        "arms_overhead",
+        "spread_position_restraint",
+        "furniture_restraint",
+        "chair_restraint",
+        "standing_restraint",
+        "kneeling_restraint",
+        "hogtie_style_restraint"
+      ],
+      "exhaustiveCount": 40
+    },
+    {
+      "categoryId": "rope_bondage",
+      "label": "Rope bondage",
+      "quick": [
+        "rope_bondage_general",
+        "decorative_rope",
+        "functional_rope",
+        "rope_harness",
+        "limb_rope",
+        "rope_sensation"
+      ],
+      "standard": [
+        "rope_bondage_general",
+        "decorative_rope",
+        "functional_rope",
+        "rope_harness",
+        "limb_rope",
+        "rope_sensation",
+        "chest_harness_rope",
+        "hip_harness_rope",
+        "floor_rope"
+      ],
+      "exhaustiveCount": 12
+    },
+    {
+      "categoryId": "sensory_deprivation",
+      "label": "Sensory deprivation & control",
+      "quick": [
+        "blindfolds",
+        "earplugs",
+        "darkness",
+        "headphones_sensory_control",
+        "unknown_next_action",
+        "sensory_deprivation_combo"
+      ],
+      "standard": [
+        "blindfolds",
+        "earplugs",
+        "darkness",
+        "headphones_sensory_control",
+        "unknown_next_action",
+        "sensory_deprivation_combo",
+        "hoods",
+        "mittens_hand_control",
+        "silence"
+      ],
+      "exhaustiveCount": 11
+    },
+    {
+      "categoryId": "impact_play",
+      "label": "Impact play",
+      "quick": [
+        "hand_spanking",
+        "paddling",
+        "flogging",
+        "thudding_impact",
+        "stingy_impact",
+        "rhythmic_impact"
+      ],
+      "standard": [
+        "hand_spanking",
+        "paddling",
+        "flogging",
+        "thudding_impact",
+        "stingy_impact",
+        "rhythmic_impact",
+        "caning",
+        "whipping",
+        "strapping"
+      ],
+      "exhaustiveCount": 12
+    },
+    {
+      "categoryId": "pain_play",
+      "label": "Pain play",
+      "quick": [
+        "pain_general",
+        "pinching",
+        "scratching",
+        "biting",
+        "hair_pulling",
+        "pressure_pain"
+      ],
+      "standard": [
+        "pain_general",
+        "pinching",
+        "scratching",
+        "biting",
+        "hair_pulling",
+        "pressure_pain",
+        "nipple_pain",
+        "genital_pain",
+        "clamps",
+        "clothespin_style_clamps",
+        "trampling",
+        "kneeling_discomfort",
+        "muscle_fatigue",
+        "rough_gripping",
+        "temporary_marks",
+        "hand_spanking"
+      ],
+      "exhaustiveCount": 27
+    },
+    {
+      "categoryId": "sensation_play",
+      "label": "Sensation play",
+      "quick": [
+        "light_touch",
+        "massage",
+        "ice_play",
+        "warmth_play",
+        "vibration",
+        "sensory_teasing"
+      ],
+      "standard": [
+        "light_touch",
+        "massage",
+        "ice_play",
+        "warmth_play",
+        "vibration",
+        "sensory_teasing",
+        "feathers_brushes",
+        "tickling",
+        "wax_play"
+      ],
+      "exhaustiveCount": 15
+    },
+    {
+      "categoryId": "rough_physical",
+      "label": "Rough / physical play",
+      "quick": [
+        "rough_sex_general",
+        "wrestling",
+        "pinning",
+        "hair_control",
+        "clothing_grabbing",
+        "wall_pin_roleplay"
+      ],
+      "standard": [
+        "rough_sex_general",
+        "wrestling",
+        "pinning",
+        "hair_control",
+        "clothing_grabbing",
+        "wall_pin_roleplay",
+        "grappling",
+        "body_weight_control",
+        "chasing_roleplay"
+      ],
+      "exhaustiveCount": 12
+    },
+    {
+      "categoryId": "sexual_activities",
+      "label": "Sexual activities",
+      "quick": [
+        "kissing",
+        "making_out",
+        "oral_sex",
+        "manual_giving",
+        "manual_receiving",
+        "vaginal_penetration",
+        "mutual_masturbation"
+      ],
+      "standard": [
+        "kissing",
+        "making_out",
+        "oral_sex",
+        "manual_giving",
+        "manual_receiving",
+        "vaginal_penetration",
+        "mutual_masturbation",
+        "anal_penetration_giving",
+        "anal_penetration_receiving",
+        "partner_masturbation_control",
+        "facesitting",
+        "body_worship_sexual",
+        "rough_oral_roleplay",
+        "strap_on_penetration",
+        "pegging",
+        "anal_touch"
+      ],
+      "exhaustiveCount": 27
+    },
+    {
+      "categoryId": "anal_play",
+      "label": "Anal play",
+      "quick": [
+        "anal_touch",
+        "anal_fingering",
+        "anal_toys",
+        "anal_plugs",
+        "anal_beads",
+        "anal_worship"
+      ],
+      "standard": [
+        "anal_touch",
+        "anal_fingering",
+        "anal_toys",
+        "anal_plugs",
+        "anal_beads",
+        "anal_worship",
+        "anal_service",
+        "anal_penetration_giving",
+        "anal_penetration_receiving"
+      ],
+      "exhaustiveCount": 13
+    },
+    {
+      "categoryId": "toys_devices",
+      "label": "Toys & devices",
+      "quick": [
+        "vibrators",
+        "dildos",
+        "butt_plugs",
+        "strap_ons",
+        "nipple_clamps",
+        "app_controlled_toys"
+      ],
+      "standard": [
+        "vibrators",
+        "dildos",
+        "butt_plugs",
+        "strap_ons",
+        "nipple_clamps",
+        "app_controlled_toys",
+        "anal_beads_device",
+        "genital_clamps",
+        "chastity_devices",
+        "bondage_furniture"
+      ],
+      "exhaustiveCount": 16
+    },
+    {
+      "categoryId": "orgasm_control",
+      "label": "Orgasm control",
+      "quick": [
+        "edging",
+        "orgasm_delay",
+        "orgasm_permission",
+        "orgasm_denial",
+        "repeated_orgasm",
+        "tease_denial"
+      ],
+      "standard": [
+        "edging",
+        "orgasm_delay",
+        "orgasm_permission",
+        "orgasm_denial",
+        "repeated_orgasm",
+        "tease_denial",
+        "forced_orgasm_timing",
+        "post_orgasm_stimulation",
+        "ruined_orgasm_fantasy",
+        "orgasm_count_rules",
+        "masturbation_denial"
+      ],
+      "exhaustiveCount": 19
+    },
+    {
+      "categoryId": "chastity",
+      "label": "Chastity",
+      "quick": [
+        "temporary_chastity",
+        "device_chastity",
+        "keyholder_dynamic",
+        "chastity_teasing"
+      ],
+      "standard": [
+        "temporary_chastity",
+        "device_chastity",
+        "keyholder_dynamic",
+        "chastity_teasing",
+        "remote_chastity_control",
+        "long_term_chastity_fantasy",
+        "remote_chastity_dynamic"
+      ],
+      "exhaustiveCount": 7
+    },
+    {
+      "categoryId": "humiliation_degradation",
+      "label": "Humiliation & degradation",
+      "quick": [
+        "verbal_degradation",
+        "degrading_names",
+        "mockery",
+        "embarrassment_roleplay",
+        "sexual_objectification",
+        "use_roleplay"
+      ],
+      "standard": [
+        "verbal_degradation",
+        "degrading_names",
+        "mockery",
+        "embarrassment_roleplay",
+        "sexual_objectification",
+        "use_roleplay",
+        "failure_punishment_roleplay",
+        "forced_choice_roleplay",
+        "appearance_humiliation"
+      ],
+      "exhaustiveCount": 14
+    },
+    {
+      "categoryId": "praise_worship",
+      "label": "Praise, worship & adoration",
+      "quick": [
+        "praise_kink",
+        "verbal_adoration",
+        "body_worship",
+        "foot_worship",
+        "authority_admiration",
+        "service_praise"
+      ],
+      "standard": [
+        "praise_kink",
+        "verbal_adoration",
+        "body_worship",
+        "foot_worship",
+        "authority_admiration",
+        "service_praise",
+        "boot_worship",
+        "hand_worship",
+        "genital_worship"
+      ],
+      "exhaustiveCount": 13
+    },
+    {
+      "categoryId": "objectification",
+      "label": "Objectification & dollification",
+      "quick": [
+        "objectification_general",
+        "dollification",
+        "human_furniture",
+        "toy_roleplay",
+        "property_roleplay",
+        "display_roleplay"
+      ],
+      "standard": [
+        "objectification_general",
+        "dollification",
+        "human_furniture",
+        "toy_roleplay",
+        "property_roleplay",
+        "display_roleplay",
+        "mannequin_roleplay",
+        "statue_roleplay",
+        "inspection_roleplay",
+        "robot_roleplay",
+        "puppet_roleplay",
+        "verbal_degradation",
+        "degrading_names",
+        "mockery",
+        "embarrassment_roleplay"
+      ],
+      "exhaustiveCount": 25
+    },
+    {
+      "categoryId": "exhibition_observation",
+      "label": "Exhibitionism & observation",
+      "quick": [
+        "consensual_exhibitionism",
+        "consensual_voyeurism",
+        "partner_watches",
+        "watching_partner",
+        "masturbation_observed",
+        "watching_masturbation"
+      ],
+      "standard": [
+        "consensual_exhibitionism",
+        "consensual_voyeurism",
+        "partner_watches",
+        "watching_partner",
+        "masturbation_observed",
+        "watching_masturbation",
+        "private_photography",
+        "private_video",
+        "remote_camera_play",
+        "consensual_group_observation"
+      ],
+      "exhaustiveCount": 16
+    },
+    {
+      "categoryId": "multi_partner",
+      "label": "Multi-partner / partner-sharing",
+      "quick": [
+        "threesome",
+        "foursome",
+        "group_sex",
+        "being_center_of_attention",
+        "partner_sharing",
+        "watch_partner_with_other"
+      ],
+      "standard": [
+        "threesome",
+        "foursome",
+        "group_sex",
+        "being_center_of_attention",
+        "partner_sharing",
+        "watch_partner_with_other",
+        "partner_watches_with_other",
+        "cuckolding_roleplay",
+        "hotwife_hotpartner_dynamic"
+      ],
+      "exhaustiveCount": 14
+    },
+    {
+      "categoryId": "roleplay",
+      "label": "Roleplay",
+      "quick": [
+        "dominant_submissive_roleplay",
+        "teacher_student_adult_roleplay",
+        "boss_employee_roleplay",
+        "doctor_patient_roleplay",
+        "interrogation_roleplay",
+        "stranger_roleplay"
+      ],
+      "standard": [
+        "dominant_submissive_roleplay",
+        "teacher_student_adult_roleplay",
+        "boss_employee_roleplay",
+        "doctor_patient_roleplay",
+        "interrogation_roleplay",
+        "stranger_roleplay",
+        "nurse_patient_roleplay",
+        "prisoner_guard_roleplay",
+        "uniform_roleplay",
+        "medical_roleplay",
+        "inspection_roleplay_authority",
+        "adult_age_difference_roleplay",
+        "historical_roleplay",
+        "fantasy_character_roleplay",
+        "superhero_villain_roleplay",
+        "monster_fantasy_roleplay"
+      ],
+      "exhaustiveCount": 55
+    },
+    {
+      "categoryId": "pet_primal",
+      "label": "Pet play & primal play",
+      "quick": [
+        "pet_play_general",
+        "puppy_play",
+        "kitten_play",
+        "owner_pet_dynamic",
+        "primal_play",
+        "hunter_prey_roleplay"
+      ],
+      "standard": [
+        "pet_play_general",
+        "puppy_play",
+        "kitten_play",
+        "owner_pet_dynamic",
+        "primal_play",
+        "hunter_prey_roleplay",
+        "pony_play",
+        "collar_leash_petplay",
+        "training_petplay"
+      ],
+      "exhaustiveCount": 14
+    },
+    {
+      "categoryId": "medical_edge",
+      "label": "Medical-themed & higher-risk edge play",
+      "quick": [
+        "medical_examination_roleplay",
+        "clinical_restraint"
+      ],
+      "standard": [
+        "medical_examination_roleplay",
+        "clinical_restraint",
+        "medical_instruments",
+        "needle_play",
+        "electrical_play",
+        "temperature_extreme"
+      ],
+      "exhaustiveCount": 15
+    },
+    {
+      "categoryId": "fetish_materials",
+      "label": "Materials & clothing fetishes",
+      "quick": [
+        "leather_fetish",
+        "latex_rubber_fetish",
+        "silk_satin_fetish",
+        "lace_fetish",
+        "lingerie_fetish",
+        "stockings_fetish"
+      ],
+      "standard": [
+        "leather_fetish",
+        "latex_rubber_fetish",
+        "silk_satin_fetish",
+        "lace_fetish",
+        "lingerie_fetish",
+        "stockings_fetish",
+        "vinyl_pvc_fetish",
+        "denim_fetish",
+        "uniform_fetish",
+        "underwear_fetish",
+        "glove_fetish",
+        "boot_fetish",
+        "shoe_heel_fetish"
+      ],
+      "exhaustiveCount": 22
+    },
+    {
+      "categoryId": "body_part_fetishes",
+      "label": "Body-part fetishes",
+      "quick": [
+        "feet_fetish",
+        "legs_fetish",
+        "thighs_fetish",
+        "buttocks_fetish",
+        "chest_fetish",
+        "breasts_fetish",
+        "hands_fetish"
+      ],
+      "standard": [
+        "feet_fetish",
+        "legs_fetish",
+        "thighs_fetish",
+        "buttocks_fetish",
+        "chest_fetish",
+        "breasts_fetish",
+        "hands_fetish",
+        "toes_fetish",
+        "hips_fetish",
+        "nipples_fetish",
+        "abdomen_fetish",
+        "back_fetish",
+        "shoulders_fetish",
+        "arms_fetish",
+        "fingers_fetish",
+        "neck_fetish"
+      ],
+      "exhaustiveCount": 28
+    },
+    {
+      "categoryId": "fluids_mess",
+      "label": "Fluids & messy play",
+      "quick": [
+        "saliva_play",
+        "semen_focus",
+        "sweat_fetish",
+        "food_play",
+        "oil_play",
+        "water_play"
+      ],
+      "standard": [
+        "saliva_play",
+        "semen_focus",
+        "sweat_fetish",
+        "food_play",
+        "oil_play",
+        "water_play",
+        "urine_play",
+        "mud_messy_play",
+        "body_paint_play"
+      ],
+      "exhaustiveCount": 12
+    },
+    {
+      "categoryId": "sensory_fetishes",
+      "label": "Sensory & body-sensation fetishes",
+      "quick": [
+        "scent_fetish",
+        "body_odor_fetish",
+        "voice_fetish",
+        "texture_fetish",
+        "temperature_fetish",
+        "massage_fetish"
+      ],
+      "standard": [
+        "scent_fetish",
+        "body_odor_fetish",
+        "voice_fetish",
+        "texture_fetish",
+        "temperature_fetish",
+        "massage_fetish",
+        "perfume_fetish",
+        "accent_fetish",
+        "whispering_fetish"
+      ],
+      "exhaustiveCount": 14
+    },
+    {
+      "categoryId": "psychological_play",
+      "label": "Psychological play",
+      "quick": [
+        "anticipation",
+        "surprise_within_limits",
+        "fear_roleplay",
+        "waiting_suspense",
+        "bratting",
+        "teasing_psychological"
+      ],
+      "standard": [
+        "anticipation",
+        "surprise_within_limits",
+        "fear_roleplay",
+        "waiting_suspense",
+        "bratting",
+        "teasing_psychological",
+        "interrogation_psych",
+        "mind_games",
+        "difficult_choices",
+        "behavioral_conditioning",
+        "ritualized_control",
+        "attention_control"
+      ],
+      "exhaustiveCount": 20
+    },
+    {
+      "categoryId": "emotional_arousal",
+      "label": "Emotions & arousal states",
+      "quick": [
+        "emotion_excitement",
+        "emotion_anticipation",
+        "emotion_vulnerability",
+        "emotion_trust",
+        "emotion_closeness",
+        "emotion_desired",
+        "emotion_surrender",
+        "emotion_power"
+      ],
+      "standard": [
+        "emotion_excitement",
+        "emotion_anticipation",
+        "emotion_vulnerability",
+        "emotion_trust",
+        "emotion_closeness",
+        "emotion_desired",
+        "emotion_surrender",
+        "emotion_power",
+        "emotion_fear",
+        "emotion_humiliation",
+        "emotion_embarrassment",
+        "emotion_happiness",
+        "emotion_enthusiasm",
+        "emotion_surprise",
+        "emotion_exposure",
+        "emotion_safety"
+      ],
+      "exhaustiveCount": 38
+    },
+    {
+      "categoryId": "relationship_dynamics",
+      "label": "Relationship-oriented dynamics",
+      "quick": [
+        "bedroom_only_ds",
+        "scene_only_ds",
+        "ongoing_ds",
+        "gentle_dominance",
+        "strict_dominance",
+        "obedient_submission",
+        "service_submission_style"
+      ],
+      "standard": [
+        "bedroom_only_ds",
+        "scene_only_ds",
+        "ongoing_ds",
+        "gentle_dominance",
+        "strict_dominance",
+        "obedient_submission",
+        "service_submission_style",
+        "domestic_discipline",
+        "protocol_relationship",
+        "collared_relationship",
+        "service_relationship",
+        "mentor_training_dynamic",
+        "caregiver_style_adult_dynamic",
+        "sadistic_dominance",
+        "playful_dominance"
+      ],
+      "exhaustiveCount": 25
+    },
+    {
+      "categoryId": "remote_digital",
+      "label": "Remote / digital dynamics",
+      "quick": [
+        "sexting",
+        "voice_commands_remote",
+        "video_call_play",
+        "remote_tasking",
+        "remote_orgasm_control",
+        "app_controlled_toys"
+      ],
+      "standard": [
+        "sexting",
+        "voice_commands_remote",
+        "video_call_play",
+        "remote_tasking",
+        "remote_orgasm_control",
+        "app_controlled_toys",
+        "remote_chastity_dynamic",
+        "scheduled_messages",
+        "photo_exchange_private"
+      ],
+      "exhaustiveCount": 14
+    },
+    {
+      "categoryId": "fantasy_transform",
+      "label": "Fantasy / transformation themes",
+      "quick": [
+        "size_difference_fantasy",
+        "transformation_fantasy",
+        "body_swap_fantasy",
+        "gender_expression_roleplay",
+        "costume_identity_roleplay",
+        "hypnosis_fantasy"
+      ],
+      "standard": [
+        "size_difference_fantasy",
+        "transformation_fantasy",
+        "body_swap_fantasy",
+        "gender_expression_roleplay",
+        "costume_identity_roleplay",
+        "hypnosis_fantasy",
+        "giant_tiny_fantasy",
+        "doll_transformation_fantasy",
+        "robot_transformation_fantasy",
+        "monster_transformation_fantasy"
+      ],
+      "exhaustiveCount": 17
+    },
+    {
+      "categoryId": "sexual_context",
+      "label": "Sexual context & locations",
+      "quick": [
+        "bedroom_context",
+        "shower_bath_context",
+        "other_home_context",
+        "hotel_context",
+        "car_private_context",
+        "private_outdoors_context"
+      ],
+      "standard": [
+        "bedroom_context",
+        "shower_bath_context",
+        "other_home_context",
+        "hotel_context",
+        "car_private_context",
+        "private_outdoors_context",
+        "camping_context",
+        "sex_club_context",
+        "play_party_context"
+      ],
+      "exhaustiveCount": 11
+    }
+  ],
+  "compatibility": {
+    "conceptIdsChanged": false,
+    "categoryIdsChanged": false,
+    "domainIdsChanged": false,
+    "scoringFunctionChanged": false,
+    "legacyDetailedMode": "normalizes_to_standard",
+    "legacyCategoryOverallAnswers": "migrate_to_categoryGates_and_are_removed_from_concept_answers"
+  },
+  "notes": [
+    "Counts are category placements, so cross-listed canonical concepts may contribute to more than one category total without duplicating answer identity.",
+    "No dedicated wearable-toy concept exists in the current catalog; app-controlled toy play is used as the related-device Quick representative while catheter/sounding remain outside Quick."
+  ]
+}
