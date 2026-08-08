@@ -1,6 +1,6 @@
 import { negotiationFieldValue, negotiationModel, negotiationPreferenceSummary, setNegotiationField, toggleNegotiationOption } from '../lib/negotiation.js'
 
-export default function NegotiationPreferences({ catalog, preferences, setPreferences }) {
+export default function NegotiationPreferences({ catalog, preferences, setPreferences, setupMode = false }) {
   const model = negotiationModel(catalog)
   const visibleSections = (model.sections || []).filter((section) => !section.pretestOnly)
   const summary = negotiationPreferenceSummary(catalog, preferences, { includePretestOnly: false })
@@ -9,7 +9,7 @@ export default function NegotiationPreferences({ catalog, preferences, setPrefer
     <section className="negotiation-page" aria-labelledby="negotiation-heading">
       <header className="category-intro negotiation-intro">
         <div>
-          <span className="kicker">Before the questions</span>
+          <span className="kicker">{setupMode ? 'Step 2 of 2' : 'Your setup'}</span>
           <h1 id="negotiation-heading">Negotiation, privacy & care</h1>
           <p>Set your general preferences for communication, stopping, privacy, marks, and aftercare. They stay separate from your interest answers, and you can change them later.</p>
         </div>

@@ -26,7 +26,7 @@ function detailText(details) {
 
 export default function PrintReport({ catalog, answers, categoryGates, negotiationPreferences }) {
   const results = buildResults(catalog, answers, categoryGates, negotiationPreferences)
-  const attractionSummary = negotiationPreferenceSummary(catalog, negotiationPreferences, { onlyPretestOnly: true })
+  const profileSummary = negotiationPreferenceSummary(catalog, negotiationPreferences, { onlyPretestOnly: true })
   const now = new Date().toLocaleString()
   const categoryRows = results.categoryStats.filter((row) => row.conceptsAnswered > 0)
   const domainRows = results.domainStats.filter((row) => row.categoriesAnswered > 0)
@@ -59,12 +59,12 @@ export default function PrintReport({ catalog, answers, categoryGates, negotiati
         </section>
       )}
 
-      {attractionSummary.hasData && (
+      {profileSummary.hasData && (
         <section>
-          <h2>Attraction & anatomy preferences</h2>
+          <h2>Profile & attraction preferences</h2>
           <table>
             <thead><tr><th>Area</th><th>Preference</th><th>Answer</th></tr></thead>
-            <tbody>{attractionSummary.sections.flatMap((section) => section.fields.map((field) => <tr key={`${section.id}-${field.id}`}><td>{section.label}</td><td>{field.label}</td><td>{field.values.join('; ')}</td></tr>))}</tbody>
+            <tbody>{profileSummary.sections.flatMap((section) => section.fields.map((field) => <tr key={`${section.id}-${field.id}`}><td>{section.label}</td><td>{field.label}</td><td>{field.values.join('; ')}</td></tr>))}</tbody>
           </table>
         </section>
       )}

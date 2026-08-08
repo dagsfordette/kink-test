@@ -108,7 +108,7 @@ function NegotiationSummary({ summary, empty = 'No preferences recorded yet.' })
 
 export default function ResultsView({ catalog, answers, categoryGates, negotiationPreferences, onBack, onExportJson, onPrintPdf, comparison, onCompareJson, onClearComparison }) {
   const results = buildResults(catalog, answers, categoryGates, negotiationPreferences)
-  const attractionSummary = negotiationPreferenceSummary(catalog, negotiationPreferences, { onlyPretestOnly: true })
+  const profileSummary = negotiationPreferenceSummary(catalog, negotiationPreferences, { onlyPretestOnly: true })
   const gateRows = categoryGateSummary(catalog, categoryGates)
   const skippedCategories = gateRows.filter((row) => row.state === 'skip')
 
@@ -145,8 +145,8 @@ export default function ResultsView({ catalog, answers, categoryGates, negotiati
         </article>
 
         <article className="result-card wide negotiation-result-card">
-          <div className="result-card-heading"><div><span className="kicker">Your defaults</span><h2>Attraction & anatomy</h2></div></div>
-          <NegotiationSummary summary={attractionSummary} empty="No general attraction or anatomy preferences recorded yet." />
+          <div className="result-card-heading"><div><span className="kicker">Your defaults</span><h2>Profile & attraction</h2></div></div>
+          <NegotiationSummary summary={profileSummary} empty="No profile or general attraction preferences recorded yet." />
         </article>
 
         <article className="result-card wide">

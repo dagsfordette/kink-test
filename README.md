@@ -30,6 +30,8 @@ A static, local-first prototype for an adaptive adult kink/BDSM preference inven
 - JSON export/import
 - PDF export through a dedicated print report (browser **Save as PDF**)
 - Concept-weighted results with separate fantasy interest, real-world desire, experience, willingness, perspective, conditions, concept/detail/category boundaries, and qualitative category/domain summaries
+- Profile-first onboarding: landing page → personal/body profile → negotiation/privacy/care → main inventory
+- Optional personal gender/anatomy and partner-attraction defaults; only explicit anatomy selections are used to hide a small number of clearly non-applicable anatomy-specific perspectives
 - A separate general negotiation/care profile covering communication, stop/check-in methods, aftercare, marks, privacy/recording, and partner/context familiarity
 - Descriptive multi-domain risk metadata (`physical`, `medical`, `psychological`, `consent_complexity`, `privacy`, `digital_security`, `reputational`, `financial`) instead of generic standard/elevated/high severity badges
 - Contextual high-level safety/negotiation prompts tied to those risk domains; the questionnaire remains informational and non-procedural

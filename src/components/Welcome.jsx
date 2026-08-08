@@ -6,12 +6,12 @@ export default function Welcome({ settings, setSettings, onStart, onImport }) {
         <span className="kicker">Private self-exploration prototype</span>
         <h1>A nuanced kink inventory that stays on your device.</h1>
         <p className="lede">
-          Explore interests, experience, willingness, boundaries, and details separately. Your answers are stored only in this browser unless you explicitly export them.
+          Start with a short profile, then set negotiation, privacy, and care preferences before moving into the full inventory. Your answers are stored only in this browser unless you explicitly export them.
         </p>
 
         <div className="privacy-card">
           <div><strong>Local first</strong><span>No account or server required.</span></div>
-          <div><strong>Adaptive</strong><span>Uninteresting branches can stay collapsed.</span></div>
+          <div><strong>Profile-aware</strong><span>Clearly irrelevant anatomy-specific questions can be hidden.</span></div>
           <div><strong>Portable</strong><span>Export JSON or a print-ready PDF report.</span></div>
         </div>
 
@@ -40,7 +40,7 @@ export default function Welcome({ settings, setSettings, onStart, onImport }) {
         </div>
 
         <div className="welcome-actions">
-          <button type="button" className="primary-button large" disabled={!settings.adultConfirmed} onClick={onStart}>Start inventory</button>
+          <button type="button" className="primary-button large" disabled={!settings.adultConfirmed} onClick={onStart}>Set up profile</button>
           <button type="button" className="secondary-button large" onClick={onImport}>Import previous JSON</button>
         </div>
 

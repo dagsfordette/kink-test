@@ -1,7 +1,15 @@
+## Profile-first restructuring patch — 2026-08-08
+
+- Reordered onboarding to: landing page → profile → negotiation/privacy/care → main inventory.
+- Added an explicit personal profile for gender and anatomy, kept separate so gender never implies body configuration.
+- Expanded the profile with general partner gender, gender-expression, anatomy, and body-feature preferences.
+- Added conservative profile pruning for clearly anatomy-specific concept perspectives, while keeping prior answers visible and offering a “Show filtered questions” override.
+- Added dedicated profile-pruning regression tests and kept profile data outside interest scoring.
+
 ## UI refinement patch — 2026-08-08
 
 - Simplified the questionnaire UI and removed internal semantic/taxonomy badges from user-facing cards and reports.
-- Added a two-step pre-question setup: negotiation/privacy/care first, then general gender/anatomy/body-feature preferences.
+- Added the two-step pre-question setup framework for profile and negotiation/privacy/care preferences.
 - Reworded category prompts in plain language and removed depth/routing implementation terminology from the main test UI.
 - Added a safe “Yes to all shown” bulk action that only fills unanswered items.
 - Made optional follow-up prompts more specific to the individual concept.

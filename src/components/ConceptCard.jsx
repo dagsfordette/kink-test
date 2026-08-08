@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ChoiceChips from './ChoiceChips.jsx'
 import AdaptiveDetails from './AdaptiveDetails.jsx'
 import { answerKey, hasDetailData, perspectiveLabels, questionDimensions, semanticDefinition, semanticUi, willingnessLabel } from '../lib/profile.js'
@@ -218,9 +218,12 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
   )
 }
 
-export default function ConceptCard({ catalog, concept, answers, setAnswer, showDefinition = false }) {
-  const perspectives = concept.perspectives || ['mutual']
+export default function ConceptCard({ catalog, concept, answers, setAnswer, showDefinition = false, perspectivesOverride }) {
+  const perspectives = perspectivesOverride?.length ? perspectivesOverride : (concept.perspectives || ['mutual'])
   const [activePerspective, setActivePerspective] = useState(perspectives[0])
+  useEffect(() => {
+    if (!perspectives.includes(activePerspective)) setActivePerspective(perspectives[0])
+  }, [activePerspective, perspectives])
   const [manualDetailOpen, setManualDetailOpen] = useState({})
   const conceptId = canonicalConceptId(concept)
   const key = answerKey(conceptId, activePerspective)

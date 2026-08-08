@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react'
-import AttractionPreferences from './AttractionPreferences.jsx'
+import ProfilePreferences from './ProfilePreferences.jsx'
 import ConceptCard from './ConceptCard.jsx'
 import NegotiationPreferences from './NegotiationPreferences.jsx'
 import { answerKey, isAnswered, questionDimensions, semanticDirectQuestioning } from '../lib/profile.js'
 import { canonicalConceptId, categoriesByDomain, conceptsForCategory } from '../lib/taxonomy.js'
+import { applicablePerspectives, profileHasPruningData } from '../lib/profilePruning.js'
 import {
   categoryGatePolicy,
   conceptsForDepth,
@@ -46,6 +47,14 @@ function makePositiveAnswer(catalog, concept) {
   return answer
 }
 
+function answeredOrApplicablePerspectives(concept, preferences, answers, showFiltered = false) {
+  const all = concept.perspectives || ['mutual']
+  if (showFiltered) return all
+  const profileApplicable = new Set(applicablePerspectives(concept, preferences))
+  const conceptId = canonicalConceptId(concept)
+  return all.filter((perspective) => profileApplicable.has(perspective) || isAnswered(answers[answerKey(conceptId, perspective)]))
+}
+
 export default function TestView({
   catalog,
   answers,
@@ -62,10 +71,12 @@ export default function TestView({
   onExport,
   onImport,
   onReset,
+  onBackToWelcome,
 }) {
   const [manualOpen, setManualOpen] = useState({})
   const [exhaustiveOverride, setExhaustiveOverride] = useState({})
   const [generalPage, setGeneralPage] = useState(null)
+  const [showProfileFiltered, setShowProfileFiltered] = useState(false)
   const domains = catalog.domains || []
   const groupedCategories = useMemo(() => categoriesByDomain(catalog), [catalog])
   const categories = useMemo(() => {
@@ -75,6 +86,7 @@ export default function TestView({
   const currentCategory = categories.find((c) => c.id === currentCategoryId) || categories[0]
   const currentDomain = domains.find((domain) => domain.id === currentCategory?.domainId)
   const mode = normalizeDepthMode(settings.mode)
+  const profileFilteringActive = profileHasPruningData(negotiationPreferences)
 
   const conceptsByCategory = useMemo(() => {
     const result = {}
@@ -90,16 +102,43 @@ export default function TestView({
   const branchOpen = manualOpen[currentCategory.id] === true || gatePolicy.defaultOpen
   const allConcepts = conceptsByCategory[currentCategory.id] || []
   const currentOverride = exhaustiveOverride[currentCategory.id] === true
-  const visibleConcepts = branchOpen
+  const depthConcepts = branchOpen
     ? conceptsForDepth(currentCategory, allConcepts, mode, {
         representativeOnly: gatePolicy.representativeOnly && !currentOverride,
         exhaustiveOverride: currentOverride,
       })
     : []
 
+  const conceptPerspectives = useMemo(() => {
+    const result = {}
+    for (const concept of depthConcepts) {
+      result[canonicalConceptId(concept)] = answeredOrApplicablePerspectives(
+        concept,
+        negotiationPreferences,
+        answers,
+        showProfileFiltered,
+      )
+    }
+    return result
+  }, [answers, depthConcepts, negotiationPreferences, showProfileFiltered])
+
+  const visibleConcepts = depthConcepts.filter((concept) => (conceptPerspectives[canonicalConceptId(concept)] || []).length > 0)
+
+  let profileHiddenPerspectives = 0
+  let profileHiddenConcepts = 0
+  if (!showProfileFiltered && profileFilteringActive) {
+    for (const concept of depthConcepts) {
+      const allPerspectives = concept.perspectives || ['mutual']
+      const visiblePerspectives = conceptPerspectives[canonicalConceptId(concept)] || []
+      profileHiddenPerspectives += Math.max(0, allPerspectives.length - visiblePerspectives.length)
+      if (visiblePerspectives.length === 0 && allPerspectives.length > 0) profileHiddenConcepts += 1
+    }
+  }
+
   const answeredInCategory = allConcepts.reduce((count, concept) => {
     const conceptId = canonicalConceptId(concept)
-    return count + Number((concept.perspectives || []).some((p) => isAnswered(answers[answerKey(conceptId, p)])))
+    const perspectives = answeredOrApplicablePerspectives(concept, negotiationPreferences, answers, showProfileFiltered)
+    return count + Number(perspectives.some((p) => isAnswered(answers[answerKey(conceptId, p)])))
   }, 0)
 
   const overallAnswered = Object.values(answers).filter(isAnswered).length
@@ -117,7 +156,8 @@ export default function TestView({
   const markVisibleYes = () => {
     for (const concept of visibleConcepts) {
       const conceptId = canonicalConceptId(concept)
-      for (const perspective of concept.perspectives || ['mutual']) {
+      const perspectives = conceptPerspectives[conceptId] || []
+      for (const perspective of perspectives) {
         const key = answerKey(conceptId, perspective)
         if (isAnswered(answers[key])) continue
         setAnswer(key, makePositiveAnswer(catalog, concept))
@@ -125,31 +165,33 @@ export default function TestView({
     }
   }
 
-  const onboardingStep = settings.onboardingStep === 'attraction' ? 'attraction' : 'negotiation'
+  const onboardingStep = settings.onboardingStep === 'negotiation' ? 'negotiation' : 'profile'
   if (!settings.onboardingComplete) {
     return (
       <div className="setup-shell">
         <header className="setup-header">
           <div className="brand-lockup">
             <span className="brand-mark small">◇</span>
-            <div><strong>Kink Inventory</strong><span>Setup · {onboardingStep === 'negotiation' ? '1 of 2' : '2 of 2'}</span></div>
+            <div><strong>Kink Inventory</strong><span>Setup · {onboardingStep === 'profile' ? '1 of 2' : '2 of 2'}</span></div>
           </div>
           <button type="button" className="text-button" onClick={onImport}>Import</button>
         </header>
         <main className="setup-main">
-          {onboardingStep === 'negotiation' ? (
+          {onboardingStep === 'profile' ? (
             <>
-              <NegotiationPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} />
+              <ProfilePreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} setupMode />
               <div className="setup-actions">
-                <span>Everything here is optional and editable later.</span>
-                <button type="button" className="primary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingStep: 'attraction' }))}>Continue</button>
+                <button type="button" className="secondary-button" onClick={onBackToWelcome}>Back</button>
+                <span>Anything left blank stays unfiltered.</span>
+                <button type="button" className="primary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingStep: 'negotiation' }))}>Continue to negotiation & care</button>
               </div>
             </>
           ) : (
             <>
-              <AttractionPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} />
+              <NegotiationPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} setupMode />
               <div className="setup-actions">
-                <button type="button" className="secondary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingStep: 'negotiation' }))}>Back</button>
+                <button type="button" className="secondary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingStep: 'profile' }))}>Back to profile</button>
+                <span>Everything here is optional and editable later.</span>
                 <button type="button" className="primary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingComplete: true, onboardingStep: 'main' }))}>Start questions</button>
               </div>
             </>
@@ -182,13 +224,13 @@ export default function TestView({
           <div className="sidebar-heading"><span>Topics</span></div>
           <nav className="domain-navigation" aria-label="Questionnaire topics">
             <section className="domain-nav-group negotiation-nav-group">
-              <div className="domain-nav-heading"><span>Your defaults</span></div>
+              <div className="domain-nav-heading"><span>Your setup</span></div>
               <div className="domain-category-list">
+                <button type="button" className={generalPage === 'profile' ? 'active' : ''} onClick={() => setGeneralPage('profile')}>
+                  <span>Profile</span>
+                </button>
                 <button type="button" className={generalPage === 'negotiation' ? 'active' : ''} onClick={() => setGeneralPage('negotiation')}>
                   <span>Negotiation, privacy & care</span>
-                </button>
-                <button type="button" className={generalPage === 'attraction' ? 'active' : ''} onClick={() => setGeneralPage('attraction')}>
-                  <span>Attraction & anatomy</span>
                 </button>
               </div>
             </section>
@@ -203,7 +245,8 @@ export default function TestView({
                       const categoryConcepts = conceptsByCategory[category.id] || []
                       const count = categoryConcepts.reduce((n, concept) => {
                         const conceptId = canonicalConceptId(concept)
-                        return n + Number((concept.perspectives || []).some((p) => isAnswered(answers[answerKey(conceptId, p)])))
+                        const perspectives = answeredOrApplicablePerspectives(concept, negotiationPreferences, answers, showProfileFiltered)
+                        return n + Number(perspectives.some((p) => isAnswered(answers[answerKey(conceptId, p)])))
                       }, 0)
                       const gateState = categoryGates?.[category.id]?.state
                       return (
@@ -237,12 +280,12 @@ export default function TestView({
             <label>
               <span className="field-label">Section</span>
               <select value={generalPage ? `__${generalPage}__` : currentCategory.id} onChange={(e) => {
-                if (e.target.value === '__negotiation__') setGeneralPage('negotiation')
-                else if (e.target.value === '__attraction__') setGeneralPage('attraction')
+                if (e.target.value === '__profile__') setGeneralPage('profile')
+                else if (e.target.value === '__negotiation__') setGeneralPage('negotiation')
                 else { setGeneralPage(null); setCurrentCategoryId(e.target.value) }
               }}>
+                <option value="__profile__">Profile</option>
                 <option value="__negotiation__">Negotiation, privacy & care</option>
-                <option value="__attraction__">Attraction & anatomy</option>
                 {domains.length ? domains.map((domain) => (
                   <optgroup label={domain.label} key={domain.id}>
                     {(groupedCategories[domain.id] || []).map((category) => <option value={category.id} key={category.id}>{category.label}</option>)}
@@ -252,17 +295,17 @@ export default function TestView({
             </label>
           </div>
 
-          {generalPage === 'negotiation' ? (
+          {generalPage === 'profile' ? (
             <>
-              <NegotiationPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} />
+              <ProfilePreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} />
               <div className="category-nav no-print">
                 <button type="button" className="secondary-button" onClick={() => setGeneralPage(null)}>Back to questions</button>
                 <button type="button" className="primary-button" onClick={onResults}>View results</button>
               </div>
             </>
-          ) : generalPage === 'attraction' ? (
+          ) : generalPage === 'negotiation' ? (
             <>
-              <AttractionPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} />
+              <NegotiationPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} />
               <div className="category-nav no-print">
                 <button type="button" className="secondary-button" onClick={() => setGeneralPage(null)}>Back to questions</button>
                 <button type="button" className="primary-button" onClick={onResults}>View results</button>
@@ -310,12 +353,28 @@ export default function TestView({
 
               {branchOpen && (
                 <>
+                  {profileFilteringActive && (profileHiddenPerspectives > 0 || showProfileFiltered) && (
+                    <div className="profile-filter-bar">
+                      <div>
+                        <strong>{showProfileFiltered ? 'Profile filtering is temporarily off.' : 'Your profile is simplifying this topic.'}</strong>
+                        <span>
+                          {showProfileFiltered
+                            ? 'All anatomy-specific questions and perspectives are visible.'
+                            : `${profileHiddenPerspectives} clearly non-matching question perspective${profileHiddenPerspectives === 1 ? '' : 's'} hidden${profileHiddenConcepts ? ` across ${profileHiddenConcepts} fully hidden question${profileHiddenConcepts === 1 ? '' : 's'}` : ''}.`}
+                        </span>
+                      </div>
+                      <button type="button" className="text-button" onClick={() => setShowProfileFiltered((value) => !value)}>
+                        {showProfileFiltered ? 'Use my profile' : 'Show filtered questions'}
+                      </button>
+                    </div>
+                  )}
+
                   <div className="question-list-toolbar">
                     <div>
                       <strong>{visibleConcepts.length} question{visibleConcepts.length === 1 ? '' : 's'}</strong>
                       {gatePolicy.representativeOnly && !currentOverride && <span>Starting with a smaller set. You can show the rest below.</span>}
                     </div>
-                    <button type="button" className="secondary-button bulk-yes-button" title="Fills only unanswered items and keeps existing answers or limits unchanged." onClick={markVisibleYes}>Yes to all shown</button>
+                    <button type="button" className="secondary-button bulk-yes-button" title="Fills only unanswered visible items and keeps existing answers or limits unchanged." onClick={markVisibleYes}>Yes to all shown</button>
                   </div>
                   <div className="concept-grid">
                     {visibleConcepts.map((concept) => (
@@ -325,12 +384,13 @@ export default function TestView({
                         answers={answers}
                         setAnswer={setAnswer}
                         catalog={catalog}
+                        perspectivesOverride={conceptPerspectives[canonicalConceptId(concept)]}
                         showDefinition={gatePolicy.representativeOnly && !currentOverride}
                       />
                     ))}
                   </div>
 
-                  {!currentOverride && visibleConcepts.length < allConcepts.length && (
+                  {!currentOverride && depthConcepts.length < allConcepts.length && (
                     <div className="show-more-row simple-show-more">
                       <button type="button" className="secondary-button" onClick={() => setExhaustiveOverride((prev) => ({ ...prev, [currentCategory.id]: true }))}>
                         Show all {allConcepts.length} questions

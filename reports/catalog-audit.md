@@ -386,7 +386,8 @@ Storage: `negotiationPreferences` · score contribution: **none** · results tre
 - **Marks & visible after-effects** (`marks`): General marks preference, Location restrictions, Duration concerns
 - **Privacy, recording & sharing** (`privacy`): Photos / video, Identification, Storage constraints, Sharing constraints, Deletion expectations
 - **Partner & context familiarity** (`partner_context`): Potentially acceptable contexts
-- **Attraction & anatomy** (`attraction_profile`): Which genders are you interested in?, Which gender expressions tend to appeal to you?, Which anatomy or body parts are relevant to your attraction or compatibility?, Which body features especially interest you?
+- **About you** (`personal_profile`): How do you describe your gender?, Which anatomy or body parts apply to you?
+- **Who interests you** (`attraction_profile`): Which genders are you generally interested in?, Which gender expressions tend to appeal to you?, Which anatomy or body parts are generally relevant to your attraction or compatibility?, Which body features especially catch your interest?
 
 ## Category gates and branching
 

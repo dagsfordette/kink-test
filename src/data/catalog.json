@@ -66735,15 +66735,113 @@
         ]
       },
       {
+        "id": "personal_profile",
+        "label": "About you",
+        "description": "A few optional profile details that help hide anatomy-specific questions that clearly do not apply. Gender and anatomy are always treated separately.",
+        "pretestOnly": true,
+        "fields": [
+          {
+            "id": "self_gender",
+            "type": "multi_select",
+            "label": "How do you describe your gender?",
+            "help": "Choose any that fit. Your gender is never used to infer your anatomy.",
+            "options": [
+              {
+                "id": "man",
+                "label": "Man"
+              },
+              {
+                "id": "woman",
+                "label": "Woman"
+              },
+              {
+                "id": "nonbinary",
+                "label": "Non-binary"
+              },
+              {
+                "id": "genderfluid",
+                "label": "Genderfluid"
+              },
+              {
+                "id": "agender",
+                "label": "Agender"
+              },
+              {
+                "id": "another_varies",
+                "label": "Another identity / varies"
+              },
+              {
+                "id": "prefer_not_say",
+                "label": "Prefer not to say"
+              }
+            ],
+            "exclusiveOptions": [
+              "prefer_not_say"
+            ]
+          },
+          {
+            "id": "self_anatomy",
+            "type": "multi_select",
+            "label": "Which anatomy or body parts apply to you?",
+            "help": "Choose only what you want to share. These answers can hide questions that clearly require anatomy you have not selected; they never change your results.",
+            "options": [
+              {
+                "id": "penis",
+                "label": "Penis"
+              },
+              {
+                "id": "vulva_clitoris",
+                "label": "Vulva / clitoris"
+              },
+              {
+                "id": "vagina",
+                "label": "Vagina"
+              },
+              {
+                "id": "prostate",
+                "label": "Prostate"
+              },
+              {
+                "id": "testicles_scrotum",
+                "label": "Testicles / scrotum"
+              },
+              {
+                "id": "anus",
+                "label": "Anus"
+              },
+              {
+                "id": "breasts",
+                "label": "Breasts"
+              },
+              {
+                "id": "flat_chest",
+                "label": "Flat / non-breasted chest"
+              },
+              {
+                "id": "other_reconstructed_varies",
+                "label": "Other / reconstructed / varies"
+              },
+              {
+                "id": "prefer_not_say",
+                "label": "Prefer not to say"
+              }
+            ],
+            "exclusiveOptions": [
+              "prefer_not_say"
+            ]
+          }
+        ]
+      },
+      {
         "id": "attraction_profile",
-        "label": "Attraction & anatomy",
-        "description": "A general starting point for who and what tends to interest you. Individual questions can still differ, and these choices never imply gender from anatomy or anatomy from gender.",
+        "label": "Who interests you",
+        "description": "Optional defaults for the genders, expressions, and anatomy that tend to interest you. Individual questions can still differ, and anatomy is never inferred from gender.",
         "pretestOnly": true,
         "fields": [
           {
             "id": "partner_gender",
             "type": "multi_select",
-            "label": "Which genders are you interested in?",
+            "label": "Which genders are you generally interested in?",
             "options": [
               {
                 "id": "men",
@@ -66768,7 +66866,8 @@
             ],
             "exclusiveOptions": [
               "doesnt_matter"
-            ]
+            ],
+            "help": "This can help tailor wording, but it does not hide interests by itself."
           },
           {
             "id": "gender_expression",
@@ -66803,8 +66902,8 @@
           {
             "id": "partner_anatomy",
             "type": "multi_select",
-            "label": "Which anatomy or body parts are relevant to your attraction or compatibility?",
-            "help": "This is independent of gender identity.",
+            "label": "Which anatomy or body parts are generally relevant to your attraction or compatibility?",
+            "help": "This is independent of gender identity. Explicit anatomy choices can hide a small number of clearly anatomy-specific giving or observing questions.",
             "options": [
               {
                 "id": "penis",
@@ -66817,6 +66916,14 @@
               {
                 "id": "vagina",
                 "label": "Vagina"
+              },
+              {
+                "id": "prostate",
+                "label": "Prostate"
+              },
+              {
+                "id": "testicles_scrotum",
+                "label": "Testicles / scrotum"
               },
               {
                 "id": "anus",
@@ -66842,7 +66949,7 @@
           {
             "id": "feature_focus",
             "type": "multi_select",
-            "label": "Which body features especially interest you?",
+            "label": "Which body features especially catch your interest?",
             "options": [
               {
                 "id": "face",

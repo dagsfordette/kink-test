@@ -14,12 +14,14 @@ const initialSettings = {
   mode: 'standard',
   theme: 'dark',
   onboardingComplete: false,
-  onboardingStep: 'negotiation',
+  onboardingStep: 'profile',
 }
 
 function normalizeSavedState(saved) {
   const settings = { ...initialSettings, ...(saved?.settings || {}) }
   settings.mode = normalizeDepthMode(settings.mode)
+  if (!settings.onboardingComplete && settings.onboardingStep === 'attraction') settings.onboardingStep = 'profile'
+  if (!['profile', 'negotiation', 'main'].includes(settings.onboardingStep)) settings.onboardingStep = settings.onboardingComplete ? 'main' : 'profile'
   if (!saved) return { screen: 'welcome', settings, answers: {}, categoryGates: {}, negotiationPreferences: {}, currentCategoryId: catalog.categories[0]?.id }
   const normalized = normalizeResponsePayload(catalog, {
     questionnaireId: catalog.questionnaire.id,
@@ -177,6 +179,7 @@ export default function App() {
           onExport={handleExportJson}
           onImport={handleImportClick}
           onReset={handleReset}
+          onBackToWelcome={() => setScreen('welcome')}
         />
       )}
 
