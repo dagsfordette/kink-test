@@ -1,4 +1,4 @@
-# Adult Kink Inventory — React/Vite Prototype v0.4.1
+# Adult Kink Inventory — React/Vite Prototype v0.4.3
 
 A static, local-first prototype for an adaptive adult kink/BDSM preference inventory.
 
@@ -23,6 +23,8 @@ A static, local-first prototype for an adaptive adult kink/BDSM preference inven
   - notes
 - Follow-up questions use explicit parent-state branching: interested/open/unsure/fantasy-only responses open relevant details, while not-interested/hard-limit responses collapse them by default
 - Question-family-specific adaptive profiles, including per-subtype preference matrices with appealing / acceptable / conditional / not interested / hard limit states
+- Concept-scoped qualifier fields/options so leaf questions do not leak sibling topics; 412 audited concepts have dedicated structured depth and at least two relevant qualifiers
+- Physical privacy/location qualifiers for sexual activities/devices, plus recording/storage/access controls for media and remote/digital topics
 - Dedicated oral-sex follow-ups covering applicability, focus/type, positions, preferred vs maximum roughness/depth, style/control, completion/orgasm preference, and the meaning/dynamic of the activity
 - Tailored detail profiles for power exchange, bondage, impact play, sensation play, anal play, orgasm control, humiliation, exhibitionism, multi-partner activity, roleplay, fetishes, psychological play, and relationship dynamics
 - Dedicated **Sexual context & locations** category instead of attaching a generic “setting” field to every sexual act

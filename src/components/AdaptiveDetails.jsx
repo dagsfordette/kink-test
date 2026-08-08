@@ -94,8 +94,25 @@ function fieldIsVisible(field, details = {}) {
   return true
 }
 
-function semanticOptions(field, semanticType) {
-  return (field.options || []).filter((option) => !option.appliesToSemanticTypes || option.appliesToSemanticTypes.includes(semanticType))
+function matchesConceptScope(item, conceptId, perspective) {
+  if (!item) return false
+  if (item.appliesToConceptIds && !item.appliesToConceptIds.includes(conceptId)) return false
+  if (item.excludeForConceptIds?.includes(conceptId)) return false
+  if (item.appliesToPerspectives && !item.appliesToPerspectives.includes(perspective)) return false
+  if (item.excludeForPerspectives?.includes(perspective)) return false
+  return true
+}
+
+function optionIsVisible(option, details = {}) {
+  return fieldIsVisible(option, details)
+}
+
+function semanticOptions(field, semanticType, conceptId, perspective, details) {
+  return (field.options || []).filter((option) => {
+    if (option.appliesToSemanticTypes && !option.appliesToSemanticTypes.includes(semanticType)) return false
+    if (!matchesConceptScope(option, conceptId, perspective)) return false
+    return optionIsVisible(option, details)
+  })
 }
 
 function lowerFirst(value = '') {
@@ -115,6 +132,7 @@ function contextualDetailLabel(profileId, field, concept) {
     'generic:detail_note': `Anything specific about ${phrase} you want to remember?`,
     'multi_partner:role': `What role in ${phrase} appeals to you?`,
     'sexual_context:location_types': `Which versions of ${phrase} appeal to you?`,
+    'sexual_context:setting_appeal': `What about ${phrase} appeals to you?`,
     'partner_body_general:body_partner_gender': `Which genders does ${phrase} appeal to you with?`,
     'partner_body_general:body_gender_expression': `Which gender expressions fit ${phrase} for you?`,
     'partner_body_general:body_partner_anatomy': `Which anatomy is relevant to ${phrase} for you?`,
@@ -123,8 +141,8 @@ function contextualDetailLabel(profileId, field, concept) {
   return keyed[`${profileId}:${field.id}`] || field.label
 }
 
-function DetailField({ catalog, profileId, concept, field, value, onChange, semanticType, legacy = false }) {
-  const options = semanticOptions(field, semanticType)
+function DetailField({ catalog, profileId, concept, field, value, onChange, semanticType, perspective, details, legacy = false }) {
+  const options = semanticOptions(field, semanticType, concept?.id, perspective, details)
   const label = contextualDetailLabel(profileId, field, concept)
 
   if (field.type === 'preference_matrix') {
@@ -203,10 +221,11 @@ function profileApplies(profile, semanticType) {
   return !allowed || allowed.includes(semanticType)
 }
 
-function ProfileSection({ catalog, profile, details, patchDetail, semanticType, decision, concept, bodyProfile = false }) {
+function ProfileSection({ catalog, profile, details, patchDetail, semanticType, decision, concept, perspective, bodyProfile = false }) {
   if (!profile) return null
-  const activeFields = (profile.fields || []).filter((field) => !field.deprecated && fieldIsVisible(field, details) && fieldVisibleForBranch(field, decision))
-  const legacyFields = (profile.fields || []).filter((field) => legacyFieldVisible(field, details) && fieldIsVisible(field, details))
+  const conceptScoped = (field) => matchesConceptScope(field, concept?.id, perspective)
+  const activeFields = (profile.fields || []).filter((field) => !field.deprecated && conceptScoped(field) && fieldIsVisible(field, details) && fieldVisibleForBranch(field, decision))
+  const legacyFields = (profile.fields || []).filter((field) => conceptScoped(field) && legacyFieldVisible(field, details) && fieldIsVisible(field, details))
   if (!activeFields.length && !legacyFields.length) return null
 
   const title = bodyProfile ? `Partner / body fit for ${concept.label}` : `More about ${concept.label}`
@@ -219,10 +238,10 @@ function ProfileSection({ catalog, profile, details, patchDetail, semanticType, 
       {decision?.state === 'fantasy_only' && <p className="adaptive-branch-note">Only fantasy-relevant follow-ups are shown for this answer.</p>}
       <div className="detail-fields">
         {activeFields.map((field) => (
-          <DetailField key={field.id} catalog={catalog} profileId={profile.id} concept={concept} field={field} value={details?.[field.id]} onChange={(value) => patchDetail(field.id, value)} semanticType={semanticType} />
+          <DetailField key={field.id} catalog={catalog} profileId={profile.id} concept={concept} field={field} value={details?.[field.id]} onChange={(value) => patchDetail(field.id, value)} semanticType={semanticType} perspective={perspective} details={details} />
         ))}
         {legacyFields.map((field) => (
-          <DetailField key={`legacy-${field.id}`} catalog={catalog} profileId={profile.id} concept={concept} field={field} value={details?.[field.id]} onChange={(value) => patchDetail(field.id, value)} semanticType={semanticType} legacy />
+          <DetailField key={`legacy-${field.id}`} catalog={catalog} profileId={profile.id} concept={concept} field={field} value={details?.[field.id]} onChange={(value) => patchDetail(field.id, value)} semanticType={semanticType} perspective={perspective} details={details} legacy />
         ))}
       </div>
     </section>
@@ -256,8 +275,8 @@ export default function AdaptiveDetails({ catalog, concept, perspective, answer,
 
   return (
     <>
-      <ProfileSection catalog={catalog} profile={profile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} />
-      <ProfileSection catalog={catalog} profile={bodyProfile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} bodyProfile />
+      <ProfileSection catalog={catalog} profile={profile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} perspective={perspective} />
+      <ProfileSection catalog={catalog} profile={bodyProfile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} perspective={perspective} bodyProfile />
     </>
   )
 }

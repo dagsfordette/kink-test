@@ -1,7 +1,7 @@
 {
   "name": "adult-kink-inventory-prototype",
   "private": true,
-  "version": "0.4.2",
+  "version": "0.4.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "audit": "node scripts/catalog-audit.mjs",
     "validate:catalog": "node scripts/catalog-validate.mjs",
     "test:catalog": "node --test scripts/catalog-validate.test.mjs",
-    "test": "npm run test:catalog && npm run test:taxonomy && npm run test:semantic && npm run test:adaptive && npm run test:depth && npm run test:results && npm run test:negotiation && npm run test:profile-pruning && npm run test:content && npm run test:compatibility && npm run test:fixtures && npm run test:response-format && npm run test:user-testing && npm run test:print-export && npm run test:release-process && npm run validate:catalog",
+    "test": "npm run test:catalog && npm run test:taxonomy && npm run test:semantic && npm run test:adaptive && npm run test:qualifier-audit && npm run test:depth && npm run test:results && npm run test:negotiation && npm run test:profile-pruning && npm run test:content && npm run test:compatibility && npm run test:fixtures && npm run test:response-format && npm run test:user-testing && npm run test:print-export && npm run test:release-process && npm run validate:catalog",
     "audit:check": "node scripts/catalog-audit-check.mjs",
     "test:taxonomy": "node --test scripts/taxonomy.test.mjs",
     "test:semantic": "node --test scripts/semantic-question-model.test.mjs",
@@ -27,7 +27,8 @@
     "test:release-process": "node --test scripts/release-process.test.mjs",
     "release:verify": "npm test && npm run audit:check",
     "release:check": "npm run release:verify && npm run build",
-    "test:profile-pruning": "node --test scripts/profile-pruning.test.mjs"
+    "test:profile-pruning": "node --test scripts/profile-pruning.test.mjs",
+    "test:qualifier-audit": "node --test scripts/qualifier-audit-regression.test.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",

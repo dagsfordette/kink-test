@@ -1,3 +1,12 @@
+## Qualifier audit cleanup — 2026-08-08
+
+- Implemented the 412-question qualifier/subquestion audit across the adaptive detail system.
+- Added concept-scoped fields/options and conditional option visibility so shared profiles can stay reusable without leaking sibling questions into leaf concepts.
+- Reworked power/service, bondage/rope/sensory control, impact/pain/rough play, sexual activity/device, anal, orgasm/chastity, humiliation/objectification, observation, multi-partner, psychological, relationship, remote/digital, roleplay, pet/primal, fantasy, body-feature, sensory-fetish, and sexual-setting qualifiers.
+- Added physical privacy/location to sexual activities/devices and recording/storage/access qualifiers for private media and remote interactions.
+- Replaced the former free-text-only praise/worship, medical/edge, and fluids/mess follow-ups with structured qualifiers while retaining optional notes.
+- Added a regression suite that parses the complete audit and verifies all 412 flagged concepts retain at least two structured, concept-relevant qualifiers.
+
 ## Profile-first restructuring patch — 2026-08-08
 
 - Reordered onboarding to: landing page → profile → negotiation/privacy/care → main inventory.

@@ -11,10 +11,10 @@
     "totalConcepts": 594,
     "branchGateConcepts": 32,
     "crossCategoryConcepts": 182,
-    "detailProfiles": 24,
+    "detailProfiles": 35,
     "conceptsWithDetailProfiles": 562,
     "adaptivePriorityProfiles": 8,
-    "preferenceMatrixFields": 33,
+    "preferenceMatrixFields": 235,
     "definitionEligibleConcepts": 562,
     "substantiveDefinitions": 562,
     "conceptsWithoutSubstantiveDefinitions": 0,
@@ -3811,7 +3811,7 @@
   "detailProfiles": [
     {
       "id": "power_exchange",
-      "label": "Power-exchange details",
+      "label": "Power-exchange & service details",
       "appliesToSemanticTypes": [
         "dynamic"
       ],
@@ -3860,12 +3860,12 @@
         "waiting_attending"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 26
     },
     {
       "id": "bondage",
-      "label": "Bondage details",
+      "label": "Restraint, rope & sensory-control details",
       "appliesToSemanticTypes": [
         "activity"
       ],
@@ -3925,11 +3925,11 @@
       ],
       "priorityFamily": true,
       "activationPolicy": "adaptive_parent_state",
-      "preferenceMatrixFields": 6
+      "preferenceMatrixFields": 19
     },
     {
       "id": "impact",
-      "label": "Impact-play details",
+      "label": "Impact, pain & rough-play details",
       "appliesToSemanticTypes": [
         "activity"
       ],
@@ -3978,7 +3978,7 @@
       ],
       "priorityFamily": true,
       "activationPolicy": "adaptive_parent_state",
-      "preferenceMatrixFields": 5
+      "preferenceMatrixFields": 13
     },
     {
       "id": "sensation",
@@ -4005,8 +4005,8 @@
         "wax_play"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 2
     },
     {
       "id": "oral_giving",
@@ -4038,7 +4038,7 @@
     },
     {
       "id": "sexual_activity",
-      "label": "Sexual-activity details",
+      "label": "Sexual-activity & device details",
       "appliesToSemanticTypes": [
         "activity",
         "device"
@@ -4085,7 +4085,7 @@
       ],
       "priorityFamily": true,
       "activationPolicy": "adaptive_parent_state",
-      "preferenceMatrixFields": 4
+      "preferenceMatrixFields": 12
     },
     {
       "id": "anal",
@@ -4108,12 +4108,12 @@
         "rimming"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 9
     },
     {
       "id": "orgasm_control",
-      "label": "Orgasm-control details",
+      "label": "Orgasm-control & chastity details",
       "appliesToSemanticTypes": [
         "dynamic",
         "fantasy"
@@ -4146,12 +4146,12 @@
         "temporary_chastity"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 11
     },
     {
       "id": "humiliation",
-      "label": "Humiliation / degradation details",
+      "label": "Humiliation & objectification details",
       "appliesToSemanticTypes": [
         "dynamic",
         "activity"
@@ -4185,12 +4185,12 @@
         "verbal_degradation"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 9
     },
     {
       "id": "exhibition",
-      "label": "Exhibition / observation details",
+      "label": "Observation, exhibition & recording details",
       "appliesToSemanticTypes": [
         "activity",
         "fantasy"
@@ -4211,12 +4211,12 @@
         "watching_partner"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 9
     },
     {
       "id": "multi_partner",
-      "label": "Multi-partner details",
+      "label": "Multi-partner & partner-sharing details",
       "appliesToSemanticTypes": [
         "activity",
         "fantasy"
@@ -4239,8 +4239,8 @@
         "watch_partner_with_other"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 10
     },
     {
       "id": "roleplay",
@@ -4251,64 +4251,30 @@
         "fantasy",
         "stimulus"
       ],
-      "referenceCount": 56,
+      "referenceCount": 22,
       "concepts": [
-        "adult_age_difference_roleplay",
         "adult_age_play_roleplay",
         "alien_fantasy_roleplay",
-        "anonymous_use_fantasy",
-        "biting_primal",
-        "body_swap_fantasy",
         "boss_employee_roleplay",
-        "breeding_fantasy",
         "capture_roleplay",
-        "chasing_primal",
-        "collar_leash_petplay",
         "consensual_nonconsent_roleplay",
         "consensual_resistance_roleplay",
-        "costume_identity_roleplay",
         "doctor_patient_roleplay",
-        "doll_transformation_fantasy",
         "dominant_submissive_roleplay",
-        "fantasy_character_roleplay",
-        "gender_expression_roleplay",
-        "giant_tiny_fantasy",
-        "growling_vocalization",
-        "historical_roleplay",
         "hunter_prey_roleplay",
-        "hypnosis_fantasy",
         "hypnosis_roleplay",
         "inspection_roleplay_authority",
         "interrogation_roleplay",
         "kidnapping_fantasy_roleplay",
-        "kitten_play",
-        "magical_control_fantasy",
         "medical_roleplay",
         "mind_control_fantasy",
         "monster_fantasy_roleplay",
-        "monster_transformation_fantasy",
-        "negotiated_sleep_vulnerability_fantasy",
-        "nonhuman_character_fantasy",
         "nurse_patient_roleplay",
         "owner_pet_dynamic",
-        "ownership_fantasy",
-        "pet_play_general",
-        "pet_service",
-        "pony_play",
-        "pregnancy_fantasy",
-        "primal_play",
         "prisoner_guard_roleplay",
-        "public_use_fantasy",
-        "puppy_play",
-        "robot_transformation_fantasy",
-        "size_difference_fantasy",
-        "stranger_roleplay",
         "superhero_villain_roleplay",
         "teacher_student_adult_roleplay",
-        "training_petplay",
-        "transformation_roleplay",
-        "uniform_roleplay",
-        "wrestling_primal"
+        "uniform_roleplay"
       ],
       "priorityFamily": true,
       "activationPolicy": "adaptive_parent_state",
@@ -4316,7 +4282,7 @@
     },
     {
       "id": "fetish",
-      "label": "Fetish details",
+      "label": "Sensory-fetish details",
       "appliesToSemanticTypes": [
         "stimulus"
       ],
@@ -4339,7 +4305,7 @@
       ],
       "priorityFamily": false,
       "activationPolicy": "adaptive_parent_state",
-      "preferenceMatrixFields": 1
+      "preferenceMatrixFields": 8
     },
     {
       "id": "body_part_interest",
@@ -4387,7 +4353,7 @@
       ],
       "priorityFamily": true,
       "activationPolicy": "adaptive_parent_state",
-      "preferenceMatrixFields": 2
+      "preferenceMatrixFields": 9
     },
     {
       "id": "material_interest",
@@ -4467,8 +4433,8 @@
         "waiting_suspense"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 7
     },
     {
       "id": "relationship_dynamic",
@@ -4480,7 +4446,7 @@
         "activity",
         "setting"
       ],
-      "referenceCount": 39,
+      "referenceCount": 28,
       "concepts": [
         "bedroom_only_ds",
         "bratty_submission",
@@ -4493,42 +4459,31 @@
         "financial_domination",
         "formal_contracts",
         "gentle_dominance",
-        "long_distance_protocol",
         "masochistic_submission",
         "mentor_training_dynamic",
         "negotiated_availability_free_use_fantasy",
         "obedient_submission",
         "ongoing_ds",
-        "photo_exchange_private",
         "playful_dominance",
         "protocol_relationship",
         "psychological_submission",
         "relationship_permissions",
-        "remote_chastity_dynamic",
-        "remote_observation",
-        "remote_orgasm_control",
-        "remote_tasking",
         "sadistic_dominance",
         "scene_only_ds",
-        "scheduled_messages",
         "service_relationship",
         "service_submission_style",
-        "sexting",
         "sexual_submission",
         "strict_dominance",
         "total_power_exchange_fantasy",
-        "twenty_four_seven_ds",
-        "video_call_play",
-        "video_exchange_private",
-        "voice_commands_remote"
+        "twenty_four_seven_ds"
       ],
       "priorityFamily": false,
       "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "preferenceMatrixFields": 13
     },
     {
       "id": "generic",
-      "label": "More about this interest",
+      "label": "Structured interest details",
       "appliesToSemanticTypes": [
         "activity",
         "role",
@@ -4588,12 +4543,12 @@
         "wax_high_heat"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 12
     },
     {
       "id": "sexual_context",
-      "label": "Location / context details",
+      "label": "Sexual setting details",
       "appliesToSemanticTypes": [
         "setting",
         "risk_context"
@@ -4613,8 +4568,8 @@
         "shower_bath_context"
       ],
       "priorityFamily": false,
-      "activationPolicy": null,
-      "preferenceMatrixFields": 0
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 7
     },
     {
       "id": "emotion_self",
@@ -4754,6 +4709,201 @@
       ],
       "priorityFamily": false,
       "activationPolicy": null,
+      "preferenceMatrixFields": 3
+    },
+    {
+      "id": "remote_digital",
+      "label": "Remote / digital details",
+      "appliesToSemanticTypes": [
+        "communication_preference",
+        "activity",
+        "dynamic",
+        "relationship_dynamic",
+        "setting"
+      ],
+      "referenceCount": 11,
+      "concepts": [
+        "long_distance_protocol",
+        "photo_exchange_private",
+        "remote_chastity_dynamic",
+        "remote_observation",
+        "remote_orgasm_control",
+        "remote_tasking",
+        "scheduled_messages",
+        "sexting",
+        "video_call_play",
+        "video_exchange_private",
+        "voice_commands_remote"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 13
+    },
+    {
+      "id": "roleplay_scenario",
+      "label": "Scenario roleplay details",
+      "appliesToSemanticTypes": [
+        "activity",
+        "fantasy",
+        "role"
+      ],
+      "referenceCount": 5,
+      "concepts": [
+        "adult_age_difference_roleplay",
+        "fantasy_character_roleplay",
+        "historical_roleplay",
+        "stranger_roleplay",
+        "transformation_roleplay"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 7
+    },
+    {
+      "id": "pet_play",
+      "label": "Pet-play details",
+      "appliesToSemanticTypes": [
+        "activity"
+      ],
+      "referenceCount": 7,
+      "concepts": [
+        "collar_leash_petplay",
+        "kitten_play",
+        "pet_play_general",
+        "pet_service",
+        "pony_play",
+        "puppy_play",
+        "training_petplay"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 7
+    },
+    {
+      "id": "primal_play",
+      "label": "Primal-play details",
+      "appliesToSemanticTypes": [
+        "activity"
+      ],
+      "referenceCount": 5,
+      "concepts": [
+        "biting_primal",
+        "chasing_primal",
+        "growling_vocalization",
+        "primal_play",
+        "wrestling_primal"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 3
+    },
+    {
+      "id": "sleep_vulnerability_fantasy",
+      "label": "Sleep-vulnerability fantasy details",
+      "appliesToSemanticTypes": [
+        "fantasy"
+      ],
+      "referenceCount": 1,
+      "concepts": [
+        "negotiated_sleep_vulnerability_fantasy"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 2
+    },
+    {
+      "id": "size_fantasy",
+      "label": "Size-difference fantasy details",
+      "appliesToSemanticTypes": [
+        "fantasy"
+      ],
+      "referenceCount": 2,
+      "concepts": [
+        "giant_tiny_fantasy",
+        "size_difference_fantasy"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 2
+    },
+    {
+      "id": "specific_transformation_fantasy",
+      "label": "Specific transformation fantasy details",
+      "appliesToSemanticTypes": [
+        "fantasy"
+      ],
+      "referenceCount": 5,
+      "concepts": [
+        "body_swap_fantasy",
+        "doll_transformation_fantasy",
+        "monster_transformation_fantasy",
+        "nonhuman_character_fantasy",
+        "robot_transformation_fantasy"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 2
+    },
+    {
+      "id": "identity_roleplay",
+      "label": "Identity / presentation roleplay details",
+      "appliesToSemanticTypes": [
+        "activity",
+        "role"
+      ],
+      "referenceCount": 2,
+      "concepts": [
+        "costume_identity_roleplay",
+        "gender_expression_roleplay"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 2
+    },
+    {
+      "id": "control_fantasy",
+      "label": "Control-fantasy details",
+      "appliesToSemanticTypes": [
+        "fantasy"
+      ],
+      "referenceCount": 2,
+      "concepts": [
+        "hypnosis_fantasy",
+        "magical_control_fantasy"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 2
+    },
+    {
+      "id": "reproductive_fantasy",
+      "label": "Breeding / pregnancy fantasy details",
+      "appliesToSemanticTypes": [
+        "fantasy"
+      ],
+      "referenceCount": 2,
+      "concepts": [
+        "breeding_fantasy",
+        "pregnancy_fantasy"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
+      "preferenceMatrixFields": 1
+    },
+    {
+      "id": "ownership_use_fantasy",
+      "label": "Ownership / use fantasy details",
+      "appliesToSemanticTypes": [
+        "fantasy"
+      ],
+      "referenceCount": 3,
+      "concepts": [
+        "anonymous_use_fantasy",
+        "ownership_fantasy",
+        "public_use_fantasy"
+      ],
+      "priorityFamily": false,
+      "activationPolicy": "adaptive_parent_state",
       "preferenceMatrixFields": 2
     }
   ],

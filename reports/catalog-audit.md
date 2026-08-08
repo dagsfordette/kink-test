@@ -13,10 +13,10 @@ Audit schema: `1.7.0`
 | Concepts | 594 |
 | Branch-gate concepts | 32 |
 | Cross-category concepts | 182 |
-| Detail profiles | 24 |
+| Detail profiles | 35 |
 | Concepts with detail profiles | 562 |
 | Priority adaptive profiles | 8 |
-| Preference-matrix fields | 33 |
+| Preference-matrix fields | 235 |
 | Definition-eligible concepts | 562 |
 | Substantive definitions | 562 |
 | Without substantive definitions | 0 |
@@ -133,30 +133,41 @@ Reusable detail primitives: `body_area`, `implement`, `material`, `intensity`, `
 
 | Profile | Semantic applicability | References | Matrix fields |
 |---|---|---:|---:|
-| Power-exchange details (`power_exchange`) | dynamic | 41 | 0 |
-| Bondage details (`bondage`) | activity | 51 | 6 |
-| Impact-play details (`impact`) | activity | 40 | 5 |
-| Sensation-play details (`sensation`) | activity | 15 | 0 |
+| Power-exchange & service details (`power_exchange`) | dynamic | 41 | 26 |
+| Restraint, rope & sensory-control details (`bondage`) | activity | 51 | 19 |
+| Impact, pain & rough-play details (`impact`) | activity | 40 | 13 |
+| Sensation-play details (`sensation`) | activity | 15 | 2 |
 | Giving oral sex — details (`oral_giving`) | activity | 1 | 0 |
 | Receiving oral sex — details (`oral_receiving`) | activity | 1 | 0 |
-| Sexual-activity details (`sexual_activity`) | activity, device | 37 | 4 |
-| Anal-play details (`anal`) | activity | 11 | 0 |
-| Orgasm-control details (`orgasm_control`) | dynamic, fantasy | 24 | 0 |
-| Humiliation / degradation details (`humiliation`) | dynamic, activity | 25 | 0 |
-| Exhibition / observation details (`exhibition`) | activity, fantasy | 12 | 0 |
-| Multi-partner details (`multi_partner`) | activity, fantasy | 14 | 0 |
-| Roleplay details (`roleplay`) | activity, role, fantasy, stimulus | 56 | 2 |
-| Fetish details (`fetish`) | stimulus | 14 | 1 |
-| Body-part interest details (`body_part_interest`) | body_part | 35 | 2 |
+| Sexual-activity & device details (`sexual_activity`) | activity, device | 37 | 12 |
+| Anal-play details (`anal`) | activity | 11 | 9 |
+| Orgasm-control & chastity details (`orgasm_control`) | dynamic, fantasy | 24 | 11 |
+| Humiliation & objectification details (`humiliation`) | dynamic, activity | 25 | 9 |
+| Observation, exhibition & recording details (`exhibition`) | activity, fantasy | 12 | 9 |
+| Multi-partner & partner-sharing details (`multi_partner`) | activity, fantasy | 14 | 10 |
+| Roleplay details (`roleplay`) | activity, role, fantasy, stimulus | 22 | 2 |
+| Sensory-fetish details (`fetish`) | stimulus | 14 | 8 |
+| Body-part interest details (`body_part_interest`) | body_part | 35 | 9 |
 | Material interest details (`material_interest`) | material | 28 | 2 |
-| Psychological-play details (`psychological`) | dynamic, emotion, stimulus, activity, fantasy | 23 | 0 |
-| Relationship-dynamic details (`relationship_dynamic`) | dynamic, relationship_dynamic, communication_preference, activity, setting | 39 | 0 |
-| More about this interest (`generic`) | activity, role, dynamic, fantasy, stimulus, body_part, material, emotion, setting, relationship_dynamic, device, communication_preference, risk_context | 40 | 0 |
-| Location / context details (`sexual_context`) | setting, risk_context | 11 | 0 |
+| Psychological-play details (`psychological`) | dynamic, emotion, stimulus, activity, fantasy | 23 | 7 |
+| Relationship-dynamic details (`relationship_dynamic`) | dynamic, relationship_dynamic, communication_preference, activity, setting | 28 | 13 |
+| Structured interest details (`generic`) | activity, role, dynamic, fantasy, stimulus, body_part, material, emotion, setting, relationship_dynamic, device, communication_preference, risk_context | 40 | 12 |
+| Sexual setting details (`sexual_context`) | setting, risk_context | 11 | 7 |
 | Emotional-state details (`emotion_self`) | emotion | 42 | 3 |
 | Partner reaction — details (`emotion_partner`) | emotion | 42 | 4 |
 | Remote / wearable toy details (`remote_toy`) | activity, device | 1 | 2 |
-| Transformation-fantasy details (`transformation_fantasy`) | fantasy | 2 | 2 |
+| Transformation-fantasy details (`transformation_fantasy`) | fantasy | 2 | 3 |
+| Remote / digital details (`remote_digital`) | communication_preference, activity, dynamic, relationship_dynamic, setting | 11 | 13 |
+| Scenario roleplay details (`roleplay_scenario`) | activity, fantasy, role | 5 | 7 |
+| Pet-play details (`pet_play`) | activity | 7 | 7 |
+| Primal-play details (`primal_play`) | activity | 5 | 3 |
+| Sleep-vulnerability fantasy details (`sleep_vulnerability_fantasy`) | fantasy | 1 | 2 |
+| Size-difference fantasy details (`size_fantasy`) | fantasy | 2 | 2 |
+| Specific transformation fantasy details (`specific_transformation_fantasy`) | fantasy | 5 | 2 |
+| Identity / presentation roleplay details (`identity_roleplay`) | activity, role | 2 | 2 |
+| Control-fantasy details (`control_fantasy`) | fantasy | 2 | 2 |
+| Breeding / pregnancy fantasy details (`reproductive_fantasy`) | fantasy | 2 | 1 |
+| Ownership / use fantasy details (`ownership_use_fantasy`) | fantasy | 3 | 2 |
 
 ## Cross-category concepts
 
