@@ -15,7 +15,7 @@ No human participant findings are fabricated or bundled with this implementation
 ### Partner comparison
 
 - `src/lib/compatibility.js` implements named interaction states rather than a compatibility percentage.
-- Results can load a second inventory JSON into memory without replacing the user's own answers or persisting the partner response.
+- Results can load a second exploration JSON into memory without replacing the user's own answers or persisting the partner response.
 - Category, concept, and matching subtype hard limits take precedence over positive match states.
 - Directional pairs include giving/receiving, dominant/submissive, owner/owned, observing/being observed, and emotional self/partner directions.
 

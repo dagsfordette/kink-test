@@ -1,16 +1,9 @@
-const STORAGE_KEY = 'adult-kink-inventory:prototype:v3'
-const LEGACY_KEYS = ['adult-kink-inventory:prototype:v2']
+const STORAGE_KEY = 'adult-kink-exploration:prototype:v1'
 
 export function loadState() {
   try {
     const current = localStorage.getItem(STORAGE_KEY)
-    if (current) return JSON.parse(current)
-
-    for (const key of LEGACY_KEYS) {
-      const raw = localStorage.getItem(key)
-      if (raw) return { ...JSON.parse(raw), migratedFromStorageKey: key }
-    }
-    return null
+    return current ? JSON.parse(current) : null
   } catch {
     return null
   }
@@ -27,7 +20,6 @@ export function saveState(state) {
 export function clearState() {
   try {
     localStorage.removeItem(STORAGE_KEY)
-    for (const key of LEGACY_KEYS) localStorage.removeItem(key)
   } catch {
     // no-op
   }

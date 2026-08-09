@@ -20,7 +20,7 @@ Record only the minimum demographic/context information needed to interpret usab
 
 - Use a fresh browser profile or exported test fixture rather than the researcher's personal response data.
 - Let the participant choose Quick, Standard, or Exhaustive based on the task assigned for the session.
-- Remind the participant that the questionnaire is local-first and that research notes are separate from their inventory answers.
+- Remind the participant that the questionnaire is local-first and that research notes are separate from their exploration answers.
 - For moderated sessions, ask the participant to think aloud without explaining or defending why an interest appeals to them.
 
 ## Tasks and prompts

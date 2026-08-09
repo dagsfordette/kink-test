@@ -1,6 +1,6 @@
-# Adult Kink Inventory — React/Vite Prototype v0.4.3
+# Adult Kink Exploration — React/Vite Prototype v0.4.3
 
-A static, local-first prototype for an adaptive adult kink/BDSM preference inventory.
+A static, local-first prototype for an adaptive adult kink/BDSM preference exploration.
 
 ## What is included
 
@@ -32,9 +32,9 @@ A static, local-first prototype for an adaptive adult kink/BDSM preference inven
 - JSON export/import
 - PDF export through a dedicated print report (browser **Save as PDF**)
 - Concept-weighted results with separate fantasy interest, real-world desire, experience, willingness, perspective, conditions, concept/detail/category boundaries, and qualitative category/domain summaries
-- Profile-first onboarding: landing page → personal/body profile → negotiation/privacy/care → main inventory
-- Optional personal gender/anatomy and partner-attraction defaults; only explicit anatomy selections are used to hide a small number of clearly non-applicable anatomy-specific perspectives
-- A separate general negotiation/care profile covering communication, stop/check-in methods, aftercare, marks, privacy/recording, and partner/context familiarity
+- Purpose-first onboarding: landing page → Tailor your questions → Negotiation & care → exploration questions
+- Optional gender, anatomy, and partner-attraction answers are kept separate and quietly tailor which questions are useful; gender never determines anatomy
+- A narrower general Negotiation & care setup covering communication, stop/check-in methods, aftercare, mark tolerance, and minimum partner familiarity; recording/public-play boundaries are asked only inside related topics
 - Descriptive multi-domain risk metadata (`physical`, `medical`, `psychological`, `consent_complexity`, `privacy`, `digital_security`, `reputational`, `financial`) instead of generic standard/elevated/high severity badges
 - Contextual high-level safety/negotiation prompts tied to those risk domains; the questionnaire remains informational and non-procedural
 - Dark/light theme
@@ -117,9 +117,9 @@ Fantasy interest, real-world desire, experienced preference, experience, willing
 
 Legacy willingness values are normalized only while calculating results and are not rewritten in saved/imported answers. See `docs/scoring-results-and-boundaries.md` and `reports/scoring-results-migration.json`.
 
-## Negotiation, risk, privacy, and care
+## Negotiation, contextual privacy, risk, and care
 
-Plan 07 adds a separate **Negotiation, privacy & care** questionnaire section. Its answers live under `negotiationPreferences`, contribute no interest score, and are surfaced prominently in both Results and the print/PDF report. The profile covers communication style, stop/check-in methods, aftercare, marks, recording/privacy constraints, and partner/context familiarity.
+The current prototype uses a separate **Negotiation & care** setup. Its answers live under `negotiationPreferences`, contribute no interest score, and are surfaced in both Results and the print/PDF report. Broad setup covers communication style, stop/check-in methods, aftercare, mark tolerance, and minimum partner familiarity. Recording, photography, media storage/access/deletion, live viewing, and public/semi-public boundaries are contextual qualifiers inside relevant interests rather than universal setup questions.
 
 Concept safety metadata now uses descriptive `riskDomains` rather than `standard` / `elevated` / `high` labels. A concept can carry multiple domains, and each domain maps to a short high-level negotiation/care prompt. Digital/media prompts cover storage, screenshots, identification, redistribution, and deletion; financial prompts cover explicit money limits; consent-complex prompts emphasize prior negotiation and a clear pause/stop method; physical/medical prompts remain informational and non-procedural.
 
@@ -183,7 +183,7 @@ The deployment workflow uses `npm install` rather than `npm ci` because the prot
 
 ## Consent wording
 
-The inventory treats informed adult consent as a global premise rather than repeating “consensual” in ordinary activity names. Explicit consent wording remains where it changes or clarifies the meaning of the concept.
+The exploration treats informed adult consent as a global premise rather than repeating “consensual” in ordinary activity names. Explicit consent wording remains where it changes or clarifies the meaning of the concept.
 
 ## Semantic model (v0.3.3)
 
@@ -222,6 +222,6 @@ The deterministic baseline outputs are committed under `reports/`. See [`docs/ca
 
 ## Plan 09 release and compatibility tooling
 
-The Results screen can optionally load a second inventory JSON for an in-memory partner comparison. The comparison uses named interaction states—directional/shared matches, discussion areas, fantasy/real-world mismatches, conditional matches, hard-limit conflicts, and insufficient data—and intentionally does not calculate a compatibility percentage.
+The Results screen can optionally load a second exploration JSON for an in-memory partner comparison. The comparison uses named interaction states—directional/shared matches, discussion areas, fantasy/real-world mismatches, conditional matches, hard-limit conflicts, and insufficient data—and intentionally does not calculate a compatibility percentage.
 
 For release work, run `npm run release:verify` to execute the complete automated suite plus deterministic catalog audit. In a normal development/CI environment with Vite installed, `npm run release:check` additionally runs the production build. Human usability rounds should follow `docs/user-test-script.md` and record findings with `docs/user-test-findings-template.md`.

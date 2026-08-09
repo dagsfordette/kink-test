@@ -1,3 +1,11 @@
+## Setup page split — 2026-08-09
+
+- Split **Marks & visible after-effects** out of **Negotiation & care** into its own setup page.
+- Expanded onboarding from two setup steps to three: Tailor your questions → Negotiation & care → Marks & visible after-effects → Questions.
+- Kept Negotiation & care as a balanced four-card layout: communication, stop/check-in, aftercare, and partner familiarity.
+- Added Marks & visible after-effects as its own editable item under **Your setup** in desktop and mobile navigation.
+- Preserved the existing marks data model, answers, results, export/import behavior, and reusable matrix/scale controls.
+
 ## Qualifier audit cleanup — 2026-08-08
 
 - Implemented the 412-question qualifier/subquestion audit across the adaptive detail system.

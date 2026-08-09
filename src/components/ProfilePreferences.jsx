@@ -12,17 +12,17 @@ export default function ProfilePreferences({ catalog, preferences, setPreference
     <section className="profile-page" aria-labelledby="profile-heading">
       <header className="category-intro profile-intro">
         <div>
-          <span className="kicker">{setupMode ? 'Step 1 of 2' : 'Your setup'}</span>
-          <h1 id="profile-heading">{setupMode ? 'Set up your profile' : 'Your profile'}</h1>
+          <span className="kicker">{setupMode ? 'Step 1 of 3' : 'Your setup'}</span>
+          <h1 id="profile-heading">Tailor your questions</h1>
           <p>
-            Tell the inventory a little about you and the bodies you are generally interested in. This is optional, but it lets the test hide a small number of anatomy-specific questions that clearly do not apply.
+            A few optional details can make the questions more relevant to you. Answer only what feels useful, and leave anything blank if you prefer.
           </p>
         </div>
       </header>
 
       <div className="profile-pruning-note">
-        <strong>Gender never determines anatomy here.</strong>
-        <span>Only explicit anatomy choices are used for pruning. Leave anything blank and the related questions stay visible. Nothing you hide is deleted, and you can show filtered questions later.</span>
+        <strong>Gender does not determine anatomy.</strong>
+        <span>They are kept as separate optional answers here, so you can answer either, both, or neither.</span>
       </div>
 
       <div className="profile-section-grid">
@@ -104,7 +104,7 @@ export default function ProfilePreferences({ catalog, preferences, setPreference
         ))}
       </div>
 
-      <p className="profile-footnote">Profile answers are setup information, not kink scores. You can edit them later from the test sidebar.</p>
+      <p className="profile-footnote">These answers only tailor your questions. They do not change your interest scores, and you can edit them later.</p>
     </section>
   )
 }

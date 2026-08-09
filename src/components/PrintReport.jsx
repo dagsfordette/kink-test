@@ -34,7 +34,7 @@ export default function PrintReport({ catalog, answers, categoryGates, negotiati
   return (
     <article className="print-report">
       <header>
-        <p>Private Adult Kink & BDSM Preference Inventory</p>
+        <p>Private Adult Kink & BDSM Exploration</p>
         <h1>Preference summary</h1>
         <span>Generated locally · {now}</span>
       </header>
@@ -50,7 +50,7 @@ export default function PrintReport({ catalog, answers, categoryGates, negotiati
 
       {results.negotiationPreferences.hasData && (
         <section>
-          <h2>Negotiation, privacy & care preferences</h2>
+          <h2>Negotiation & care preferences</h2>
           <p>These general preferences are descriptive and are not part of interest scoring. Concept-specific conditions and hard limits remain separate.</p>
           <table>
             <thead><tr><th>Area</th><th>Preference</th><th>Answer</th></tr></thead>
@@ -61,7 +61,7 @@ export default function PrintReport({ catalog, answers, categoryGates, negotiati
 
       {profileSummary.hasData && (
         <section>
-          <h2>Profile & attraction preferences</h2>
+          <h2>Question-tailoring preferences</h2>
           <table>
             <thead><tr><th>Area</th><th>Preference</th><th>Answer</th></tr></thead>
             <tbody>{profileSummary.sections.flatMap((section) => section.fields.map((field) => <tr key={`${section.id}-${field.id}`}><td>{section.label}</td><td>{field.label}</td><td>{field.values.join('; ')}</td></tr>))}</tbody>

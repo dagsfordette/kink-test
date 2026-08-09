@@ -140,13 +140,13 @@ export default function ResultsView({ catalog, answers, categoryGates, negotiati
         <PartnerComparison comparison={comparison} onLoad={onCompareJson} onClear={onClearComparison} />
 
         <article className="result-card wide negotiation-result-card">
-          <div className="result-card-heading"><div><span className="kicker">Your defaults</span><h2>Negotiation, privacy & care</h2></div></div>
-          <NegotiationSummary summary={results.negotiationPreferences} empty="No negotiation, privacy, or care preferences recorded yet." />
+          <div className="result-card-heading"><div><span className="kicker">Your defaults</span><h2>Negotiation & care</h2></div></div>
+          <NegotiationSummary summary={results.negotiationPreferences} empty="No negotiation or care preferences recorded yet." />
         </article>
 
         <article className="result-card wide negotiation-result-card">
-          <div className="result-card-heading"><div><span className="kicker">Your defaults</span><h2>Profile & attraction</h2></div></div>
-          <NegotiationSummary summary={profileSummary} empty="No profile or general attraction preferences recorded yet." />
+          <div className="result-card-heading"><div><span className="kicker">Your defaults</span><h2>Question tailoring</h2></div></div>
+          <NegotiationSummary summary={profileSummary} empty="No question-tailoring preferences recorded yet." />
         </article>
 
         <article className="result-card wide">

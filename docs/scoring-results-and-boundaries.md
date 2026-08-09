@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Plan 06 makes result aggregation concept-aware and keeps distinct psychological/behavioral dimensions separate. It does not treat the inventory as a validated psychometric instrument or compatibility score.
+Plan 06 makes result aggregation concept-aware and keeps distinct psychological/behavioral dimensions separate. It does not treat the exploration as a validated psychometric instrument or compatibility score.
 
 ## Aggregation order
 

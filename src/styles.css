@@ -669,3 +669,53 @@ textarea { width: 100%; resize: vertical; }
 @media (max-width: 650px) {
   .profile-filter-bar { align-items: flex-start; flex-direction: column; }
 }
+
+/* Exploration onboarding — reusable extensible, scale, and matrix questions */
+.preference-help { margin: -.1rem 0 .55rem; color: var(--faint); font-size: .7rem; line-height: 1.5; }
+.extensible-multi-select { min-width: 0; }
+.other-response-field { display: block; margin-top: .6rem; }
+.other-response-field input { width: 100%; }
+.negotiation-card-marks { grid-column: 1 / -1; }
+.matrix-negotiation-field { margin-top: .15rem; }
+
+.scale-question, .matrix-question { margin: 0; padding: 0; border: 0; min-width: 0; }
+.scale-question legend, .matrix-question legend { width: 100%; padding: 0; }
+.scale-options { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .45rem; }
+.scale-option {
+  display: flex; align-items: center; gap: .48rem; min-height: 3rem; padding: .6rem .65rem;
+  border: 1px solid var(--border); border-radius: 11px; background: var(--panel-soft); color: var(--muted);
+  text-align: left; cursor: pointer; font-size: .72rem; font-weight: 700; line-height: 1.3;
+}
+.scale-option:hover { color: var(--text); border-color: var(--border-strong); }
+.scale-option.selected { color: var(--text); background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 48%, var(--border)); }
+.scale-option-index { display: grid; place-items: center; flex: 0 0 1.35rem; width: 1.35rem; height: 1.35rem; border: 1px solid var(--border-strong); border-radius: 999px; font-size: .62rem; color: var(--faint); }
+.scale-option.selected .scale-option-index { color: var(--text); border-color: var(--accent); }
+.scale-interpretation { margin: .55rem 0 0; color: var(--muted); font-size: .7rem; line-height: 1.45; }
+
+.matrix-shortcut { margin: 0 0 .7rem; padding: .52rem .7rem; border: 1px solid var(--border-strong); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; font-size: .72rem; font-weight: 750; }
+.matrix-shortcut:hover { color: var(--text); background: var(--panel-soft); }
+.matrix-shortcut.selected { color: var(--text); background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 48%, var(--border)); }
+.matrix-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+.matrix-table { width: 100%; min-width: 640px; border-collapse: collapse; background: var(--panel-soft); }
+.matrix-table th, .matrix-table td { padding: .58rem .6rem; border-bottom: 1px solid var(--border); text-align: center; }
+.matrix-table thead th { position: sticky; top: 0; z-index: 1; background: var(--panel-strong); color: var(--faint); font-size: .66rem; letter-spacing: .03em; }
+.matrix-table th:first-child { width: 32%; text-align: left; }
+.matrix-table tbody th { color: var(--text); font-size: .74rem; font-weight: 700; }
+.matrix-table tbody tr:last-child th, .matrix-table tbody tr:last-child td { border-bottom: 0; }
+.matrix-cell-choice { width: 2rem; height: 2rem; border: 0; border-radius: 999px; background: transparent; color: var(--faint); cursor: pointer; font-size: 1rem; }
+.matrix-cell-choice:hover { background: var(--panel-strong); color: var(--text); }
+.matrix-cell-choice.selected { background: var(--accent-soft); color: var(--accent); }
+.matrix-note { display: block; margin-top: .75rem; }
+.matrix-note textarea { width: 100%; }
+
+@media (max-width: 780px) {
+  .scale-options { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .negotiation-card-marks { grid-column: auto; }
+}
+@media (max-width: 480px) {
+  .scale-options { grid-template-columns: 1fr; }
+}
+
+/* Setup split — marks & visible after-effects on its own page */
+.standalone-negotiation-section { grid-template-columns: minmax(0, 1fr); }
+.standalone-negotiation-section .negotiation-card { grid-column: 1 / -1; }

@@ -22,7 +22,7 @@ test('JSON export/import preserves boundaries, conditions, category gates, and n
 
 test('print report source retains every release-critical result section', () => {
   const source = fs.readFileSync(new URL('../src/components/PrintReport.jsx', import.meta.url), 'utf8')
-  for (const heading of ['Negotiation, privacy & care preferences','Domain overview','Category overview','Fantasy-only interests','Conditional interests','Concept hard limits','Detailed hard limits','Category-wide hard limits','Perspective-level answered items','Areas with insufficient data']) {
+  for (const heading of ['Negotiation & care preferences','Domain overview','Category overview','Fantasy-only interests','Conditional interests','Concept hard limits','Detailed hard limits','Category-wide hard limits','Perspective-level answered items','Areas with insufficient data']) {
     assert.match(source, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), heading)
   }
 })

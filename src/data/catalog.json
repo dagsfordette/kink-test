@@ -1,9 +1,9 @@
 {
   "schemaVersion": "2.1.0",
   "questionnaire": {
-    "id": "adult-kink-inventory",
+    "id": "adult-kink-exploration",
     "version": "1.0.10",
-    "title": "Adult Kink & BDSM Preference Inventory",
+    "title": "Adult Kink & BDSM Exploration",
     "audience": "adults_only",
     "defaultLocale": "en",
     "designNotes": [
@@ -16,7 +16,7 @@
       "Concept perspectives are semantic (for example as_dominant/as_submissive) where give/receive would be misleading.",
       "Detail questions expand inline after a positive/curious answer rather than requiring a Details button.",
       "Directional acts are modeled as one concept with semantic perspectives where possible (for example Oral sex -> Giving / Receiving).",
-      "Emotional arousal is modeled independently from physical activities so the inventory can distinguish what someone likes doing from how they like feeling.",
+      "Emotional arousal is modeled independently from physical activities so the exploration can distinguish what someone likes doing from how they like feeling.",
       "Partner gender, gender expression, anatomy, and body traits are modeled independently and can vary by activity.",
       "The questionnaire avoids asking users to explain why a preference is erotic; it records observable preferences and lets interpretation emerge from the pattern.",
       "Motivation is represented in the schema but is not directly questioned by default; future analysis may infer it from response patterns.",
@@ -37,7 +37,7 @@
       "Results aggregate scored perspectives into a concept-level value before category/domain aggregation, so concepts with more perspectives do not receive extra default weight.",
       "Hard limits, category-wide boundaries, conditional states, not-interested states, and unanswered states are reported separately from preference averages.",
       "Results keep fantasy appeal, real-world desire, experience, willingness, perspective, conditions, and boundaries as separate dimensions; qualitative labels are preferred over raw percentages.",
-      "General communication, stop/check-in, aftercare, marks, privacy, and partner-context preferences are stored in a separate negotiationPreferences profile and never folded into concept interest scores.",
+      "General communication, stop/check-in, aftercare, marks, and partner-familiarity preferences are stored separately from concept interest scores; media/privacy boundaries are asked contextually within related topics.",
       "Plan 07 replaces generic risk severity labels with descriptive multi-domain risk metadata and high-level, non-procedural prompts tied to the actual concern domain."
     ]
   },
@@ -1703,7 +1703,7 @@
           "negotiated_availability_free_use_fantasy"
         ]
       },
-      "gatePrompt": "How would you like to handle power exchange in this inventory?"
+      "gatePrompt": "How would you like to handle power exchange in this exploration?"
     },
     {
       "id": "service_protocol",
@@ -1749,7 +1749,7 @@
           "presentation_grooming"
         ]
       },
-      "gatePrompt": "How would you like to handle service & protocol in this inventory?"
+      "gatePrompt": "How would you like to handle service & protocol in this exploration?"
     },
     {
       "id": "bondage_restraint",
@@ -1827,7 +1827,7 @@
           "rope_protocol"
         ]
       },
-      "gatePrompt": "How would you like to handle bondage & restraint in this inventory?"
+      "gatePrompt": "How would you like to handle bondage & restraint in this exploration?"
     },
     {
       "id": "rope_bondage",
@@ -1870,7 +1870,7 @@
           "rope_protocol"
         ]
       },
-      "gatePrompt": "How would you like to handle rope bondage in this inventory?"
+      "gatePrompt": "How would you like to handle rope bondage in this exploration?"
     },
     {
       "id": "sensory_deprivation",
@@ -1912,7 +1912,7 @@
           "controlled_environment"
         ]
       },
-      "gatePrompt": "How would you like to handle sensory deprivation & control in this inventory?"
+      "gatePrompt": "How would you like to handle sensory deprivation & control in this exploration?"
     },
     {
       "id": "impact_play",
@@ -1957,7 +1957,7 @@
           "riding_crop_play"
         ]
       },
-      "gatePrompt": "How would you like to handle impact play in this inventory?"
+      "gatePrompt": "How would you like to handle impact play in this exploration?"
     },
     {
       "id": "pain_play",
@@ -2022,7 +2022,7 @@
           "impact_marks"
         ]
       },
-      "gatePrompt": "How would you like to handle pain play in this inventory?"
+      "gatePrompt": "How would you like to handle pain play in this exploration?"
     },
     {
       "id": "sensation_play",
@@ -2068,7 +2068,7 @@
           "oil_lubricant_sensation"
         ]
       },
-      "gatePrompt": "How would you like to handle sensation play in this inventory?"
+      "gatePrompt": "How would you like to handle sensation play in this exploration?"
     },
     {
       "id": "rough_physical",
@@ -2111,7 +2111,7 @@
           "forceful_positioning"
         ]
       },
-      "gatePrompt": "How would you like to handle rough / physical play in this inventory?"
+      "gatePrompt": "How would you like to handle rough / physical play in this exploration?"
     },
     {
       "id": "sexual_activities",
@@ -2185,7 +2185,7 @@
           "chest_breast_nonpenetrative_sex"
         ]
       },
-      "gatePrompt": "How would you like to handle sexual activities in this inventory?"
+      "gatePrompt": "How would you like to handle sexual activities in this exploration?"
     },
     {
       "id": "anal_play",
@@ -2235,7 +2235,7 @@
           "prostate_toys"
         ]
       },
-      "gatePrompt": "How would you like to handle anal play in this inventory?"
+      "gatePrompt": "How would you like to handle anal play in this exploration?"
     },
     {
       "id": "toys_devices",
@@ -2288,7 +2288,7 @@
           "powered_sex_machines"
         ]
       },
-      "gatePrompt": "How would you like to handle toys & devices in this inventory?"
+      "gatePrompt": "How would you like to handle toys & devices in this exploration?"
     },
     {
       "id": "orgasm_control",
@@ -2351,7 +2351,7 @@
           "conditioned_orgasm"
         ]
       },
-      "gatePrompt": "How would you like to handle orgasm control in this inventory?"
+      "gatePrompt": "How would you like to handle orgasm control in this exploration?"
     },
     {
       "id": "chastity",
@@ -2389,7 +2389,7 @@
           "self_directed_chastity"
         ]
       },
-      "gatePrompt": "How would you like to handle chastity in this inventory?"
+      "gatePrompt": "How would you like to handle chastity in this exploration?"
     },
     {
       "id": "humiliation_degradation",
@@ -2434,7 +2434,7 @@
           "furniture_roleplay"
         ]
       },
-      "gatePrompt": "How would you like to handle humiliation & degradation in this inventory?"
+      "gatePrompt": "How would you like to handle humiliation & degradation in this exploration?"
     },
     {
       "id": "praise_worship",
@@ -2478,7 +2478,7 @@
           "possessive_affection"
         ]
       },
-      "gatePrompt": "How would you like to handle praise, worship & adoration in this inventory?"
+      "gatePrompt": "How would you like to handle praise, worship & adoration in this exploration?"
     },
     {
       "id": "objectification",
@@ -2540,7 +2540,7 @@
           "furniture_roleplay"
         ]
       },
-      "gatePrompt": "How would you like to handle objectification & dollification in this inventory?"
+      "gatePrompt": "How would you like to handle objectification & dollification in this exploration?"
     },
     {
       "id": "exhibition_observation",
@@ -2588,7 +2588,7 @@
           "remote_observation"
         ]
       },
-      "gatePrompt": "How would you like to handle exhibitionism & observation in this inventory?"
+      "gatePrompt": "How would you like to handle exhibitionism & observation in this exploration?"
     },
     {
       "id": "multi_partner",
@@ -2633,7 +2633,7 @@
           "anonymous_partner_fantasy"
         ]
       },
-      "gatePrompt": "How would you like to handle multi-partner / partner-sharing in this inventory?"
+      "gatePrompt": "How would you like to handle multi-partner / partner-sharing in this exploration?"
     },
     {
       "id": "roleplay",
@@ -2734,7 +2734,7 @@
           "gender_transformation_fantasy"
         ]
       },
-      "gatePrompt": "How would you like to handle roleplay in this inventory?"
+      "gatePrompt": "How would you like to handle roleplay in this exploration?"
     },
     {
       "id": "pet_primal",
@@ -2779,7 +2779,7 @@
           "growling_vocalization"
         ]
       },
-      "gatePrompt": "How would you like to handle pet play & primal play in this inventory?"
+      "gatePrompt": "How would you like to handle pet play & primal play in this exploration?"
     },
     {
       "id": "medical_edge",
@@ -2818,7 +2818,7 @@
           "blood_drawing_fetish"
         ]
       },
-      "gatePrompt": "How would you like to handle medical-themed & higher-risk edge play in this inventory?"
+      "gatePrompt": "How would you like to handle medical-themed & higher-risk edge play in this exploration?"
     },
     {
       "id": "fetish_materials",
@@ -2884,7 +2884,7 @@
           "metal_chain_aesthetic_fetish"
         ]
       },
-      "gatePrompt": "How would you like to handle materials & clothing fetishes in this inventory?"
+      "gatePrompt": "How would you like to handle materials & clothing fetishes in this exploration?"
     },
     {
       "id": "body_part_fetishes",
@@ -2963,7 +2963,7 @@
           "navel_fetish"
         ]
       },
-      "gatePrompt": "How would you like to handle body-part fetishes in this inventory?"
+      "gatePrompt": "How would you like to handle body-part fetishes in this exploration?"
     },
     {
       "id": "fluids_mess",
@@ -3006,7 +3006,7 @@
           "messy_clothing"
         ]
       },
-      "gatePrompt": "How would you like to handle fluids & messy play in this inventory?"
+      "gatePrompt": "How would you like to handle fluids & messy play in this exploration?"
     },
     {
       "id": "sensory_fetishes",
@@ -3051,7 +3051,7 @@
           "tickling_fetish"
         ]
       },
-      "gatePrompt": "How would you like to handle sensory & body-sensation fetishes in this inventory?"
+      "gatePrompt": "How would you like to handle sensory & body-sensation fetishes in this exploration?"
     },
     {
       "id": "psychological_play",
@@ -3110,13 +3110,13 @@
           "negotiated_misdirection"
         ]
       },
-      "gatePrompt": "How would you like to handle psychological play in this inventory?"
+      "gatePrompt": "How would you like to handle psychological play in this exploration?"
     },
     {
       "id": "emotional_arousal",
       "label": "Emotions & arousal states",
       "answerable": true,
-      "gatePrompt": "How would you like to handle emotions & arousal states in this inventory?",
+      "gatePrompt": "How would you like to handle emotions & arousal states in this exploration?",
       "semanticType": "emotion",
       "domainId": "psychological-emotional-dynamics",
       "depthConceptIds": {
@@ -3263,7 +3263,7 @@
           "negotiated_availability_free_use_fantasy"
         ]
       },
-      "gatePrompt": "How would you like to handle relationship-oriented dynamics in this inventory?"
+      "gatePrompt": "How would you like to handle relationship-oriented dynamics in this exploration?"
     },
     {
       "id": "remote_digital",
@@ -3308,7 +3308,7 @@
           "remote_camera_play"
         ]
       },
-      "gatePrompt": "How would you like to handle remote / digital dynamics in this inventory?"
+      "gatePrompt": "How would you like to handle remote / digital dynamics in this exploration?"
     },
     {
       "id": "fantasy_transform",
@@ -3363,7 +3363,7 @@
           "gender_transformation_fantasy"
         ]
       },
-      "gatePrompt": "How would you like to handle fantasy / transformation themes in this inventory?"
+      "gatePrompt": "How would you like to handle fantasy / transformation themes in this exploration?"
     },
     {
       "id": "sexual_context",
@@ -3405,7 +3405,7 @@
           "semi_public_fantasy_context"
         ]
       },
-      "gatePrompt": "How would you like to handle sexual context & locations in this inventory?"
+      "gatePrompt": "How would you like to handle sexual context & locations in this exploration?"
     }
   ],
   "concepts": [
@@ -14120,7 +14120,7 @@
       "canonicalId": "full_suspension",
       "type": "activity",
       "label": "Full suspension rope",
-      "description": "Full suspension rope supports the body off the floor with rope; it is a specialized bondage practice and this inventory does not provide procedural instruction.",
+      "description": "Full suspension rope supports the body off the floor with rope; it is a specialized bondage practice and this exploration does not provide procedural instruction.",
       "primaryCategory": "rope_bondage",
       "relatedCategories": [
         "bondage_restraint"
@@ -24637,7 +24637,7 @@
       "canonicalId": "urethral_sounding",
       "type": "device",
       "label": "Urethral sounding",
-      "description": "Urethral sounding is a medical-adjacent sexual interest involving purpose-made insertion into the urethra; this inventory records interest and boundaries only and does not provide procedural guidance.",
+      "description": "Urethral sounding is a medical-adjacent sexual interest involving purpose-made insertion into the urethra; this exploration records interest and boundaries only and does not provide procedural guidance.",
       "primaryCategory": "toys_devices",
       "relatedCategories": [],
       "domain": "sexual-activities-devices",
@@ -61871,7 +61871,7 @@
     "specifierDefinitionCount": 22,
     "optionSetCount": 24,
     "notes": [
-      "All activities in this inventory assume informed consent between adults unless a fantasy/roleplay label explicitly needs further clarification.",
+      "All activities in this exploration assume informed consent between adults unless a fantasy/roleplay label explicitly needs further clarification.",
       "The catalog is intentionally broad rather than claiming to enumerate every possible kink.",
       "Illegal or inherently non-consensual sexual conduct involving minors, animals, corpses, or non-consenting persons is excluded.",
       "Directional activities may use one concept with multiple perspectives rather than duplicated activity concepts."
@@ -67131,7 +67131,7 @@
     {
       "id": "exhibition",
       "label": "Observation, exhibition & recording details",
-      "description": "Watching-side, being-watched, recording, remote-camera, and mirror questions now use different qualifiers.",
+      "description": "Context-specific watching, exhibition, recording, identifiability, storage, sharing, live-viewing, and deletion questions.",
       "fields": [
         {
           "id": "audience",
@@ -67296,23 +67296,55 @@
           ]
         },
         {
-          "id": "recording_identifiability",
-          "type": "single_select",
-          "label": "Identifiability in recordings",
+          "id": "capture_modes",
+          "type": "preference_matrix",
+          "label": "Which capture or live formats are okay?",
+          "dimension": "interaction_mode",
+          "relevance": "both",
+          "appliesToConceptIds": [
+            "private_photography",
+            "private_video",
+            "remote_camera_play"
+          ],
           "options": [
             {
-              "id": "anonymous",
-              "label": "No identifying features"
+              "id": "photos",
+              "label": "Photos / still images",
+              "appliesToConceptIds": [
+                "private_photography",
+                "private_video",
+                "remote_camera_play"
+              ]
             },
             {
-              "id": "partial",
-              "label": "Partially identifiable"
+              "id": "video",
+              "label": "Video",
+              "appliesToConceptIds": [
+                "private_video",
+                "remote_camera_play"
+              ]
             },
             {
-              "id": "trusted_identifiable",
-              "label": "Identifiable to trusted participants only"
+              "id": "audio",
+              "label": "Audio recording",
+              "appliesToConceptIds": [
+                "private_video",
+                "remote_camera_play"
+              ]
+            },
+            {
+              "id": "live_stream",
+              "label": "Live stream to agreed viewers",
+              "appliesToConceptIds": [
+                "remote_camera_play"
+              ]
             }
-          ],
+          ]
+        },
+        {
+          "id": "recording_identifiability",
+          "type": "single_select",
+          "label": "How identifiable may the recording be?",
           "dimension": "privacy",
           "relevance": "both",
           "appliesToConceptIds": [
@@ -67320,12 +67352,41 @@
             "private_video",
             "remote_camera_play"
           ],
-          "placeholder": "Choose one"
+          "placeholder": "Choose one",
+          "options": [
+            {
+              "id": "no_identifying_features",
+              "label": "No face or identifying body/voice details"
+            },
+            {
+              "id": "face_excluded",
+              "label": "Face excluded; other agreed details may be visible"
+            },
+            {
+              "id": "body_details_excluded",
+              "label": "Distinctive body details excluded"
+            },
+            {
+              "id": "agreed_identifiable",
+              "label": "Identifiable to specifically agreed people"
+            },
+            {
+              "id": "depends",
+              "label": "Depends / discuss first"
+            }
+          ]
         },
         {
           "id": "recording_storage",
           "type": "preference_matrix",
-          "label": "Recording / storage rules",
+          "label": "Storage conditions",
+          "dimension": "recording_storage",
+          "relevance": "real_world",
+          "appliesToConceptIds": [
+            "private_photography",
+            "private_video",
+            "remote_camera_play"
+          ],
           "options": [
             {
               "id": "no_storage",
@@ -67336,68 +67397,108 @@
               "label": "Local device only"
             },
             {
-              "id": "encrypted_private",
-              "label": "Private / protected storage"
-            },
-            {
-              "id": "delete_after",
-              "label": "Delete after agreed period"
+              "id": "protected_private",
+              "label": "Protected / private storage"
             },
             {
               "id": "no_cloud",
               "label": "No cloud backup"
             }
-          ],
-          "dimension": "recording_storage",
-          "relevance": "real_world",
-          "appliesToConceptIds": [
-            "private_photography",
-            "private_video",
-            "remote_camera_play"
           ]
         },
         {
           "id": "recording_access",
           "type": "preference_matrix",
-          "label": "Who may access or receive it?",
-          "options": [
-            {
-              "id": "creator_only",
-              "label": "Creator only"
-            },
-            {
-              "id": "participants",
-              "label": "Participants only"
-            },
-            {
-              "id": "specific_partner",
-              "label": "Specific partner"
-            },
-            {
-              "id": "no_forwarding",
-              "label": "No forwarding / resharing"
-            }
-          ],
+          "label": "Who may view or receive it?",
           "dimension": "privacy",
           "relevance": "real_world",
           "appliesToConceptIds": [
             "private_photography",
             "private_video",
             "remote_camera_play"
+          ],
+          "options": [
+            {
+              "id": "creator_only",
+              "label": "Creator only"
+            },
+            {
+              "id": "participants_only",
+              "label": "Participants only"
+            },
+            {
+              "id": "specific_agreed_people",
+              "label": "Specific agreed people"
+            },
+            {
+              "id": "no_forwarding",
+              "label": "No forwarding / resharing"
+            },
+            {
+              "id": "live_agreed_viewers",
+              "label": "Live agreed viewers only",
+              "appliesToConceptIds": [
+                "remote_camera_play"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "recording_deletion",
+          "type": "single_select",
+          "label": "Deletion / retention expectation",
+          "dimension": "recording_storage",
+          "relevance": "real_world",
+          "appliesToConceptIds": [
+            "private_photography",
+            "private_video",
+            "remote_camera_play"
+          ],
+          "placeholder": "Choose one",
+          "options": [
+            {
+              "id": "no_retention",
+              "label": "No retained copy"
+            },
+            {
+              "id": "delete_immediately",
+              "label": "Delete immediately after the agreed use"
+            },
+            {
+              "id": "delete_by_time",
+              "label": "Delete by an agreed date or time"
+            },
+            {
+              "id": "retention_agreed",
+              "label": "Private retention may be okay by agreement"
+            },
+            {
+              "id": "depends",
+              "label": "Depends / discuss first"
+            }
           ]
         },
         {
           "id": "remote_camera_mode",
           "type": "preference_matrix",
           "label": "Camera mode",
+          "dimension": "interaction_mode",
+          "relevance": "both",
+          "appliesToConceptIds": [
+            "remote_camera_play"
+          ],
           "options": [
             {
               "id": "live_only",
-              "label": "Live only"
+              "label": "Live private view only"
             },
             {
               "id": "live_with_chat",
               "label": "Live with chat / commands"
+            },
+            {
+              "id": "live_stream",
+              "label": "Live stream to agreed viewers"
             },
             {
               "id": "scheduled",
@@ -67407,11 +67508,6 @@
               "id": "recorded_clip",
               "label": "Recorded clip by agreement"
             }
-          ],
-          "dimension": "interaction_mode",
-          "relevance": "both",
-          "appliesToConceptIds": [
-            "remote_camera_play"
           ]
         },
         {
@@ -71762,7 +71858,7 @@
     {
       "id": "remote_digital",
       "label": "Remote / digital details",
-      "description": "Remote-specific timing, channel, privacy, recording/storage, and access qualifiers.",
+      "description": "Remote-specific timing, channel, privacy, identifiability, recording/storage, access, and deletion qualifiers.",
       "fields": [
         {
           "id": "channel_mode",
@@ -71965,6 +72061,74 @@
             "photo_exchange_private",
             "video_exchange_private",
             "remote_observation"
+          ]
+        },
+        {
+          "id": "media_identifiability",
+          "type": "single_select",
+          "label": "Identifiability in shared or live media",
+          "dimension": "privacy",
+          "relevance": "real_world",
+          "appliesToConceptIds": [
+            "video_call_play",
+            "photo_exchange_private",
+            "video_exchange_private",
+            "remote_observation"
+          ],
+          "placeholder": "Choose one",
+          "options": [
+            {
+              "id": "anonymous",
+              "label": "No identifying face/body/voice details"
+            },
+            {
+              "id": "partial",
+              "label": "Only specifically agreed identifying details"
+            },
+            {
+              "id": "trusted_identifiable",
+              "label": "Identifiable to agreed recipient(s)"
+            },
+            {
+              "id": "depends",
+              "label": "Depends / discuss first"
+            }
+          ]
+        },
+        {
+          "id": "media_deletion",
+          "type": "single_select",
+          "label": "Deletion / retention expectation",
+          "dimension": "recording_storage",
+          "relevance": "real_world",
+          "appliesToConceptIds": [
+            "video_call_play",
+            "photo_exchange_private",
+            "video_exchange_private",
+            "remote_observation"
+          ],
+          "placeholder": "Choose one",
+          "options": [
+            {
+              "id": "no_saved_copy",
+              "label": "No saved copy"
+            },
+            {
+              "id": "delete_after_viewing",
+              "label": "Delete after viewing / session"
+            },
+            {
+              "id": "delete_by_time",
+              "label": "Delete by an agreed date or time"
+            },
+            {
+              "id": "retention_agreed",
+              "label": "Private retention may be okay by agreement"
+            },
+            {
+              "id": "depends",
+              "label": "Depends / discuss first"
+            }
           ]
         },
         {
@@ -74964,7 +75128,7 @@
     "rule": "Legacy severity labels were not converted one-for-one. Each concept was reassigned zero or more descriptive concern domains using category, concept identity, and media/context semantics; no domain is a moral or psychometric severity score."
   },
   "negotiationPreferencesModel": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "storage": "negotiationPreferences",
     "scoreContribution": "none",
     "resultTreatment": "separate_descriptive_profile",
@@ -74972,12 +75136,15 @@
       {
         "id": "communication",
         "label": "Communication & negotiation",
-        "description": "How you prefer to establish expectations before and during an agreed interaction.",
+        "description": "Broad ways you may prefer to establish expectations before and during an agreed interaction.",
         "fields": [
           {
             "id": "methods",
             "label": "Preferred communication approaches",
             "type": "multi_select",
+            "exclusiveOptions": [
+              "no_particular_preference"
+            ],
             "options": [
               {
                 "id": "verbal_discussion",
@@ -74998,8 +75165,19 @@
               {
                 "id": "minimal_interruption",
                 "label": "Minimal interruption after negotiation"
+              },
+              {
+                "id": "no_particular_preference",
+                "label": "No particular preference"
               }
-            ]
+            ],
+            "otherOption": {
+              "id": "other",
+              "label": "Something else / Other",
+              "textLabel": "Other communication approach",
+              "placeholder": "Optional — describe another approach",
+              "summaryLabel": "Other"
+            }
           }
         ]
       },
@@ -75012,6 +75190,9 @@
             "id": "methods",
             "label": "Preferred stop / check-in methods",
             "type": "multi_select",
+            "exclusiveOptions": [
+              "no_particular_preference"
+            ],
             "options": [
               {
                 "id": "safeword",
@@ -75032,8 +75213,19 @@
               {
                 "id": "context_dependent",
                 "label": "Context-dependent methods"
+              },
+              {
+                "id": "no_particular_preference",
+                "label": "No particular preference"
               }
-            ]
+            ],
+            "otherOption": {
+              "id": "other_signal",
+              "label": "Another agreed signal or method",
+              "textLabel": "Other stop or check-in method",
+              "placeholder": "Optional — describe the signal or method",
+              "summaryLabel": "Other agreed method"
+            }
           }
         ]
       },
@@ -75047,7 +75239,8 @@
             "label": "Aftercare preferences",
             "type": "multi_select",
             "exclusiveOptions": [
-              "no_special_aftercare"
+              "no_special_aftercare",
+              "no_particular_preference"
             ],
             "options": [
               {
@@ -75081,186 +75274,180 @@
               {
                 "id": "no_special_aftercare",
                 "label": "No special aftercare"
+              },
+              {
+                "id": "no_particular_preference",
+                "label": "No particular preference"
               }
-            ]
+            ],
+            "otherOption": {
+              "id": "other",
+              "label": "Something else / Other",
+              "textLabel": "Other aftercare preference",
+              "placeholder": "Optional — describe what helps",
+              "summaryLabel": "Other"
+            }
           }
         ]
       },
       {
         "id": "marks",
         "label": "Marks & visible after-effects",
-        "description": "General preferences around visible reminders or marks. Concept-specific boundaries can still be more restrictive.",
+        "description": "Separate how long marks may last from how much marking is acceptable on different body areas.",
         "fields": [
           {
-            "id": "visibility",
-            "label": "General marks preference",
-            "type": "single_select",
+            "id": "maximum_duration",
+            "label": "What is the maximum duration of marking you are generally comfortable with?",
+            "type": "scale",
+            "help": "Choose the broadest duration you would usually consider. A specific activity or situation can still have a stricter boundary.",
             "options": [
               {
-                "id": "no_visible_marks",
+                "id": "none",
                 "label": "No visible marks"
               },
               {
-                "id": "temporary_marks_ok",
-                "label": "Temporary marks okay"
+                "id": "very_short",
+                "label": "Very short-lived marks"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "day_or_two",
+                "label": "Marks lasting a day or two"
+              },
+              {
+                "id": "several_days",
+                "label": "Marks lasting several days"
+              },
+              {
+                "id": "longer_temporary",
+                "label": "Longer-lasting temporary marks"
+              },
+              {
+                "id": "long_term",
+                "label": "Long-term marks may be okay"
+              },
+              {
+                "id": "permanent",
+                "label": "Permanent marks may be okay"
+              },
+              {
+                "id": "depends",
+                "label": "Depends / discuss first"
               }
             ]
           },
           {
-            "id": "location_restrictions",
-            "label": "Location restrictions",
-            "type": "text",
-            "placeholder": "Optional — e.g. areas that must remain mark-free"
-          },
-          {
-            "id": "duration_concern",
-            "label": "Duration concerns",
-            "type": "single_select",
-            "options": [
+            "id": "area_tolerance",
+            "label": "How much marking is generally okay by body area?",
+            "type": "matrix_scale",
+            "help": "Choose a level for any areas you want to set now. Unanswered rows stay open for discussion.",
+            "rowHeader": "Body area",
+            "rows": [
               {
-                "id": "avoid_lingering",
-                "label": "Avoid marks that linger"
+                "id": "face",
+                "label": "Face"
               },
               {
-                "id": "short_lived_ok",
-                "label": "Short-lived marks can be okay"
+                "id": "neck",
+                "label": "Neck"
               },
               {
-                "id": "longer_temporary_ok",
-                "label": "Longer-lasting temporary marks can be okay"
+                "id": "chest_torso",
+                "label": "Chest / torso"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "back",
+                "label": "Back"
+              },
+              {
+                "id": "arms",
+                "label": "Arms"
+              },
+              {
+                "id": "hands",
+                "label": "Hands"
+              },
+              {
+                "id": "butt_hips",
+                "label": "Butt / hips"
+              },
+              {
+                "id": "genitals",
+                "label": "Genitals"
+              },
+              {
+                "id": "thighs",
+                "label": "Thighs"
+              },
+              {
+                "id": "lower_legs_feet",
+                "label": "Lower legs / feet"
               }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "privacy",
-        "label": "Privacy, recording & sharing",
-        "description": "General expectations for photos, video, identification, storage, sharing, and deletion.",
-        "fields": [
-          {
-            "id": "recording",
-            "label": "Photos / video",
-            "type": "single_select",
-            "options": [
+            ],
+            "scale": [
               {
-                "id": "no_photos_video",
-                "label": "No photos / video"
+                "id": "none",
+                "label": "None"
               },
               {
-                "id": "photos_ok",
-                "label": "Photos okay"
+                "id": "light",
+                "label": "Light"
               },
               {
-                "id": "video_ok",
-                "label": "Video okay"
+                "id": "moderate",
+                "label": "Moderate"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "heavy",
+                "label": "Heavy"
               }
-            ]
-          },
-          {
-            "id": "identification",
-            "label": "Identification",
-            "type": "single_select",
-            "options": [
-              {
-                "id": "face_excluded",
-                "label": "Face excluded"
-              },
-              {
-                "id": "identifying_details_excluded",
-                "label": "Other identifying details excluded"
-              },
-              {
-                "id": "identification_ok",
-                "label": "Identification can be okay"
-              },
-              {
-                "id": "context_dependent",
-                "label": "Context dependent"
-              }
-            ]
-          },
-          {
-            "id": "storage_constraints",
-            "label": "Storage constraints",
-            "type": "text",
-            "placeholder": "Optional — device, cloud, access, encryption, or other constraints"
-          },
-          {
-            "id": "sharing_constraints",
-            "label": "Sharing constraints",
-            "type": "text",
-            "placeholder": "Optional — who may receive or view material, if anyone"
-          },
-          {
-            "id": "deletion_expectations",
-            "label": "Deletion expectations",
-            "type": "single_select",
-            "options": [
-              {
-                "id": "delete_after",
-                "label": "Delete after the agreed use / interaction"
-              },
-              {
-                "id": "delete_by_agreed_time",
-                "label": "Delete by an agreed date or time"
-              },
-              {
-                "id": "retain_private",
-                "label": "Private retention can be okay"
-              },
-              {
-                "id": "context_dependent",
-                "label": "Context dependent"
-              }
-            ]
+            ],
+            "shortcut": {
+              "id": "none_anywhere",
+              "label": "No visible marks anywhere",
+              "value": "none"
+            },
+            "requireEveryRow": false,
+            "note": {
+              "label": "Optional note",
+              "placeholder": "Anything else you want to remember about marking?"
+            }
           }
         ]
       },
       {
         "id": "partner_context",
-        "label": "Partner & context familiarity",
-        "description": "General contexts in which real-world exploration may feel acceptable. Individual concepts can still differ.",
+        "label": "Partner familiarity",
+        "description": "A broad minimum familiarity level for real-world exploration. Fantasy versus real-world willingness is answered within each topic.",
         "fields": [
           {
-            "id": "contexts",
-            "label": "Potentially acceptable contexts",
-            "type": "multi_select",
-            "exclusiveOptions": [
-              "fantasy_only"
-            ],
+            "id": "minimum_familiarity",
+            "label": "I am willing to explore this with a partner at this level of familiarity.",
+            "type": "scale",
+            "help": "Choose the minimum level you would generally require. Selecting a point means that level or a more established relationship may be acceptable.",
             "options": [
               {
-                "id": "trusted_partner",
-                "label": "Trusted partner"
+                "id": "stranger_just_met",
+                "label": "Stranger / just met"
               },
               {
-                "id": "established_partner",
-                "label": "Established partner"
+                "id": "new_acquaintance",
+                "label": "New acquaintance"
               },
               {
                 "id": "casual_partner",
                 "label": "Casual partner"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "familiar_ongoing",
+                "label": "Familiar / ongoing partner"
               },
               {
-                "id": "fantasy_only",
-                "label": "Fantasy only"
+                "id": "established_partner",
+                "label": "Established partner"
+              },
+              {
+                "id": "long_term_committed",
+                "label": "Long-term / committed partner"
               }
             ]
           }
@@ -75269,14 +75456,14 @@
       {
         "id": "personal_profile",
         "label": "About you",
-        "description": "A few optional profile details that help hide anatomy-specific questions that clearly do not apply. Gender and anatomy are always treated separately.",
+        "description": "A few optional details that help tailor which questions are useful to you. Gender and anatomy are always treated separately.",
         "pretestOnly": true,
         "fields": [
           {
             "id": "self_gender",
             "type": "multi_select",
             "label": "How do you describe your gender?",
-            "help": "Choose any that fit. Your gender is never used to infer your anatomy.",
+            "help": "Choose any that fit.",
             "options": [
               {
                 "id": "man",
@@ -75315,7 +75502,7 @@
             "id": "self_anatomy",
             "type": "multi_select",
             "label": "Which anatomy or body parts apply to you?",
-            "help": "Choose only what you want to share. These answers can hide questions that clearly require anatomy you have not selected; they never change your results.",
+            "help": "Choose only what you want to share.",
             "options": [
               {
                 "id": "penis",
@@ -75367,7 +75554,7 @@
       {
         "id": "attraction_profile",
         "label": "Who interests you",
-        "description": "Optional defaults for the genders, expressions, and anatomy that tend to interest you. Individual questions can still differ, and anatomy is never inferred from gender.",
+        "description": "Optional details about the people and body features that tend to interest you. Individual questions can still differ, and anatomy is never inferred from gender.",
         "pretestOnly": true,
         "fields": [
           {
@@ -75399,7 +75586,7 @@
             "exclusiveOptions": [
               "doesnt_matter"
             ],
-            "help": "This can help tailor wording, but it does not hide interests by itself."
+            "help": "Choose any that generally fit. You can leave this blank if it varies."
           },
           {
             "id": "gender_expression",
@@ -75435,7 +75622,7 @@
             "id": "partner_anatomy",
             "type": "multi_select",
             "label": "Which anatomy or body parts are generally relevant to your attraction or compatibility?",
-            "help": "This is independent of gender identity. Explicit anatomy choices can hide a small number of clearly anatomy-specific giving or observing questions.",
+            "help": "This is independent of gender identity. Choose only what is useful to you.",
             "options": [
               {
                 "id": "penis",

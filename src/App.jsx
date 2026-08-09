@@ -21,7 +21,7 @@ function normalizeSavedState(saved) {
   const settings = { ...initialSettings, ...(saved?.settings || {}) }
   settings.mode = normalizeDepthMode(settings.mode)
   if (!settings.onboardingComplete && settings.onboardingStep === 'attraction') settings.onboardingStep = 'profile'
-  if (!['profile', 'negotiation', 'main'].includes(settings.onboardingStep)) settings.onboardingStep = settings.onboardingComplete ? 'main' : 'profile'
+  if (!['profile', 'negotiation', 'marks', 'main'].includes(settings.onboardingStep)) settings.onboardingStep = settings.onboardingComplete ? 'main' : 'profile'
   if (!saved) return { screen: 'welcome', settings, answers: {}, categoryGates: {}, negotiationPreferences: {}, currentCategoryId: catalog.categories[0]?.id }
   const normalized = normalizeResponsePayload(catalog, {
     questionnaireId: catalog.questionnaire.id,
@@ -84,7 +84,7 @@ export default function App() {
 
   const handleExportJson = () => {
     const date = new Date().toISOString().slice(0, 10)
-    downloadJson(`kink-inventory-${date}.json`, exportPayload())
+    downloadJson(`kink-exploration-${date}.json`, exportPayload())
   }
 
   const handleImportClick = () => fileInputRef.current?.click()
@@ -102,6 +102,7 @@ export default function App() {
       setNegotiationPreferences(normalized.negotiationPreferences)
       setSettings((prev) => ({ ...prev, mode: normalized.settings.mode || prev.mode, adultConfirmed: true }))
       setScreen('test')
+      window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }))
     } catch (error) {
       window.alert(error.message || 'Could not import that file.')
     }
@@ -157,7 +158,7 @@ export default function App() {
         <Welcome
           settings={settings}
           setSettings={setSettings}
-          onStart={() => setScreen('test')}
+          onStart={() => { setScreen('test'); window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' })) }}
           onImport={handleImportClick}
         />
       )}
@@ -175,7 +176,7 @@ export default function App() {
           setSettings={setSettings}
           currentCategoryId={currentCategoryId}
           setCurrentCategoryId={setCurrentCategoryId}
-          onResults={() => setScreen('results')}
+          onResults={() => { setScreen('results'); window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' })) }}
           onExport={handleExportJson}
           onImport={handleImportClick}
           onReset={handleReset}

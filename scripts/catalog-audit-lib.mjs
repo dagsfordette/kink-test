@@ -490,17 +490,18 @@ export function validateCatalog(catalog, options = {}) {
   }
 
   const negotiationModel = catalog.negotiationPreferencesModel || {}
-  const requiredNegotiationSections = ['communication', 'stop_checkin', 'aftercare', 'marks', 'privacy', 'partner_context']
+  const requiredNegotiationSections = ['communication', 'stop_checkin', 'aftercare', 'marks', 'partner_context']
   const negotiationSections = new Map((negotiationModel.sections || []).map((section) => [section.id, section]))
-  if (negotiationModel.version !== '1.0.0' || negotiationModel.storage !== 'negotiationPreferences' || negotiationModel.scoreContribution !== 'none' || negotiationModel.resultTreatment !== 'separate_descriptive_profile') {
+  if (negotiationModel.version !== '2.0.0' || negotiationModel.storage !== 'negotiationPreferences' || negotiationModel.scoreContribution !== 'none' || negotiationModel.resultTreatment !== 'separate_descriptive_profile') {
     findings.push(makeFinding('NEGOTIATION_PREFERENCES_SCHEMA_INVALID', 'error', 'Plan 07 negotiation preferences must use negotiationPreferences storage, contribute no score, and remain a separate descriptive results profile.', ['negotiationPreferencesModel']))
   }
   for (const sectionId of requiredNegotiationSections) {
     const section = negotiationSections.get(sectionId)
     if (!section?.label || !Array.isArray(section.fields) || section.fields.length === 0) findings.push(makeFinding('NEGOTIATION_PREFERENCES_SCHEMA_INVALID', 'error', `Negotiation preferences section ${sectionId} is missing or has no fields.`, [sectionId]))
     for (const field of section?.fields || []) {
-      if (!field.id || !field.label || !['single_select', 'multi_select', 'text'].includes(field.type)) findings.push(makeFinding('NEGOTIATION_PREFERENCES_SCHEMA_INVALID', 'error', `Negotiation field ${sectionId}.${field.id || '(missing)'} has an invalid schema.`, [sectionId, field.id].filter(Boolean)))
-      if (['single_select', 'multi_select'].includes(field.type) && (!Array.isArray(field.options) || field.options.length === 0)) findings.push(makeFinding('NEGOTIATION_PREFERENCES_SCHEMA_INVALID', 'error', `Negotiation field ${sectionId}.${field.id} must declare selectable options.`, [sectionId, field.id]))
+      if (!field.id || !field.label || !['single_select', 'multi_select', 'text', 'scale', 'matrix_scale'].includes(field.type)) findings.push(makeFinding('NEGOTIATION_PREFERENCES_SCHEMA_INVALID', 'error', `Negotiation field ${sectionId}.${field.id || '(missing)'} has an invalid schema.`, [sectionId, field.id].filter(Boolean)))
+      if (['single_select', 'multi_select', 'scale'].includes(field.type) && (!Array.isArray(field.options) || field.options.length === 0)) findings.push(makeFinding('NEGOTIATION_PREFERENCES_SCHEMA_INVALID', 'error', `Negotiation field ${sectionId}.${field.id} must declare selectable options.`, [sectionId, field.id]))
+      if (field.type === 'matrix_scale' && ((!Array.isArray(field.rows) || field.rows.length === 0) || (!Array.isArray(field.scale) || field.scale.length < 2))) findings.push(makeFinding('NEGOTIATION_PREFERENCES_SCHEMA_INVALID', 'error', `Matrix field ${sectionId}.${field.id} must declare rows and an ordered scale.`, [sectionId, field.id]))
     }
   }
   if (!(resultsModel.dimensions || []).includes('negotiation_care') || resultsModel.negotiationProfileTreatment !== 'separate_descriptive_profile') {

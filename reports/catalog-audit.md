@@ -1,6 +1,6 @@
 # Catalog Audit Baseline
 
-Questionnaire: `adult-kink-inventory` v1.0.10  
+Questionnaire: `adult-kink-exploration` v1.0.10  
 Catalog schema: `2.1.0`  
 Audit schema: `1.7.0`
 
@@ -16,7 +16,7 @@ Audit schema: `1.7.0`
 | Detail profiles | 35 |
 | Concepts with detail profiles | 562 |
 | Priority adaptive profiles | 8 |
-| Preference-matrix fields | 235 |
+| Preference-matrix fields | 236 |
 | Definition-eligible concepts | 562 |
 | Substantive definitions | 562 |
 | Without substantive definitions | 0 |
@@ -143,7 +143,7 @@ Reusable detail primitives: `body_area`, `implement`, `material`, `intensity`, `
 | Anal-play details (`anal`) | activity | 11 | 9 |
 | Orgasm-control & chastity details (`orgasm_control`) | dynamic, fantasy | 24 | 11 |
 | Humiliation & objectification details (`humiliation`) | dynamic, activity | 25 | 9 |
-| Observation, exhibition & recording details (`exhibition`) | activity, fantasy | 12 | 9 |
+| Observation, exhibition & recording details (`exhibition`) | activity, fantasy | 12 | 10 |
 | Multi-partner & partner-sharing details (`multi_partner`) | activity, fantasy | 14 | 10 |
 | Roleplay details (`roleplay`) | activity, role, fantasy, stimulus | 22 | 2 |
 | Sensory-fetish details (`fetish`) | stimulus | 14 | 8 |
@@ -394,9 +394,8 @@ Storage: `negotiationPreferences` · score contribution: **none** · results tre
 - **Communication & negotiation** (`communication`): Preferred communication approaches
 - **Stop & check-in communication** (`stop_checkin`): Preferred stop / check-in methods
 - **Aftercare & recovery** (`aftercare`): Aftercare preferences
-- **Marks & visible after-effects** (`marks`): General marks preference, Location restrictions, Duration concerns
-- **Privacy, recording & sharing** (`privacy`): Photos / video, Identification, Storage constraints, Sharing constraints, Deletion expectations
-- **Partner & context familiarity** (`partner_context`): Potentially acceptable contexts
+- **Marks & visible after-effects** (`marks`): What is the maximum duration of marking you are generally comfortable with?, How much marking is generally okay by body area?
+- **Partner familiarity** (`partner_context`): I am willing to explore this with a partner at this level of familiarity.
 - **About you** (`personal_profile`): How do you describe your gender?, Which anatomy or body parts apply to you?
 - **Who interests you** (`attraction_profile`): Which genders are you generally interested in?, Which gender expressions tend to appeal to you?, Which anatomy or body parts are generally relevant to your attraction or compatibility?, Which body features especially catch your interest?
 

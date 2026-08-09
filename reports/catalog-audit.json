@@ -1,7 +1,7 @@
 {
   "auditSchemaVersion": "1.7.0",
   "source": {
-    "questionnaireId": "adult-kink-inventory",
+    "questionnaireId": "adult-kink-exploration",
     "questionnaireVersion": "1.0.10",
     "catalogSchemaVersion": "2.1.0"
   },
@@ -14,7 +14,7 @@
     "detailProfiles": 35,
     "conceptsWithDetailProfiles": 562,
     "adaptivePriorityProfiles": 8,
-    "preferenceMatrixFields": 235,
+    "preferenceMatrixFields": 236,
     "definitionEligibleConcepts": 562,
     "substantiveDefinitions": 562,
     "conceptsWithoutSubstantiveDefinitions": 0,
@@ -4212,7 +4212,7 @@
       ],
       "priorityFamily": false,
       "activationPolicy": "adaptive_parent_state",
-      "preferenceMatrixFields": 9
+      "preferenceMatrixFields": 10
     },
     {
       "id": "multi_partner",
@@ -7749,7 +7749,7 @@
       {
         "id": "full_suspension",
         "label": "Full suspension rope",
-        "description": "Full suspension rope supports the body off the floor with rope; it is a specialized bondage practice and this inventory does not provide procedural instruction.",
+        "description": "Full suspension rope supports the body off the floor with rope; it is a specialized bondage practice and this exploration does not provide procedural instruction.",
         "branchGate": false,
         "substantiveDefinition": true,
         "boilerplate": false
@@ -8613,7 +8613,7 @@
       {
         "id": "urethral_sounding",
         "label": "Urethral sounding",
-        "description": "Urethral sounding is a medical-adjacent sexual interest involving purpose-made insertion into the urethra; this inventory records interest and boundaries only and does not provide procedural guidance.",
+        "description": "Urethral sounding is a medical-adjacent sexual interest involving purpose-made insertion into the urethra; this exploration records interest and boundaries only and does not provide procedural guidance.",
         "branchGate": false,
         "substantiveDefinition": true,
         "boilerplate": false
@@ -15442,7 +15442,7 @@
     ]
   },
   "negotiationPreferences": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "storage": "negotiationPreferences",
     "scoreContribution": "none",
     "resultTreatment": "separate_descriptive_profile",
@@ -15450,12 +15450,15 @@
       {
         "id": "communication",
         "label": "Communication & negotiation",
-        "description": "How you prefer to establish expectations before and during an agreed interaction.",
+        "description": "Broad ways you may prefer to establish expectations before and during an agreed interaction.",
         "fields": [
           {
             "id": "methods",
             "label": "Preferred communication approaches",
             "type": "multi_select",
+            "exclusiveOptions": [
+              "no_particular_preference"
+            ],
             "options": [
               {
                 "id": "verbal_discussion",
@@ -15476,8 +15479,19 @@
               {
                 "id": "minimal_interruption",
                 "label": "Minimal interruption after negotiation"
+              },
+              {
+                "id": "no_particular_preference",
+                "label": "No particular preference"
               }
-            ]
+            ],
+            "otherOption": {
+              "id": "other",
+              "label": "Something else / Other",
+              "textLabel": "Other communication approach",
+              "placeholder": "Optional — describe another approach",
+              "summaryLabel": "Other"
+            }
           }
         ]
       },
@@ -15490,6 +15504,9 @@
             "id": "methods",
             "label": "Preferred stop / check-in methods",
             "type": "multi_select",
+            "exclusiveOptions": [
+              "no_particular_preference"
+            ],
             "options": [
               {
                 "id": "safeword",
@@ -15510,8 +15527,19 @@
               {
                 "id": "context_dependent",
                 "label": "Context-dependent methods"
+              },
+              {
+                "id": "no_particular_preference",
+                "label": "No particular preference"
               }
-            ]
+            ],
+            "otherOption": {
+              "id": "other_signal",
+              "label": "Another agreed signal or method",
+              "textLabel": "Other stop or check-in method",
+              "placeholder": "Optional — describe the signal or method",
+              "summaryLabel": "Other agreed method"
+            }
           }
         ]
       },
@@ -15525,7 +15553,8 @@
             "label": "Aftercare preferences",
             "type": "multi_select",
             "exclusiveOptions": [
-              "no_special_aftercare"
+              "no_special_aftercare",
+              "no_particular_preference"
             ],
             "options": [
               {
@@ -15559,186 +15588,180 @@
               {
                 "id": "no_special_aftercare",
                 "label": "No special aftercare"
+              },
+              {
+                "id": "no_particular_preference",
+                "label": "No particular preference"
               }
-            ]
+            ],
+            "otherOption": {
+              "id": "other",
+              "label": "Something else / Other",
+              "textLabel": "Other aftercare preference",
+              "placeholder": "Optional — describe what helps",
+              "summaryLabel": "Other"
+            }
           }
         ]
       },
       {
         "id": "marks",
         "label": "Marks & visible after-effects",
-        "description": "General preferences around visible reminders or marks. Concept-specific boundaries can still be more restrictive.",
+        "description": "Separate how long marks may last from how much marking is acceptable on different body areas.",
         "fields": [
           {
-            "id": "visibility",
-            "label": "General marks preference",
-            "type": "single_select",
+            "id": "maximum_duration",
+            "label": "What is the maximum duration of marking you are generally comfortable with?",
+            "type": "scale",
+            "help": "Choose the broadest duration you would usually consider. A specific activity or situation can still have a stricter boundary.",
             "options": [
               {
-                "id": "no_visible_marks",
+                "id": "none",
                 "label": "No visible marks"
               },
               {
-                "id": "temporary_marks_ok",
-                "label": "Temporary marks okay"
+                "id": "very_short",
+                "label": "Very short-lived marks"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "day_or_two",
+                "label": "Marks lasting a day or two"
+              },
+              {
+                "id": "several_days",
+                "label": "Marks lasting several days"
+              },
+              {
+                "id": "longer_temporary",
+                "label": "Longer-lasting temporary marks"
+              },
+              {
+                "id": "long_term",
+                "label": "Long-term marks may be okay"
+              },
+              {
+                "id": "permanent",
+                "label": "Permanent marks may be okay"
+              },
+              {
+                "id": "depends",
+                "label": "Depends / discuss first"
               }
             ]
           },
           {
-            "id": "location_restrictions",
-            "label": "Location restrictions",
-            "type": "text",
-            "placeholder": "Optional — e.g. areas that must remain mark-free"
-          },
-          {
-            "id": "duration_concern",
-            "label": "Duration concerns",
-            "type": "single_select",
-            "options": [
+            "id": "area_tolerance",
+            "label": "How much marking is generally okay by body area?",
+            "type": "matrix_scale",
+            "help": "Choose a level for any areas you want to set now. Unanswered rows stay open for discussion.",
+            "rowHeader": "Body area",
+            "rows": [
               {
-                "id": "avoid_lingering",
-                "label": "Avoid marks that linger"
+                "id": "face",
+                "label": "Face"
               },
               {
-                "id": "short_lived_ok",
-                "label": "Short-lived marks can be okay"
+                "id": "neck",
+                "label": "Neck"
               },
               {
-                "id": "longer_temporary_ok",
-                "label": "Longer-lasting temporary marks can be okay"
+                "id": "chest_torso",
+                "label": "Chest / torso"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "back",
+                "label": "Back"
+              },
+              {
+                "id": "arms",
+                "label": "Arms"
+              },
+              {
+                "id": "hands",
+                "label": "Hands"
+              },
+              {
+                "id": "butt_hips",
+                "label": "Butt / hips"
+              },
+              {
+                "id": "genitals",
+                "label": "Genitals"
+              },
+              {
+                "id": "thighs",
+                "label": "Thighs"
+              },
+              {
+                "id": "lower_legs_feet",
+                "label": "Lower legs / feet"
               }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "privacy",
-        "label": "Privacy, recording & sharing",
-        "description": "General expectations for photos, video, identification, storage, sharing, and deletion.",
-        "fields": [
-          {
-            "id": "recording",
-            "label": "Photos / video",
-            "type": "single_select",
-            "options": [
+            ],
+            "scale": [
               {
-                "id": "no_photos_video",
-                "label": "No photos / video"
+                "id": "none",
+                "label": "None"
               },
               {
-                "id": "photos_ok",
-                "label": "Photos okay"
+                "id": "light",
+                "label": "Light"
               },
               {
-                "id": "video_ok",
-                "label": "Video okay"
+                "id": "moderate",
+                "label": "Moderate"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "heavy",
+                "label": "Heavy"
               }
-            ]
-          },
-          {
-            "id": "identification",
-            "label": "Identification",
-            "type": "single_select",
-            "options": [
-              {
-                "id": "face_excluded",
-                "label": "Face excluded"
-              },
-              {
-                "id": "identifying_details_excluded",
-                "label": "Other identifying details excluded"
-              },
-              {
-                "id": "identification_ok",
-                "label": "Identification can be okay"
-              },
-              {
-                "id": "context_dependent",
-                "label": "Context dependent"
-              }
-            ]
-          },
-          {
-            "id": "storage_constraints",
-            "label": "Storage constraints",
-            "type": "text",
-            "placeholder": "Optional — device, cloud, access, encryption, or other constraints"
-          },
-          {
-            "id": "sharing_constraints",
-            "label": "Sharing constraints",
-            "type": "text",
-            "placeholder": "Optional — who may receive or view material, if anyone"
-          },
-          {
-            "id": "deletion_expectations",
-            "label": "Deletion expectations",
-            "type": "single_select",
-            "options": [
-              {
-                "id": "delete_after",
-                "label": "Delete after the agreed use / interaction"
-              },
-              {
-                "id": "delete_by_agreed_time",
-                "label": "Delete by an agreed date or time"
-              },
-              {
-                "id": "retain_private",
-                "label": "Private retention can be okay"
-              },
-              {
-                "id": "context_dependent",
-                "label": "Context dependent"
-              }
-            ]
+            ],
+            "shortcut": {
+              "id": "none_anywhere",
+              "label": "No visible marks anywhere",
+              "value": "none"
+            },
+            "requireEveryRow": false,
+            "note": {
+              "label": "Optional note",
+              "placeholder": "Anything else you want to remember about marking?"
+            }
           }
         ]
       },
       {
         "id": "partner_context",
-        "label": "Partner & context familiarity",
-        "description": "General contexts in which real-world exploration may feel acceptable. Individual concepts can still differ.",
+        "label": "Partner familiarity",
+        "description": "A broad minimum familiarity level for real-world exploration. Fantasy versus real-world willingness is answered within each topic.",
         "fields": [
           {
-            "id": "contexts",
-            "label": "Potentially acceptable contexts",
-            "type": "multi_select",
-            "exclusiveOptions": [
-              "fantasy_only"
-            ],
+            "id": "minimum_familiarity",
+            "label": "I am willing to explore this with a partner at this level of familiarity.",
+            "type": "scale",
+            "help": "Choose the minimum level you would generally require. Selecting a point means that level or a more established relationship may be acceptable.",
             "options": [
               {
-                "id": "trusted_partner",
-                "label": "Trusted partner"
+                "id": "stranger_just_met",
+                "label": "Stranger / just met"
               },
               {
-                "id": "established_partner",
-                "label": "Established partner"
+                "id": "new_acquaintance",
+                "label": "New acquaintance"
               },
               {
                 "id": "casual_partner",
                 "label": "Casual partner"
               },
               {
-                "id": "context_dependent",
-                "label": "Context dependent"
+                "id": "familiar_ongoing",
+                "label": "Familiar / ongoing partner"
               },
               {
-                "id": "fantasy_only",
-                "label": "Fantasy only"
+                "id": "established_partner",
+                "label": "Established partner"
+              },
+              {
+                "id": "long_term_committed",
+                "label": "Long-term / committed partner"
               }
             ]
           }
@@ -15747,14 +15770,14 @@
       {
         "id": "personal_profile",
         "label": "About you",
-        "description": "A few optional profile details that help hide anatomy-specific questions that clearly do not apply. Gender and anatomy are always treated separately.",
+        "description": "A few optional details that help tailor which questions are useful to you. Gender and anatomy are always treated separately.",
         "pretestOnly": true,
         "fields": [
           {
             "id": "self_gender",
             "type": "multi_select",
             "label": "How do you describe your gender?",
-            "help": "Choose any that fit. Your gender is never used to infer your anatomy.",
+            "help": "Choose any that fit.",
             "options": [
               {
                 "id": "man",
@@ -15793,7 +15816,7 @@
             "id": "self_anatomy",
             "type": "multi_select",
             "label": "Which anatomy or body parts apply to you?",
-            "help": "Choose only what you want to share. These answers can hide questions that clearly require anatomy you have not selected; they never change your results.",
+            "help": "Choose only what you want to share.",
             "options": [
               {
                 "id": "penis",
@@ -15845,7 +15868,7 @@
       {
         "id": "attraction_profile",
         "label": "Who interests you",
-        "description": "Optional defaults for the genders, expressions, and anatomy that tend to interest you. Individual questions can still differ, and anatomy is never inferred from gender.",
+        "description": "Optional details about the people and body features that tend to interest you. Individual questions can still differ, and anatomy is never inferred from gender.",
         "pretestOnly": true,
         "fields": [
           {
@@ -15877,7 +15900,7 @@
             "exclusiveOptions": [
               "doesnt_matter"
             ],
-            "help": "This can help tailor wording, but it does not hide interests by itself."
+            "help": "Choose any that generally fit. You can leave this blank if it varies."
           },
           {
             "id": "gender_expression",
@@ -15913,7 +15936,7 @@
             "id": "partner_anatomy",
             "type": "multi_select",
             "label": "Which anatomy or body parts are generally relevant to your attraction or compatibility?",
-            "help": "This is independent of gender identity. Explicit anatomy choices can hide a small number of clearly anatomy-specific giving or observing questions.",
+            "help": "This is independent of gender identity. Choose only what is useful to you.",
             "options": [
               {
                 "id": "penis",
@@ -16026,7 +16049,7 @@
     {
       "categoryId": "power_exchange",
       "categoryLabel": "Power exchange",
-      "gatePrompt": "How would you like to handle power exchange in this inventory?",
+      "gatePrompt": "How would you like to handle power exchange in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16076,7 +16099,7 @@
     {
       "categoryId": "service_protocol",
       "categoryLabel": "Service & protocol",
-      "gatePrompt": "How would you like to handle service & protocol in this inventory?",
+      "gatePrompt": "How would you like to handle service & protocol in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16126,7 +16149,7 @@
     {
       "categoryId": "bondage_restraint",
       "categoryLabel": "Bondage & restraint",
-      "gatePrompt": "How would you like to handle bondage & restraint in this inventory?",
+      "gatePrompt": "How would you like to handle bondage & restraint in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16176,7 +16199,7 @@
     {
       "categoryId": "rope_bondage",
       "categoryLabel": "Rope bondage",
-      "gatePrompt": "How would you like to handle rope bondage in this inventory?",
+      "gatePrompt": "How would you like to handle rope bondage in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16226,7 +16249,7 @@
     {
       "categoryId": "sensory_deprivation",
       "categoryLabel": "Sensory deprivation & control",
-      "gatePrompt": "How would you like to handle sensory deprivation & control in this inventory?",
+      "gatePrompt": "How would you like to handle sensory deprivation & control in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16276,7 +16299,7 @@
     {
       "categoryId": "impact_play",
       "categoryLabel": "Impact play",
-      "gatePrompt": "How would you like to handle impact play in this inventory?",
+      "gatePrompt": "How would you like to handle impact play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16326,7 +16349,7 @@
     {
       "categoryId": "pain_play",
       "categoryLabel": "Pain play",
-      "gatePrompt": "How would you like to handle pain play in this inventory?",
+      "gatePrompt": "How would you like to handle pain play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16376,7 +16399,7 @@
     {
       "categoryId": "sensation_play",
       "categoryLabel": "Sensation play",
-      "gatePrompt": "How would you like to handle sensation play in this inventory?",
+      "gatePrompt": "How would you like to handle sensation play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16426,7 +16449,7 @@
     {
       "categoryId": "rough_physical",
       "categoryLabel": "Rough / physical play",
-      "gatePrompt": "How would you like to handle rough / physical play in this inventory?",
+      "gatePrompt": "How would you like to handle rough / physical play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16476,7 +16499,7 @@
     {
       "categoryId": "sexual_activities",
       "categoryLabel": "Sexual activities",
-      "gatePrompt": "How would you like to handle sexual activities in this inventory?",
+      "gatePrompt": "How would you like to handle sexual activities in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16526,7 +16549,7 @@
     {
       "categoryId": "anal_play",
       "categoryLabel": "Anal play",
-      "gatePrompt": "How would you like to handle anal play in this inventory?",
+      "gatePrompt": "How would you like to handle anal play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16576,7 +16599,7 @@
     {
       "categoryId": "toys_devices",
       "categoryLabel": "Toys & devices",
-      "gatePrompt": "How would you like to handle toys & devices in this inventory?",
+      "gatePrompt": "How would you like to handle toys & devices in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16626,7 +16649,7 @@
     {
       "categoryId": "orgasm_control",
       "categoryLabel": "Orgasm control",
-      "gatePrompt": "How would you like to handle orgasm control in this inventory?",
+      "gatePrompt": "How would you like to handle orgasm control in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16676,7 +16699,7 @@
     {
       "categoryId": "chastity",
       "categoryLabel": "Chastity",
-      "gatePrompt": "How would you like to handle chastity in this inventory?",
+      "gatePrompt": "How would you like to handle chastity in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16726,7 +16749,7 @@
     {
       "categoryId": "humiliation_degradation",
       "categoryLabel": "Humiliation & degradation",
-      "gatePrompt": "How would you like to handle humiliation & degradation in this inventory?",
+      "gatePrompt": "How would you like to handle humiliation & degradation in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16776,7 +16799,7 @@
     {
       "categoryId": "praise_worship",
       "categoryLabel": "Praise, worship & adoration",
-      "gatePrompt": "How would you like to handle praise, worship & adoration in this inventory?",
+      "gatePrompt": "How would you like to handle praise, worship & adoration in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16826,7 +16849,7 @@
     {
       "categoryId": "objectification",
       "categoryLabel": "Objectification & dollification",
-      "gatePrompt": "How would you like to handle objectification & dollification in this inventory?",
+      "gatePrompt": "How would you like to handle objectification & dollification in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16876,7 +16899,7 @@
     {
       "categoryId": "exhibition_observation",
       "categoryLabel": "Exhibitionism & observation",
-      "gatePrompt": "How would you like to handle exhibitionism & observation in this inventory?",
+      "gatePrompt": "How would you like to handle exhibitionism & observation in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16926,7 +16949,7 @@
     {
       "categoryId": "multi_partner",
       "categoryLabel": "Multi-partner / partner-sharing",
-      "gatePrompt": "How would you like to handle multi-partner / partner-sharing in this inventory?",
+      "gatePrompt": "How would you like to handle multi-partner / partner-sharing in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -16976,7 +16999,7 @@
     {
       "categoryId": "roleplay",
       "categoryLabel": "Roleplay",
-      "gatePrompt": "How would you like to handle roleplay in this inventory?",
+      "gatePrompt": "How would you like to handle roleplay in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17026,7 +17049,7 @@
     {
       "categoryId": "pet_primal",
       "categoryLabel": "Pet play & primal play",
-      "gatePrompt": "How would you like to handle pet play & primal play in this inventory?",
+      "gatePrompt": "How would you like to handle pet play & primal play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17076,7 +17099,7 @@
     {
       "categoryId": "medical_edge",
       "categoryLabel": "Medical-themed & higher-risk edge play",
-      "gatePrompt": "How would you like to handle medical-themed & higher-risk edge play in this inventory?",
+      "gatePrompt": "How would you like to handle medical-themed & higher-risk edge play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17126,7 +17149,7 @@
     {
       "categoryId": "fetish_materials",
       "categoryLabel": "Materials & clothing fetishes",
-      "gatePrompt": "How would you like to handle materials & clothing fetishes in this inventory?",
+      "gatePrompt": "How would you like to handle materials & clothing fetishes in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17176,7 +17199,7 @@
     {
       "categoryId": "body_part_fetishes",
       "categoryLabel": "Body-part fetishes",
-      "gatePrompt": "How would you like to handle body-part fetishes in this inventory?",
+      "gatePrompt": "How would you like to handle body-part fetishes in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17226,7 +17249,7 @@
     {
       "categoryId": "fluids_mess",
       "categoryLabel": "Fluids & messy play",
-      "gatePrompt": "How would you like to handle fluids & messy play in this inventory?",
+      "gatePrompt": "How would you like to handle fluids & messy play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17276,7 +17299,7 @@
     {
       "categoryId": "sensory_fetishes",
       "categoryLabel": "Sensory & body-sensation fetishes",
-      "gatePrompt": "How would you like to handle sensory & body-sensation fetishes in this inventory?",
+      "gatePrompt": "How would you like to handle sensory & body-sensation fetishes in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17326,7 +17349,7 @@
     {
       "categoryId": "psychological_play",
       "categoryLabel": "Psychological play",
-      "gatePrompt": "How would you like to handle psychological play in this inventory?",
+      "gatePrompt": "How would you like to handle psychological play in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17376,7 +17399,7 @@
     {
       "categoryId": "emotional_arousal",
       "categoryLabel": "Emotions & arousal states",
-      "gatePrompt": "How would you like to handle emotions & arousal states in this inventory?",
+      "gatePrompt": "How would you like to handle emotions & arousal states in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17426,7 +17449,7 @@
     {
       "categoryId": "relationship_dynamics",
       "categoryLabel": "Relationship-oriented dynamics",
-      "gatePrompt": "How would you like to handle relationship-oriented dynamics in this inventory?",
+      "gatePrompt": "How would you like to handle relationship-oriented dynamics in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17476,7 +17499,7 @@
     {
       "categoryId": "remote_digital",
       "categoryLabel": "Remote / digital dynamics",
-      "gatePrompt": "How would you like to handle remote / digital dynamics in this inventory?",
+      "gatePrompt": "How would you like to handle remote / digital dynamics in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17526,7 +17549,7 @@
     {
       "categoryId": "fantasy_transform",
       "categoryLabel": "Fantasy / transformation themes",
-      "gatePrompt": "How would you like to handle fantasy / transformation themes in this inventory?",
+      "gatePrompt": "How would you like to handle fantasy / transformation themes in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [
@@ -17576,7 +17599,7 @@
     {
       "categoryId": "sexual_context",
       "categoryLabel": "Sexual context & locations",
-      "gatePrompt": "How would you like to handle sexual context & locations in this inventory?",
+      "gatePrompt": "How would you like to handle sexual context & locations in this exploration?",
       "storage": "categoryGates",
       "scoreContribution": "none",
       "states": [

@@ -13,6 +13,11 @@ import {
   normalizeDepthMode,
 } from '../lib/depthModes.js'
 
+function scrollToTop() {
+  if (typeof window === 'undefined') return
+  window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }))
+}
+
 const gateOptions = [
   ['interested', 'Interested'],
   ['maybe', 'Maybe / unsure'],
@@ -165,14 +170,15 @@ export default function TestView({
     }
   }
 
-  const onboardingStep = settings.onboardingStep === 'negotiation' ? 'negotiation' : 'profile'
+  const onboardingStep = ['profile', 'negotiation', 'marks'].includes(settings.onboardingStep) ? settings.onboardingStep : 'profile'
+  const onboardingProgress = onboardingStep === 'profile' ? '1 of 3' : onboardingStep === 'negotiation' ? '2 of 3' : '3 of 3'
   if (!settings.onboardingComplete) {
     return (
       <div className="setup-shell">
         <header className="setup-header">
           <div className="brand-lockup">
             <span className="brand-mark small">◇</span>
-            <div><strong>Kink Inventory</strong><span>Setup · {onboardingStep === 'profile' ? '1 of 2' : '2 of 2'}</span></div>
+            <div><strong>Kink Exploration</strong><span>Setup · {onboardingProgress}</span></div>
           </div>
           <button type="button" className="text-button" onClick={onImport}>Import</button>
         </header>
@@ -182,17 +188,37 @@ export default function TestView({
               <ProfilePreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} setupMode />
               <div className="setup-actions">
                 <button type="button" className="secondary-button" onClick={onBackToWelcome}>Back</button>
-                <span>Anything left blank stays unfiltered.</span>
-                <button type="button" className="primary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingStep: 'negotiation' }))}>Continue to negotiation & care</button>
+                <span>Anything left blank stays optional.</span>
+                <button type="button" className="primary-button" onClick={() => { setSettings((prev) => ({ ...prev, onboardingStep: 'negotiation' })); scrollToTop() }}>Continue to negotiation & care</button>
+              </div>
+            </>
+          ) : onboardingStep === 'negotiation' ? (
+            <>
+              <NegotiationPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} setupMode />
+              <div className="setup-actions">
+                <button type="button" className="secondary-button" onClick={() => { setSettings((prev) => ({ ...prev, onboardingStep: 'profile' })); scrollToTop() }}>Back to tailoring</button>
+                <span>Everything here is optional and editable later.</span>
+                <button type="button" className="primary-button" onClick={() => { setSettings((prev) => ({ ...prev, onboardingStep: 'marks' })); scrollToTop() }}>Continue to marks & after-effects</button>
               </div>
             </>
           ) : (
             <>
-              <NegotiationPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} setupMode />
+              <NegotiationPreferences
+                catalog={catalog}
+                preferences={negotiationPreferences}
+                setPreferences={setNegotiationPreferences}
+                setupMode
+                setupStep="3 of 3"
+                sectionIds={['marks']}
+                heading="Marks & visible after-effects"
+                description="Set broad boundaries for how long visible marks may last and how much marking is generally okay on different body areas."
+                footnote="These are broad defaults. A specific activity or situation can still have a stricter boundary."
+                standaloneSection
+              />
               <div className="setup-actions">
-                <button type="button" className="secondary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingStep: 'profile' }))}>Back to profile</button>
+                <button type="button" className="secondary-button" onClick={() => { setSettings((prev) => ({ ...prev, onboardingStep: 'negotiation' })); scrollToTop() }}>Back to negotiation & care</button>
                 <span>Everything here is optional and editable later.</span>
-                <button type="button" className="primary-button" onClick={() => setSettings((prev) => ({ ...prev, onboardingComplete: true, onboardingStep: 'main' }))}>Start questions</button>
+                <button type="button" className="primary-button" onClick={() => { setSettings((prev) => ({ ...prev, onboardingComplete: true, onboardingStep: 'main' })); scrollToTop() }}>Continue to questions</button>
               </div>
             </>
           )}
@@ -206,7 +232,7 @@ export default function TestView({
       <header className="app-header no-print">
         <div className="brand-lockup">
           <span className="brand-mark small">◇</span>
-          <div><strong>Kink Inventory</strong><span>Private prototype</span></div>
+          <div><strong>Kink Exploration</strong><span>Private prototype</span></div>
         </div>
         <div className="header-progress">
           <span>{overallAnswered} answered</span>
@@ -222,15 +248,18 @@ export default function TestView({
       <div className="workspace">
         <aside className="category-sidebar no-print">
           <div className="sidebar-heading"><span>Topics</span></div>
-          <nav className="domain-navigation" aria-label="Questionnaire topics">
+          <nav className="domain-navigation" aria-label="Exploration topics">
             <section className="domain-nav-group negotiation-nav-group">
               <div className="domain-nav-heading"><span>Your setup</span></div>
               <div className="domain-category-list">
-                <button type="button" className={generalPage === 'profile' ? 'active' : ''} onClick={() => setGeneralPage('profile')}>
-                  <span>Profile</span>
+                <button type="button" className={generalPage === 'profile' ? 'active' : ''} onClick={() => { setGeneralPage('profile'); scrollToTop() }}>
+                  <span>Tailor questions</span>
                 </button>
-                <button type="button" className={generalPage === 'negotiation' ? 'active' : ''} onClick={() => setGeneralPage('negotiation')}>
-                  <span>Negotiation, privacy & care</span>
+                <button type="button" className={generalPage === 'negotiation' ? 'active' : ''} onClick={() => { setGeneralPage('negotiation'); scrollToTop() }}>
+                  <span>Negotiation & care</span>
+                </button>
+                <button type="button" className={generalPage === 'marks' ? 'active' : ''} onClick={() => { setGeneralPage('marks'); scrollToTop() }}>
+                  <span>Marks & after-effects</span>
                 </button>
               </div>
             </section>
@@ -253,7 +282,7 @@ export default function TestView({
                         <button
                           type="button"
                           className={!generalPage && category.id === currentCategory.id ? 'active' : ''}
-                          onClick={() => { setGeneralPage(null); setCurrentCategoryId(category.id) }}
+                          onClick={() => { setGeneralPage(null); setCurrentCategoryId(category.id); scrollToTop() }}
                           key={category.id}
                         >
                           <span>{category.label}</span>
@@ -280,12 +309,14 @@ export default function TestView({
             <label>
               <span className="field-label">Section</span>
               <select value={generalPage ? `__${generalPage}__` : currentCategory.id} onChange={(e) => {
-                if (e.target.value === '__profile__') setGeneralPage('profile')
-                else if (e.target.value === '__negotiation__') setGeneralPage('negotiation')
-                else { setGeneralPage(null); setCurrentCategoryId(e.target.value) }
+                if (e.target.value === '__profile__') { setGeneralPage('profile'); scrollToTop() }
+                else if (e.target.value === '__negotiation__') { setGeneralPage('negotiation'); scrollToTop() }
+                else if (e.target.value === '__marks__') { setGeneralPage('marks'); scrollToTop() }
+                else { setGeneralPage(null); setCurrentCategoryId(e.target.value); scrollToTop() }
               }}>
-                <option value="__profile__">Profile</option>
-                <option value="__negotiation__">Negotiation, privacy & care</option>
+                <option value="__profile__">Tailor questions</option>
+                <option value="__negotiation__">Negotiation & care</option>
+                <option value="__marks__">Marks & visible after-effects</option>
                 {domains.length ? domains.map((domain) => (
                   <optgroup label={domain.label} key={domain.id}>
                     {(groupedCategories[domain.id] || []).map((category) => <option value={category.id} key={category.id}>{category.label}</option>)}
@@ -307,7 +338,24 @@ export default function TestView({
             <>
               <NegotiationPreferences catalog={catalog} preferences={negotiationPreferences} setPreferences={setNegotiationPreferences} />
               <div className="category-nav no-print">
-                <button type="button" className="secondary-button" onClick={() => setGeneralPage(null)}>Back to questions</button>
+                <button type="button" className="secondary-button" onClick={() => { setGeneralPage(null); scrollToTop() }}>Back to questions</button>
+                <button type="button" className="primary-button" onClick={onResults}>View results</button>
+              </div>
+            </>
+          ) : generalPage === 'marks' ? (
+            <>
+              <NegotiationPreferences
+                catalog={catalog}
+                preferences={negotiationPreferences}
+                setPreferences={setNegotiationPreferences}
+                sectionIds={['marks']}
+                heading="Marks & visible after-effects"
+                description="Set broad boundaries for how long visible marks may last and how much marking is generally okay on different body areas."
+                footnote="These are broad defaults. A specific activity or situation can still have a stricter boundary."
+                standaloneSection
+              />
+              <div className="category-nav no-print">
+                <button type="button" className="secondary-button" onClick={() => { setGeneralPage(null); scrollToTop() }}>Back to questions</button>
                 <button type="button" className="primary-button" onClick={onResults}>View results</button>
               </div>
             </>
@@ -356,15 +404,15 @@ export default function TestView({
                   {profileFilteringActive && (profileHiddenPerspectives > 0 || showProfileFiltered) && (
                     <div className="profile-filter-bar">
                       <div>
-                        <strong>{showProfileFiltered ? 'Profile filtering is temporarily off.' : 'Your profile is simplifying this topic.'}</strong>
+                        <strong>{showProfileFiltered ? 'All questions are temporarily visible.' : 'Some questions are tailored to your optional setup.'}</strong>
                         <span>
                           {showProfileFiltered
-                            ? 'All anatomy-specific questions and perspectives are visible.'
-                            : `${profileHiddenPerspectives} clearly non-matching question perspective${profileHiddenPerspectives === 1 ? '' : 's'} hidden${profileHiddenConcepts ? ` across ${profileHiddenConcepts} fully hidden question${profileHiddenConcepts === 1 ? '' : 's'}` : ''}.`}
+                            ? 'Use your tailoring again whenever you want a more focused view.'
+                            : 'You can show every question here if you want to browse beyond those optional answers.'}
                         </span>
                       </div>
                       <button type="button" className="text-button" onClick={() => setShowProfileFiltered((value) => !value)}>
-                        {showProfileFiltered ? 'Use my profile' : 'Show filtered questions'}
+                        {showProfileFiltered ? 'Use my tailoring' : 'Show all questions'}
                       </button>
                     </div>
                   )}
@@ -419,7 +467,7 @@ export default function TestView({
                   onClick={() => {
                     const index = categories.findIndex((c) => c.id === currentCategory.id)
                     if (index === categories.length - 1) onResults()
-                    else setCurrentCategoryId(categories[index + 1].id)
+                    else { setCurrentCategoryId(categories[index + 1].id); scrollToTop() }
                   }}
                 >{categories.findIndex((c) => c.id === currentCategory.id) === categories.length - 1 ? 'View results' : 'Next'}</button>
               </div>
