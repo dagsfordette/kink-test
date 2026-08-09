@@ -53,10 +53,10 @@ export default function PowerExchangeCardPreferences({ catalog, concept, perspec
     <div className="power-exchange-inheritance">
       <div className="power-exchange-inheritance-row">
         <div>
-          <strong>{answer?.details?.powerExchangeOverride ? 'Customized for this interest' : 'Use my usual Power Exchange preferences ✓'}</strong>
-          <span>{answer?.details?.powerExchangeOverride ? 'Only the choices below override your usual defaults.' : (summary || 'Set defaults at the top of this section, or customize only this interest.')}</span>
+          <strong>{answer?.details?.powerExchangeOverride ? 'Different choices for this interest' : 'Using my general Power Exchange choices ✓'}</strong>
+          <span>{answer?.details?.powerExchangeOverride ? 'Only the choices below are different here.' : (summary || 'Choose your general Power Exchange preferences above, or make different choices for this interest.')}</span>
         </div>
-        <button type="button" className="text-button" onClick={() => setOpen((value) => !value)}>{open ? 'Close' : 'Customize for this interest'}</button>
+        <button type="button" className="text-button" onClick={() => setOpen((value) => !value)}>{open ? 'Close' : 'Choose differently for this interest'}</button>
       </div>
       {open && (
         <div className="power-exchange-override-fields">
@@ -69,14 +69,18 @@ export default function PowerExchangeCardPreferences({ catalog, concept, perspec
             <OptionButtons options={model.structureOptions} value={override.structure} onChange={(value) => patchOverride('structure', value)} />
           </div>
           <div className="detail-field">
-            <div className="detail-field-heading"><strong>When it applies for this interest</strong></div>
-            <OptionButtons options={model.timingOptions} value={override.timing} multi onChange={(value) => patchOverride('timing', value)} />
+            <div className="detail-field-heading"><strong>How much of life this interest can cover</strong></div>
+            <OptionButtons options={model.lifeScopeOptions} value={override.lifeScope} onChange={(value) => patchOverride('lifeScope', value)} />
+          </div>
+          <div className="detail-field">
+            <div className="detail-field-heading"><strong>Can it continue while apart / remote?</strong></div>
+            <OptionButtons options={model.remoteAuthorityOptions} value={override.remoteAuthority} onChange={(value) => patchOverride('remoteAuthority', value)} />
           </div>
           <div className="detail-field">
             <div className="detail-field-heading"><strong>Where it applies for this interest</strong></div>
             <OptionButtons options={model.settingOptions} value={override.settings} multi onChange={(value) => patchOverride('settings', value)} />
           </div>
-          {answer?.details?.powerExchangeOverride && <button type="button" className="field-clear" onClick={useUsual}>Reset to my usual preferences</button>}
+          {answer?.details?.powerExchangeOverride && <button type="button" className="field-clear" onClick={useUsual}>Use my general choices</button>}
         </div>
       )}
     </div>

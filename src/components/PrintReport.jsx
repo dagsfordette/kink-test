@@ -73,8 +73,8 @@ export default function PrintReport({ catalog, answers, categoryGates, negotiati
 
       {powerExchangeSummary.hasData && (
         <section>
-          <h2>Power Exchange defaults</h2>
-          <p>These category-level preferences describe role/orientation, style, structure, scope, and Power Exchange-specific care. They are descriptive defaults rather than scored standalone interests.</p>
+          <h2>Power Exchange preferences</h2>
+          <p>Your selected role, style, scope, and care preferences.</p>
           <table>
             <thead><tr><th>Area</th><th>Preference</th><th>Answer</th></tr></thead>
             <tbody>{powerExchangeSummary.sections.flatMap((section) => section.fields.map((field) => <tr key={`${section.id}-${field.id}`}><td>{section.label}</td><td>{field.label}</td><td>{field.values.join('; ')}</td></tr>))}</tbody>

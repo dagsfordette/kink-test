@@ -104,7 +104,7 @@ export default function ProfilePreferences({ catalog, preferences, setPreference
         ))}
       </div>
 
-      <p className="profile-footnote">These answers only tailor your questions. They do not change your interest scores, and you can edit them later.</p>
+      <p className="profile-footnote">These answers only tailor your questions. You can edit them later.</p>
     </section>
   )
 }

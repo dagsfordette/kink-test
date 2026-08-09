@@ -28,8 +28,9 @@ const gateOptions = [
   ['skip', 'Skip for now'],
 ]
 
-function gateExplanation(state) {
-  if (state === 'interested') return 'Show the questions for this topic.'
+function gateExplanation(state, category) {
+  if (category?.id === 'power_exchange') return 'Power exchange is about consensually giving, taking, or sharing authority within agreed roles, rules, or situations.'
+  if (state === 'interested') return 'Explore the questions for this topic.'
   if (state === 'maybe') return 'Start with a smaller set of questions; you can open the rest whenever you want.'
   if (state === 'not_interested') return 'Keep this topic out of the way unless you choose to browse it.'
   if (state === 'hard_limit') return 'Treat this whole topic as a hard limit and keep its questions collapsed.'
@@ -226,7 +227,7 @@ export default function TestView({
                 setupStep="3 of 3"
                 sectionIds={['marks']}
                 heading="Marks & visible after-effects"
-                description="Set broad boundaries for how long visible marks may last and how much marking is generally okay on different body areas."
+                description="Set broad boundaries for how long visible marks may last and how much marking is generally okay on different body areas. Marks can come from activities like spankings, being given a hickey, or being written on. More details on this later."
                 footnote="These are broad defaults. A specific activity or situation can still have a stricter boundary."
                 standaloneSection
               />
@@ -365,7 +366,7 @@ export default function TestView({
                 setPreferences={setNegotiationPreferences}
                 sectionIds={['marks']}
                 heading="Marks & visible after-effects"
-                description="Set broad boundaries for how long visible marks may last and how much marking is generally okay on different body areas."
+                description="Set broad boundaries for how long visible marks may last and how much marking is generally okay on different body areas. Marks can come from activities like spankings, being given a hickey, or being written on. More details on this later."
                 footnote="These are broad defaults. A specific activity or situation can still have a stricter boundary."
                 standaloneSection
               />
@@ -386,7 +387,7 @@ export default function TestView({
               <section className="gate-card routing-gate simplified-gate">
                 <div className="gate-copy">
                   <h2>How do you feel about {currentCategory.label.toLowerCase()}?</h2>
-                  <p>{gateExplanation(gatePolicy.state)}</p>
+                  <p>{gateExplanation(gatePolicy.state, currentCategory)}</p>
                 </div>
                 <div className="gate-controls">
                   <div className="choice-chips large-chips gate-state-chips" aria-label={`${currentCategory.label} topic preference`}>
@@ -446,13 +447,6 @@ export default function TestView({
                         <div className="power-exchange-section-heading compact">
                           <span className="kicker">Specific expressions</span>
                           <h2 id="power-exchange-specific-heading">What kinds of Power Exchange appeal to you?</h2>
-                          <p>Each card uses one real-world interest/boundary scale. Fantasy appeal stays separate, and follow-ups ask only what is specific to that interest.</p>
-                        </div>
-                        <div className="question-list-toolbar">
-                          <div>
-                            <strong>{powerRoleSplit.primary.length} question{powerRoleSplit.primary.length === 1 ? '' : 's'} in your main view</strong>
-                            {gatePolicy.representativeOnly && !currentOverride && <span>Starting with a smaller set. You can show the rest below.</span>}
-                          </div>
                         </div>
                         <div className="concept-grid">
                           {powerRoleSplit.primary.map((concept) => (
@@ -473,7 +467,7 @@ export default function TestView({
                         {powerRoleSplit.otherRole.length > 0 && (
                           <details className="other-role-interests">
                             <summary>Explore other-role interests ({powerRoleSplit.otherRole.length})</summary>
-                            <p>Your role/orientation only organizes the section. These questions remain available and do not assume how you identify.</p>
+                            <p>You can still explore interests from another role if they appeal to you.</p>
                             <div className="concept-grid">
                               {powerRoleSplit.otherRole.map((concept) => (
                                 <ConceptCard

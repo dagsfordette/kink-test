@@ -55,9 +55,48 @@ function MultiSelect({ value = [], onChange, options }) {
   )
 }
 
-function PreferenceMatrix({ catalog, value, onChange, options }) {
+function PreferenceMatrix({ catalog, value, onChange, options, view }) {
   const states = catalog.adaptiveDetailSystem?.detailResponseStates || []
   const matrix = normalizePreferenceMatrix(value)
+
+  if (view === 'matrix') {
+    return (
+      <div className="matrix-scroll detail-matrix-scroll" role="region" aria-label="Preference matrix" tabIndex="0">
+        <table className="matrix-table detail-matrix-table">
+          <thead>
+            <tr>
+              <th scope="col">Option</th>
+              {states.map((state) => <th scope="col" key={state.id}>{state.label}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {options.map((option) => {
+              const current = matrix[option.id] || ''
+              return (
+                <tr className={current === 'hard_limit' ? 'hard-limit-row' : ''} key={option.id}>
+                  <th scope="row">{option.label}</th>
+                  {states.map((state) => (
+                    <td key={state.id}>
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-label={`${option.label}: ${state.label}`}
+                        aria-checked={current === state.id}
+                        className={`matrix-cell-choice ${current === state.id ? 'selected' : ''}`}
+                        onClick={() => onChange(setPreferenceMatrixValue(matrix, option.id, current === state.id ? undefined : state.id))}
+                      >
+                        <span aria-hidden="true">{current === state.id ? '●' : '○'}</span>
+                      </button>
+                    </td>
+                  ))}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 
   return (
     <div className="detail-preference-matrix">
@@ -152,7 +191,7 @@ function DetailField({ catalog, profileId, concept, field, value, onChange, sema
           {field.help && <span>{field.help}</span>}
           
         </div>
-        <PreferenceMatrix catalog={catalog} value={value} onChange={onChange} options={options} />
+        <PreferenceMatrix catalog={catalog} value={value} onChange={onChange} options={options} view={field.view} />
       </div>
     )
   }

@@ -699,6 +699,16 @@ textarea { width: 100%; resize: vertical; }
 .power-exchange-field:last-child { margin-bottom: 0; }
 .power-exchange-field legend { padding: 0; width: 100%; }
 .power-exchange-chips .chip { max-width: 100%; white-space: normal; text-align: left; }
+.life-scope-slider-wrap { display: grid; gap: .42rem; padding: .7rem .75rem; border: 1px solid var(--border); border-radius: 12px; background: var(--panel-soft); }
+.life-scope-slider-wrap input[type="range"] { width: 100%; margin: .1rem 0 0; accent-color: var(--accent); cursor: pointer; }
+.life-scope-slider-wrap input[type="range"].unanswered { opacity: .55; }
+.life-scope-slider-ends { display: flex; justify-content: space-between; gap: .75rem; color: var(--faint); font-size: .66rem; font-weight: 700; }
+.life-scope-slider-ends span:last-child { text-align: right; }
+.life-scope-current { justify-self: center; padding: .3rem .55rem; border-radius: 999px; background: var(--accent-soft); color: var(--text); font-size: .7rem; font-weight: 750; }
+.life-scope-current.unanswered { background: transparent; color: var(--faint); border: 1px dashed var(--border-strong); }
+.detail-matrix-scroll { margin-top: .1rem; }
+.detail-matrix-table { min-width: 720px; }
+.detail-matrix-table tbody .hard-limit-row th { color: var(--danger); }
 .power-exchange-extended-hint { margin-top: .25rem; padding: .7rem .78rem; border-radius: 11px; background: var(--accent-soft); color: var(--muted); font-size: .72rem; line-height: 1.5; }
 .power-exchange-real-world .field-help { margin: -.15rem 0 .55rem; color: var(--faint); font-size: .68rem; line-height: 1.45; }
 .power-exchange-interest-scale { gap: .32rem; }

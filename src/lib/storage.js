@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'adult-kink-exploration:prototype'
+const STORAGE_KEY = 'adult-kink-exploration:prototype-1.2'
 
 export function loadState() {
   try {

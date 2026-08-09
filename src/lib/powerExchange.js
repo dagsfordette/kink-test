@@ -29,10 +29,12 @@ export function normalizePowerExchangePreferences(catalog, raw = {}) {
   keepMulti('dominantStyles', model.dynamicStyles?.dominant)
   keepMulti('submissiveStyles', model.dynamicStyles?.submissive)
   keepSingle('structure', model.structureOptions)
-  keepMulti('timing', model.timingOptions)
+  keepSingle('lifeScope', model.lifeScopeOptions)
+  keepSingle('remoteAuthority', model.remoteAuthorityOptions)
   keepMulti('settings', model.settingOptions)
   keepMulti('domains', model.domainOptions)
   keepSingle('authorityLevel', model.authorityOptions)
+
   keepMulti('agreementPreferences', model.agreementOptions)
   keepMulti('automaticPauseConditions', model.pauseConditionOptions)
   if (raw?.exploreExtended === true) next.exploreExtended = true
@@ -53,7 +55,6 @@ export function togglePowerExchangeMulti(catalog, preferences = {}, key, optionI
   const optionSource = {
     dominantStyles: model.dynamicStyles?.dominant,
     submissiveStyles: model.dynamicStyles?.submissive,
-    timing: model.timingOptions,
     settings: model.settingOptions,
     domains: model.domainOptions,
     agreementPreferences: model.agreementOptions,
@@ -141,7 +142,7 @@ export function splitConceptsForPowerExchangeRole(concepts = [], roleOrientation
 export function shouldShowExtendedPowerExchange(catalog, preferences = {}, answers = {}) {
   const model = powerExchangeModel(catalog)
   if (preferences?.exploreExtended === true) return true
-  if ((preferences?.timing || []).some((id) => ['ongoing', 'twenty_four_seven'].includes(id))) return true
+  if (['most_daily_life', 'twenty_four_seven'].includes(preferences?.lifeScope)) return true
   if (['broad', 'extensive'].includes(preferences?.authorityLevel)) return true
   if (['formal', 'high'].includes(preferences?.structure)) return true
   const extended = new Set(model.extendedConceptIds || [])
@@ -157,7 +158,8 @@ export function inheritedPowerExchangeSummary(catalog, preferences = {}) {
   const labelFor = (options, id) => (options || []).find((option) => option.id === id)?.label
   const parts = []
   if (preferences.structure) parts.push(labelFor(model.structureOptions, preferences.structure))
-  if (preferences.timing?.length) parts.push(preferences.timing.slice(0, 2).map((id) => labelFor(model.timingOptions, id)).filter(Boolean).join(' · '))
+  if (preferences.lifeScope) parts.push(labelFor(model.lifeScopeOptions, preferences.lifeScope))
+  if (preferences.remoteAuthority) parts.push(labelFor(model.remoteAuthorityOptions, preferences.remoteAuthority))
   if (preferences.settings?.length) parts.push(preferences.settings.slice(0, 2).map((id) => labelFor(model.settingOptions, id)).filter(Boolean).join(' · '))
   return parts.filter(Boolean).join(' · ')
 }
@@ -188,7 +190,8 @@ export function powerExchangePreferenceSummary(catalog, preferences = {}) {
   ])
   addSection('scope', 'Scope & structure', [
     single('Structure', model.structureOptions, preferences.structure),
-    multi('When it applies', model.timingOptions, preferences.timing),
+    single('Life coverage', model.lifeScopeOptions, preferences.lifeScope),
+    single('While apart / remote', model.remoteAuthorityOptions, preferences.remoteAuthority),
     multi('Where it applies', model.settingOptions, preferences.settings),
     multi('Life domains', model.domainOptions, preferences.domains),
     single('Authority level', model.authorityOptions, preferences.authorityLevel),

@@ -1,7 +1,7 @@
 {
   "questionnaire": {
     "id": "adult-kink-exploration",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "title": "Adult Kink & BDSM Exploration",
     "audience": "adults_only",
     "defaultLocale": "en"
@@ -149,14 +149,16 @@
           "permission_protocol",
           "rule_setting",
           "rule_following",
-          "collaring_dynamic"
+          "collaring_scene",
+          "collaring_relationship"
         ],
         "standard": [
           "giving_commands",
           "permission_protocol",
           "rule_setting",
           "rule_following",
-          "collaring_dynamic",
+          "collaring_scene",
+          "collaring_relationship",
           "obedience",
           "reward_system",
           "punishment_dynamic",
@@ -181,7 +183,8 @@
           "master_slave_dynamic",
           "authority_dynamic",
           "formal_titles",
-          "collaring_dynamic",
+          "collaring_scene",
+          "collaring_relationship",
           "behavioral_control",
           "decision_surrender",
           "decision_control",
@@ -1960,8 +1963,8 @@
     },
     {
       "id": "ownership_roleplay",
-      "label": "Negotiated ownership symbolism / roleplay",
-      "description": "Interest in ownership-style roleplay as a negotiated interaction pattern between adults, distinct from the specific acts that may express it.",
+      "label": "Ownership-style power exchange",
+      "description": "Using consensual language, symbols, or roles where one partner is treated as ‘owned’ and the other as the ‘owner’. It can be limited to a scene or be part of an ongoing relationship dynamic.",
       "primaryCategory": "power_exchange",
       "perspectives": [
         "as_dominant",
@@ -1976,8 +1979,8 @@
     },
     {
       "id": "master_slave_dynamic",
-      "label": "Master/slave-style power-exchange roleplay",
-      "description": "Interest in master/slave-style dynamic as a negotiated interaction pattern between adults, distinct from the specific acts that may express it.",
+      "label": "Master/slave-style power exchange",
+      "description": "Interest in consensual Master/slave-style power exchange between adults, whether scene-based or part of an ongoing relationship dynamic.",
       "primaryCategory": "power_exchange",
       "perspectives": [
         "as_dominant",
@@ -1992,8 +1995,8 @@
     },
     {
       "id": "authority_dynamic",
-      "label": "Adult authority-role dynamic",
-      "description": "Interest in adult authority-role dynamic as a negotiated interaction pattern between adults, distinct from the specific acts that may express it.",
+      "label": "Authority-figure power exchange",
+      "description": "A consensual dynamic where one person takes a clearly defined authority role and the other follows that authority in agreed situations—for example boss/employee, trainer/trainee, or commander/recruit roles between adults. It can be scene-based or part of an ongoing dynamic.",
       "primaryCategory": "power_exchange",
       "perspectives": [
         "as_dominant",
@@ -2023,9 +2026,25 @@
       ]
     },
     {
-      "id": "collaring_dynamic",
-      "label": "Collaring as a relationship or scene symbol",
-      "description": "Interest in collaring as a relationship or scene symbol as a negotiated interaction pattern between adults, distinct from the specific acts that may express it.",
+      "id": "collaring_scene",
+      "label": "Collaring for a scene",
+      "description": "Interest in wearing, giving, or using a collar as part of a scene or temporary power-exchange context.",
+      "primaryCategory": "power_exchange",
+      "perspectives": [
+        "as_dominant",
+        "as_submissive"
+      ],
+      "detailProfileId": "power_exchange",
+      "semanticType": "dynamic",
+      "riskDomains": [
+        "psychological",
+        "consent_complexity"
+      ]
+    },
+    {
+      "id": "collaring_relationship",
+      "label": "Collaring in a relationship",
+      "description": "Interest in wearing, giving, or using a collar as an ongoing relationship symbol, commitment marker, or part of a continuing power-exchange dynamic.",
       "primaryCategory": "power_exchange",
       "perspectives": [
         "as_dominant",
@@ -2086,8 +2105,8 @@
     },
     {
       "id": "sexual_access_control",
-      "label": "Control over sexual access",
-      "description": "Interest in control over sexual access as a negotiated interaction pattern between adults, distinct from the specific acts that may express it.",
+      "label": "Permission and control around sexual activity",
+      "description": "Interest in negotiated rules about when sexual activity can happen, who may initiate, whether permission is needed, and which activities are included.",
       "primaryCategory": "power_exchange",
       "perspectives": [
         "as_dominant",
@@ -11136,7 +11155,8 @@
           "relevance": "both",
           "appliesToConceptIds": [
             "reward_system"
-          ]
+          ],
+          "view": "matrix"
         },
         {
           "id": "punishment_type",
@@ -11171,7 +11191,8 @@
           "relevance": "both",
           "appliesToConceptIds": [
             "punishment_dynamic"
-          ]
+          ],
+          "view": "matrix"
         },
         {
           "id": "title_use",
@@ -11206,48 +11227,85 @@
           "relevance": "both",
           "appliesToConceptIds": [
             "formal_titles"
+          ],
+          "view": "matrix"
+        },
+        {
+          "id": "titles_used",
+          "type": "multi_select",
+          "label": "Which titles or honorifics appeal to you?",
+          "options": [
+            {
+              "id": "sir_maam",
+              "label": "Sir / Ma’am"
+            },
+            {
+              "id": "master_mistress",
+              "label": "Master / Mistress"
+            },
+            {
+              "id": "daddy_mommy",
+              "label": "Daddy / Mommy"
+            },
+            {
+              "id": "dom_domme",
+              "label": "Dom / Domme"
+            },
+            {
+              "id": "owner",
+              "label": "Owner"
+            },
+            {
+              "id": "custom_personal",
+              "label": "A custom / personal title"
+            }
+          ],
+          "relevance": "both",
+          "appliesToConceptIds": [
+            "formal_titles"
           ]
         },
         {
           "id": "decision_domains",
           "type": "preference_matrix",
-          "label": "Which decision areas matter?",
+          "label": "Which decisions would you want this to cover?",
           "options": [
             {
               "id": "daily_routine",
-              "label": "Daily routine"
+              "label": "Daily routines — bedtime, meals, exercise, or morning/evening routines"
             },
             {
               "id": "sexual_choices",
-              "label": "Sexual choices"
+              "label": "Sexual choices — when, what, or whether permission is needed"
             },
             {
               "id": "tasks",
-              "label": "Tasks / responsibilities"
+              "label": "Tasks / responsibilities — chores, errands, service, or assigned tasks"
             },
             {
               "id": "appearance",
-              "label": "Appearance / presentation"
+              "label": "Appearance / presentation — outfits, grooming, hair, or accessories"
             },
             {
               "id": "communication",
-              "label": "Communication rules"
+              "label": "Communication — check-ins, response expectations, or agreed wording"
             },
             {
               "id": "social_plans",
-              "label": "Plans / scheduling"
+              "label": "Plans / scheduling — social plans, appointments, or free-time plans"
             }
           ],
           "relevance": "both",
           "appliesToConceptIds": [
             "decision_surrender",
             "decision_control"
-          ]
+          ],
+          "view": "matrix"
         },
         {
           "id": "sexual_access_rules",
           "type": "preference_matrix",
-          "label": "What kind of sexual-access control?",
+          "label": "Which sexual activity rules appeal to you?",
           "options": [
             {
               "id": "initiation",
@@ -11898,7 +11956,7 @@
           "id": "command_types",
           "type": "multi_select",
           "label": "What kinds of commands appeal to you?",
-          "help": "Choose any that fit this interest. Your usual tone, structure, timing, and setting come from the Power Exchange preferences above unless you customize this card.",
+          "help": "Choose any that fit this interest.",
           "options": [
             {
               "id": "positioning",
@@ -12060,7 +12118,8 @@
           ],
           "relevance": "both",
           "appliesToConceptIds": [
-            "collaring_dynamic"
+            "collaring_scene",
+            "collaring_relationship"
           ]
         }
       ]
@@ -23016,7 +23075,7 @@
           "id": "body_partner_anatomy",
           "type": "multi_select",
           "label": "Anatomy that is relevant to attraction or compatibility for this interest",
-          "help": "This is independent of gender identity.",
+          "help": "Choose any that matter for this interest.",
           "options": [
             {
               "id": "penis",
@@ -23893,7 +23952,8 @@
             "type": "multi_select",
             "exclusiveOptions": [
               "no_special_aftercare",
-              "no_particular_preference"
+              "no_particular_preference",
+              "dont_want_aftercare"
             ],
             "options": [
               {
@@ -23931,6 +23991,10 @@
               {
                 "id": "no_particular_preference",
                 "label": "No particular preference"
+              },
+              {
+                "id": "dont_want_aftercare",
+                "label": "I don't want/like aftercare"
               }
             ],
             "otherOption": {
@@ -23992,7 +24056,7 @@
             "id": "area_tolerance",
             "label": "How much marking is generally okay by body area?",
             "type": "matrix_scale",
-            "help": "Choose a level for any areas you want to set now. Unanswered rows stay open for discussion.",
+            "help": "For example: light can mean faint redness or a small hickey; moderate can mean clear bruising or marks noticeable for a few days; heavy can mean larger, darker, or more obvious marks. Choose a different level for each area if you want.",
             "rowHeader": "Body area",
             "rows": [
               {
@@ -24070,7 +24134,7 @@
       {
         "id": "partner_context",
         "label": "Partner familiarity",
-        "description": "A broad minimum familiarity level for real-world exploration. Fantasy versus real-world willingness is answered within each topic.",
+        "description": "When it comes to exploring kink, what type of partner are you willing to do it with?",
         "fields": [
           {
             "id": "minimum_familiarity",
@@ -24109,7 +24173,7 @@
       {
         "id": "personal_profile",
         "label": "About you",
-        "description": "A few optional details that help tailor which questions are useful to you. Gender and anatomy are always treated separately.",
+        "description": "A few optional details that help tailor which questions are useful to you.",
         "pretestOnly": true,
         "fields": [
           {
@@ -24207,7 +24271,7 @@
       {
         "id": "attraction_profile",
         "label": "Who interests you",
-        "description": "Optional details about the people and body features that tend to interest you. Individual questions can still differ, and anatomy is never inferred from gender.",
+        "description": "Optional details about the people and body features that tend to interest you. Individual questions can still differ.",
         "pretestOnly": true,
         "fields": [
           {
@@ -24239,7 +24303,7 @@
             "exclusiveOptions": [
               "doesnt_matter"
             ],
-            "help": "Choose any that generally fit. You can leave this blank if it varies."
+            "help": "Choose any that generally fit."
           },
           {
             "id": "gender_expression",
@@ -24275,7 +24339,7 @@
             "id": "partner_anatomy",
             "type": "multi_select",
             "label": "Which anatomy or body parts are generally relevant to your attraction or compatibility?",
-            "help": "This is independent of gender identity. Choose only what is useful to you.",
+            "help": "Choose only what is useful to you.",
             "options": [
               {
                 "id": "penis",
@@ -24537,36 +24601,6 @@
         "label": "Highly structured"
       }
     ],
-    "timingOptions": [
-      {
-        "id": "scenes",
-        "label": "Scenes"
-      },
-      {
-        "id": "sex",
-        "label": "Sex / bedroom"
-      },
-      {
-        "id": "selected_times",
-        "label": "Selected times"
-      },
-      {
-        "id": "home",
-        "label": "At home"
-      },
-      {
-        "id": "remote",
-        "label": "While apart / remotely"
-      },
-      {
-        "id": "ongoing",
-        "label": "Ongoing day-to-day"
-      },
-      {
-        "id": "twenty_four_seven",
-        "label": "24/7 framework"
-      }
-    ],
     "settingOptions": [
       {
         "id": "private",
@@ -24707,6 +24741,42 @@
       "scope",
       "protocol",
       "areas"
+    ],
+    "lifeScopeOptions": [
+      {
+        "id": "scenes_only",
+        "label": "Only scenes"
+      },
+      {
+        "id": "limited_contexts",
+        "label": "A few agreed contexts"
+      },
+      {
+        "id": "regular_part",
+        "label": "A regular part of the relationship"
+      },
+      {
+        "id": "most_daily_life",
+        "label": "Most day-to-day life"
+      },
+      {
+        "id": "twenty_four_seven",
+        "label": "24/7"
+      }
+    ],
+    "remoteAuthorityOptions": [
+      {
+        "id": "together_only",
+        "label": "No — only while together"
+      },
+      {
+        "id": "sometimes",
+        "label": "Sometimes / in agreed situations"
+      },
+      {
+        "id": "yes_remote",
+        "label": "Yes — it can continue while apart"
+      }
     ]
   }
 }

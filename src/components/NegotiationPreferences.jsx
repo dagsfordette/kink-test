@@ -24,9 +24,9 @@ export default function NegotiationPreferences({
   setupMode = false,
   sectionIds = ['communication', 'stop_checkin', 'aftercare', 'partner_context'],
   heading = 'Negotiation & care',
-  description = 'Set broad preferences that can be useful across many situations. More specific boundaries, such as recording or public/semi-public contexts, appear only inside related topics.',
+  description = 'Set your usual preferences for communication, stopping or checking in, aftercare, and the kinds of partners you are comfortable exploring kink with.',
   setupStep = '2 of 3',
-  footnote = 'These are broad defaults, not rules for every topic. A more specific boundary you set later takes precedence.',
+  footnote = "These are your defaults. This does not mean you can't be willing to explore more of something with a specific type of person, or less.",
   standaloneSection = false,
 }) {
   const model = negotiationModel(catalog)

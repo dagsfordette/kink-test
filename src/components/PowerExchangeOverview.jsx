@@ -26,6 +26,42 @@ function SingleChips({ label, options = [], value, onChange, help }) {
   )
 }
 
+
+function LifeScopeSlider({ label, options = [], value, onChange }) {
+  const selectedIndex = options.findIndex((option) => option.id === value)
+  const displayIndex = selectedIndex >= 0 ? selectedIndex : 0
+  const selected = selectedIndex >= 0 ? options[selectedIndex] : null
+
+  return (
+    <fieldset className="power-exchange-field power-exchange-life-scope">
+      <legend className="field-label-row">
+        <span className="field-label">{label}</span>
+        {value && <button type="button" className="field-clear" onClick={() => onChange(undefined)}>Clear</button>}
+      </legend>
+      <div className="life-scope-slider-wrap">
+        <input
+          type="range"
+          min="0"
+          max={Math.max(0, options.length - 1)}
+          step="1"
+          value={displayIndex}
+          className={selected ? '' : 'unanswered'}
+          aria-label={label}
+          aria-valuetext={selected?.label || 'Not answered'}
+          onChange={(event) => onChange(options[Number(event.target.value)]?.id)}
+        />
+        <div className="life-scope-slider-ends" aria-hidden="true">
+          <span>{options[0]?.label}</span>
+          <span>{options[options.length - 1]?.label}</span>
+        </div>
+        <div className={`life-scope-current ${selected ? '' : 'unanswered'}`}>
+          {selected ? selected.label : 'Move the slider to choose'}
+        </div>
+      </div>
+    </fieldset>
+  )
+}
+
 function MultiChips({ label, options = [], selected = [], onToggle, help }) {
   const selectedSet = new Set(selected || [])
   return (
@@ -59,9 +95,9 @@ export default function PowerExchangeOverview({ catalog, preferences = {}, setPr
   return (
     <section className="power-exchange-overview" aria-labelledby="power-exchange-overview-heading">
       <div className="power-exchange-section-heading">
-        <span className="kicker">Your Power Exchange defaults</span>
-        <h2 id="power-exchange-overview-heading">Set the dynamic once, then explore specific interests</h2>
-        <p>These answers describe your usual Power Exchange context. Individual interests inherit them unless you choose to customize a card.</p>
+        <span className="kicker">Power exchange</span>
+        <h2 id="power-exchange-overview-heading">What kind of dynamic feels right to you?</h2>
+        <p>Think about the roles, tone, structure, and parts of life you might want power exchange to include. It can stay within scenes or become part of a broader relationship dynamic.</p>
       </div>
 
       <div className="power-exchange-overview-grid">
@@ -72,7 +108,6 @@ export default function PowerExchangeOverview({ catalog, preferences = {}, setPr
             options={model.roleOptions}
             value={role}
             onChange={(value) => update('roleOrientation', value)}
-            help="This helps organize the questions. It never prevents you from exploring interests associated with another role."
           />
           {role === 'switch' && (
             <SingleChips
@@ -112,12 +147,17 @@ export default function PowerExchangeOverview({ catalog, preferences = {}, setPr
             value={preferences.structure}
             onChange={(value) => update('structure', value)}
           />
-          <MultiChips
-            label="When can the authority be active?"
-            options={model.timingOptions}
-            selected={preferences.timing}
-            onToggle={(id) => toggle('timing', id)}
-            help="Timing is separate from how formal or broad the dynamic is."
+          <LifeScopeSlider
+            label="How much of your life do you want the authority to cover or affect?"
+            options={model.lifeScopeOptions}
+            value={preferences.lifeScope}
+            onChange={(value) => update('lifeScope', value)}
+          />
+          <SingleChips
+            label="Can the authority continue while you are apart / remote?"
+            options={model.remoteAuthorityOptions}
+            value={preferences.remoteAuthority}
+            onChange={(value) => update('remoteAuthority', value)}
           />
           <MultiChips
             label="Where can it apply?"
@@ -152,8 +192,8 @@ export function PowerExchangeCare({ catalog, preferences = {}, setPreferences })
     <section className="power-exchange-care" aria-labelledby="power-exchange-care-heading">
       <div className="power-exchange-section-heading">
         <span className="kicker">Negotiation, boundaries & care</span>
-        <h2 id="power-exchange-care-heading">Keep the agreement clearer than the roleplay</h2>
-        <p>These are Power Exchange-specific defaults. Your general stop/check-in and aftercare preferences remain in the main Negotiation & care section.</p>
+        <h2 id="power-exchange-care-heading">How do you want to handle boundaries and check-ins?</h2>
+        <p>Choose any practices that help the dynamic feel clear, safe, and easy to pause when ordinary life needs to take priority.</p>
       </div>
       <div className="power-exchange-care-grid">
         <article className="power-exchange-preference-card">

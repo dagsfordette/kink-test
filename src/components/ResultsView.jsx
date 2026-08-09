@@ -152,8 +152,8 @@ export default function ResultsView({ catalog, answers, categoryGates, negotiati
         </article>
 
         <article className="result-card wide negotiation-result-card">
-          <div className="result-card-heading"><div><span className="kicker">Power Exchange</span><h2>Role, style & scope defaults</h2></div></div>
-          <NegotiationSummary summary={powerExchangeSummary} empty="No Power Exchange defaults recorded yet." />
+          <div className="result-card-heading"><div><span className="kicker">Power Exchange</span><h2>Role, style & scope</h2></div></div>
+          <NegotiationSummary summary={powerExchangeSummary} empty="No Power Exchange preferences recorded yet." />
         </article>
 
         <article className="result-card wide">
