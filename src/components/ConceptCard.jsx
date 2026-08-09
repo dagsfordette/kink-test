@@ -1,10 +1,62 @@
 import { useEffect, useMemo, useState } from 'react'
 import ChoiceChips from './ChoiceChips.jsx'
 import AdaptiveDetails from './AdaptiveDetails.jsx'
-import { answerKey, hasDetailData, perspectiveLabels, questionDimensions, semanticDefinition, semanticUi, willingnessLabel } from '../lib/profile.js'
-import { countDetailResponses, detailBranchDecision, hasAdaptiveDetailProfile } from '../lib/adaptiveDetails.js'
-import { canonicalConceptId } from '../lib/taxonomy.js'
+import PowerExchangeCardPreferences from './PowerExchangeCardPreferences.jsx'
+import { answerKey, hasDetailData, perspectiveLabels, questionDimensions, semanticDefinition, semanticUi } from '../lib/profile.js'
+import { countDetailResponses, detailBranchDecision, hasAdaptiveDetailFields } from '../lib/adaptiveDetails.js'
 import { riskPromptsForConcept } from '../lib/risk.js'
+import { applyPowerExchangeRealWorldState, POWER_EXCHANGE_REAL_WORLD_STATES, powerExchangeRealWorldState } from '../lib/powerExchange.js'
+
+
+function PowerExchangeRealWorldQuestion({ answer, update }) {
+  const state = powerExchangeRealWorldState(answer)
+  const setState = (nextState) => {
+    const selected = state === nextState ? undefined : nextState
+    const next = applyPowerExchangeRealWorldState(answer, selected)
+    if (selected !== 'soft_limit' && next.details?.soft_limit_conditions) {
+      const details = { ...next.details }
+      delete details.soft_limit_conditions
+      if (Object.keys(details).length) next.details = details
+      else delete next.details
+    }
+    update(next)
+  }
+  const patchSoftLimitConditions = (text) => {
+    const details = { ...(answer?.details || {}) }
+    if (text.trim()) details.soft_limit_conditions = text
+    else delete details.soft_limit_conditions
+    update({ ...answer, details })
+  }
+
+  return (
+    <div className="field-block semantic-separator power-exchange-real-world">
+      <span className="field-label">Real-world interest / boundary</span>
+      <p className="field-help">Choose the one answer that best describes real-life willingness. Fantasy interest stays separate above.</p>
+      <div className="choice-chips power-exchange-interest-scale" aria-label="Real-world Power Exchange interest and boundary">
+        {POWER_EXCHANGE_REAL_WORLD_STATES.map((option) => (
+          <button
+            type="button"
+            className={`chip power-exchange-state-${option.id} ${state === option.id ? 'selected' : ''}`}
+            aria-pressed={state === option.id}
+            onClick={() => setState(option.id)}
+            key={option.id}
+          >{option.label}</button>
+        ))}
+      </div>
+      {state === 'soft_limit' && (
+        <label className="soft-limit-conditions">
+          <span className="field-label">What conditions could make this potentially okay?</span>
+          <textarea
+            rows="2"
+            value={answer?.details?.soft_limit_conditions || ''}
+            placeholder="Optional — context, relationship, intensity, timing, or another condition"
+            onChange={(event) => patchSoftLimitConditions(event.target.value)}
+          />
+        </label>
+      )}
+    </div>
+  )
+}
 
 const preferenceOptions = [
   { id: 'love_it', label: 'Love it', shortLabel: 'Love', tone: 'positive' },
@@ -34,19 +86,17 @@ function boundaryOptions(catalog) {
   }))
 }
 
-function WillingnessSelect({ catalog, semanticType, tried, value, onChange }) {
+function WillingnessSelect({ catalog, value, onChange }) {
   const options = currentScaleOptions(catalog, 'willingness')
-  const known = options.some((option) => option.id === value)
   return (
     <select value={value || ''} onChange={(event) => onChange(event.target.value || undefined)}>
       <option value="" disabled hidden>Choose willingness</option>
-      {value && !known && <option value={value}>Previous answer: {willingnessLabel(value, tried, semanticType)}</option>}
       {options.map((option) => <option value={option.id} key={option.id}>{option.label}</option>)}
     </select>
   )
 }
 
-function PerspectiveEditor({ catalog, concept, perspective, answer, update, manualDetailOpen, setManualDetailOpen }) {
+function PerspectiveEditor({ catalog, concept, perspective, answer, update, manualDetailOpen, setManualDetailOpen, powerExchangeMode = false, powerExchangePreferences = {} }) {
   const semantic = semanticDefinition(catalog, concept)
   const ui = semanticUi(catalog, concept)
   const dimensions = questionDimensions(catalog, concept)
@@ -57,10 +107,13 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
   const showExperiencedPreference = dimensions.experiencedPreference === true
   const showWillingness = dimensions.willingness === true
   const showBoundary = dimensions.boundary === true
-  const profileAvailable = hasAdaptiveDetailProfile(catalog, concept, perspective)
+  const excludedDetailFieldIds = powerExchangeMode ? catalog.powerExchangeModel?.inheritedDetailFieldIds : []
+  const profileAvailable = hasAdaptiveDetailFields(catalog, concept, perspective, excludedDetailFieldIds)
   const branchDecision = detailBranchDecision(catalog, answer, manualDetailOpen)
   const savedDetailCount = countDetailResponses(answer?.details)
   const [noteOpen, setNoteOpen] = useState(Boolean(answer?.note?.text))
+  const powerExchangeState = powerExchangeMode ? powerExchangeRealWorldState(answer) : undefined
+  const allowAdaptiveDetails = !powerExchangeMode || !['prefer_not', 'soft_limit', 'hard_limit'].includes(powerExchangeState)
 
   const patch = (partial) => update({ ...answer, ...partial })
   const patchPreference = (field, value) => patch({ preference: { ...(answer?.preference || {}), [field]: value } })
@@ -89,7 +142,7 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
         </div>
       )}
 
-      {showRealWorld && (
+      {!powerExchangeMode && showRealWorld && (
         <div className="field-block semantic-separator">
           <span className="field-label">{ui.realWorldLabel || 'Real-world desire'}</span>
           <ChoiceChips
@@ -101,6 +154,8 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
           {semantic.id === 'fantasy' && <small className="field-help">For impossible or purely imagined scenarios, answer for the closest real-world version you would actually want.</small>}
         </div>
       )}
+
+      {powerExchangeMode && (showRealWorld || showWillingness || showBoundary) && <PowerExchangeRealWorldQuestion answer={answer} update={update} />}
 
       {showExperience && (
         <div className="mini-row wrap-row semantic-separator">
@@ -148,12 +203,12 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
         </div>
       )}
 
-      {(showWillingness || showBoundary) && (
+      {!powerExchangeMode && (showWillingness || showBoundary) && (
         <div className={`two-col-fields semantic-separator ${showWillingness && showBoundary ? '' : 'single-field'}`}>
           {showWillingness && (
             <label>
               <span className="field-label field-label-row"><span>{ui.willingnessLabel || 'Openness / willingness'}</span>{answer?.willingness && <button type="button" className="field-clear" onClick={() => patch({ willingness: undefined })}>Clear</button>}</span>
-              <WillingnessSelect catalog={catalog} semanticType={semantic.id} tried={tried} value={answer?.willingness} onChange={patchWillingness} />
+              <WillingnessSelect catalog={catalog} value={answer?.willingness} onChange={patchWillingness} />
             </label>
           )}
           {showBoundary && (
@@ -165,7 +220,11 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
         </div>
       )}
 
-      {profileAvailable && !branchDecision.open && (
+      {powerExchangeMode && !['hard_limit', 'prefer_not', 'soft_limit'].includes(powerExchangeState) && powerExchangeState && (
+        <PowerExchangeCardPreferences catalog={catalog} concept={concept} perspective={perspective} preferences={powerExchangePreferences} answer={answer} update={update} />
+      )}
+
+      {allowAdaptiveDetails && profileAvailable && !branchDecision.open && (
         <div className="detail-branch-collapsed">
           <div>
             <strong>Want to fine-tune this answer?</strong>
@@ -176,7 +235,7 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
         </div>
       )}
 
-      {profileAvailable && branchDecision.open && (
+      {allowAdaptiveDetails && profileAvailable && branchDecision.open && (
         <>
           {manualDetailOpen && !branchDecision.defaultOpen && (
             <div className="manual-detail-banner">
@@ -184,7 +243,7 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
               <button type="button" className="field-clear" onClick={() => setManualDetailOpen(false)}>Close</button>
             </div>
           )}
-          <AdaptiveDetails catalog={catalog} concept={concept} perspective={perspective} answer={answer} update={update} decision={branchDecision} />
+          <AdaptiveDetails catalog={catalog} concept={concept} perspective={perspective} answer={answer} update={update} decision={branchDecision} excludedFieldIds={excludedDetailFieldIds} />
         </>
       )}
 
@@ -218,19 +277,23 @@ function PerspectiveEditor({ catalog, concept, perspective, answer, update, manu
   )
 }
 
-export default function ConceptCard({ catalog, concept, answers, setAnswer, showDefinition = false, perspectivesOverride }) {
+export default function ConceptCard({ catalog, concept, answers, setAnswer, showDefinition = false, perspectivesOverride, powerExchangeMode = false, powerExchangePreferences = {} }) {
   const perspectives = perspectivesOverride?.length ? perspectivesOverride : (concept.perspectives || ['mutual'])
   const [activePerspective, setActivePerspective] = useState(perspectives[0])
   useEffect(() => {
     if (!perspectives.includes(activePerspective)) setActivePerspective(perspectives[0])
   }, [activePerspective, perspectives])
   const [manualDetailOpen, setManualDetailOpen] = useState({})
-  const conceptId = canonicalConceptId(concept)
+  const conceptId = concept.id
   const key = answerKey(conceptId, activePerspective)
   const answer = answers[key] || {}
-  const riskPrompts = riskPromptsForConcept(catalog, concept)
+  const riskPrompts = riskPromptsForConcept(catalog, concept).filter((prompt) => !powerExchangeMode || prompt.id !== 'consent_complexity_negotiation')
   const activeDetailDecision = detailBranchDecision(catalog, answer, manualDetailOpen[activePerspective] === true)
-  const cardExpanded = hasAdaptiveDetailProfile(catalog, concept, activePerspective) && activeDetailDecision.open
+  const excludedDetailFieldIds = powerExchangeMode ? catalog.powerExchangeModel?.inheritedDetailFieldIds : []
+  const powerExchangeState = powerExchangeMode ? powerExchangeRealWorldState(answer) : undefined
+  const cardExpanded = hasAdaptiveDetailFields(catalog, concept, activePerspective, excludedDetailFieldIds)
+    && activeDetailDecision.open
+    && (!powerExchangeMode || !['prefer_not', 'soft_limit', 'hard_limit'].includes(powerExchangeState))
 
   const answeredCount = useMemo(() => perspectives.filter((perspective) => {
     const response = answers[answerKey(conceptId, perspective)]
@@ -282,6 +345,8 @@ export default function ConceptCard({ catalog, concept, answers, setAnswer, show
         update={(next) => setAnswer(key, next)}
         manualDetailOpen={manualDetailOpen[activePerspective] === true}
         setManualDetailOpen={(value) => setManualDetailOpen((prev) => ({ ...prev, [activePerspective]: value }))}
+        powerExchangeMode={powerExchangeMode}
+        powerExchangePreferences={powerExchangePreferences}
       />
     </article>
   )

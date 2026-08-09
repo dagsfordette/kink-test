@@ -1,4 +1,4 @@
-import { compatibilityStateLabels } from '../lib/compatibility.js'
+import { comparisonStateLabels } from '../lib/partnerComparison.js'
 import { perspectiveLabels } from '../lib/profile.js'
 
 const ORDER = ['hard_limit_conflict','fantasy_real_world_mismatch','conditional_match','strong_directional_match','shared_mutual_interest','possible_discussion','insufficient_data']
@@ -28,14 +28,14 @@ export default function PartnerComparison({ comparison, onLoad, onClear }) {
       </div>
       <p className="muted comparison-note">{comparison.note}</p>
       <div className="comparison-summary">
-        {ORDER.map((state) => <div key={state} className={state === 'hard_limit_conflict' ? 'comparison-summary-danger' : ''}><strong>{comparison.counts[state] || 0}</strong><span>{compatibilityStateLabels[state]}</span></div>)}
+        {ORDER.map((state) => <div key={state} className={state === 'hard_limit_conflict' ? 'comparison-summary-danger' : ''}><strong>{comparison.counts[state] || 0}</strong><span>{comparisonStateLabels[state]}</span></div>)}
       </div>
       {comparison.hardLimitConflicts.length > 0 && <p className="category-boundary-note">Hard-limit conflicts are shown first and are never averaged away by positive matches elsewhere.</p>}
       <div className="comparison-list">
         {comparison.rows.slice(0, 80).map((row) => (
           <div className={`comparison-row comparison-${row.state}`} key={row.key}>
             <div><strong>{row.label}</strong><span>{row.scope === 'category' ? 'Category-wide boundary' : `${perspective(row.leftPerspective)} ↔ ${perspective(row.rightPerspective)}`}</span></div>
-            <span className={row.state === 'hard_limit_conflict' ? 'danger-pill' : 'soft-pill'}>{compatibilityStateLabels[row.state]}</span>
+            <span className={row.state === 'hard_limit_conflict' ? 'danger-pill' : 'soft-pill'}>{comparisonStateLabels[row.state]}</span>
           </div>
         ))}
       </div>

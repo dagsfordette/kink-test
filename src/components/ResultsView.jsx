@@ -2,6 +2,7 @@ import { boundaryLabels, buildResults, perspectiveLabels, willingnessLabel } fro
 import { categoryGateSummary } from '../lib/depthModes.js'
 import PartnerComparison from './PartnerComparison.jsx'
 import { negotiationPreferenceSummary } from '../lib/negotiation.js'
+import { powerExchangePreferenceSummary } from '../lib/powerExchange.js'
 
 function pretty(value) {
   return value ? value.replaceAll('_', ' ') : null
@@ -30,7 +31,7 @@ function RecordList({ rows, empty }) {
             {row.answer.preference?.fantasy && <span>Fantasy: {preferenceLabel(row.answer.preference.fantasy)}</span>}
             {row.answer.preference?.realWorld && <span>Real world: {preferenceLabel(row.answer.preference.realWorld)}</span>}
             {row.answer.preference?.experienced && <span>Experienced: {preferenceLabel(row.answer.preference.experienced)}</span>}
-            {row.answer.willingness && <span>{willingnessLabel(row.answer.willingness, row.answer.experience?.tried, row.semanticType)}</span>}
+            {row.answer.willingness && <span>{willingnessLabel(row.answer.willingness)}</span>}
             {row.answer.boundary && row.answer.boundary !== 'none' && <span className={row.answer.boundary === 'hard_limit' ? 'danger-pill' : 'soft-pill'}>{boundaryLabels[row.answer.boundary] || pretty(row.answer.boundary)}</span>}
             {row.detailBoundaries?.conditional?.length > 0 && <span>{row.detailBoundaries.conditional.length} conditional detail{row.detailBoundaries.conditional.length === 1 ? '' : 's'}</span>}
             {row.answer.details && Object.keys(row.answer.details).length > 0 && <span>{Object.keys(row.answer.details).length} follow-up answers</span>}
@@ -83,8 +84,8 @@ function AsymmetryList({ rows }) {
         <div className="record-row" key={`${row.conceptId}-${row.dimension}-${index}`}>
           <div><strong>{row.concept.label}</strong><span>{row.dimension === 'realWorld' ? 'Real-world interest' : row.dimension === 'fantasy' ? 'Fantasy interest' : 'Willingness'}</span></div>
           <div className="record-meta">
-            <span>{perspectiveLabels[row.high.perspective] || row.high.perspective}: {row.dimension === 'willingness' ? willingnessLabel(row.high.answer.willingness, row.high.answer.experience?.tried, row.high.semanticType) : preferenceLabel(row.dimension === 'fantasy' ? row.high.answer.preference?.fantasy : row.high.answer.preference?.realWorld)}</span>
-            <span>{perspectiveLabels[row.low.perspective] || row.low.perspective}: {row.dimension === 'willingness' ? willingnessLabel(row.low.answer.willingness, row.low.answer.experience?.tried, row.low.semanticType) : preferenceLabel(row.dimension === 'fantasy' ? row.low.answer.preference?.fantasy : row.low.answer.preference?.realWorld)}</span>
+            <span>{perspectiveLabels[row.high.perspective] || row.high.perspective}: {row.dimension === 'willingness' ? willingnessLabel(row.high.answer.willingness) : preferenceLabel(row.dimension === 'fantasy' ? row.high.answer.preference?.fantasy : row.high.answer.preference?.realWorld)}</span>
+            <span>{perspectiveLabels[row.low.perspective] || row.low.perspective}: {row.dimension === 'willingness' ? willingnessLabel(row.low.answer.willingness) : preferenceLabel(row.dimension === 'fantasy' ? row.low.answer.preference?.fantasy : row.low.answer.preference?.realWorld)}</span>
           </div>
         </div>
       ))}
@@ -106,9 +107,10 @@ function NegotiationSummary({ summary, empty = 'No preferences recorded yet.' })
   )
 }
 
-export default function ResultsView({ catalog, answers, categoryGates, negotiationPreferences, onBack, onExportJson, onPrintPdf, comparison, onCompareJson, onClearComparison }) {
+export default function ResultsView({ catalog, answers, categoryGates, negotiationPreferences, powerExchangePreferences = {}, onBack, onExportJson, onPrintPdf, comparison, onCompareJson, onClearComparison }) {
   const results = buildResults(catalog, answers, categoryGates, negotiationPreferences)
   const profileSummary = negotiationPreferenceSummary(catalog, negotiationPreferences, { onlyPretestOnly: true })
+  const powerExchangeSummary = powerExchangePreferenceSummary(catalog, powerExchangePreferences)
   const gateRows = categoryGateSummary(catalog, categoryGates)
   const skippedCategories = gateRows.filter((row) => row.state === 'skip')
 
@@ -147,6 +149,11 @@ export default function ResultsView({ catalog, answers, categoryGates, negotiati
         <article className="result-card wide negotiation-result-card">
           <div className="result-card-heading"><div><span className="kicker">Your defaults</span><h2>Question tailoring</h2></div></div>
           <NegotiationSummary summary={profileSummary} empty="No question-tailoring preferences recorded yet." />
+        </article>
+
+        <article className="result-card wide negotiation-result-card">
+          <div className="result-card-heading"><div><span className="kicker">Power Exchange</span><h2>Role, style & scope defaults</h2></div></div>
+          <NegotiationSummary summary={powerExchangeSummary} empty="No Power Exchange defaults recorded yet." />
         </article>
 
         <article className="result-card wide">

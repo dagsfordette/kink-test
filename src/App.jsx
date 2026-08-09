@@ -5,9 +5,11 @@ import TestView from './components/TestView.jsx'
 import ResultsView from './components/ResultsView.jsx'
 import PrintReport from './components/PrintReport.jsx'
 import { clearState, loadState, saveState } from './lib/storage.js'
-import { normalizeDepthMode } from './lib/depthModes.js'
-import { compareResponses } from './lib/compatibility.js'
-import { createResponsePayload, normalizeResponsePayload } from './lib/responseFormat.js'
+import { normalizeCategoryGates, normalizeDepthMode } from './lib/depthModes.js'
+import { compareResponses } from './lib/partnerComparison.js'
+import { createResponsePayload, parseResponsePayload } from './lib/responseFormat.js'
+import { normalizeNegotiationPreferences } from './lib/negotiation.js'
+import { normalizePowerExchangePreferences } from './lib/powerExchange.js'
 
 const initialSettings = {
   adultConfirmed: false,
@@ -20,23 +22,19 @@ const initialSettings = {
 function normalizeSavedState(saved) {
   const settings = { ...initialSettings, ...(saved?.settings || {}) }
   settings.mode = normalizeDepthMode(settings.mode)
-  if (!settings.onboardingComplete && settings.onboardingStep === 'attraction') settings.onboardingStep = 'profile'
-  if (!['profile', 'negotiation', 'marks', 'main'].includes(settings.onboardingStep)) settings.onboardingStep = settings.onboardingComplete ? 'main' : 'profile'
-  if (!saved) return { screen: 'welcome', settings, answers: {}, categoryGates: {}, negotiationPreferences: {}, currentCategoryId: catalog.categories[0]?.id }
-  const normalized = normalizeResponsePayload(catalog, {
-    questionnaireId: catalog.questionnaire.id,
-    settings,
-    answers: saved.answers || {},
-    categoryGates: saved.categoryGates || {},
-    negotiationPreferences: saved.negotiationPreferences || {},
-  })
+  if (!['profile', 'negotiation', 'marks', 'main'].includes(settings.onboardingStep)) {
+    settings.onboardingStep = settings.onboardingComplete ? 'main' : 'profile'
+  }
+  if (!saved) return { screen: 'welcome', settings, answers: {}, categoryGates: {}, negotiationPreferences: {}, powerExchangePreferences: {}, currentCategoryId: catalog.categories[0]?.id }
+
   return {
-    screen: saved.screen || 'welcome',
-    settings: { ...settings, ...normalized.settings },
-    answers: normalized.answers,
-    categoryGates: normalized.categoryGates,
-    negotiationPreferences: normalized.negotiationPreferences,
-    currentCategoryId: saved.currentCategoryId || catalog.categories[0]?.id,
+    screen: ['welcome', 'test', 'results'].includes(saved.screen) ? saved.screen : 'welcome',
+    settings,
+    answers: saved.answers && typeof saved.answers === 'object' && !Array.isArray(saved.answers) ? saved.answers : {},
+    categoryGates: normalizeCategoryGates(catalog, saved.categoryGates),
+    negotiationPreferences: normalizeNegotiationPreferences(catalog, saved.negotiationPreferences),
+    powerExchangePreferences: normalizePowerExchangePreferences(catalog, saved.powerExchangePreferences),
+    currentCategoryId: catalog.categories.some((category) => category.id === saved.currentCategoryId) ? saved.currentCategoryId : catalog.categories[0]?.id,
   }
 }
 
@@ -59,6 +57,7 @@ export default function App() {
   const [answers, setAnswers] = useState(initial.answers)
   const [categoryGates, setCategoryGates] = useState(initial.categoryGates)
   const [negotiationPreferences, setNegotiationPreferences] = useState(initial.negotiationPreferences)
+  const [powerExchangePreferences, setPowerExchangePreferences] = useState(initial.powerExchangePreferences)
   const [currentCategoryId, setCurrentCategoryId] = useState(initial.currentCategoryId)
   const fileInputRef = useRef(null)
   const compareFileInputRef = useRef(null)
@@ -69,8 +68,8 @@ export default function App() {
   }, [settings.theme])
 
   useEffect(() => {
-    saveState({ screen, settings, answers, categoryGates, negotiationPreferences, currentCategoryId })
-  }, [screen, settings, answers, categoryGates, negotiationPreferences, currentCategoryId])
+    saveState({ screen, settings, answers, categoryGates, negotiationPreferences, powerExchangePreferences, currentCategoryId })
+  }, [screen, settings, answers, categoryGates, negotiationPreferences, powerExchangePreferences, currentCategoryId])
 
   const setAnswer = (key, value) => setAnswers((prev) => ({ ...prev, [key]: value }))
   const setCategoryGate = (categoryId, value) => setCategoryGates((prev) => {
@@ -80,7 +79,7 @@ export default function App() {
     return next
   })
 
-  const exportPayload = () => createResponsePayload(catalog, { settings, answers, categoryGates, negotiationPreferences })
+  const exportPayload = () => createResponsePayload(catalog, { settings, answers, categoryGates, negotiationPreferences, powerExchangePreferences })
 
   const handleExportJson = () => {
     const date = new Date().toISOString().slice(0, 10)
@@ -95,11 +94,12 @@ export default function App() {
     if (!file) return
     try {
       const data = JSON.parse(await file.text())
-      const normalized = normalizeResponsePayload(catalog, data)
+      const normalized = parseResponsePayload(catalog, data)
       if (!window.confirm('Replace the answers currently stored in this browser with the imported file?')) return
       setAnswers(normalized.answers)
       setCategoryGates(normalized.categoryGates)
       setNegotiationPreferences(normalized.negotiationPreferences)
+      setPowerExchangePreferences(normalized.powerExchangePreferences)
       setSettings((prev) => ({ ...prev, mode: normalized.settings.mode || prev.mode, adultConfirmed: true }))
       setScreen('test')
       window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }))
@@ -116,14 +116,14 @@ export default function App() {
     if (!file) return
     try {
       const data = JSON.parse(await file.text())
-      const normalized = normalizeResponsePayload(catalog, data)
+      const normalized = parseResponsePayload(catalog, data)
       setPartnerResponse(normalized)
     } catch (error) {
       window.alert(error.message || 'Could not compare that file.')
     }
   }
 
-  const comparison = useMemo(() => partnerResponse ? compareResponses(catalog, { answers, categoryGates, negotiationPreferences }, partnerResponse) : null, [answers, categoryGates, negotiationPreferences, partnerResponse])
+  const comparison = useMemo(() => partnerResponse ? compareResponses(catalog, { answers, categoryGates, negotiationPreferences, powerExchangePreferences }, partnerResponse) : null, [answers, categoryGates, negotiationPreferences, powerExchangePreferences, partnerResponse])
 
   const handleReset = () => {
     if (!window.confirm('Delete all locally stored answers and restart? This cannot be undone unless you exported a copy.')) return
@@ -131,6 +131,7 @@ export default function App() {
     setAnswers({})
     setCategoryGates({})
     setNegotiationPreferences({})
+    setPowerExchangePreferences({})
     setSettings(initialSettings)
     setCurrentCategoryId(catalog.categories[0]?.id)
     setScreen('welcome')
@@ -172,6 +173,8 @@ export default function App() {
           setCategoryGate={setCategoryGate}
           negotiationPreferences={negotiationPreferences}
           setNegotiationPreferences={setNegotiationPreferences}
+          powerExchangePreferences={powerExchangePreferences}
+          setPowerExchangePreferences={setPowerExchangePreferences}
           settings={settings}
           setSettings={setSettings}
           currentCategoryId={currentCategoryId}
@@ -190,6 +193,7 @@ export default function App() {
           answers={answers}
           categoryGates={categoryGates}
           negotiationPreferences={negotiationPreferences}
+          powerExchangePreferences={powerExchangePreferences}
           onBack={() => setScreen('test')}
           onExportJson={handleExportJson}
           onPrintPdf={handlePrintPdf}
@@ -199,7 +203,7 @@ export default function App() {
         />
       )}
 
-      <PrintReport catalog={catalog} answers={answers} categoryGates={categoryGates} negotiationPreferences={negotiationPreferences} />
+      <PrintReport catalog={catalog} answers={answers} categoryGates={categoryGates} negotiationPreferences={negotiationPreferences} powerExchangePreferences={powerExchangePreferences} />
     </div>
   )
 }

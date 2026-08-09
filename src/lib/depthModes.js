@@ -1,16 +1,8 @@
-import { canonicalConceptId } from './taxonomy.js'
-
 export const DEPTH_MODE_IDS = ['quick', 'standard', 'exhaustive']
 export const CATEGORY_GATE_STATE_IDS = ['interested', 'maybe', 'not_interested', 'hard_limit', 'skip']
 
 export function normalizeDepthMode(mode) {
-  if (mode === 'detailed') return 'standard'
   return DEPTH_MODE_IDS.includes(mode) ? mode : 'standard'
-}
-
-export function depthModeDefinition(catalog, mode) {
-  const normalized = normalizeDepthMode(mode)
-  return catalog?.depthModes?.modes?.[normalized] || { id: normalized, label: normalized }
 }
 
 export function modeConceptIds(category, mode) {
@@ -22,7 +14,7 @@ export function conceptsForDepth(category, concepts, mode, { representativeOnly 
   const selectedMode = exhaustiveOverride ? 'exhaustive' : representativeOnly ? 'quick' : normalizeDepthMode(mode)
   const ids = modeConceptIds(category, selectedMode)
   if (!ids.length) return exhaustiveOverride ? concepts : []
-  const byId = new Map(concepts.map((concept) => [canonicalConceptId(concept), concept]))
+  const byId = new Map(concepts.map((concept) => [concept.id, concept]))
   return ids.map((id) => byId.get(id)).filter(Boolean)
 }
 
@@ -36,6 +28,15 @@ export function createCategoryGateRecord(state) {
 export function normalizeCategoryGateRecord(record) {
   if (!record || !CATEGORY_GATE_STATE_IDS.includes(record.state)) return undefined
   return createCategoryGateRecord(record.state)
+}
+
+export function normalizeCategoryGates(catalog, raw = {}) {
+  const normalized = {}
+  for (const category of catalog?.categories || []) {
+    const record = normalizeCategoryGateRecord(raw?.[category.id])
+    if (record) normalized[category.id] = record
+  }
+  return normalized
 }
 
 export function categoryGateIsAnswered(record) {
@@ -56,37 +57,6 @@ export function categoryGatePolicy(record) {
   if (state === 'hard_limit') return { state, defaultOpen: false, representativeOnly: false, collapsedReason: 'hard_limit' }
   if (state === 'skip') return { state, defaultOpen: false, representativeOnly: false, collapsedReason: 'skip' }
   return { state: null, defaultOpen: false, representativeOnly: false, collapsedReason: 'unanswered' }
-}
-
-function legacyGateState(answer) {
-  if (!answer || typeof answer !== 'object') return null
-  if (answer.boundary === 'hard_limit' || answer.willingness === 'hard_limit') return 'hard_limit'
-  if (answer.willingness === 'not_interested') return 'not_interested'
-  if (['dislike_it', 'hate_it'].includes(answer.preference?.fantasy) && !answer.experience?.tried) return 'not_interested'
-  if (answer.willingness === 'unsure' || answer.preference?.fantasy === 'neutral') return 'maybe'
-  if (
-    answer.experience?.tried === true ||
-    ['love_it', 'like_it'].includes(answer.preference?.fantasy) ||
-    ['actively_want', 'interested_in_trying', 'open_to_it', 'fantasy_only', 'curious', 'want_to_try', 'would_try', 'would_do'].includes(answer.willingness)
-  ) return 'interested'
-  return null
-}
-
-export function migrateLegacyCategoryGates(catalog, rawAnswers = {}, rawCategoryGates = {}) {
-  const answers = { ...rawAnswers }
-  const categoryGates = {}
-
-  for (const category of catalog?.categories || []) {
-    const existing = normalizeCategoryGateRecord(rawCategoryGates?.[category.id])
-    const legacyKey = `${category.id}::overall`
-    const legacy = answers[legacyKey]
-    const migratedState = legacyGateState(legacy)
-    if (existing) categoryGates[category.id] = existing
-    else if (migratedState) categoryGates[category.id] = createCategoryGateRecord(migratedState)
-    delete answers[legacyKey]
-  }
-
-  return { answers, categoryGates }
 }
 
 export function categoryGateSummary(catalog, categoryGates = {}) {

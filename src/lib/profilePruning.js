@@ -39,7 +39,7 @@ export function profileHasPruningData(preferences = {}) {
 }
 
 export function anatomyRequirementForConcept(concept) {
-  return ANATOMY_REQUIREMENTS[concept?.id] || ANATOMY_REQUIREMENTS[concept?.canonicalId] || null
+  return ANATOMY_REQUIREMENTS[concept?.id] || null
 }
 
 export function perspectiveMatchesProfile(concept, perspective, preferences = {}) {

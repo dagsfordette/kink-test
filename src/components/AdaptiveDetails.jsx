@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { semanticDefinition, semanticFollowupPolicy } from '../lib/profile.js'
 import {
   fieldVisibleForBranch,
-  legacyFieldVisible,
   normalizePreferenceMatrix,
   setPreferenceMatrixValue,
 } from '../lib/adaptiveDetails.js'
@@ -141,17 +140,17 @@ function contextualDetailLabel(profileId, field, concept) {
   return keyed[`${profileId}:${field.id}`] || field.label
 }
 
-function DetailField({ catalog, profileId, concept, field, value, onChange, semanticType, perspective, details, legacy = false }) {
+function DetailField({ catalog, profileId, concept, field, value, onChange, semanticType, perspective, details }) {
   const options = semanticOptions(field, semanticType, concept?.id, perspective, details)
   const label = contextualDetailLabel(profileId, field, concept)
 
   if (field.type === 'preference_matrix') {
     return (
-      <div className={`detail-field ${legacy ? 'legacy-detail-field' : ''}`}>
+      <div className="detail-field">
         <div className="detail-field-heading">
           <strong>{label}</strong>
           {field.help && <span>{field.help}</span>}
-          {legacy && <span>Previous saved detail retained for compatibility.</span>}
+          
         </div>
         <PreferenceMatrix catalog={catalog} value={value} onChange={onChange} options={options} />
       </div>
@@ -160,11 +159,11 @@ function DetailField({ catalog, profileId, concept, field, value, onChange, sema
 
   if (field.type === 'multi_select') {
     return (
-      <div className={`detail-field ${legacy ? 'legacy-detail-field' : ''}`}>
+      <div className="detail-field">
         <div className="detail-field-heading">
           <strong>{label}</strong>
           {field.help && <span>{field.help}</span>}
-          {legacy && <span>Previous saved detail retained for compatibility.</span>}
+          
         </div>
         <MultiSelect value={value || []} onChange={onChange} options={options} />
       </div>
@@ -173,8 +172,8 @@ function DetailField({ catalog, profileId, concept, field, value, onChange, sema
 
   if (field.type === 'single_select') {
     return (
-      <label className={`detail-field ${legacy ? 'legacy-detail-field' : ''}`}>
-        <span className="detail-field-heading"><strong>{label}</strong>{field.help && <span>{field.help}</span>}{legacy && <span>Previous saved detail retained for compatibility.</span>}</span>
+      <label className="detail-field">
+        <span className="detail-field-heading"><strong>{label}</strong>{field.help && <span>{field.help}</span>}</span>
         <SelectField value={value} onChange={onChange} options={options} placeholder={field.placeholder || 'Choose one'} />
       </label>
     )
@@ -183,11 +182,11 @@ function DetailField({ catalog, profileId, concept, field, value, onChange, sema
   if (field.type === 'paired_select') {
     const pair = value || {}
     return (
-      <div className={`detail-field ${legacy ? 'legacy-detail-field' : ''}`}>
+      <div className="detail-field">
         <div className="detail-field-heading">
           <strong>{label}</strong>
           {field.help && <span>{field.help}</span>}
-          {legacy && <span>Previous saved detail retained for compatibility.</span>}
+          
         </div>
         <div className="paired-selects">
           <label>
@@ -205,8 +204,8 @@ function DetailField({ catalog, profileId, concept, field, value, onChange, sema
 
   if (field.type === 'text') {
     return (
-      <label className={`detail-field ${legacy ? 'legacy-detail-field' : ''}`}>
-        <span className="detail-field-heading"><strong>{label}</strong>{legacy && <span>Previous saved detail retained for compatibility.</span>}</span>
+      <label className="detail-field">
+        <span className="detail-field-heading"><strong>{label}</strong></span>
         <textarea rows="2" value={value || ''} placeholder={field.placeholder || 'Optional'} onChange={(e) => onChange(e.target.value)} />
       </label>
     )
@@ -221,12 +220,12 @@ function profileApplies(profile, semanticType) {
   return !allowed || allowed.includes(semanticType)
 }
 
-function ProfileSection({ catalog, profile, details, patchDetail, semanticType, decision, concept, perspective, bodyProfile = false }) {
+function ProfileSection({ catalog, profile, details, patchDetail, semanticType, decision, concept, perspective, bodyProfile = false, excludedFieldIds = [] }) {
   if (!profile) return null
   const conceptScoped = (field) => matchesConceptScope(field, concept?.id, perspective)
-  const activeFields = (profile.fields || []).filter((field) => !field.deprecated && conceptScoped(field) && fieldIsVisible(field, details) && fieldVisibleForBranch(field, decision))
-  const legacyFields = (profile.fields || []).filter((field) => conceptScoped(field) && legacyFieldVisible(field, details) && fieldIsVisible(field, details))
-  if (!activeFields.length && !legacyFields.length) return null
+  const excluded = new Set(excludedFieldIds || [])
+  const activeFields = (profile.fields || []).filter((field) => !excluded.has(field.id) && conceptScoped(field) && fieldIsVisible(field, details) && fieldVisibleForBranch(field, decision))
+  if (!activeFields.length) return null
 
   const title = bodyProfile ? `Partner / body fit for ${concept.label}` : `More about ${concept.label}`
 
@@ -240,15 +239,12 @@ function ProfileSection({ catalog, profile, details, patchDetail, semanticType, 
         {activeFields.map((field) => (
           <DetailField key={field.id} catalog={catalog} profileId={profile.id} concept={concept} field={field} value={details?.[field.id]} onChange={(value) => patchDetail(field.id, value)} semanticType={semanticType} perspective={perspective} details={details} />
         ))}
-        {legacyFields.map((field) => (
-          <DetailField key={`legacy-${field.id}`} catalog={catalog} profileId={profile.id} concept={concept} field={field} value={details?.[field.id]} onChange={(value) => patchDetail(field.id, value)} semanticType={semanticType} perspective={perspective} details={details} legacy />
-        ))}
       </div>
     </section>
   )
 }
 
-export default function AdaptiveDetails({ catalog, concept, perspective, answer, update, decision }) {
+export default function AdaptiveDetails({ catalog, concept, perspective, answer, update, decision, excludedFieldIds = [] }) {
   const profileMap = useMemo(() => Object.fromEntries((catalog.detailProfiles || []).map((p) => [p.id, p])), [catalog])
   const bodyProfileMap = useMemo(() => Object.fromEntries((catalog.bodyPreferenceProfiles || []).map((p) => [p.id, p])), [catalog])
   const semantic = semanticDefinition(catalog, concept)
@@ -275,8 +271,8 @@ export default function AdaptiveDetails({ catalog, concept, perspective, answer,
 
   return (
     <>
-      <ProfileSection catalog={catalog} profile={profile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} perspective={perspective} />
-      <ProfileSection catalog={catalog} profile={bodyProfile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} perspective={perspective} bodyProfile />
+      <ProfileSection catalog={catalog} profile={profile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} perspective={perspective} excludedFieldIds={excludedFieldIds} />
+      <ProfileSection catalog={catalog} profile={bodyProfile} details={details} patchDetail={patchDetail} semanticType={semantic.id} decision={decision} concept={concept} perspective={perspective} bodyProfile excludedFieldIds={excludedFieldIds} />
     </>
   )
 }

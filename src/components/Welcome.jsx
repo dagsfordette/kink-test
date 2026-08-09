@@ -41,7 +41,7 @@ export default function Welcome({ settings, setSettings, onStart, onImport }) {
 
         <div className="welcome-actions">
           <button type="button" className="primary-button large" disabled={!settings.adultConfirmed} onClick={onStart}>Start exploring</button>
-          <button type="button" className="secondary-button large" onClick={onImport}>Import previous JSON</button>
+          <button type="button" className="secondary-button large" onClick={onImport}>Import JSON</button>
         </div>
       </section>
     </main>

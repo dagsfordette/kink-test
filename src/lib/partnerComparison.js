@@ -1,7 +1,7 @@
-import { isAnswered, normalizeWillingnessForResults } from './profile.js'
+import { isAnswered, willingnessState } from './profile.js'
 import { primaryCategoryId } from './taxonomy.js'
 
-export const compatibilityStateLabels = {
+export const comparisonStateLabels = {
   strong_directional_match: 'Strong directional match',
   shared_mutual_interest: 'Shared mutual interest',
   possible_discussion: 'Possible discussion',
@@ -25,7 +25,7 @@ const NEGATIVE_REAL_WORLD = new Set(['prefer_not', 'do_not_want'])
 const OPEN_WILLINGNESS = new Set(['actively_want', 'interested_in_trying', 'open_to_it', 'unsure'])
 
 function hardLimit(answer) {
-  return answer?.boundary === 'hard_limit' || normalizeWillingnessForResults(answer?.willingness) === 'hard_limit'
+  return answer?.boundary === 'hard_limit' || willingnessState(answer?.willingness) === 'hard_limit'
 }
 
 function conditional(answer) {
@@ -55,10 +55,10 @@ function detailHardLimitConflicts(leftAnswer, rightAnswer) {
 }
 
 function fantasyRealityMismatch(left, right) {
-  const leftFantasyOnly = normalizeWillingnessForResults(left?.willingness) === 'fantasy_only' || (POSITIVE_FANTASY.has(left?.preference?.fantasy) && NEGATIVE_REAL_WORLD.has(left?.preference?.realWorld))
-  const rightFantasyOnly = normalizeWillingnessForResults(right?.willingness) === 'fantasy_only' || (POSITIVE_FANTASY.has(right?.preference?.fantasy) && NEGATIVE_REAL_WORLD.has(right?.preference?.realWorld))
-  const leftReality = STRONG_REAL_WORLD.has(left?.preference?.realWorld) || ['actively_want', 'interested_in_trying'].includes(normalizeWillingnessForResults(left?.willingness))
-  const rightReality = STRONG_REAL_WORLD.has(right?.preference?.realWorld) || ['actively_want', 'interested_in_trying'].includes(normalizeWillingnessForResults(right?.willingness))
+  const leftFantasyOnly = willingnessState(left?.willingness) === 'fantasy_only' || (POSITIVE_FANTASY.has(left?.preference?.fantasy) && NEGATIVE_REAL_WORLD.has(left?.preference?.realWorld))
+  const rightFantasyOnly = willingnessState(right?.willingness) === 'fantasy_only' || (POSITIVE_FANTASY.has(right?.preference?.fantasy) && NEGATIVE_REAL_WORLD.has(right?.preference?.realWorld))
+  const leftReality = STRONG_REAL_WORLD.has(left?.preference?.realWorld) || ['actively_want', 'interested_in_trying'].includes(willingnessState(left?.willingness))
+  const rightReality = STRONG_REAL_WORLD.has(right?.preference?.realWorld) || ['actively_want', 'interested_in_trying'].includes(willingnessState(right?.willingness))
   return (leftFantasyOnly && rightReality) || (rightFantasyOnly && leftReality)
 }
 
@@ -69,7 +69,7 @@ function strength(answer) {
   else if (answer?.preference?.realWorld === 'unsure') score += 1
   if (answer?.preference?.fantasy === 'love_it') score += 2
   else if (answer?.preference?.fantasy === 'like_it') score += 1
-  const willingness = normalizeWillingnessForResults(answer?.willingness)
+  const willingness = willingnessState(answer?.willingness)
   if (willingness === 'actively_want') score += 3
   else if (willingness === 'interested_in_trying') score += 2
   else if (OPEN_WILLINGNESS.has(willingness)) score += 1

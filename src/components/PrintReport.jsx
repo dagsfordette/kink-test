@@ -1,5 +1,6 @@
 import { boundaryLabels, buildResults, perspectiveLabels, willingnessLabel } from '../lib/profile.js'
 import { negotiationPreferenceSummary } from '../lib/negotiation.js'
+import { powerExchangePreferenceSummary } from '../lib/powerExchange.js'
 
 function pretty(value) {
   return value ? value.replaceAll('_', ' ') : '—'
@@ -13,20 +14,21 @@ function preferenceLabel(value) {
   return value ? (labels[value] || pretty(value)) : '—'
 }
 
-function detailText(details) {
-  if (!details || !Object.keys(details).length) return '—'
-  return Object.entries(details).map(([key, value]) => {
-    let rendered
-    if (Array.isArray(value)) rendered = value.map(pretty).join(', ')
-    else if (value && typeof value === 'object') rendered = Object.entries(value).map(([k,v]) => `${pretty(k)}: ${pretty(v)}`).join('; ')
-    else rendered = pretty(value)
-    return `${pretty(key)}: ${rendered}`
-  }).join(' | ')
+function renderDetailValue(value) {
+  if (Array.isArray(value)) return value.map((item) => renderDetailValue(item)).join(', ')
+  if (value && typeof value === 'object') return Object.entries(value).map(([key, item]) => `${pretty(key)}: ${renderDetailValue(item)}`).join('; ')
+  return pretty(value)
 }
 
-export default function PrintReport({ catalog, answers, categoryGates, negotiationPreferences }) {
+function detailText(details) {
+  if (!details || !Object.keys(details).length) return '—'
+  return Object.entries(details).map(([key, value]) => `${pretty(key)}: ${renderDetailValue(value)}`).join(' | ')
+}
+
+export default function PrintReport({ catalog, answers, categoryGates, negotiationPreferences, powerExchangePreferences = {} }) {
   const results = buildResults(catalog, answers, categoryGates, negotiationPreferences)
   const profileSummary = negotiationPreferenceSummary(catalog, negotiationPreferences, { onlyPretestOnly: true })
+  const powerExchangeSummary = powerExchangePreferenceSummary(catalog, powerExchangePreferences)
   const now = new Date().toLocaleString()
   const categoryRows = results.categoryStats.filter((row) => row.conceptsAnswered > 0)
   const domainRows = results.domainStats.filter((row) => row.categoriesAnswered > 0)
@@ -65,6 +67,17 @@ export default function PrintReport({ catalog, answers, categoryGates, negotiati
           <table>
             <thead><tr><th>Area</th><th>Preference</th><th>Answer</th></tr></thead>
             <tbody>{profileSummary.sections.flatMap((section) => section.fields.map((field) => <tr key={`${section.id}-${field.id}`}><td>{section.label}</td><td>{field.label}</td><td>{field.values.join('; ')}</td></tr>))}</tbody>
+          </table>
+        </section>
+      )}
+
+      {powerExchangeSummary.hasData && (
+        <section>
+          <h2>Power Exchange defaults</h2>
+          <p>These category-level preferences describe role/orientation, style, structure, scope, and Power Exchange-specific care. They are descriptive defaults rather than scored standalone interests.</p>
+          <table>
+            <thead><tr><th>Area</th><th>Preference</th><th>Answer</th></tr></thead>
+            <tbody>{powerExchangeSummary.sections.flatMap((section) => section.fields.map((field) => <tr key={`${section.id}-${field.id}`}><td>{section.label}</td><td>{field.label}</td><td>{field.values.join('; ')}</td></tr>))}</tbody>
           </table>
         </section>
       )}
@@ -164,7 +177,7 @@ export default function PrintReport({ catalog, answers, categoryGates, negotiati
                 <td>{preferenceLabel(row.answer.preference?.fantasy)}</td>
                 <td>{preferenceLabel(row.answer.preference?.realWorld)}</td>
                 <td>{preferenceLabel(row.answer.preference?.experienced)}</td>
-                <td>{row.answer.willingness ? willingnessLabel(row.answer.willingness, row.answer.experience?.tried, row.semanticType) : '—'}</td>
+                <td>{row.answer.willingness ? willingnessLabel(row.answer.willingness) : '—'}</td>
                 <td>{row.answer.boundary ? (boundaryLabels[row.answer.boundary] || pretty(row.answer.boundary)) : '—'}</td>
                 <td>{row.answer.experience?.tried === true ? 'Yes' : row.answer.experience?.tried === false ? 'No' : '—'}</td>
                 <td>{detailText(row.answer.details)}</td>

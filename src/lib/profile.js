@@ -52,15 +52,10 @@ export function semanticFollowupPolicy(catalog, concept) {
   return semanticDefinition(catalog, concept).followupPolicy || {}
 }
 
-export function semanticDirectQuestioning(catalog, concept) {
-  return semanticDefinition(catalog, concept).directQuestioning !== false
-}
-
 export function questionDimensions(catalog, concept) {
   const semantic = semanticDefinition(catalog, concept)
   const defaults = semantic.questionDimensions || {}
-  const overrides = concept?.questionModel?.overrides || {}
-  return { ...defaults, ...overrides }
+  return { ...defaults }
 }
 
 export const willingnessLabels = {
@@ -71,52 +66,16 @@ export const willingnessLabels = {
   fantasy_only: 'Fantasy only',
   not_interested: 'Not interested',
   hard_limit: 'Hard limit',
-  // Legacy values remain readable; result aggregation normalizes them without rewriting saved data.
-  unknown: 'Not sure',
-  curious: 'Curious',
-  want_to_try: 'Want to try',
-  would_try: 'Would try',
-  would_do: 'Would do / do again',
-  would_not_try: 'Would not try',
 }
 
-const LEGACY_WILLINGNESS_RESULT_MAP = {
-  unknown: 'unsure',
-  curious: 'open_to_it',
-  want_to_try: 'interested_in_trying',
-  would_try: 'open_to_it',
-  would_do: 'actively_want',
-  would_not_try: 'not_interested',
+const WILLINGNESS_STATES = new Set(Object.keys(willingnessLabels))
+
+export function willingnessState(value) {
+  return WILLINGNESS_STATES.has(value) ? value : null
 }
 
-export function normalizeWillingnessForResults(value) {
-  return LEGACY_WILLINGNESS_RESULT_MAP[value] || value || null
-}
-
-export function willingnessLabel(value, tried, semanticType = 'activity') {
-  if (['actively_want', 'interested_in_trying', 'open_to_it', 'unsure', 'fantasy_only', 'not_interested', 'hard_limit'].includes(value)) {
-    return willingnessLabels[value]
-  }
-  if (semanticType === 'dynamic' || semanticType === 'relationship_dynamic') {
-    if (value === 'want_to_try') return 'Want to explore'
-    if (value === 'would_try') return 'Would explore'
-    if (value === 'would_do') return tried ? 'Would want again' : 'Would want'
-    if (value === 'would_not_try') return tried ? 'Would not want again' : 'Would not want'
-  }
-  if (['stimulus', 'body_part', 'material'].includes(semanticType)) {
-    if (value === 'want_to_try') return 'Want to explore'
-    if (value === 'would_try') return 'Would seek out'
-    if (value === 'would_do') return tried ? 'Would seek out again' : 'Would seek out'
-    if (value === 'would_not_try') return 'Would not seek out'
-  }
-  if (semanticType === 'setting') {
-    if (value === 'would_try') return 'Would choose'
-    if (value === 'would_do') return tried ? 'Would choose again' : 'Would choose'
-    if (value === 'would_not_try') return tried ? 'Would not choose again' : 'Would not choose'
-  }
-  if (value === 'would_do') return tried ? 'Would do again' : 'Would do'
-  if (value === 'would_not_try') return tried ? 'Would not do again' : 'Would not try'
-  return willingnessLabels[value] || value?.replaceAll('_', ' ') || ''
+export function willingnessLabel(value) {
+  return willingnessLabels[value] || ''
 }
 
 export const boundaryLabels = {
@@ -153,14 +112,12 @@ export function isAnswered(answer) {
     answer.willingness ||
     answer.boundary ||
     answer.note?.text ||
-    hasDetailData(answer) ||
-    Object.keys(answer.specifiers || {}).length,
+    hasDetailData(answer)
   )
 }
 
 const POSITIVE_WILLINGNESS = new Set([
   'actively_want', 'interested_in_trying', 'open_to_it', 'unsure', 'fantasy_only',
-  'curious', 'want_to_try', 'would_try', 'would_do',
 ])
 
 export function shouldExpandDetails(answer) {
@@ -184,14 +141,7 @@ export function shouldCollapse(answer) {
   const realWorld = answer.preference?.realWorld
   const negative = ['dislike_it', 'hate_it'].includes(experienced || fantasy)
   const realWorldNegative = ['prefer_not', 'do_not_want'].includes(realWorld)
-  return (negative || realWorldNegative) && ['would_not_try', 'not_interested', undefined].includes(answer.willingness)
-}
-
-function legacyBestPreference(answer) {
-  if (!answer) return null
-  const experienced = answer.preference?.experienced
-  if (experienced && preferenceScore[experienced] !== undefined) return experienced
-  return answer.preference?.fantasy || null
+  return (negative || realWorldNegative) && ['not_interested', undefined].includes(answer.willingness)
 }
 
 function average(values) {
@@ -215,9 +165,6 @@ function summarizeScores(values) {
   return {
     answeredConcepts: numeric.length,
     average: avg,
-    // Compatibility/visual position only: linear transform of -2..2 to 0..100.
-    // It is not shown as a psychometric percentage in the Plan 06 UI.
-    index: avg === null ? null : Math.round(((avg + 2) / 4) * 100),
     label: resultLabel(avg, numeric.length),
   }
 }
@@ -309,19 +256,6 @@ function categoryAggregate(catalog, category, conceptResults) {
   }
 }
 
-function semanticAggregate(catalog, id, definition, conceptResults) {
-  const concepts = conceptResults.filter((row) => row.semanticType === id)
-  const dimension = (dimensionId) => summarizeScores(concepts.map((row) => row[dimensionId]?.average))
-  return {
-    id,
-    label: definition.label || id,
-    conceptsAnswered: concepts.length,
-    answered: concepts.filter((row) => row.fantasy.answeredConcepts || row.realWorld.answeredConcepts).length,
-    fantasy: dimension('fantasy'),
-    realWorld: dimension('realWorld'),
-  }
-}
-
 function domainAggregate(domain, categoryStats) {
   const categories = categoryStats.filter((row) => row.domainId === domain.id)
   const dimension = (dimensionId) => summarizeScores(categories
@@ -382,7 +316,6 @@ function commonConditionalDetails(records) {
 
 export function buildResults(catalog, answers = {}, categoryGates = {}, negotiationPreferences = {}) {
   const conceptMap = Object.fromEntries(catalog.concepts.map((concept) => [concept.id, concept]))
-  const categoryMap = Object.fromEntries(catalog.categories.map((category) => [category.id, category]))
   const records = []
 
   for (const [key, answer] of Object.entries(answers || {})) {
@@ -394,7 +327,6 @@ export function buildResults(catalog, answers = {}, categoryGates = {}, negotiat
     const concept = conceptMap[conceptId]
     if (!concept) continue
 
-    const preference = legacyBestPreference(answer)
     const dimensionScores = interestScores(answer)
     const detailBoundaries = detailBoundaryEntries(catalog, concept, perspective, answer)
     records.push({
@@ -402,11 +334,8 @@ export function buildResults(catalog, answers = {}, categoryGates = {}, negotiat
       concept,
       perspective,
       answer,
-      preference,
-      // Compatibility field for older callers; Plan 06 aggregation does not average record.score.
-      score: preference && preferenceScore[preference] !== undefined ? preferenceScore[preference] : null,
       dimensionScores,
-      willingnessState: normalizeWillingnessForResults(answer.willingness),
+      willingnessState: willingnessState(answer.willingness),
       categoryId: primaryCategoryId(concept),
       semanticType: concept.semanticType || 'activity',
       detailBoundaries,
@@ -425,9 +354,6 @@ export function buildResults(catalog, answers = {}, categoryGates = {}, negotiat
 
   const allCategoryStats = catalog.categories.map((category) => categoryAggregate(catalog, category, conceptResults))
   const categoryStats = allCategoryStats.filter((row) => row.conceptsAnswered > 0)
-  const semanticStats = Object.entries(catalog.semanticTypes || {})
-    .map(([id, definition]) => semanticAggregate(catalog, id, definition, conceptResults))
-    .filter((row) => row.conceptsAnswered > 0)
   const domainStats = (catalog.domains || []).map((domain) => domainAggregate(domain, allCategoryStats))
 
   const conceptHardLimits = records.filter((row) => row.answer.boundary === 'hard_limit' || row.willingnessState === 'hard_limit')
@@ -467,11 +393,8 @@ export function buildResults(catalog, answers = {}, categoryGates = {}, negotiat
     .sort((a, b) => (b.dimensionScores.fantasy ?? -Infinity) - (a.dimensionScores.fantasy ?? -Infinity))
 
   return {
-    aggregationVersion: catalog.resultsModel?.version || '2.0.0',
     records,
-    conceptResults,
     categoryStats,
-    semanticStats,
     domainStats,
     perspectiveStats: Object.entries(perspectiveLabels).map(([perspective, label]) => {
       const rows = records.filter((row) => row.perspective === perspective)
@@ -503,7 +426,6 @@ export function buildResults(catalog, answers = {}, categoryGates = {}, negotiat
     emotionalSelf,
     emotionalPartner,
     negotiationPreferences: negotiationPreferenceSummary(catalog, negotiationPreferences),
-    categoryMap,
     counts: {
       answerRecords: records.length,
       conceptsAnswered: conceptResults.length,

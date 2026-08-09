@@ -2,8 +2,9 @@ import { useMemo, useState } from 'react'
 import ProfilePreferences from './ProfilePreferences.jsx'
 import ConceptCard from './ConceptCard.jsx'
 import NegotiationPreferences from './NegotiationPreferences.jsx'
-import { answerKey, isAnswered, questionDimensions, semanticDirectQuestioning } from '../lib/profile.js'
-import { canonicalConceptId, categoriesByDomain, conceptsForCategory } from '../lib/taxonomy.js'
+import PowerExchangeOverview, { PowerExchangeCare } from './PowerExchangeOverview.jsx'
+import { answerKey, isAnswered, questionDimensions } from '../lib/profile.js'
+import { categoriesByDomain, conceptsForCategory } from '../lib/taxonomy.js'
 import { applicablePerspectives, profileHasPruningData } from '../lib/profilePruning.js'
 import {
   categoryGatePolicy,
@@ -12,6 +13,7 @@ import {
   normalizeCategoryGateRecord,
   normalizeDepthMode,
 } from '../lib/depthModes.js'
+import { patchPowerExchangePreference, powerExchangeModel, shouldShowExtendedPowerExchange, splitConceptsForPowerExchangeRole } from '../lib/powerExchange.js'
 
 function scrollToTop() {
   if (typeof window === 'undefined') return
@@ -56,7 +58,7 @@ function answeredOrApplicablePerspectives(concept, preferences, answers, showFil
   const all = concept.perspectives || ['mutual']
   if (showFiltered) return all
   const profileApplicable = new Set(applicablePerspectives(concept, preferences))
-  const conceptId = canonicalConceptId(concept)
+  const conceptId = concept.id
   return all.filter((perspective) => profileApplicable.has(perspective) || isAnswered(answers[answerKey(conceptId, perspective)]))
 }
 
@@ -68,6 +70,8 @@ export default function TestView({
   setCategoryGate,
   negotiationPreferences,
   setNegotiationPreferences,
+  powerExchangePreferences,
+  setPowerExchangePreferences,
   settings,
   setSettings,
   currentCategoryId,
@@ -97,7 +101,6 @@ export default function TestView({
     const result = {}
     for (const category of categories) {
       result[category.id] = conceptsForCategory(catalog, category.id)
-        .filter((concept) => semanticDirectQuestioning(catalog, concept))
     }
     return result
   }, [catalog, categories])
@@ -114,10 +117,16 @@ export default function TestView({
       })
     : []
 
+  const isPowerExchange = currentCategory.id === 'power_exchange'
+  const powerModel = powerExchangeModel(catalog)
+  const extendedPowerExchangeOpen = isPowerExchange && shouldShowExtendedPowerExchange(catalog, powerExchangePreferences, answers)
+  const extendedPowerExchangeIds = new Set(powerModel.extendedConceptIds || [])
+  const perspectiveSourceConcepts = isPowerExchange ? allConcepts : depthConcepts
+
   const conceptPerspectives = useMemo(() => {
     const result = {}
-    for (const concept of depthConcepts) {
-      result[canonicalConceptId(concept)] = answeredOrApplicablePerspectives(
+    for (const concept of perspectiveSourceConcepts) {
+      result[concept.id] = answeredOrApplicablePerspectives(
         concept,
         negotiationPreferences,
         answers,
@@ -125,29 +134,35 @@ export default function TestView({
       )
     }
     return result
-  }, [answers, depthConcepts, negotiationPreferences, showProfileFiltered])
+  }, [answers, perspectiveSourceConcepts, negotiationPreferences, showProfileFiltered])
 
-  const visibleConcepts = depthConcepts.filter((concept) => (conceptPerspectives[canonicalConceptId(concept)] || []).length > 0)
+  const visibleConcepts = depthConcepts.filter((concept) => (conceptPerspectives[concept.id] || []).length > 0)
+  const powerSpecificConcepts = isPowerExchange ? visibleConcepts.filter((concept) => !extendedPowerExchangeIds.has(concept.id)) : []
+  const powerRoleSplit = isPowerExchange ? splitConceptsForPowerExchangeRole(powerSpecificConcepts, powerExchangePreferences?.roleOrientation) : { primary: [], otherRole: [] }
+  const powerExtendedConcepts = isPowerExchange && extendedPowerExchangeOpen
+    ? allConcepts.filter((concept) => extendedPowerExchangeIds.has(concept.id) && (conceptPerspectives[concept.id] || []).length > 0)
+    : []
+  const displayedConcepts = isPowerExchange ? [...powerRoleSplit.primary, ...powerExtendedConcepts] : visibleConcepts
 
   let profileHiddenPerspectives = 0
   let profileHiddenConcepts = 0
   if (!showProfileFiltered && profileFilteringActive) {
     for (const concept of depthConcepts) {
       const allPerspectives = concept.perspectives || ['mutual']
-      const visiblePerspectives = conceptPerspectives[canonicalConceptId(concept)] || []
+      const visiblePerspectives = conceptPerspectives[concept.id] || []
       profileHiddenPerspectives += Math.max(0, allPerspectives.length - visiblePerspectives.length)
       if (visiblePerspectives.length === 0 && allPerspectives.length > 0) profileHiddenConcepts += 1
     }
   }
 
   const answeredInCategory = allConcepts.reduce((count, concept) => {
-    const conceptId = canonicalConceptId(concept)
+    const conceptId = concept.id
     const perspectives = answeredOrApplicablePerspectives(concept, negotiationPreferences, answers, showProfileFiltered)
     return count + Number(perspectives.some((p) => isAnswered(answers[answerKey(conceptId, p)])))
   }, 0)
 
   const overallAnswered = Object.values(answers).filter(isAnswered).length
-  const totalPotential = catalog.concepts.filter((c) => !c.tags?.includes('branch_gate')).length
+  const totalPotential = catalog.concepts.length
   const [collapsedTitle, collapsedText] = collapsedCopy(gatePolicy.state)
 
   const chooseGate = (state) => {
@@ -159,8 +174,8 @@ export default function TestView({
   }
 
   const markVisibleYes = () => {
-    for (const concept of visibleConcepts) {
-      const conceptId = canonicalConceptId(concept)
+    for (const concept of displayedConcepts) {
+      const conceptId = concept.id
       const perspectives = conceptPerspectives[conceptId] || []
       for (const perspective of perspectives) {
         const key = answerKey(conceptId, perspective)
@@ -273,7 +288,7 @@ export default function TestView({
                     {domainCategories.map((category) => {
                       const categoryConcepts = conceptsByCategory[category.id] || []
                       const count = categoryConcepts.reduce((n, concept) => {
-                        const conceptId = canonicalConceptId(concept)
+                        const conceptId = concept.id
                         const perspectives = answeredOrApplicablePerspectives(concept, negotiationPreferences, answers, showProfileFiltered)
                         return n + Number(perspectives.some((p) => isAnswered(answers[answerKey(conceptId, p)])))
                       }, 0)
@@ -401,6 +416,14 @@ export default function TestView({
 
               {branchOpen && (
                 <>
+                  {isPowerExchange && (
+                    <PowerExchangeOverview
+                      catalog={catalog}
+                      preferences={powerExchangePreferences}
+                      setPreferences={setPowerExchangePreferences}
+                    />
+                  )}
+
                   {profileFilteringActive && (profileHiddenPerspectives > 0 || showProfileFiltered) && (
                     <div className="profile-filter-bar">
                       <div>
@@ -417,26 +440,121 @@ export default function TestView({
                     </div>
                   )}
 
-                  <div className="question-list-toolbar">
-                    <div>
-                      <strong>{visibleConcepts.length} question{visibleConcepts.length === 1 ? '' : 's'}</strong>
-                      {gatePolicy.representativeOnly && !currentOverride && <span>Starting with a smaller set. You can show the rest below.</span>}
-                    </div>
-                    <button type="button" className="secondary-button bulk-yes-button" title="Fills only unanswered visible items and keeps existing answers or limits unchanged." onClick={markVisibleYes}>Yes to all shown</button>
-                  </div>
-                  <div className="concept-grid">
-                    {visibleConcepts.map((concept) => (
-                      <ConceptCard
-                        key={concept.id}
-                        concept={concept}
-                        answers={answers}
-                        setAnswer={setAnswer}
-                        catalog={catalog}
-                        perspectivesOverride={conceptPerspectives[canonicalConceptId(concept)]}
-                        showDefinition={gatePolicy.representativeOnly && !currentOverride}
-                      />
-                    ))}
-                  </div>
+                  {isPowerExchange ? (
+                    <>
+                      <section className="power-exchange-question-section" aria-labelledby="power-exchange-specific-heading">
+                        <div className="power-exchange-section-heading compact">
+                          <span className="kicker">Specific expressions</span>
+                          <h2 id="power-exchange-specific-heading">What kinds of Power Exchange appeal to you?</h2>
+                          <p>Each card uses one real-world interest/boundary scale. Fantasy appeal stays separate, and follow-ups ask only what is specific to that interest.</p>
+                        </div>
+                        <div className="question-list-toolbar">
+                          <div>
+                            <strong>{powerRoleSplit.primary.length} question{powerRoleSplit.primary.length === 1 ? '' : 's'} in your main view</strong>
+                            {gatePolicy.representativeOnly && !currentOverride && <span>Starting with a smaller set. You can show the rest below.</span>}
+                          </div>
+                        </div>
+                        <div className="concept-grid">
+                          {powerRoleSplit.primary.map((concept) => (
+                            <ConceptCard
+                              key={concept.id}
+                              concept={concept}
+                              answers={answers}
+                              setAnswer={setAnswer}
+                              catalog={catalog}
+                              perspectivesOverride={conceptPerspectives[concept.id]}
+                              showDefinition={gatePolicy.representativeOnly && !currentOverride}
+                              powerExchangeMode
+                              powerExchangePreferences={powerExchangePreferences}
+                            />
+                          ))}
+                        </div>
+
+                        {powerRoleSplit.otherRole.length > 0 && (
+                          <details className="other-role-interests">
+                            <summary>Explore other-role interests ({powerRoleSplit.otherRole.length})</summary>
+                            <p>Your role/orientation only organizes the section. These questions remain available and do not assume how you identify.</p>
+                            <div className="concept-grid">
+                              {powerRoleSplit.otherRole.map((concept) => (
+                                <ConceptCard
+                                  key={concept.id}
+                                  concept={concept}
+                                  answers={answers}
+                                  setAnswer={setAnswer}
+                                  catalog={catalog}
+                                  perspectivesOverride={conceptPerspectives[concept.id]}
+                                  showDefinition
+                                  powerExchangeMode
+                                  powerExchangePreferences={powerExchangePreferences}
+                                />
+                              ))}
+                            </div>
+                          </details>
+                        )}
+                      </section>
+
+                      {!extendedPowerExchangeOpen && (
+                        <section className="extended-dynamics-closed">
+                          <div>
+                            <span className="kicker">Optional depth</span>
+                            <h2>Ongoing & extended dynamics</h2>
+                            <p>Open this if you want to explore ongoing D/s, 24/7 structures, very broad delegated authority, protocol-heavy relationships, or negotiated sexual availability.</p>
+                          </div>
+                          <button type="button" className="secondary-button" onClick={() => setPowerExchangePreferences((prev) => patchPowerExchangePreference(catalog, prev, 'exploreExtended', true))}>Explore extended dynamics</button>
+                        </section>
+                      )}
+
+                      {extendedPowerExchangeOpen && (
+                        <section className="power-exchange-question-section extended-dynamics-section" aria-labelledby="extended-dynamics-heading">
+                          <div className="power-exchange-section-heading compact">
+                            <span className="kicker">Ongoing & extended dynamics</span>
+                            <h2 id="extended-dynamics-heading">Longer-running and broader agreements</h2>
+                            <p>These are distinct models rather than synonyms for “highly structured.” Their follow-ups focus on what continues, what pauses, and what the agreement actually covers.</p>
+                          </div>
+                          <div className="concept-grid">
+                            {powerExtendedConcepts.map((concept) => (
+                              <ConceptCard
+                                key={concept.id}
+                                concept={concept}
+                                answers={answers}
+                                setAnswer={setAnswer}
+                                catalog={catalog}
+                                perspectivesOverride={conceptPerspectives[concept.id]}
+                                showDefinition
+                                powerExchangeMode
+                                powerExchangePreferences={powerExchangePreferences}
+                              />
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
+                      <PowerExchangeCare catalog={catalog} preferences={powerExchangePreferences} setPreferences={setPowerExchangePreferences} />
+                    </>
+                  ) : (
+                    <>
+                      <div className="question-list-toolbar">
+                        <div>
+                          <strong>{visibleConcepts.length} question{visibleConcepts.length === 1 ? '' : 's'}</strong>
+                          {gatePolicy.representativeOnly && !currentOverride && <span>Starting with a smaller set. You can show the rest below.</span>}
+                        </div>
+                        <button type="button" className="secondary-button bulk-yes-button" title="Fills only unanswered visible items and keeps existing answers or limits unchanged." onClick={markVisibleYes}>Yes to all shown</button>
+                      </div>
+                      <div className="concept-grid">
+                        {visibleConcepts.map((concept) => (
+                          <ConceptCard
+                            key={concept.id}
+                            concept={concept}
+                            answers={answers}
+                            setAnswer={setAnswer}
+                            catalog={catalog}
+                            perspectivesOverride={conceptPerspectives[concept.id]}
+                            showDefinition={gatePolicy.representativeOnly && !currentOverride}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
 
                   {!currentOverride && depthConcepts.length < allConcepts.length && (
                     <div className="show-more-row simple-show-more">
