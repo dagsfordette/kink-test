@@ -1,8 +1,11 @@
 # Kink Exploration prototype
 
-A local-first React/Vite prototype for adult self-exploration of interests, boundaries, preferences, and partner discussion points.
+A local-first React/Vite prototype built around two deliberately different adult self-exploration jobs:
 
-This repository is intentionally optimized for iteration rather than release compatibility. It supports the **current** catalog and export format only.
+- **Fantasy Profile** — private reflection on fantasies, emotions, roles, and erotic themes: *What turns my imagination on?*
+- **Activity Explorer** — real-world activity stance, experience, boundaries, conditions, and partner discussion: *What do I actually want, consider, or limit in real life?*
+
+The integrated product principle is: **Discover yourself broadly. Explore reality precisely.** Neither experience is required before the other.
 
 ## Run locally
 
@@ -16,78 +19,95 @@ npm run dev
 Useful commands:
 
 ```bash
-npm test              # focused runtime tests + catalog validation
-npm run validate:catalog
+npm test
+npm run validate:activity-catalog
+npm run validate:fantasy-profile
 npm run build
 npm run preview
 ```
 
-## Project structure
+## Current project structure
 
 ```text
 src/
-  App.jsx                  App state, import/export, screen routing
-  components/              Questionnaire and results UI
-  data/catalog.json        Current questionnaire/catalog data
-  lib/                     Current runtime logic
-scripts/
-  catalog-validation.mjs   Lightweight catalog integrity checks
-  catalog-validate.mjs     CLI validator
-  *.test.mjs               Focused current-behavior tests
-.github/workflows/deploy.yml
+  App.jsx
+  components/
+    product/                 Home, shared navigation, My Profile, print report
+    fantasy/                 Fantasy Profile UI
+    activities/              Activity Explorer + partner comparison UI
+  data/
+    fantasyProfile.json      Fantasy questionnaire/scoring data
+    activityCatalog.json     Real-world activity catalog
+  lib/
+    appState.js              Current v2.0.0 integrated product state
+    appStorage.js            Current storage key only; no legacy reads/migration
+    profileExports.js        Private backup + partner-share formats
+    profileIntegration.js    Neutral fantasy-to-reality observations
+    playPreferences.js       Reusable negotiation preferences
+    fantasy*.js              Fantasy routing/scoring/results helpers
+    activityProfile.js       Activity answers/navigation/filters/results
+    activityRecommendations.js
+    activityComparison.js
 ```
 
-## Current data model
+## Product navigation
 
-The catalog contains navigation domains, categories, current question concepts, semantic question types, adaptive detail profiles, risk/care prompts, negotiation preferences, and Power Exchange preferences.
+The app opens on **Home** with two independent cards for Fantasy Profile and Activity Explorer. Shared navigation keeps four top-level destinations visible: Home, Fantasy Profile, Activity Explorer, and My Profile.
 
-Concepts store only fields used by the prototype: identity and copy, category placement, perspectives, semantic type, current detail-profile bindings, optional UI overrides, and risk domains. Historical schema mirrors, migration metadata, branch-gate marker concepts, deprecated detail fields, and hidden duplicate concepts are intentionally excluded.
+**My Profile** keeps fantasy and real-world information visually separate, then adds neutral observations only when both datasets exist. Differences between fantasy and real-world stances are never treated as contradictions or problems to fix.
 
-Category routing uses three depth modes: `quick`, `standard`, and `exhaustive`. Category gates are routing choices (`interested`, `maybe`, `not_interested`, `hard_limit`, `skip`) and are stored separately from concept answers.
+## Activity Explorer model
 
-## Local storage and JSON
+Each answered activity stores exactly one real-world `stance`, plus optional independent `experience`, optional `details`, and an optional note.
 
-Answers are stored in browser `localStorage` under the current prototype storage key. JSON export/import is local-only and uses the current questionnaire version.
+The seven semantic stance states are:
 
-There is deliberately **no backward-compatibility layer**:
+```text
+love
+want
+curious
+if_partner_wants
+dont_want
+soft_limit
+hard_limit
+```
 
-- imports must use the current export format and questionnaire version;
-- unknown/removed answer keys are rejected rather than migrated;
-- old willingness values and old detail-array shapes are not normalized;
-- old local-storage keys are not read;
-- schema changes should update the prototype directly instead of adding migration code.
+Experience is independent and never inferred. Category skipping and “hide for now” are navigation/relevance state only. Starter, extended, and specialized are content-order layers; the full catalog remains reachable.
 
-If preserving old data becomes important later, add versioning/migrations when the product requirements justify them.
+## Fantasy-informed recommendations
+
+When Fantasy Profile is complete, Activity Explorer may recommend varied real-world activities related to supported fantasy themes. Recommendations are recalculated from the current Fantasy Profile answers, but they only promote activities and explain why they may be worth considering. They never create, change, hide, or limit Activity Explorer answers.
+
+## Privacy and exports
+
+The app intentionally uses two incompatible export surfaces:
+
+- `kink-exploration-private-profile` — private backup containing Fantasy Profile progress/answers/result metadata, Activity Explorer answers/navigation, Play Preferences, tailoring settings, and version metadata.
+- `kink-exploration-activity-profile` — partner-share Activity Explorer data only. Fantasy answers, question sequence, themes, scores, and recommendation explanations are excluded. Play Preferences are included only when explicitly selected.
+
+Partner Comparison accepts only the partner-share Activity Profile format. It does not accept private backups or arbitrary legacy profile JSON.
+
+## Storage
+
+The current integrated app state uses version `2.0.0` and the browser storage key:
+
+```text
+kink-exploration:profile:v2
+```
+
+There is no legacy storage read or migration path.
 
 ## Partner comparison
 
-The Results screen can load a second current-format JSON export in memory and classify paired answers into descriptive interaction states. It does not calculate an overall compatibility percentage. The comparison file is not persisted by the app.
+Directional activities use reciprocal `complementId` links; mutual activities compare the same activity ID. Hard-limit conflicts take precedence. Experience gaps are informational only. No overall compatibility percentage or score is calculated.
 
-## Results and privacy
+## Printing
 
-Results keep fantasy interest, real-world desire, experience, willingness, conditions, and boundaries distinct. Hard limits are reported separately from preference summaries.
+- **Private report** from My Profile may include Fantasy Profile, Activity Explorer, and Play Preferences, with fantasy content explicitly labeled as fantasy.
+- **Partner report** from Activity Explorer results contains real-world Activity Explorer data only; hard limits print first and prominently.
 
-The app is local-first: responses remain in the browser unless the user exports JSON, prints/saves a PDF through the browser print dialog, or deliberately shares a file.
+## Validation and tests
 
-## Catalog validation
+The automated suite covers dataset validation, Fantasy routing/scoring, exact Activity Explorer stances, independent experience, recommendation non-mutation, reciprocal complements, hard-limit precedence, export privacy, strict partner-share import, storage integrity, and the absence of a legacy universal runtime catalog.
 
-`scripts/catalog-validation.mjs` checks the invariants that matter for the current prototype, including:
-
-- unique IDs and valid domain/category references;
-- current-only willingness states;
-- valid semantic/detail/risk references;
-- nested Quick → Standard → Exhaustive category lists;
-- exhaustive reachability for every current concept;
-- no deprecated detail fields or removed compatibility-era concept fields.
-
-Keep validation focused on runtime integrity. Avoid adding release-process, migration-history, or generated audit documentation unless it becomes necessary for an actual release workflow.
-
-## Deployment
-
-The included GitHub Actions workflow runs the focused tests, builds the Vite app, and deploys `dist/` to GitHub Pages on pushes to `main` or manual dispatch.
-
-`vite.config.js` uses relative asset paths so the build works under either a user/organization Pages site or a repository subpath.
-
-## Prototype caveats
-
-This is not a validated psychometric, medical, or diagnostic instrument. It is a self-reflection prototype for adults. The catalog and wording assume informed consent between adults and intentionally avoid procedural instructions for higher-risk activities.
+This is not a psychometric, medical, diagnostic, or compatibility instrument. It is an adult self-reflection and communication prototype.

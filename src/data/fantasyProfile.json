@@ -1,0 +1,4335 @@
+{
+  "questionnaire": {
+    "id": "fantasy_profile",
+    "name": "Fantasy Profile",
+    "version": "1.0.0-prototype",
+    "purpose": "A self-discovery questionnaire about what turns the imagination on, separate from real-world willingness, experience, consent negotiation, and boundaries.",
+    "prompt": "When I imagine this, how does my mind respond?",
+    "targetMinutes": [
+      10,
+      15
+    ],
+    "administration": {
+      "coreCount": 52,
+      "maxDiscriminatorCount": 12,
+      "maxDeepDiveCount": 12,
+      "typicalResponseRange": [
+        52,
+        76
+      ],
+      "selection": "deterministic"
+    },
+    "adultScope": "All people described in partner or group scenarios are adults. Group scenarios refer to consenting adult observers or participants where observation is involved.",
+    "disclaimer": "Fantasy responses describe imagination only. They are not evidence of consent, intent, morality, diagnosis, or a real-world plan."
+  },
+  "responseScale": [
+    {
+      "id": "strong_turn_on",
+      "label": "Strong turn-on",
+      "score": 2
+    },
+    {
+      "id": "turn_on",
+      "label": "Turn-on",
+      "score": 1.25
+    },
+    {
+      "id": "intriguing",
+      "label": "Intriguing",
+      "score": 0.65
+    },
+    {
+      "id": "neutral",
+      "label": "Neutral",
+      "score": 0
+    },
+    {
+      "id": "turn_off",
+      "label": "Turn-off",
+      "score": -1.25
+    },
+    {
+      "id": "strong_turn_off",
+      "label": "Strong turn-off",
+      "score": -2
+    },
+    {
+      "id": "unsure",
+      "label": "Unsure / skip",
+      "score": null
+    }
+  ],
+  "dimensions": [
+    {
+      "id": "surrender",
+      "label": "Surrender",
+      "resultLayer": "driver",
+      "description": "Interest in letting personal control recede within fantasy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where yielding, following, or not having to decide is especially charged.",
+      "negativeInterpretation": "Weaker or negative evidence may mean fantasies are more appealing when personal agency remains central."
+    },
+    {
+      "id": "authority_responsibility",
+      "label": "Authority & responsibility",
+      "resultLayer": "driver",
+      "description": "Interest in holding authority and responsibility for directing an adult partner within fantasy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where taking the lead and carrying responsibility are part of the appeal.",
+      "negativeInterpretation": "Weaker or negative evidence may mean being responsible for directing another person is not an important fantasy driver."
+    },
+    {
+      "id": "helplessness_vulnerability",
+      "label": "Helplessness & vulnerability",
+      "resultLayer": "driver",
+      "description": "Interest in feeling or evoking exposed vulnerability, limited agency, or being at another adult’s mercy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where vulnerability or inability to change the moment heightens intensity.",
+      "negativeInterpretation": "Weaker or negative evidence may mean fantasies are more appealing when vulnerability remains limited or easily reversible."
+    },
+    {
+      "id": "trust_safety",
+      "label": "Trust & emotional safety",
+      "resultLayer": "driver",
+      "description": "Interest in deep trust, emotional security, and the ability to lower one’s guard inside fantasy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies whose intensity depends on feeling deeply trusted, trusting, or emotionally held.",
+      "negativeInterpretation": "Weaker or negative evidence may mean trust is assumed rather than a primary source of fantasy charge."
+    },
+    {
+      "id": "anticipation_denial",
+      "label": "Anticipation & denial",
+      "resultLayer": "driver",
+      "description": "Interest in waiting, suspense, delayed gratification, and wanting without immediate resolution.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where waiting or being kept wanting is part of the pleasure.",
+      "negativeInterpretation": "Weaker or negative evidence may mean direct gratification is more appealing than prolonged suspense or denial."
+    },
+    {
+      "id": "fear_adrenaline",
+      "label": "Fear & adrenaline",
+      "resultLayer": "driver",
+      "description": "Interest in fear-like tension, uncertainty, pursuit, or adrenaline as an arousal driver within fantasy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where a racing-heart sense of threat or uncertainty is part of the appeal.",
+      "negativeInterpretation": "Weaker or negative evidence may mean fear-like tension reduces rather than increases fantasy appeal."
+    },
+    {
+      "id": "pain_intensity",
+      "label": "Pain & physical intensity",
+      "resultLayer": "driver",
+      "description": "Interest in pain or physically overwhelming sensation as an erotic or emotionally charged fantasy element.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where pain or intense physical sensation becomes a central focus.",
+      "negativeInterpretation": "Weaker or negative evidence may mean physical intensity is more appealing when it stays below the threshold of pain."
+    },
+    {
+      "id": "humiliation_embarrassment",
+      "label": "Humiliation & embarrassment",
+      "resultLayer": "driver",
+      "description": "Interest in embarrassment, lowered status, mortification, or feeling personally exposed within fantasy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where embarrassment or being made to feel small creates erotic charge.",
+      "negativeInterpretation": "Weaker or negative evidence may mean dignity, affirmation, or emotional neutrality is more important in fantasy."
+    },
+    {
+      "id": "praise_approval",
+      "label": "Praise & approval",
+      "resultLayer": "driver",
+      "description": "Interest in approval, affirmation, admiration, and emotionally powerful positive feedback.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where praise or approval from an adult partner has unusually strong emotional impact.",
+      "negativeInterpretation": "Weaker or negative evidence may mean external approval is not a major source of fantasy intensity."
+    },
+    {
+      "id": "being_desired_attention",
+      "label": "Being desired & attention",
+      "resultLayer": "driver",
+      "description": "Interest in being the focus of unmistakable desire or giving another adult that concentrated sense of being wanted.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where focused desire and attention are central to the charge.",
+      "negativeInterpretation": "Weaker or negative evidence may mean being the center of desire is less important than other dynamics."
+    },
+    {
+      "id": "possession_belonging",
+      "label": "Possession & belonging",
+      "resultLayer": "driver",
+      "description": "Interest in emotionally charged fantasies of claiming, being claimed, belonging, or possessive attachment.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where a sense of being mine or belonging to someone is especially powerful.",
+      "negativeInterpretation": "Weaker or negative evidence may mean closeness is more appealing without possessive or claiming themes."
+    },
+    {
+      "id": "tenderness_care",
+      "label": "Tenderness & care",
+      "resultLayer": "driver",
+      "description": "Interest in giving or receiving tenderness, comfort, caretaking, and affectionate attention during intense fantasy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where care, soothing, or affectionate attention is a major part of the emotional payoff.",
+      "negativeInterpretation": "Weaker or negative evidence may mean tenderness is secondary to other fantasy drivers."
+    },
+    {
+      "id": "control_permission",
+      "label": "Control & permission",
+      "resultLayer": "motif",
+      "description": "Interest in fantasies structured by who decides, who may act, and whose permission matters.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where explicit decision power or permission creates much of the charge.",
+      "negativeInterpretation": "Weaker or negative evidence may mean control is more appealing when choices remain shared or informal."
+    },
+    {
+      "id": "rules_ritual_protocol",
+      "label": "Rules, ritual & structure",
+      "resultLayer": "motif",
+      "description": "Interest in rules, repeated rituals, formal structure, and expected patterns of behavior.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where structure, ritual, or rule-following is exciting in its own right.",
+      "negativeInterpretation": "Weaker or negative evidence may mean spontaneity is more appealing than formal rules or repeated structure."
+    },
+    {
+      "id": "service_usefulness",
+      "label": "Service & usefulness",
+      "resultLayer": "motif",
+      "description": "Interest in being useful to an adult partner or receiving focused service from them.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where usefulness, attending to needs, or being served carries special meaning.",
+      "negativeInterpretation": "Weaker or negative evidence may mean service roles add little to fantasy appeal."
+    },
+    {
+      "id": "restraint_confinement",
+      "label": "Restraint & confinement",
+      "resultLayer": "motif",
+      "description": "Interest in restricted movement, immobilization, or confinement as a fantasy pattern.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where physical restriction or inability to move freely is central.",
+      "negativeInterpretation": "Weaker or negative evidence may mean freedom of movement is important to fantasy enjoyment."
+    },
+    {
+      "id": "objectification_use",
+      "label": "Objectification & use",
+      "resultLayer": "motif",
+      "description": "Interest in fantasies where a person is treated primarily as a body, object, function, or means to another adult’s pleasure.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where personhood temporarily recedes behind being used, positioned, or reduced to a function.",
+      "negativeInterpretation": "Weaker or negative evidence may mean mutual recognition and personhood are important to maintaining fantasy appeal."
+    },
+    {
+      "id": "exposure_being_seen",
+      "label": "Exposure & being seen",
+      "resultLayer": "motif",
+      "description": "Interest in revealing, displaying, or being visibly exposed to consenting adults.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where being visibly exposed or placed on display creates the charge.",
+      "negativeInterpretation": "Weaker or negative evidence may mean privacy is more appealing than being exposed or displayed."
+    },
+    {
+      "id": "watching_observation",
+      "label": "Watching & observation",
+      "resultLayer": "motif",
+      "description": "Interest in observing adult reactions, private moments, or interactions, and in knowing one is being closely observed.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where watching or being watched is a meaningful part of the experience.",
+      "negativeInterpretation": "Weaker or negative evidence may mean direct participation matters more than observation."
+    },
+    {
+      "id": "sensory_focus_alteration",
+      "label": "Sensory focus & alteration",
+      "resultLayer": "motif",
+      "description": "Interest in narrowing, removing, intensifying, or overwhelming sensory input.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where altered sensory awareness becomes the main route to intensity.",
+      "negativeInterpretation": "Weaker or negative evidence may mean ordinary sensory awareness is preferable to restriction or overload."
+    },
+    {
+      "id": "roleplay_transformation",
+      "label": "Roleplay & transformation",
+      "resultLayer": "motif",
+      "description": "Interest in becoming, encountering, or being treated as a different adult role, identity, status, or transformed self.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where leaving everyday identity behind is a central source of excitement.",
+      "negativeInterpretation": "Weaker or negative evidence may mean fantasy appeal depends less on changed roles or identity."
+    },
+    {
+      "id": "primal_struggle_competition",
+      "label": "Struggle & competition",
+      "resultLayer": "motif",
+      "description": "Interest in pursuit, resistance, wrestling, competition, or raw physical contest between adults.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where struggle, pursuit, resistance, or winning and losing create the charge.",
+      "negativeInterpretation": "Weaker or negative evidence may mean cooperation is more appealing than competition or physical struggle."
+    },
+    {
+      "id": "taboo_transgression",
+      "label": "Taboo & transgression",
+      "resultLayer": "motif",
+      "description": "Interest in the feeling of crossing a social boundary, violating an expectation, or entering a forbidden adult-only scenario.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where forbiddenness or social transgression is itself a source of excitement.",
+      "negativeInterpretation": "Weaker or negative evidence may mean taboo or rule-breaking themes reduce fantasy appeal."
+    },
+    {
+      "id": "novelty_experimentation",
+      "label": "Novelty & experimentation",
+      "resultLayer": "motif",
+      "description": "Interest in unfamiliar, surprising, changing, or exploratory fantasy material.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies driven by curiosity, surprise, and unfamiliar possibilities.",
+      "negativeInterpretation": "Weaker or negative evidence may mean familiar patterns are more appealing than novelty for its own sake."
+    },
+    {
+      "id": "group_social_multipartner",
+      "label": "Group & multi-partner dynamics",
+      "resultLayer": "motif",
+      "description": "Interest in fantasies involving several consenting adults and the social energy created by multiple participants.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where attention, desire, or interaction among several adults is central.",
+      "negativeInterpretation": "Weaker or negative evidence may mean one-to-one scenarios are more appealing than group dynamics."
+    },
+    {
+      "id": "fetish_focus",
+      "label": "Focused objects, materials & body details",
+      "resultLayer": "motif",
+      "description": "Interest in a specific material, object, garment, sensation, or body area becoming unusually central to fantasy.",
+      "positiveInterpretation": "Stronger positive evidence may reflect fantasies where a concrete object, texture, sensation, or body detail carries concentrated appeal.",
+      "negativeInterpretation": "Weaker or negative evidence may mean broader relational or situational themes matter more than a specific focus."
+    }
+  ],
+  "questions": [
+    {
+      "id": "fp_core_surrender_01",
+      "statement": "Giving up control and letting an adult partner decide what happens next.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 0.65
+        }
+      ],
+      "discriminates": [
+        "control_permission"
+      ],
+      "mirrorGroup": "lead_yield",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_core_helplessness_vulnerability_01",
+      "statement": "Being unable to change what happens next and feeling exposed by that lack of control.",
+      "stage": "core",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "surrender"
+      ],
+      "mirrorGroup": "vulnerable_no_control",
+      "suggestionLinks": [
+        "psychological_play",
+        "bondage_restraint",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_core_authority_responsibility_01",
+      "statement": "Being the adult partner who takes charge and decides what happens next.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "give",
+          "weight": 0.7
+        }
+      ],
+      "discriminates": [
+        "control_permission"
+      ],
+      "mirrorGroup": "lead_yield",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_core_trust_safety_01",
+      "statement": "Feeling so secure with an adult partner that I can let my guard down completely.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "receive",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "tenderness_care"
+      ],
+      "mirrorGroup": "guard_down",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_anticipation_denial_01",
+      "statement": "Knowing something pleasurable is coming and being made to wait for it.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "waiting_pleasure",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_fear_adrenaline_01",
+      "statement": "A fantasy that makes my heart race because I do not know exactly what happens next.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "experience_self",
+          "weight": 0.3
+        }
+      ],
+      "discriminates": [
+        "anticipation_denial"
+      ],
+      "mirrorGroup": "uncertain_rush",
+      "suggestionLinks": [
+        "psychological_play",
+        "pet_primal",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_core_pain_intensity_01",
+      "statement": "Experiencing strong physical sensation that crosses into pain and feeling aroused by the intensity.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "experience_self",
+          "weight": 0.3
+        }
+      ],
+      "discriminates": [
+        "sensory_focus_alteration"
+      ],
+      "mirrorGroup": "receive_pain",
+      "suggestionLinks": [
+        "impact_pain",
+        "sensory_deprivation",
+        "fetish_material_interests"
+      ]
+    },
+    {
+      "id": "fp_core_humiliation_embarrassment_01",
+      "statement": "Being deliberately embarrassed by an adult partner in a way that feels intensely personal.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "receive_embarrassment",
+      "suggestionLinks": [
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_core_praise_approval_01",
+      "statement": "Hearing an adult partner tell me how well I am doing and feeling deeply affected by their approval.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "service_usefulness"
+      ],
+      "mirrorGroup": "receive_praise",
+      "suggestionLinks": [
+        "praise_worship"
+      ]
+    },
+    {
+      "id": "fp_core_being_desired_attention_01",
+      "statement": "Being the focus of an adult partner's intense, unmistakable desire.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "praise_approval"
+      ],
+      "mirrorGroup": "focused_desire",
+      "suggestionLinks": [
+        "praise_worship",
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_core_possession_belonging_01",
+      "statement": "Feeling in fantasy that I belong to an adult partner in a deeply personal way.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "possession_belonging",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 0.3
+        }
+      ],
+      "discriminates": [
+        "surrender"
+      ],
+      "mirrorGroup": "claimed_belonging",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_tenderness_care_01",
+      "statement": "Being gently cared for by an adult partner after becoming emotionally or physically overwhelmed in the fantasy.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "receive",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "trust_safety"
+      ],
+      "mirrorGroup": "care_after_intensity",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_control_permission_01",
+      "statement": "Having an adult partner decide what I am allowed to do.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 0.7
+        }
+      ],
+      "discriminates": [
+        "surrender"
+      ],
+      "mirrorGroup": "permission_control",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_core_rules_ritual_protocol_01",
+      "statement": "Following a set of specific rules that shape how I behave with an adult partner.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 0.4
+        }
+      ],
+      "discriminates": [
+        "control_permission"
+      ],
+      "mirrorGroup": "rule_structure",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_core_service_usefulness_01",
+      "statement": "Doing tasks for an adult partner and feeling excited by being useful to them.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "service_usefulness",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "receive",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "praise_approval"
+      ],
+      "mirrorGroup": "service_roles",
+      "suggestionLinks": [
+        "service_protocol",
+        "praise_worship"
+      ]
+    },
+    {
+      "id": "fp_core_restraint_confinement_01",
+      "statement": "Being unable to move freely because an adult partner has restrained me.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "restraint_confinement",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "physical_restraint",
+      "suggestionLinks": [
+        "bondage_restraint",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_objectification_use_01",
+      "statement": "Being treated more like an object for an adult partner's pleasure than like an equal participant in the fantasy.",
+      "stage": "core",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "objectification_use",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "possession_belonging"
+      ],
+      "mirrorGroup": "object_use",
+      "suggestionLinks": [
+        "objectification",
+        "humiliation_degradation",
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_core_exposure_being_seen_01",
+      "statement": "Being deliberately exposed in front of an adult partner and feeling the vulnerability of being seen.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "perspective": "be_observed",
+          "weight": 1
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 0.3
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "exposure_pair",
+      "suggestionLinks": [
+        "exhibition_observation",
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_core_watching_observation_01",
+      "statement": "Watching an adult partner closely while they are absorbed in pleasure or intensity.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "observe",
+          "weight": 1
+        },
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "evoke_partner",
+          "weight": 0.2
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "watching_pair",
+      "suggestionLinks": [
+        "exhibition_observation",
+        "praise_worship"
+      ]
+    },
+    {
+      "id": "fp_core_sensory_focus_alteration_01",
+      "statement": "Losing sight of what is happening so touch and sound become much more intense.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "anticipation_denial"
+      ],
+      "mirrorGroup": "sensory_control",
+      "suggestionLinks": [
+        "sensory_deprivation",
+        "fetish_material_interests",
+        "orgasm_control",
+        "chastity",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_roleplay_transformation_01",
+      "statement": "Stepping into a completely different adult role and feeling unlike my everyday self.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fetish_focus"
+      ],
+      "mirrorGroup": "role_change",
+      "suggestionLinks": [
+        "roleplay"
+      ]
+    },
+    {
+      "id": "fp_core_primal_struggle_competition_01",
+      "statement": "Wrestling or struggling with an adult partner where neither of us immediately gives way.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "perspective": "mutual",
+          "weight": 1
+        },
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "experience_self",
+          "weight": 0.2
+        }
+      ],
+      "discriminates": [
+        "pain_intensity"
+      ],
+      "mirrorGroup": "physical_struggle",
+      "suggestionLinks": [
+        "pet_primal",
+        "impact_pain"
+      ]
+    },
+    {
+      "id": "fp_core_taboo_transgression_01",
+      "statement": "Imagining breaking a strong social rule in an adult-only scenario because the forbidden feeling is exciting.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "taboo_transgression",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "forbiddenness",
+      "suggestionLinks": [
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_novelty_experimentation_01",
+      "statement": "Imagining an unfamiliar adult scenario simply because I have never pictured myself in it before.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "novelty_experimentation",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "taboo_transgression"
+      ],
+      "mirrorGroup": "new_scenario",
+      "suggestionLinks": [
+        "roleplay",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_group_social_multipartner_01",
+      "statement": "Being desired by more than one adult at the same time.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "receive",
+          "weight": 0.6
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "group_attention",
+      "suggestionLinks": [
+        "multi_partner",
+        "praise_worship",
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_core_fetish_focus_01",
+      "statement": "Feeling strongly drawn to a particular material, texture, object, or item of clothing within a fantasy.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "fetish_focus",
+          "perspective": "none",
+          "weight": 1
+        },
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "experience_self",
+          "weight": 0.2
+        }
+      ],
+      "discriminates": [
+        "sensory_focus_alteration"
+      ],
+      "mirrorGroup": "focused_material",
+      "suggestionLinks": [
+        "fetish_material_interests",
+        "body_part_interests",
+        "sensory_deprivation"
+      ]
+    },
+    {
+      "id": "fp_core_surrender_02",
+      "statement": "Letting an adult partner take the lead so completely that I stop deciding how the moment unfolds.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "evoke_partner",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "complete_lead",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_authority_responsibility_02",
+      "statement": "Feeling responsible for guiding an adult partner's experience from beginning to end.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "give",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "tenderness_care"
+      ],
+      "mirrorGroup": "guided_responsibility",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_helplessness_vulnerability_02",
+      "statement": "Seeing an adult partner become visibly vulnerable because they cannot easily change the situation.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "evoke_partner",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.3
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "evoke_vulnerability",
+      "suggestionLinks": [
+        "psychological_play",
+        "bondage_restraint",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_trust_safety_02",
+      "statement": "Being the person an adult partner trusts enough to become deeply vulnerable with.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "evoke_partner",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "trusted_with_vulnerability",
+      "suggestionLinks": [
+        "relationship_dynamics",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_core_anticipation_denial_02",
+      "statement": "Keeping an adult partner waiting so their anticipation keeps building.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "control_permission"
+      ],
+      "mirrorGroup": "waiting_pleasure",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_fear_adrenaline_02",
+      "statement": "Seeing an adult partner react with a rush of fear or adrenaline that I deliberately evoke in the fantasy.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "evoke_partner",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "evoke_adrenaline",
+      "suggestionLinks": [
+        "psychological_play",
+        "pet_primal",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_pain_intensity_02",
+      "statement": "Imagining an adult partner reacting to pain I cause, with the intensity itself being exciting.",
+      "stage": "core",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.2
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "receive_pain",
+      "suggestionLinks": [
+        "impact_pain",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_humiliation_embarrassment_02",
+      "statement": "Finding it exciting to make an adult partner blush, squirm, or feel exposed through embarrassment.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "receive_embarrassment",
+      "suggestionLinks": [
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_core_praise_approval_02",
+      "statement": "Giving an adult partner focused praise and watching it visibly affect them.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "evoke_partner",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "receive_praise",
+      "suggestionLinks": [
+        "praise_worship",
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_core_being_desired_attention_02",
+      "statement": "Making an adult partner feel unmistakably wanted through concentrated attention.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "evoke_partner",
+          "weight": 1
+        },
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "give",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "praise_approval"
+      ],
+      "mirrorGroup": "focused_desire",
+      "suggestionLinks": [
+        "praise_worship",
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_core_possession_belonging_02",
+      "statement": "Thinking of an adult partner as mine in a possessive, emotionally charged way.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "possession_belonging",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "claimed_belonging",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_tenderness_care_02",
+      "statement": "Taking care of an adult partner with focused tenderness when they are vulnerable.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "evoke_partner",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "trust_safety"
+      ],
+      "mirrorGroup": "care_after_intensity",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_control_permission_02",
+      "statement": "Being the person who decides what an adult partner is allowed to do.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "control_permission",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.7
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "permission_control",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_rules_ritual_protocol_02",
+      "statement": "Creating specific rules for an adult partner and expecting them to remember them.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.3
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "rule_structure",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_service_usefulness_02",
+      "statement": "Having an adult partner focus on serving my needs because that role feels meaningful.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "service_usefulness",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "service_roles",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_restraint_confinement_02",
+      "statement": "Restraining an adult partner so I control how freely they can move.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "restraint_confinement",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "give",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "control_permission"
+      ],
+      "mirrorGroup": "physical_restraint",
+      "suggestionLinks": [
+        "bondage_restraint",
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_core_objectification_use_02",
+      "statement": "Treating an adult partner as a thing to use or position for my pleasure within the fantasy.",
+      "stage": "core",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "objectification_use",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "possession_belonging"
+      ],
+      "mirrorGroup": "object_use",
+      "suggestionLinks": [
+        "objectification",
+        "humiliation_degradation",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_core_exposure_being_seen_02",
+      "statement": "Putting an adult partner in a position where I can see more of them than they would normally reveal.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "perspective": "observe",
+          "weight": 1
+        },
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "observe",
+          "weight": 0.4
+        }
+      ],
+      "discriminates": [
+        "watching_observation"
+      ],
+      "mirrorGroup": "exposure_pair",
+      "suggestionLinks": [
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_core_watching_observation_02",
+      "statement": "Knowing an adult partner is quietly watching me and feeling charged by their attention.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "be_observed",
+          "weight": 1
+        },
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "receive",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "watching_pair",
+      "suggestionLinks": [
+        "exhibition_observation",
+        "praise_worship"
+      ]
+    },
+    {
+      "id": "fp_core_sensory_focus_alteration_02",
+      "statement": "Controlling what an adult partner can see or hear so their other sensations become stronger.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "give",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "control_permission"
+      ],
+      "mirrorGroup": "sensory_control",
+      "suggestionLinks": [
+        "sensory_deprivation",
+        "fetish_material_interests",
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_core_roleplay_transformation_02",
+      "statement": "Watching an adult partner become a dramatically different version of themselves within the fantasy.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "perspective": "observe",
+          "weight": 1
+        },
+        {
+          "dimensionId": "novelty_experimentation",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "role_change",
+      "suggestionLinks": [
+        "roleplay",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_primal_struggle_competition_02",
+      "statement": "Chasing or being chased by an adult partner with a raw competitive charge.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "perspective": "mutual",
+          "weight": 1
+        },
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "pursuit_competition",
+      "suggestionLinks": [
+        "pet_primal",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_taboo_transgression_02",
+      "statement": "Being excited by a fantasy mainly because it violates a powerful expectation about how adults are supposed to behave.",
+      "stage": "core",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "taboo_transgression",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "expectation_breaking",
+      "suggestionLinks": [
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_novelty_experimentation_02",
+      "statement": "Being excited by rapidly changing the setting, roles, or sensations so the fantasy never feels predictable.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "novelty_experimentation",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "roleplay_transformation",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "roleplay_transformation"
+      ],
+      "mirrorGroup": "changing_scenario",
+      "suggestionLinks": [
+        "roleplay",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_core_group_social_multipartner_02",
+      "statement": "Sharing attention and intimacy among several consenting adults in the same fantasy.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "mutual",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "group_mutual",
+      "suggestionLinks": [
+        "multi_partner"
+      ]
+    },
+    {
+      "id": "fp_core_fetish_focus_02",
+      "statement": "Having one specific body area or physical detail become the center of my attention.",
+      "stage": "core",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "fetish_focus",
+          "perspective": "observe",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "focused_body_detail",
+      "suggestionLinks": [
+        "fetish_material_interests",
+        "body_part_interests"
+      ]
+    },
+    {
+      "id": "fp_discriminator_surrender_01",
+      "statement": "Following an adult partner's direction because letting go feels better than being useful to them.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "service_usefulness"
+      ],
+      "mirrorGroup": "yield_vs_service",
+      "suggestionLinks": [
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_authority_responsibility_01",
+      "statement": "Directing an adult partner because the responsibility itself is exciting, not because I want to embarrass them.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "authority_vs_embarrassment",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_helplessness_vulnerability_01",
+      "statement": "Feeling helpless even when I am not physically restrained.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "restraint_confinement"
+      ],
+      "mirrorGroup": "helpless_without_restraint",
+      "suggestionLinks": [
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_discriminator_trust_safety_01",
+      "statement": "The most exciting part being the sense of trust, even if little control is exchanged.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "surrender",
+        "control_permission"
+      ],
+      "mirrorGroup": "trust_without_control",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_anticipation_denial_01",
+      "statement": "Wanting the waiting itself more than any rule or command around it.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol",
+        "control_permission"
+      ],
+      "mirrorGroup": "waiting_vs_rules",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_fear_adrenaline_01",
+      "statement": "The thrill coming from danger-like tension rather than from pain.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "pain_intensity"
+      ],
+      "mirrorGroup": "fear_vs_pain",
+      "suggestionLinks": [
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_discriminator_pain_intensity_01",
+      "statement": "Wanting pain even when there is no embarrassment, punishment, or lowered status attached to it.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "humiliation_embarrassment",
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "pain_without_status",
+      "suggestionLinks": [
+        "impact_pain"
+      ]
+    },
+    {
+      "id": "fp_discriminator_humiliation_embarrassment_01",
+      "statement": "Being spoken to in a way that lowers my status without needing physical pain.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "pain_intensity",
+        "objectification_use"
+      ],
+      "mirrorGroup": "lowered_status",
+      "suggestionLinks": [
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_praise_approval_01",
+      "statement": "Wanting approval for pleasing an adult partner more than wanting rules for their own sake.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "service_usefulness",
+          "perspective": "give",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "approval_vs_rules",
+      "suggestionLinks": [
+        "praise_worship",
+        "service_protocol"
+      ]
+    },
+    {
+      "id": "fp_discriminator_being_desired_attention_01",
+      "statement": "Being watched because an adult partner cannot take their eyes off me, rather than because I am exposed.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "be_observed",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "exposure_being_seen"
+      ],
+      "mirrorGroup": "desire_vs_exposure",
+      "suggestionLinks": [
+        "praise_worship",
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_possession_belonging_01",
+      "statement": "Belonging to an adult partner feeling more important than simply following their orders.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "possession_belonging",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "control_permission"
+      ],
+      "mirrorGroup": "belonging_vs_orders",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_tenderness_care_01",
+      "statement": "Being guided because an adult partner wants to care for me, rather than because they want authority over me.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "care_vs_authority",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_control_permission_01",
+      "statement": "Needing to ask an adult partner for permission before something I strongly want.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "receive",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "anticipation_denial",
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "ask_permission",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_rules_ritual_protocol_01",
+      "statement": "Repeating a formal ritual because the structure itself feels charged, even without punishment.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "humiliation_embarrassment",
+        "control_permission"
+      ],
+      "mirrorGroup": "ritual_without_punishment",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_service_usefulness_01",
+      "statement": "Wanting to be useful even when nobody gives me orders.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "service_usefulness",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "surrender",
+        "control_permission"
+      ],
+      "mirrorGroup": "service_without_orders",
+      "suggestionLinks": [
+        "service_protocol"
+      ]
+    },
+    {
+      "id": "fp_discriminator_restraint_confinement_01",
+      "statement": "Being physically immobilized while still feeling emotionally confident and unafraid.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "restraint_confinement",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability",
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "restraint_without_fear",
+      "suggestionLinks": [
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_discriminator_objectification_use_01",
+      "statement": "Being used without needing to feel owned or emotionally claimed.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "objectification_use",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "possession_belonging"
+      ],
+      "mirrorGroup": "use_vs_claim",
+      "suggestionLinks": [
+        "objectification",
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_exposure_being_seen_01",
+      "statement": "Being seen in an embarrassing or revealing state even when the observer is not expressing desire.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "perspective": "be_observed",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention",
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "exposure_vs_desire",
+      "suggestionLinks": [
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_watching_observation_01",
+      "statement": "Watching without being the focus of the scene myself.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "observe",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention",
+        "exposure_being_seen"
+      ],
+      "mirrorGroup": "observer_not_focus",
+      "suggestionLinks": [
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_sensory_focus_alteration_01",
+      "statement": "Wanting sensory restriction even when I can still move freely.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "restraint_confinement"
+      ],
+      "mirrorGroup": "sensory_vs_restraint",
+      "suggestionLinks": [
+        "sensory_deprivation",
+        "fetish_material_interests"
+      ]
+    },
+    {
+      "id": "fp_discriminator_roleplay_transformation_01",
+      "statement": "Changing identity or social role mattering more to me than any particular costume or object.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fetish_focus"
+      ],
+      "mirrorGroup": "role_vs_object",
+      "suggestionLinks": [
+        "roleplay"
+      ]
+    },
+    {
+      "id": "fp_discriminator_primal_struggle_competition_01",
+      "statement": "Wanting to overpower an adult partner physically without needing formal rules or titles.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility",
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "struggle_vs_authority",
+      "suggestionLinks": [
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_discriminator_taboo_transgression_01",
+      "statement": "Returning to the same forbidden fantasy even after its novelty has worn off.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "taboo_transgression",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "taboo_vs_novelty",
+      "suggestionLinks": [
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_novelty_experimentation_01",
+      "statement": "Trying something new in fantasy even when it is not taboo or forbidden.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "novelty_experimentation",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "taboo_transgression"
+      ],
+      "mirrorGroup": "novelty_without_taboo",
+      "suggestionLinks": [
+        "roleplay",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_group_social_multipartner_01",
+      "statement": "Being one participant among several consenting adults where attention moves between people rather than staying on me.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "mutual",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "group_not_center",
+      "suggestionLinks": [
+        "multi_partner"
+      ]
+    },
+    {
+      "id": "fp_discriminator_fetish_focus_01",
+      "statement": "A particular object or material staying exciting even when the surrounding role or story changes.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "fetish_focus",
+          "perspective": "none",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "roleplay_transformation",
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "focus_vs_role",
+      "suggestionLinks": [
+        "fetish_material_interests",
+        "body_part_interests"
+      ]
+    },
+    {
+      "id": "fp_discriminator_surrender_02",
+      "statement": "Handing over choices even when no rules, punishment, or embarrassment are involved.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol",
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "yield_without_structure",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_discriminator_authority_responsibility_02",
+      "statement": "Being trusted to make the decisions while also carrying responsibility for how the other adult experiences the moment.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "evoke_partner",
+          "weight": 0.5
+        }
+      ],
+      "discriminates": [
+        "tenderness_care"
+      ],
+      "mirrorGroup": "authority_with_trust",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_helplessness_vulnerability_02",
+      "statement": "Being emotionally exposed while another adult knows exactly how much the moment affects me.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "receive",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention",
+        "trust_safety"
+      ],
+      "mirrorGroup": "emotional_exposure",
+      "suggestionLinks": [
+        "psychological_play",
+        "bondage_restraint",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_trust_safety_02",
+      "statement": "Feeling cared for and protected while something emotionally intense unfolds.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "receive",
+          "weight": 0.6
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "protected_intensity",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_anticipation_denial_02",
+      "statement": "Being brought close to satisfaction and then left wanting more.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "pain_intensity"
+      ],
+      "mirrorGroup": "kept_wanting",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_fear_adrenaline_02",
+      "statement": "Being pursued or cornered in a fantasy where the fear itself is exciting.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "primal_struggle_competition",
+          "perspective": "receive",
+          "weight": 0.55
+        }
+      ],
+      "discriminates": [
+        "primal_struggle_competition"
+      ],
+      "mirrorGroup": "pursuit_fear",
+      "suggestionLinks": [
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_discriminator_pain_intensity_02",
+      "statement": "Finding sharp physical intensity exciting without needing fear or danger-like tension.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "pain_vs_fear",
+      "suggestionLinks": [
+        "impact_pain"
+      ]
+    },
+    {
+      "id": "fp_discriminator_humiliation_embarrassment_02",
+      "statement": "Being made to feel embarrassed affecting me more than being praised for doing well.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "praise_approval"
+      ],
+      "mirrorGroup": "embarrassment_vs_praise",
+      "suggestionLinks": [
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_praise_approval_02",
+      "statement": "Being admired and affirmed without needing to be the center of everyone's attention.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "approval_vs_attention",
+      "suggestionLinks": [
+        "praise_worship"
+      ]
+    },
+    {
+      "id": "fp_discriminator_being_desired_attention_02",
+      "statement": "Having several adults' attention fixed on me at once because they all desire me.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "experience_self",
+          "weight": 0.6
+        }
+      ],
+      "discriminates": [
+        "group_social_multipartner"
+      ],
+      "mirrorGroup": "group_desire",
+      "suggestionLinks": [
+        "praise_worship",
+        "exhibition_observation",
+        "multi_partner"
+      ]
+    },
+    {
+      "id": "fp_discriminator_possession_belonging_02",
+      "statement": "Wanting a sense of being claimed even when I am not being treated like an object.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "possession_belonging",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "objectification_use"
+      ],
+      "mirrorGroup": "claim_vs_object",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_tenderness_care_02",
+      "statement": "Giving comfort and affection even when no service or usefulness is involved.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "service_usefulness"
+      ],
+      "mirrorGroup": "care_vs_service",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_control_permission_02",
+      "statement": "Withholding permission because having the final say is what excites me.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "control_permission",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "anticipation_denial"
+      ],
+      "mirrorGroup": "withhold_permission",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_discriminator_rules_ritual_protocol_02",
+      "statement": "Caring more that a rule exists than about what happens if the rule is broken.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline",
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "rule_for_structure",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_service_usefulness_02",
+      "statement": "Receiving attentive service from an adult partner without needing to embarrass or control them.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "service_usefulness",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "humiliation_embarrassment",
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "service_without_control",
+      "suggestionLinks": [
+        "service_protocol"
+      ]
+    },
+    {
+      "id": "fp_discriminator_restraint_confinement_02",
+      "statement": "Being confined in a small space in the fantasy because the restriction itself is exciting.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "restraint_confinement",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "confinement_focus",
+      "suggestionLinks": [
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_discriminator_objectification_use_02",
+      "statement": "Reducing an adult partner to a function or purpose without needing to insult them.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "objectification_use",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "use_without_insult",
+      "suggestionLinks": [
+        "objectification",
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_exposure_being_seen_02",
+      "statement": "Having multiple consenting adults see me in a revealing situation.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "perspective": "be_observed",
+          "weight": 1
+        },
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "experience_self",
+          "weight": 0.55
+        }
+      ],
+      "discriminates": [
+        "group_social_multipartner"
+      ],
+      "mirrorGroup": "group_exposure",
+      "suggestionLinks": [
+        "exhibition_observation",
+        "multi_partner"
+      ]
+    },
+    {
+      "id": "fp_discriminator_watching_observation_02",
+      "statement": "Seeing two or more consenting adults interact while I remain primarily an observer.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "observe",
+          "weight": 1
+        },
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "observe",
+          "weight": 0.55
+        }
+      ],
+      "discriminates": [
+        "group_social_multipartner"
+      ],
+      "mirrorGroup": "observe_group",
+      "suggestionLinks": [
+        "exhibition_observation",
+        "multi_partner"
+      ]
+    },
+    {
+      "id": "fp_discriminator_sensory_focus_alteration_02",
+      "statement": "Being flooded with many sensations at once until it is hard to focus on anything else.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "experience_self",
+          "weight": 0.2
+        }
+      ],
+      "discriminates": [
+        "pain_intensity"
+      ],
+      "mirrorGroup": "sensory_overload",
+      "suggestionLinks": [
+        "sensory_deprivation",
+        "fetish_material_interests",
+        "impact_pain"
+      ]
+    },
+    {
+      "id": "fp_discriminator_roleplay_transformation_02",
+      "statement": "Being treated as if I have a different status, name, or purpose inside the fantasy.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "receive",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "altered_status",
+      "suggestionLinks": [
+        "roleplay",
+        "service_protocol",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_primal_struggle_competition_02",
+      "statement": "Fighting to resist even though the struggle itself is what excites me.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "surrender"
+      ],
+      "mirrorGroup": "resistance_vs_surrender",
+      "suggestionLinks": [
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_discriminator_taboo_transgression_02",
+      "statement": "Wanting the feeling of crossing a line more than wanting anyone to be shocked by it.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "taboo_transgression",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "exposure_being_seen",
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "crossing_line",
+      "suggestionLinks": [
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_novelty_experimentation_02",
+      "statement": "Curiosity pulling me toward a strange idea before I even know whether I like it.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "novelty_experimentation",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fetish_focus"
+      ],
+      "mirrorGroup": "curiosity_first",
+      "suggestionLinks": [
+        "roleplay",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_group_social_multipartner_02",
+      "statement": "Watching adult partners interact with each other while I remain part of the social dynamic.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "observe",
+          "weight": 1
+        },
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "observe",
+          "weight": 0.6
+        }
+      ],
+      "discriminates": [
+        "watching_observation"
+      ],
+      "mirrorGroup": "group_observe",
+      "suggestionLinks": [
+        "multi_partner",
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_fetish_focus_02",
+      "statement": "Wanting to focus on a specific sensation or body detail more than on power, rules, or status.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "fetish_focus",
+          "perspective": "none",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "control_permission",
+        "rules_ritual_protocol",
+        "sensory_focus_alteration"
+      ],
+      "mirrorGroup": "focus_vs_power",
+      "suggestionLinks": [
+        "fetish_material_interests",
+        "body_part_interests"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_surrender_01",
+      "statement": "Imagining that an adult partner has nearly total control of the scene while my only role is to yield.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 0.8
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "total_yield",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_authority_responsibility_01",
+      "statement": "Holding nearly all the authority in a fantasy and carrying the weight of every important decision.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "authority_responsibility",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "give",
+          "weight": 0.65
+        }
+      ],
+      "discriminates": [
+        "surrender"
+      ],
+      "mirrorGroup": "total_authority",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_helplessness_vulnerability_01",
+      "statement": "Imagining being completely at another adult's mercy, with the helplessness itself as the charged part.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 0.6
+        }
+      ],
+      "discriminates": [
+        "restraint_confinement"
+      ],
+      "mirrorGroup": "at_mercy",
+      "suggestionLinks": [
+        "psychological_play",
+        "bondage_restraint",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_trust_safety_01",
+      "statement": "Entering a frightening or overwhelming fantasy while feeling absolutely certain an adult partner is emotionally present with me.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 0.55
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "secure_in_fear",
+      "suggestionLinks": [
+        "relationship_dynamics",
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_anticipation_denial_01",
+      "statement": "A long stretch of uncertainty and denial becoming more exciting than finally getting what I want.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "denial_over_release",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_fear_adrenaline_01",
+      "statement": "Imagining a scenario that feels genuinely frightening inside the fantasy, with the fear itself fueling arousal.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "frightening_fantasy",
+      "suggestionLinks": [
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_pain_intensity_01",
+      "statement": "Imagining pain intense enough to dominate my attention and make everything else fall away.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "experience_self",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "overwhelming_pain",
+      "suggestionLinks": [
+        "impact_pain",
+        "sensory_deprivation",
+        "fetish_material_interests"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_humiliation_embarrassment_01",
+      "statement": "Imagining an adult partner knowing exactly what would make me feel small or mortified and using that knowledge in the fantasy.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "objectification_use"
+      ],
+      "mirrorGroup": "personal_mortification",
+      "suggestionLinks": [
+        "humiliation_degradation",
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_praise_approval_01",
+      "statement": "Craving an adult partner's approval so strongly in the fantasy that a few words from them feel overwhelmingly powerful.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "overwhelming_approval",
+      "suggestionLinks": [
+        "praise_worship",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_being_desired_attention_01",
+      "statement": "Feeling almost consumed by the intensity of how badly an adult partner wants me.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "possession_belonging",
+          "perspective": "receive",
+          "weight": 0.25
+        }
+      ],
+      "discriminates": [
+        "possession_belonging"
+      ],
+      "mirrorGroup": "consuming_desire",
+      "suggestionLinks": [
+        "praise_worship",
+        "exhibition_observation",
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_possession_belonging_01",
+      "statement": "Imagining an adult partner's claim over me as total and unmistakable within the fantasy.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "possession_belonging",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 0.5
+        }
+      ],
+      "discriminates": [
+        "objectification_use"
+      ],
+      "mirrorGroup": "total_claim",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_tenderness_care_01",
+      "statement": "A fantasy becoming most intense when fierce control or roughness gives way to unmistakable tenderness.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "trust_safety",
+          "perspective": "experience_self",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "pain_intensity",
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "tenderness_contrast",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_control_permission_01",
+      "statement": "Imagining that nearly every meaningful choice in the scene requires one adult's permission.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "control_permission",
+          "perspective": "none",
+          "weight": 1
+        },
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "none",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "permission_everywhere",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity",
+        "service_protocol"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_rules_ritual_protocol_01",
+      "statement": "Living inside an elaborate fantasy structure of rules, rituals, and expected behavior.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "control_permission",
+          "perspective": "none",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "service_usefulness"
+      ],
+      "mirrorGroup": "elaborate_structure",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_service_usefulness_01",
+      "statement": "Imagining my whole role in the fantasy organized around anticipating and meeting an adult partner's needs.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "service_usefulness",
+          "perspective": "give",
+          "weight": 1
+        },
+        {
+          "dimensionId": "surrender",
+          "perspective": "experience_self",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "total_service",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_restraint_confinement_01",
+      "statement": "Imagining near-total immobilization, with the inability to move becoming the center of the fantasy.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "restraint_confinement",
+          "perspective": "experience_self",
+          "weight": 1
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 0.4
+        }
+      ],
+      "discriminates": [
+        "surrender"
+      ],
+      "mirrorGroup": "near_total_restraint",
+      "suggestionLinks": [
+        "bondage_restraint",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_objectification_use_01",
+      "statement": "Imagining my personhood fading into the background while an adult partner uses me purely for their own purpose.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "objectification_use",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "experience_self",
+          "weight": 0.3
+        }
+      ],
+      "discriminates": [
+        "possession_belonging",
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "personhood_recedes",
+      "suggestionLinks": [
+        "objectification",
+        "humiliation_degradation",
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_exposure_being_seen_01",
+      "statement": "Imagining myself unmistakably on display for consenting adult observers, with nowhere for my embarrassment to hide.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "perspective": "be_observed",
+          "weight": 1
+        },
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "experience_self",
+          "weight": 0.35
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "on_display",
+      "suggestionLinks": [
+        "exhibition_observation",
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_watching_observation_01",
+      "statement": "Being allowed to observe a very private adult moment from close enough to catch every reaction.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "observe",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "exposure_being_seen"
+      ],
+      "mirrorGroup": "close_observation",
+      "suggestionLinks": [
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_sensory_focus_alteration_01",
+      "statement": "Imagining my senses narrowed or overwhelmed so completely that ordinary awareness almost disappears.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "sensory_absorption",
+      "suggestionLinks": [
+        "sensory_deprivation",
+        "fetish_material_interests"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_roleplay_transformation_01",
+      "statement": "Imagining my ordinary identity temporarily disappearing into a radically different adult character or role.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "objectification_use"
+      ],
+      "mirrorGroup": "identity_disappears",
+      "suggestionLinks": [
+        "roleplay"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_primal_struggle_competition_01",
+      "statement": "A fantasy of being hunted, caught, or physically overpowered by an adult partner, with the struggle as the main thrill.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "perspective": "receive",
+          "weight": 1
+        },
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "experience_self",
+          "weight": 0.45
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "hunted_caught",
+      "suggestionLinks": [
+        "pet_primal",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_taboo_transgression_01",
+      "statement": "Imagining an adult-only scenario that feels deeply forbidden or socially unacceptable, with the transgression itself driving the fantasy.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "taboo_transgression",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "deep_forbiddenness",
+      "suggestionLinks": [
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_novelty_experimentation_01",
+      "statement": "Wanting fantasies to keep mutating into unfamiliar situations rather than settling into one favorite pattern.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "novelty_experimentation",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fetish_focus",
+        "roleplay_transformation"
+      ],
+      "mirrorGroup": "constant_novelty",
+      "suggestionLinks": [
+        "roleplay",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_group_social_multipartner_01",
+      "statement": "Imagining an intense scene involving several consenting adults, with the group energy itself as the main attraction.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "group_social_multipartner",
+          "perspective": "mutual",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "intense_group",
+      "suggestionLinks": [
+        "multi_partner"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_fetish_focus_01",
+      "statement": "Imagining one material, object, sensation, or body area becoming so compelling that the rest of the fantasy fades into the background.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "fetish_focus",
+          "perspective": "none",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "roleplay_transformation"
+      ],
+      "mirrorGroup": "all_consuming_focus",
+      "suggestionLinks": [
+        "fetish_material_interests",
+        "body_part_interests"
+      ]
+    }
+  ],
+  "suggestionRules": [
+    {
+      "id": "power_exchange",
+      "label": "Power exchange",
+      "activityCategoryIds": [
+        "power_exchange"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "control_permission",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "surrender",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "possession_belonging",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "control_permission",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns often overlap with fantasies organized around giving, receiving, or structuring authority and decision-making."
+    },
+    {
+      "id": "service_protocol",
+      "label": "Service / protocol",
+      "activityCategoryIds": [
+        "service_protocol"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "service_usefulness",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "praise_approval",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "surrender",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "service_usefulness",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore themes where usefulness, attending to needs, rules, or repeated structure are part of the fantasy."
+    },
+    {
+      "id": "bondage_restraint",
+      "label": "Bondage / restraint",
+      "activityCategoryIds": [
+        "bondage_restraint",
+        "rope_bondage"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "restraint_confinement",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "surrender",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "restraint_confinement",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns often overlap with fantasies where restricted movement, confinement, or physical inability to move freely is central."
+    },
+    {
+      "id": "sensory_deprivation",
+      "label": "Sensory deprivation",
+      "activityCategoryIds": [
+        "sensory_deprivation"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "anticipation_denial",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore fantasy themes involving narrowed, removed, controlled, or intensified sensory input."
+    },
+    {
+      "id": "impact_pain",
+      "label": "Impact / pain",
+      "activityCategoryIds": [
+        "impact_play",
+        "pain_play"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "pain_intensity",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "authority_responsibility",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "pain_intensity",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns often overlap with fantasies where pain or forceful physical sensation supplies much of the intensity."
+    },
+    {
+      "id": "orgasm_control",
+      "label": "Orgasm control",
+      "activityCategoryIds": [
+        "orgasm_control"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "anticipation_denial",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "control_permission",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "anticipation_denial",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore fantasy themes where waiting, permission, timing, or being kept wanting are especially important."
+    },
+    {
+      "id": "chastity",
+      "label": "Chastity",
+      "activityCategoryIds": [
+        "chastity"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "anticipation_denial",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "control_permission",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "possession_belonging",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "control_permission",
+          "bands": [
+            "negative"
+          ]
+        },
+        {
+          "dimensionId": "anticipation_denial",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 3.0,
+      "summary": "Some combinations of denial, permission, rules, and belonging overlap with chastity-oriented fantasy themes."
+    },
+    {
+      "id": "humiliation_degradation",
+      "label": "Humiliation / degradation",
+      "activityCategoryIds": [
+        "humiliation_degradation"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "objectification_use",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns often overlap with fantasies centered on embarrassment, lowered status, mortification, or personally exposing dynamics."
+    },
+    {
+      "id": "praise_worship",
+      "label": "Praise / worship",
+      "activityCategoryIds": [
+        "praise_worship"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "praise_approval",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "being_desired_attention",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "service_usefulness",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "tenderness_care",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "praise_approval",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore themes involving praise, adoration, approval, or concentrated positive attention."
+    },
+    {
+      "id": "objectification",
+      "label": "Objectification",
+      "activityCategoryIds": [
+        "objectification"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "objectification_use",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "possession_belonging",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "control_permission",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "objectification_use",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns often overlap with fantasies where someone is treated as a body, object, function, or means to another adult’s pleasure."
+    },
+    {
+      "id": "exhibition_observation",
+      "label": "Exhibition / observation",
+      "activityCategoryIds": [
+        "exhibition_observation"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "watching_observation",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "matchMode": "any_required",
+      "supportingEvidence": [
+        {
+          "dimensionId": "being_desired_attention",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "group_social_multipartner",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "bands": [
+            "negative"
+          ]
+        },
+        {
+          "dimensionId": "watching_observation",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore fantasies involving being visibly on display, closely watched, or observing adult interactions."
+    },
+    {
+      "id": "multi_partner",
+      "label": "Multi-partner",
+      "activityCategoryIds": [
+        "multi_partner"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "group_social_multipartner",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "being_desired_attention",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "watching_observation",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "exposure_being_seen",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "group_social_multipartner",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns often overlap with fantasies where the social energy, attention, or interaction of several consenting adults is central."
+    },
+    {
+      "id": "roleplay",
+      "label": "Roleplay / transformation",
+      "activityCategoryIds": [
+        "roleplay"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "novelty_experimentation",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "taboo_transgression",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore adult roleplay or transformation themes that create distance from ordinary identity and everyday roles."
+    },
+    {
+      "id": "pet_primal",
+      "label": "Pet / primal",
+      "activityCategoryIds": [
+        "pet_primal",
+        "rough_physical"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "roleplay_transformation",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns often overlap with fantasies involving pursuit, resistance, raw physical contest, instinctive roles, or being caught."
+    },
+    {
+      "id": "psychological_play",
+      "label": "Psychological play",
+      "activityCategoryIds": [
+        "psychological_play"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "taboo_transgression",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "matchMode": "any_required",
+      "supportingEvidence": [
+        {
+          "dimensionId": "anticipation_denial",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "trust_safety",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore psychological fantasy themes built from anticipation, vulnerability, fear-like tension, transgression, or emotionally charged uncertainty."
+    },
+    {
+      "id": "relationship_dynamics",
+      "label": "Relationship dynamics",
+      "activityCategoryIds": [
+        "relationship_dynamics"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "possession_belonging",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "tenderness_care",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "trust_safety",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "matchMode": "any_required",
+      "supportingEvidence": [
+        {
+          "dimensionId": "authority_responsibility",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [],
+      "minimumEvidencePoints": 2.5,
+      "summary": "These patterns may overlap with relationship-oriented fantasies about belonging, care, trust, authority, or ongoing structure."
+    },
+    {
+      "id": "fetish_material_interests",
+      "label": "Fetish / material interests",
+      "activityCategoryIds": [
+        "fetish_materials",
+        "sensory_fetishes"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "fetish_focus",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "fetish_focus",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 2.5,
+      "summary": "You may want to explore areas where a particular material, garment, texture, sensation, or object carries concentrated fantasy appeal."
+    },
+    {
+      "id": "body_part_interests",
+      "label": "Body-part interests",
+      "activityCategoryIds": [
+        "body_part_fetishes"
+      ],
+      "requiredEvidence": [
+        {
+          "dimensionId": "fetish_focus",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "supportingEvidence": [
+        {
+          "dimensionId": "being_desired_attention",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        },
+        {
+          "dimensionId": "watching_observation",
+          "bands": [
+            "strong",
+            "notable"
+          ]
+        }
+      ],
+      "contradictingEvidence": [
+        {
+          "dimensionId": "fetish_focus",
+          "bands": [
+            "negative"
+          ]
+        }
+      ],
+      "minimumEvidencePoints": 3.0,
+      "summary": "A strong focused-interest pattern can overlap with fantasies centered on a particular adult body area or physical detail."
+    }
+  ],
+  "resultCopy": {
+    "notDiagnostic": true,
+    "bandOrder": [
+      "strong",
+      "notable",
+      "mixed",
+      "low",
+      "negative",
+      "insufficient"
+    ],
+    "bandLabels": {
+      "strong": "Strong",
+      "notable": "Notable",
+      "mixed": "Mixed",
+      "low": "Low",
+      "negative": "Negative",
+      "insufficient": "Insufficient evidence"
+    },
+    "language": {
+      "leadPositive": "You responded strongly to fantasies involving {dimension}.",
+      "leadNotable": "You showed notable interest in fantasies involving {dimension}.",
+      "leadMixed": "Your responses to fantasies involving {dimension} were mixed or context-dependent.",
+      "leadLow": "You showed relatively low interest in fantasies involving {dimension}.",
+      "leadNegative": "You tended to respond negatively to fantasies involving {dimension}.",
+      "leadInsufficient": "There was not enough evidence to summarize fantasies involving {dimension}.",
+      "suggestionLead": "These patterns often overlap with…",
+      "exploreLead": "You may want to explore…",
+      "identityWarning": "Results describe response patterns, not identities, consent, intent, diagnoses, or real-world plans."
+    },
+    "explanationTemplate": {
+      "heading": "Why",
+      "maxReasons": 4,
+      "includePerspectiveComparison": true
+    }
+  }
+}

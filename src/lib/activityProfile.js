@@ -1,0 +1,251 @@
+export const ACTIVITY_STATE_VERSION = 1
+
+export const STANCE_IDS = ['love', 'want', 'curious', 'if_partner_wants', 'dont_want', 'soft_limit', 'hard_limit']
+export const EXPERIENCE_IDS = ['not_tried', 'tried_once', 'some_experience', 'experienced', 'very_experienced']
+export const DEPTH_IDS = ['starter', 'extended', 'specialized', 'all']
+
+const STANCE_SET = new Set(STANCE_IDS)
+const EXPERIENCE_SET = new Set(EXPERIENCE_IDS)
+const DEPTH_SET = new Set(DEPTH_IDS)
+
+export function createActivityState(catalog) {
+  return {
+    version: ACTIVITY_STATE_VERSION,
+    answers: {},
+    navigation: {
+      categoryId: catalog?.categories?.[0]?.id || 'all',
+      search: '',
+      stanceFilter: 'all',
+      experienceFilter: 'all',
+      answerFilter: 'all',
+      depth: 'starter',
+      skippedCategoryIds: [],
+      hiddenActivityIds: [],
+      showHidden: false,
+    },
+  }
+}
+
+export function normalizeActivityState(catalog, saved) {
+  const clean = createActivityState(catalog)
+  if (!saved || saved.version !== ACTIVITY_STATE_VERSION) return clean
+
+  const activityIds = new Set((catalog?.activities || []).map((row) => row.id))
+  const categoryIds = new Set((catalog?.categories || []).map((row) => row.id))
+  const answers = {}
+
+  for (const [activityId, raw] of Object.entries(saved.answers || {})) {
+    if (!activityIds.has(activityId) || !raw || !STANCE_SET.has(raw.stance)) continue
+    answers[activityId] = {
+      stance: raw.stance,
+      ...(EXPERIENCE_SET.has(raw.experience) ? { experience: raw.experience } : {}),
+      details: raw.details && typeof raw.details === 'object' && !Array.isArray(raw.details) ? raw.details : {},
+      note: typeof raw.note === 'string' ? raw.note : '',
+    }
+  }
+
+  const navigation = saved.navigation && typeof saved.navigation === 'object' ? saved.navigation : {}
+  const safeIds = (values, allowed) => [...new Set(Array.isArray(values) ? values.filter((id) => allowed.has(id)) : [])]
+
+  return {
+    ...clean,
+    answers,
+    navigation: {
+      ...clean.navigation,
+      categoryId: navigation.categoryId === 'all' || categoryIds.has(navigation.categoryId) ? navigation.categoryId : clean.navigation.categoryId,
+      search: typeof navigation.search === 'string' ? navigation.search : '',
+      stanceFilter: navigation.stanceFilter === 'all' || STANCE_SET.has(navigation.stanceFilter) ? navigation.stanceFilter : 'all',
+      experienceFilter: navigation.experienceFilter === 'all' || navigation.experienceFilter === 'unanswered' || EXPERIENCE_SET.has(navigation.experienceFilter) ? navigation.experienceFilter : 'all',
+      answerFilter: ['all', 'answered', 'unanswered'].includes(navigation.answerFilter) ? navigation.answerFilter : 'all',
+      depth: DEPTH_SET.has(navigation.depth) ? navigation.depth : 'starter',
+      skippedCategoryIds: safeIds(navigation.skippedCategoryIds, categoryIds),
+      hiddenActivityIds: safeIds(navigation.hiddenActivityIds, activityIds),
+      showHidden: Boolean(navigation.showHidden),
+    },
+  }
+}
+
+export function isActivityAnswered(answer) {
+  return Boolean(answer && STANCE_SET.has(answer.stance))
+}
+
+export function setActivityStance(state, activityId, stance) {
+  if (!STANCE_SET.has(stance)) return state
+  const previous = state.answers?.[activityId] || {}
+  return {
+    ...state,
+    answers: {
+      ...state.answers,
+      [activityId]: {
+        stance,
+        ...(EXPERIENCE_SET.has(previous.experience) ? { experience: previous.experience } : {}),
+        details: previous.details && typeof previous.details === 'object' ? previous.details : {},
+        note: typeof previous.note === 'string' ? previous.note : '',
+      },
+    },
+  }
+}
+
+export function setActivityExperience(state, activityId, experience) {
+  const previous = state.answers?.[activityId]
+  if (!previous?.stance) return state
+  const next = { ...previous }
+  if (EXPERIENCE_SET.has(experience)) next.experience = experience
+  else delete next.experience
+  return { ...state, answers: { ...state.answers, [activityId]: next } }
+}
+
+export function setActivityDetails(state, activityId, details) {
+  const previous = state.answers?.[activityId]
+  if (!previous?.stance) return state
+  return {
+    ...state,
+    answers: {
+      ...state.answers,
+      [activityId]: { ...previous, details: details && typeof details === 'object' ? details : {} },
+    },
+  }
+}
+
+export function setActivityNote(state, activityId, note) {
+  const previous = state.answers?.[activityId]
+  if (!previous?.stance) return state
+  return { ...state, answers: { ...state.answers, [activityId]: { ...previous, note: String(note ?? '') } } }
+}
+
+export function clearActivityAnswer(state, activityId) {
+  const answers = { ...state.answers }
+  delete answers[activityId]
+  return { ...state, answers }
+}
+
+export function updateActivityNavigation(state, patch) {
+  return { ...state, navigation: { ...state.navigation, ...patch } }
+}
+
+
+export function focusUnansweredActivities(state) {
+  return updateActivityNavigation(state, {
+    categoryId: 'all',
+    search: '',
+    stanceFilter: 'all',
+    experienceFilter: 'all',
+    answerFilter: 'unanswered',
+    depth: 'all',
+    showHidden: true,
+  })
+}
+
+export function toggleSkippedCategory(state, categoryId) {
+  const current = new Set(state.navigation?.skippedCategoryIds || [])
+  current.has(categoryId) ? current.delete(categoryId) : current.add(categoryId)
+  return updateActivityNavigation(state, { skippedCategoryIds: [...current] })
+}
+
+export function toggleHiddenActivity(state, activityId) {
+  const current = new Set(state.navigation?.hiddenActivityIds || [])
+  current.has(activityId) ? current.delete(activityId) : current.add(activityId)
+  return updateActivityNavigation(state, { hiddenActivityIds: [...current] })
+}
+
+
+export function activityProgress(catalog, state, categoryId = null) {
+  const rows = (catalog?.activities || []).filter((activity) => !categoryId || categoryId === 'all' || activity.categoryId === categoryId)
+  const answered = rows.filter((activity) => isActivityAnswered(state.answers?.[activity.id])).length
+  return { answered, total: rows.length, percent: rows.length ? Math.round((answered / rows.length) * 100) : 0 }
+}
+
+function priorityVisible(priority, depth) {
+  if (depth === 'all' || depth === 'specialized') return true
+  if (depth === 'extended') return priority === 'starter' || priority === 'extended'
+  return priority === 'starter'
+}
+
+export function filterActivities(catalog, state, overrides = {}) {
+  const nav = { ...state.navigation, ...overrides }
+  const hidden = new Set(nav.hiddenActivityIds || [])
+  const query = String(nav.search || '').trim().toLowerCase()
+  const searchMode = query.length > 0
+
+  return (catalog?.activities || [])
+    .filter((activity) => searchMode || nav.categoryId === 'all' || activity.categoryId === nav.categoryId)
+    .filter((activity) => priorityVisible(activity.priority, nav.depth))
+    .filter((activity) => nav.showHidden || !hidden.has(activity.id))
+    .filter((activity) => !query || `${activity.label} ${activity.description} ${(activity.tags || []).join(' ')}`.toLowerCase().includes(query))
+    .filter((activity) => {
+      const answer = state.answers?.[activity.id]
+      if (nav.answerFilter === 'answered' && !isActivityAnswered(answer)) return false
+      if (nav.answerFilter === 'unanswered' && isActivityAnswered(answer)) return false
+      if (nav.stanceFilter !== 'all' && answer?.stance !== nav.stanceFilter) return false
+      if (nav.experienceFilter === 'unanswered' && answer?.experience) return false
+      if (nav.experienceFilter !== 'all' && nav.experienceFilter !== 'unanswered' && answer?.experience !== nav.experienceFilter) return false
+      return true
+    })
+    .sort((a, b) => {
+      const priorityRank = { starter: 0, extended: 1, specialized: 2 }
+      return (priorityRank[a.priority] - priorityRank[b.priority]) || a.label.localeCompare(b.label)
+    })
+}
+
+export function detailFieldsForActivity(catalog, activity, details = {}) {
+  if (!activity?.detailProfileId) return []
+  const profile = (catalog?.detailProfiles || []).find((row) => row.id === activity.detailProfileId)
+  if (!profile) return []
+
+  return (profile.fields || []).filter((field) => {
+    if (Array.isArray(field.appliesToActivityIds) && !field.appliesToActivityIds.includes(activity.id)) return false
+    if (Array.isArray(field.excludeForActivityIds) && field.excludeForActivityIds.includes(activity.id)) return false
+    if (!field.showWhen) return true
+    const current = details?.[field.showWhen.field]
+    if (field.showWhen.operator === 'contains') return Array.isArray(current) && current.includes(field.showWhen.value)
+    if (field.showWhen.operator === 'containsAny') return Array.isArray(current) && (field.showWhen.value || []).some((value) => current.includes(value))
+    if (field.showWhen.operator === 'equals') return current === field.showWhen.value
+    return true
+  })
+}
+
+export function groupActivityResults(catalog, state, mode = 'stance') {
+  const categoryById = new Map((catalog?.categories || []).map((row) => [row.id, row]))
+  const stanceById = new Map((catalog?.stanceScale || []).map((row) => [row.id, row]))
+  const experienceById = new Map((catalog?.experienceScale || []).map((row) => [row.id, row]))
+  const groups = new Map()
+  const unansweredIds = []
+  const add = (key, label, activity, answer) => {
+    if (!groups.has(key)) groups.set(key, { key, label, rows: [] })
+    groups.get(key).rows.push({ activity, answer })
+  }
+
+  for (const activity of catalog?.activities || []) {
+    const answer = state.answers?.[activity.id]
+    if (!isActivityAnswered(answer)) {
+      unansweredIds.push(activity.id)
+      continue
+    }
+    if (mode === 'notes' && !answer?.note?.trim()) continue
+    if (mode === 'conditions' && answer.stance !== 'soft_limit') continue
+    if (mode === 'category') add(activity.categoryId, categoryById.get(activity.categoryId)?.label || activity.categoryId, activity, answer)
+    else if (mode === 'experience') {
+      const key = answer?.experience || 'unanswered'
+      add(key, experienceById.get(key)?.label || 'Experience unanswered', activity, answer)
+    } else if (mode === 'notes') add('notes', 'With notes', activity, answer)
+    else if (mode === 'conditions') add('conditions', 'Soft limits / conditions', activity, answer)
+    else add(answer.stance, stanceById.get(answer.stance)?.label || answer.stance, activity, answer)
+  }
+
+  const stanceOrder = [...STANCE_IDS.slice(0, 4), 'soft_limit', 'hard_limit', 'dont_want']
+  const experienceOrder = [...EXPERIENCE_IDS, 'unanswered']
+  const groupsArray = [...groups.values()]
+  const order = mode === 'stance' ? stanceOrder : mode === 'experience' ? experienceOrder : null
+  if (order) groupsArray.sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key))
+  else groupsArray.sort((a, b) => a.label.localeCompare(b.label))
+  for (const group of groupsArray) group.rows.sort((a, b) => a.activity.label.localeCompare(b.activity.label))
+  return { groups: groupsArray, unansweredCount: unansweredIds.length, unansweredIds }
+}
+
+export function comparisonProfileFromActivityState(state) {
+  return {
+    activities: {
+      answers: typeof structuredClone === 'function' ? structuredClone(state.answers || {}) : JSON.parse(JSON.stringify(state.answers || {})),
+    },
+  }
+}

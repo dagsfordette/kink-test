@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [react()],
+  // React 19's automatic JSX runtime works with Vite's built-in esbuild transform;
+  // the prototype does not need the React Fast Refresh plugin for production builds.
+  esbuild: { jsx: 'automatic' },
   // Relative assets make the prototype work on both user.github.io and
   // user.github.io/repository-name without editing this file.
   base: './',

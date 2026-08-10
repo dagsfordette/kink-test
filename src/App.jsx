@@ -1,45 +1,40 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import catalog from './data/catalog.json'
-import Welcome from './components/Welcome.jsx'
-import TestView from './components/TestView.jsx'
-import ResultsView from './components/ResultsView.jsx'
-import PrintReport from './components/PrintReport.jsx'
-import { clearState, loadState, saveState } from './lib/storage.js'
-import { normalizeCategoryGates, normalizeDepthMode } from './lib/depthModes.js'
-import { compareResponses } from './lib/partnerComparison.js'
-import { createResponsePayload, parseResponsePayload } from './lib/responseFormat.js'
-import { normalizeNegotiationPreferences } from './lib/negotiation.js'
-import { normalizePowerExchangePreferences } from './lib/powerExchange.js'
+import { useEffect, useMemo, useState } from 'react'
+import fantasyProfile from './data/fantasyProfile.json'
+import activityCatalog from './data/activityCatalog.json'
+import ProductNav from './components/product/ProductNav.jsx'
+import Home from './components/product/Home.jsx'
+import MyProfile from './components/product/MyProfile.jsx'
+import FantasyIntro from './components/fantasy/FantasyIntro.jsx'
+import FantasyQuestionnaire from './components/fantasy/FantasyQuestionnaire.jsx'
+import FantasyResults from './components/fantasy/FantasyResults.jsx'
+import FantasyThemeDetail from './components/fantasy/FantasyThemeDetail.jsx'
+import FantasyAnswerReview from './components/fantasy/FantasyAnswerReview.jsx'
+import ActivityIntro from './components/activities/ActivityIntro.jsx'
+import ActivityExplorer from './components/activities/ActivityExplorer.jsx'
+import ActivityResults from './components/activities/ActivityResults.jsx'
+import PlayPreferences from './components/activities/PlayPreferences.jsx'
+import { addThemeDeepDive, answerFantasyQuestion, fantasyProgress, goToFantasyQuestion, restartFantasyProfile, startFantasyProfile } from './lib/fantasyRouting.js'
+import { buildFantasyResults } from './lib/fantasyResults.js'
+import { createAppState, normalizeAppState, resolveAppRoute, withActivityState, withFantasyState } from './lib/appState.js'
+import { loadAppState, saveAppState } from './lib/appStorage.js'
+import { buildActivityRecommendations } from './lib/activityRecommendations.js'
+import { buildFantasyRealityObservations } from './lib/profileIntegration.js'
+import { buildPartnerShareExport, buildPrivateBackup, jsonDownloadName } from './lib/profileExports.js'
+import { updatePlayPreferences } from './lib/playPreferences.js'
+import {
+  clearActivityAnswer,
+  setActivityDetails,
+  setActivityExperience,
+  setActivityNote,
+  setActivityStance,
+  toggleHiddenActivity,
+  toggleSkippedCategory,
+  updateActivityNavigation,
+  focusUnansweredActivities,
+} from './lib/activityProfile.js'
 
-const initialSettings = {
-  adultConfirmed: false,
-  mode: 'standard',
-  theme: 'dark',
-  onboardingComplete: false,
-  onboardingStep: 'profile',
-}
-
-function normalizeSavedState(saved) {
-  const settings = { ...initialSettings, ...(saved?.settings || {}) }
-  settings.mode = normalizeDepthMode(settings.mode)
-  if (!['profile', 'negotiation', 'marks', 'main'].includes(settings.onboardingStep)) {
-    settings.onboardingStep = settings.onboardingComplete ? 'main' : 'profile'
-  }
-  if (!saved) return { screen: 'welcome', settings, answers: {}, categoryGates: {}, negotiationPreferences: {}, powerExchangePreferences: {}, currentCategoryId: catalog.categories[0]?.id }
-
-  return {
-    screen: ['welcome', 'test', 'results'].includes(saved.screen) ? saved.screen : 'welcome',
-    settings,
-    answers: saved.answers && typeof saved.answers === 'object' && !Array.isArray(saved.answers) ? saved.answers : {},
-    categoryGates: normalizeCategoryGates(catalog, saved.categoryGates),
-    negotiationPreferences: normalizeNegotiationPreferences(catalog, saved.negotiationPreferences),
-    powerExchangePreferences: normalizePowerExchangePreferences(catalog, saved.powerExchangePreferences),
-    currentCategoryId: catalog.categories.some((category) => category.id === saved.currentCategoryId) ? saved.currentCategoryId : catalog.categories[0]?.id,
-  }
-}
-
-function downloadJson(filename, data) {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+function downloadJson(payload, filename) {
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   link.href = url
@@ -51,159 +46,184 @@ function downloadJson(filename, data) {
 }
 
 export default function App() {
-  const initial = useMemo(() => normalizeSavedState(loadState()), [])
-  const [screen, setScreen] = useState(initial.screen)
-  const [settings, setSettings] = useState(initial.settings)
-  const [answers, setAnswers] = useState(initial.answers)
-  const [categoryGates, setCategoryGates] = useState(initial.categoryGates)
-  const [negotiationPreferences, setNegotiationPreferences] = useState(initial.negotiationPreferences)
-  const [powerExchangePreferences, setPowerExchangePreferences] = useState(initial.powerExchangePreferences)
-  const [currentCategoryId, setCurrentCategoryId] = useState(initial.currentCategoryId)
-  const fileInputRef = useRef(null)
-  const compareFileInputRef = useRef(null)
-  const [partnerResponse, setPartnerResponse] = useState(null)
+  const [appState, setAppState] = useState(() => normalizeAppState(fantasyProfile, activityCatalog, loadAppState()) || createAppState(fantasyProfile, activityCatalog))
+  const { fantasy, activities, playPreferences, settings } = appState
 
   useEffect(() => {
     document.documentElement.dataset.theme = settings.theme
   }, [settings.theme])
 
   useEffect(() => {
-    saveState({ screen, settings, answers, categoryGates, negotiationPreferences, powerExchangePreferences, currentCategoryId })
-  }, [screen, settings, answers, categoryGates, negotiationPreferences, powerExchangePreferences, currentCategoryId])
+    saveAppState(appState)
+  }, [appState])
 
-  const setAnswer = (key, value) => setAnswers((prev) => ({ ...prev, [key]: value }))
-  const setCategoryGate = (categoryId, value) => setCategoryGates((prev) => {
-    const next = { ...prev }
-    if (value) next[categoryId] = value
-    else delete next[categoryId]
-    return next
-  })
+  const fantasyResults = useMemo(() => buildFantasyResults(fantasyProfile, fantasy.answers), [fantasy.answers])
+  const progress = useMemo(() => fantasyProgress(fantasyProfile, fantasy), [fantasy])
+  const recommendationMaxItems = appState.relevancePreferences?.recommendationMaxItems || 10
+  const activityRecommendations = useMemo(
+    () => fantasy.status === 'complete' ? buildActivityRecommendations(activityCatalog, fantasyProfile, fantasy.answers, { maxItems: recommendationMaxItems }) : [],
+    [fantasy.status, fantasy.answers, recommendationMaxItems],
+  )
+  const observations = useMemo(
+    () => fantasy.status === 'complete' ? buildFantasyRealityObservations(activityCatalog, fantasyResults, activities) : [],
+    [fantasy.status, fantasyResults, activities],
+  )
 
-  const exportPayload = () => createResponsePayload(catalog, { settings, answers, categoryGates, negotiationPreferences, powerExchangePreferences })
-
-  const handleExportJson = () => {
-    const date = new Date().toISOString().slice(0, 10)
-    downloadJson(`kink-exploration-${date}.json`, exportPayload())
+  const scrollTop = () => window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }))
+  const navigate = (route, updates = {}) => {
+    setAppState((prev) => {
+      const next = { ...prev, ...updates }
+      return { ...next, route: resolveAppRoute(route, next.settings) }
+    })
+    scrollTop()
   }
 
-  const handleImportClick = () => fileInputRef.current?.click()
-
-  const handleImport = async (event) => {
-    const file = event.target.files?.[0]
-    event.target.value = ''
-    if (!file) return
-    try {
-      const data = JSON.parse(await file.text())
-      const normalized = parseResponsePayload(catalog, data)
-      if (!window.confirm('Replace the answers currently stored in this browser with the imported file?')) return
-      setAnswers(normalized.answers)
-      setCategoryGates(normalized.categoryGates)
-      setNegotiationPreferences(normalized.negotiationPreferences)
-      setPowerExchangePreferences(normalized.powerExchangePreferences)
-      setSettings((prev) => ({ ...prev, mode: normalized.settings.mode || prev.mode, adultConfirmed: true }))
-      setScreen('test')
-      window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }))
-    } catch (error) {
-      window.alert(error.message || 'Could not import that file.')
-    }
+  const updateSettings = (patch) => setAppState((prev) => ({ ...prev, settings: { ...prev.settings, ...patch } }))
+  const updateActivity = (updater, route = appState.route) => {
+    setAppState((prev) => withActivityState(prev, updater(prev.activities), route))
   }
 
-  const handleCompareClick = () => compareFileInputRef.current?.click()
-
-  const handleCompareImport = async (event) => {
-    const file = event.target.files?.[0]
-    event.target.value = ''
-    if (!file) return
-    try {
-      const data = JSON.parse(await file.text())
-      const normalized = parseResponsePayload(catalog, data)
-      setPartnerResponse(normalized)
-    } catch (error) {
-      window.alert(error.message || 'Could not compare that file.')
-    }
+  const handleStartFantasy = () => {
+    const next = startFantasyProfile(fantasyProfile, fantasy)
+    setAppState((prev) => withFantasyState(prev, next, 'fantasy_questions'))
+    scrollTop()
   }
 
-  const comparison = useMemo(() => partnerResponse ? compareResponses(catalog, { answers, categoryGates, negotiationPreferences, powerExchangePreferences }, partnerResponse) : null, [answers, categoryGates, negotiationPreferences, powerExchangePreferences, partnerResponse])
-
-  const handleReset = () => {
-    if (!window.confirm('Delete all locally stored answers and restart? This cannot be undone unless you exported a copy.')) return
-    clearState()
-    setAnswers({})
-    setCategoryGates({})
-    setNegotiationPreferences({})
-    setPowerExchangePreferences({})
-    setSettings(initialSettings)
-    setCurrentCategoryId(catalog.categories[0]?.id)
-    setScreen('welcome')
+  const handleAnswer = (response) => {
+    const questionId = fantasy.questionSequence[fantasy.currentIndex]
+    const next = answerFantasyQuestion(fantasyProfile, fantasy, questionId, response)
+    setAppState((prev) => withFantasyState(prev, next, next.status === 'complete' ? 'fantasy_results' : 'fantasy_questions'))
+    if (next.status === 'complete') scrollTop()
   }
 
-  const handlePrintPdf = () => {
-    window.print()
+  const handleRestart = () => {
+    if (!window.confirm('Restart Fantasy Profile and delete its saved fantasy answers? Activity Explorer answers will be kept.')) return
+    setAppState((prev) => ({ ...prev, fantasy: restartFantasyProfile(fantasyProfile), selectedThemeId: null, route: 'fantasy_intro' }))
+    scrollTop()
+  }
+
+  const handleOpenTheme = (dimensionId) => navigate('fantasy_theme', { selectedThemeId: dimensionId })
+  const handleExploreMore = (dimensionId) => {
+    const next = addThemeDeepDive(fantasyProfile, fantasy, dimensionId)
+    if (next.questionSequence.length === fantasy.questionSequence.length) return
+    setAppState((prev) => withFantasyState(prev, next, 'fantasy_questions'))
+    scrollTop()
+  }
+  const handleEdit = (questionId) => {
+    const next = goToFantasyQuestion(fantasyProfile, fantasy, questionId)
+    setAppState((prev) => withFantasyState(prev, next, 'fantasy_questions'))
+    scrollTop()
+  }
+  const questionNav = (delta) => {
+    setAppState((prev) => ({
+      ...prev,
+      fantasy: {
+        ...prev.fantasy,
+        currentIndex: Math.max(0, Math.min(prev.fantasy.currentIndex + delta, prev.fantasy.questionSequence.length - 1)),
+      },
+    }))
+    scrollTop()
+  }
+
+  const exportPrivate = () => {
+    const payload = buildPrivateBackup(appState, fantasyProfile, activityCatalog, { fantasyResults })
+    downloadJson(payload, jsonDownloadName('private'))
+  }
+  const exportPartner = (includePlayPreferences = false) => {
+    const payload = buildPartnerShareExport(appState, activityCatalog, { includePlayPreferences })
+    downloadJson(payload, jsonDownloadName('partner'))
   }
 
   return (
-    <div className="app-root">
-      <input ref={fileInputRef} type="file" accept="application/json,.json" className="sr-only" onChange={handleImport} />
-      <input ref={compareFileInputRef} type="file" accept="application/json,.json" className="sr-only" onChange={handleCompareImport} />
-
+    <div className="app-root fantasy-app-root">
+      <ProductNav route={appState.route} onNavigate={navigate} />
       <button
         type="button"
         className="theme-toggle no-print"
         aria-label="Toggle theme"
-        onClick={() => setSettings((prev) => ({ ...prev, theme: prev.theme === 'dark' ? 'light' : 'dark' }))}
+        onClick={() => updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' })}
       >
         {settings.theme === 'dark' ? '☼' : '◐'}
       </button>
 
-      {screen === 'welcome' && (
-        <Welcome
-          settings={settings}
-          setSettings={setSettings}
-          onStart={() => { setScreen('test'); window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' })) }}
-          onImport={handleImportClick}
+      {appState.route === 'home' && (
+        <Home
+          fantasy={fantasy}
+          activities={activities}
+          onFantasy={() => navigate('fantasy_intro')}
+          onFantasyResults={() => navigate('fantasy_results')}
+          onActivities={() => navigate('activity_intro')}
+          onActivityResults={() => navigate('activity_results')}
+          onProfile={() => navigate('profile')}
         />
       )}
 
-      {screen === 'test' && (
-        <TestView
-          catalog={catalog}
-          answers={answers}
-          setAnswer={setAnswer}
-          categoryGates={categoryGates}
-          setCategoryGate={setCategoryGate}
-          negotiationPreferences={negotiationPreferences}
-          setNegotiationPreferences={setNegotiationPreferences}
-          powerExchangePreferences={powerExchangePreferences}
-          setPowerExchangePreferences={setPowerExchangePreferences}
-          settings={settings}
-          setSettings={setSettings}
-          currentCategoryId={currentCategoryId}
-          setCurrentCategoryId={setCurrentCategoryId}
-          onResults={() => { setScreen('results'); window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' })) }}
-          onExport={handleExportJson}
-          onImport={handleImportClick}
-          onReset={handleReset}
-          onBackToWelcome={() => setScreen('welcome')}
+      {appState.route === 'fantasy_intro' && (
+        <FantasyIntro profile={fantasyProfile} fantasy={fantasy} adultConfirmed={settings.adultConfirmed} onAdultConfirmed={(value) => updateSettings({ adultConfirmed: value })} onStart={handleStartFantasy} onResume={handleStartFantasy} onResults={() => navigate('fantasy_results')} onActivity={() => navigate('activity_intro')} />
+      )}
+
+      {appState.route === 'fantasy_questions' && (
+        <FantasyQuestionnaire profile={fantasyProfile} fantasy={fantasy} progress={progress} onAnswer={handleAnswer} onBack={() => questionNav(-1)} onNext={() => questionNav(1)} onLeave={() => navigate('fantasy_intro')} onRestart={handleRestart} />
+      )}
+
+      {appState.route === 'fantasy_results' && (
+        <FantasyResults profile={fantasyProfile} answers={fantasy.answers} results={fantasyResults} onOpenTheme={handleOpenTheme} onReview={() => navigate('fantasy_review')} onRestart={handleRestart} onActivity={() => navigate('activity_intro')} />
+      )}
+
+      {appState.route === 'fantasy_theme' && (
+        <FantasyThemeDetail profile={fantasyProfile} answers={fantasy.answers} dimensionId={appState.selectedThemeId} onBack={() => navigate('fantasy_results')} onOpenTheme={handleOpenTheme} onExploreMore={handleExploreMore} />
+      )}
+
+      {appState.route === 'fantasy_review' && (
+        <FantasyAnswerReview profile={fantasyProfile} fantasy={fantasy} onBack={() => navigate('fantasy_results')} onEdit={handleEdit} />
+      )}
+
+      {appState.route === 'activity_intro' && (
+        <ActivityIntro catalog={activityCatalog} activity={activities} fantasyComplete={fantasy.status === 'complete'} adultConfirmed={settings.adultConfirmed} onAdultConfirmed={(value) => updateSettings({ adultConfirmed: value })} onStart={() => navigate('activity_explorer')} onResults={() => navigate('activity_results')} onFantasy={() => navigate('fantasy_intro')} />
+      )}
+
+      {appState.route === 'activity_explorer' && (
+        <ActivityExplorer
+          catalog={activityCatalog}
+          activityState={activities}
+          recommendations={activityRecommendations}
+          fantasyComplete={fantasy.status === 'complete'}
+          onNavigation={(patch) => updateActivity((current) => updateActivityNavigation(current, patch), 'activity_explorer')}
+          onStance={(activityId, stance) => updateActivity((current) => setActivityStance(current, activityId, stance), 'activity_explorer')}
+          onExperience={(activityId, experience) => updateActivity((current) => setActivityExperience(current, activityId, experience), 'activity_explorer')}
+          onDetails={(activityId, details) => updateActivity((current) => setActivityDetails(current, activityId, details), 'activity_explorer')}
+          onNote={(activityId, note) => updateActivity((current) => setActivityNote(current, activityId, note), 'activity_explorer')}
+          onClear={(activityId) => updateActivity((current) => clearActivityAnswer(current, activityId), 'activity_explorer')}
+          onToggleHidden={(activityId) => updateActivity((current) => toggleHiddenActivity(current, activityId), 'activity_explorer')}
+          onToggleSkipped={(categoryId) => updateActivity((current) => toggleSkippedCategory(current, categoryId), 'activity_explorer')}
+          onResults={() => navigate('activity_results')}
+          onPlayPreferences={() => navigate('activity_play_preferences')}
         />
       )}
 
-      {screen === 'results' && (
-        <ResultsView
-          catalog={catalog}
-          answers={answers}
-          categoryGates={categoryGates}
-          negotiationPreferences={negotiationPreferences}
-          powerExchangePreferences={powerExchangePreferences}
-          onBack={() => setScreen('test')}
-          onExportJson={handleExportJson}
-          onPrintPdf={handlePrintPdf}
-          comparison={comparison}
-          onCompareJson={handleCompareClick}
-          onClearComparison={() => setPartnerResponse(null)}
-        />
+      {appState.route === 'activity_results' && (
+        <ActivityResults catalog={activityCatalog} activityState={activities} playPreferences={playPreferences} onBack={() => navigate('activity_explorer')} onUnanswered={() => updateActivity((current) => focusUnansweredActivities(current), 'activity_explorer')} onIntro={() => navigate('activity_intro')} onPlayPreferences={() => navigate('activity_play_preferences')} onPartnerExport={exportPartner} />
       )}
 
-      <PrintReport catalog={catalog} answers={answers} categoryGates={categoryGates} negotiationPreferences={negotiationPreferences} powerExchangePreferences={powerExchangePreferences} />
+      {appState.route === 'activity_play_preferences' && (
+        <PlayPreferences values={playPreferences} onChange={(patch) => setAppState((prev) => ({ ...prev, playPreferences: updatePlayPreferences(prev.playPreferences, patch) }))} onBack={() => navigate('activity_explorer')} />
+      )}
+
+      {appState.route === 'profile' && (
+        <MyProfile
+          catalog={activityCatalog}
+          fantasyComplete={fantasy.status === 'complete'}
+          fantasyResults={fantasyResults}
+          activities={activities}
+          playPreferences={playPreferences}
+          observations={observations}
+          onFantasy={() => navigate(fantasy.status === 'complete' ? 'fantasy_results' : 'fantasy_intro')}
+          onActivities={() => navigate(resolveAppRoute('activity_explorer', settings))}
+          onPrivateExport={exportPrivate}
+          onPartnerExport={exportPartner}
+          onPrintPrivate={() => window.print()}
+        />
+      )}
     </div>
   )
 }
