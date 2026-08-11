@@ -51,11 +51,11 @@ function directionalSentence(label, leftName, left, rightName, right) {
   if (!leftPositive && !rightPositive) return null
   const normalizedLabel = label.replace(/ & /g, ' and ').toLowerCase()
   if (leftPositive && rightPositive && Math.abs(left.score - right.score) < 0.35) {
-    return `${label} appealed in both ${leftName} and ${rightName} directions.`
+    return `${label} worked for you both when ${leftName} and when ${rightName}.`
   }
-  if (left.score > right.score + 0.35) return `${label} appealed more when you imagined ${leftName} than ${rightName}.`
-  if (right.score > left.score + 0.35) return `${label} appealed more when you imagined ${rightName} than ${leftName}.`
-  return `Your responses around ${normalizedLabel} changed depending on the direction.`
+  if (left.score > right.score + 0.35) return `${label} appealed more when you imagined ${leftName}.`
+  if (right.score > left.score + 0.35) return `${label} appealed more when you imagined ${rightName}.`
+  return `${label} changed for you depending on which side of the dynamic you imagined.`
 }
 
 export function fantasyDirectionality(profile, answers, maxCount = 6) {

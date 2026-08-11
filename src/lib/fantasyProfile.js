@@ -236,12 +236,12 @@ function conditionMatches(condition, evidence) {
 
 function reasonFor(dimension, evidence) {
   const label = dimension.label.toLowerCase()
-  if (evidence.band === 'strong') return `strong response to ${label}`
-  if (evidence.band === 'notable') return `notable response to ${label}`
-  if (evidence.band === 'mixed') return `mixed response to ${label}`
-  if (evidence.band === 'low') return `low response to ${label}`
-  if (evidence.band === 'negative') return `negative response to ${label}`
-  return `limited evidence for ${label}`
+  if (evidence.band === 'strong') return `you reacted strongly to ${label}`
+  if (evidence.band === 'notable') return `${label} came up repeatedly`
+  if (evidence.band === 'mixed') return `your response to ${label} depended on context`
+  if (evidence.band === 'low') return `${label} did not add much for you`
+  if (evidence.band === 'negative') return `you usually disliked ${label}`
+  return `there was not enough information about ${label}`
 }
 
 function aggregatePerspective(evidenceRows, perspective) {

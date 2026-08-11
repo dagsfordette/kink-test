@@ -18,7 +18,7 @@ export default function ProductNav({ route, onNavigate }) {
     <header className="product-nav no-print">
       <button type="button" className="product-brand" onClick={() => onNavigate('home')}>
         <span aria-hidden="true">✦</span>
-        <span><strong>Kink Exploration</strong><small>Discover broadly. Explore precisely.</small></span>
+        <span><strong>Kink Exploration</strong><small>Find what you like. Sort out what you want.</small></span>
       </button>
       <nav aria-label="Main navigation">
         {ITEMS.map(([target, label]) => (

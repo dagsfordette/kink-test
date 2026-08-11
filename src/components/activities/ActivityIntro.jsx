@@ -7,8 +7,8 @@ export default function ActivityIntro({ catalog, activity, fantasyComplete, adul
       <section className="activity-intro-card">
         <div className="activity-brand-mark" aria-hidden="true">◇</div>
         <span className="kicker">Activity Explorer</span>
-        <h1>Map what fits in real life.</h1>
-        <p className="activity-lede">Build a detailed real-world profile of activities you love, want, might explore, or consider a limit. Work through it in as many sittings as you want.</p>
+        <h1>Sort out your yes, maybe, and no.</h1>
+        <p className="activity-lede">Go through specific activities and mark how you feel about them today. Add experience, conditions, or a note when it helps. You can stop and come back whenever you want.</p>
 
         <div className="activity-scale-grid">
           {catalog.stanceScale.map((row) => (
@@ -20,26 +20,26 @@ export default function ActivityIntro({ catalog, activity, fantasyComplete, adul
         </div>
 
         <div className="activity-intro-notes">
-          <p><strong>Limits belong here.</strong> Soft and hard limits are real-world stance states.</p>
-          <p><strong>Experience is separate.</strong> You can be experienced with something you do not want, or love something you have not tried.</p>
-          <p><strong>{fantasyComplete ? 'Personalized suggestions are available.' : 'Fantasy Profile is optional.'}</strong> Recommendations never pre-answer anything, and the full catalog always stays available.</p>
+          <p><strong>Use limits for real-life boundaries.</strong> A soft limit means “only under certain conditions.” A hard limit means “no.”</p>
+          <p><strong>Experience is a separate question.</strong> You can have tried something and not want it again, or want something you’ve never tried.</p>
+          <p><strong>{fantasyComplete ? 'Want a place to start?' : 'You can start here.'}</strong> {fantasyComplete ? 'Your Fantasy Profile can suggest a few activities to look at first, but you still answer every activity for yourself.' : 'You do not need to complete Fantasy Profile before using Activity Explorer.'}</p>
         </div>
 
         {!adultConfirmed && (
           <label className="fantasy-adult-confirmation">
             <input type="checkbox" checked={adultConfirmed} onChange={(event) => onAdultConfirmed(event.target.checked)} />
-            <span>I confirm that I am an adult and want to continue with adult-only real-world activity content.</span>
+            <span>I’m an adult and I’m okay continuing with sexual and kink-related activity content.</span>
           </label>
         )}
 
         <div className="activity-intro-actions">
           <button type="button" className="primary-button large" disabled={!adultConfirmed} onClick={onStart}>
-            {hasProgress ? `Continue exploring (${answeredCount} answered)` : 'Start exploring activities'}
+            {hasProgress ? `Keep going (${answeredCount} answered)` : 'Browse activities'}
           </button>
-          {hasProgress && <button type="button" className="secondary-button large" onClick={onResults}>View activity profile</button>}
-          <button type="button" className="text-button" onClick={onFantasy}>Fantasy Profile</button>
+          {hasProgress && <button type="button" className="secondary-button large" onClick={onResults}>See where I landed</button>}
+          <button type="button" className="text-button" onClick={onFantasy}>Try Fantasy Profile instead</button>
         </div>
-        <p className="fine-print">Your answers stay in this browser. Stance choices are not scores and are never averaged into a compatibility percentage.</p>
+        <p className="fine-print">Your answers stay in this browser unless you choose to export them. There is no compatibility score and no “right” way for your list to look.</p>
       </section>
     </main>
   )

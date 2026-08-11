@@ -77,10 +77,10 @@ export function buildPartnerShareExport(appState, activityCatalog, options = {})
 
 export function parsePartnerShareExport(value, activityCatalog) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
-    throw new Error('Partner data must be a partner-share Activity Explorer export.')
+    throw new Error('That doesn’t look like an Activity Explorer share file.')
   }
   if (value.format !== PARTNER_ACTIVITY_FORMAT) {
-    throw new Error('Only partner-share Activity Explorer exports can be compared. Private backups are intentionally not accepted here.')
+    throw new Error('Only partner-share Activity Explorer files can be compared here; a private backup will not work.')
   }
   if (!value.activities || typeof value.activities.answers !== 'object' || Array.isArray(value.activities.answers)) {
     throw new Error('This partner-share export does not contain valid Activity Explorer answers.')

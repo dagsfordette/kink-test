@@ -97,7 +97,7 @@ export default function App() {
   }
 
   const handleRestart = () => {
-    if (!window.confirm('Restart Fantasy Profile and delete its saved fantasy answers? Activity Explorer answers will be kept.')) return
+    if (!window.confirm('Start Fantasy Profile over? Your fantasy answers will be cleared, but your Activity Explorer answers will stay.')) return
     setAppState((prev) => ({ ...prev, fantasy: restartFantasyProfile(fantasyProfile), selectedThemeId: null, route: 'fantasy_intro' }))
     scrollTop()
   }

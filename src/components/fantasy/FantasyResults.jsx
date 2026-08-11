@@ -5,15 +5,15 @@ function EmptyResult({ children }) {
 }
 
 function ThemeGrid({ themes, onOpenTheme }) {
-  if (!themes.length) return <EmptyResult>No clear positive pattern stood out here yet. Mixed and skipped answers are left uninterpreted rather than forced into a label.</EmptyResult>
+  if (!themes.length) return <EmptyResult>Nothing stood out clearly here. We’d rather leave it open than force a label onto mixed or skipped answers.</EmptyResult>
   return (
     <div className="fantasy-theme-grid">
       {themes.map((theme) => (
         <button type="button" className="fantasy-theme-card" key={theme.id} onClick={() => onOpenTheme(theme.id)}>
-          <span className="fantasy-result-strength">{theme.band === 'strong' ? 'Strong pattern' : 'Notable pattern'}</span>
+          <span className="fantasy-result-strength">{theme.band === 'strong' ? 'Came up strongly' : 'Came up more than once'}</span>
           <strong>{theme.label}</strong>
           <span>{theme.description}</span>
-          <span className="fantasy-card-link">Explore theme →</span>
+          <span className="fantasy-card-link">Take a closer look →</span>
         </button>
       ))}
     </div>
@@ -25,21 +25,21 @@ export default function FantasyResults({ profile, answers, results, onOpenTheme,
     <main className="fantasy-shell fantasy-results-shell">
       <header className="fantasy-results-hero">
         <span className="kicker">Fantasy Profile</span>
-        <h1>Your imagination has patterns. They are not instructions.</h1>
-        <p>These results describe what drew a positive response in fantasy. They do not determine consent, identity, willingness, diagnosis, or what you should do in real life.</p>
+        <h1>Here’s what kept showing up.</h1>
+        <p>These are patterns in what appealed to you as fantasy. They don’t tell you what you should want in real life, and they don’t set any boundaries for you.</p>
         <div className="fantasy-results-actions">
-          <button type="button" className="primary-button" onClick={onActivity}>Explore real-world activities</button>
+          <button type="button" className="primary-button" onClick={onActivity}>See related activities</button>
           <button type="button" className="secondary-button" onClick={onReview}>Review answers</button>
-          <button type="button" className="text-button danger-text" onClick={onRestart}>Restart profile</button>
+          <button type="button" className="text-button danger-text" onClick={onRestart}>Start over</button>
         </div>
       </header>
 
       <section className="fantasy-result-section">
         <div className="fantasy-section-number">1</div>
         <div className="fantasy-section-heading">
-          <span className="kicker">What seems to drive your fantasies</span>
-          <h2>Emotional and motivational drivers</h2>
-          <p>The strongest supported signals underneath the scenarios you responded to.</p>
+          <span className="kicker">What seems to matter most</span>
+          <h2>The feelings behind the fantasy</h2>
+          <p>These are the emotional pulls that showed up most consistently in your answers.</p>
         </div>
         <ThemeGrid themes={results.drivers} onOpenTheme={onOpenTheme} />
       </section>
@@ -47,9 +47,9 @@ export default function FantasyResults({ profile, answers, results, onOpenTheme,
       <section className="fantasy-result-section">
         <div className="fantasy-section-number">2</div>
         <div className="fantasy-section-heading">
-          <span className="kicker">Patterns you respond to</span>
-          <h2>Recurring fantasy motifs</h2>
-          <p>Structures and scenario patterns that repeatedly carried positive charge.</p>
+          <span className="kicker">What keeps coming back</span>
+          <h2>Recurring dynamics and setups</h2>
+          <p>These are the kinds of situations or structures you responded to more than once.</p>
         </div>
         <ThemeGrid themes={results.patterns} onOpenTheme={onOpenTheme} />
       </section>
@@ -57,23 +57,23 @@ export default function FantasyResults({ profile, answers, results, onOpenTheme,
       <section className="fantasy-result-section">
         <div className="fantasy-section-number">3</div>
         <div className="fantasy-section-heading">
-          <span className="kicker">Roles and directions</span>
-          <h2>How direction changed the appeal</h2>
-          <p>Only comparisons with enough evidence in both directions are shown.</p>
+          <span className="kicker">Which side appealed more</span>
+          <h2>Giving, receiving, watching, being watched</h2>
+          <p>When your answers were clear enough to compare, this is where one side of a dynamic seemed to appeal more than the other.</p>
         </div>
         {results.directions.length ? (
           <div className="fantasy-direction-list">
             {results.directions.map((row) => <p key={`${row.dimensionId}-${row.text}`}>{row.text}</p>)}
           </div>
-        ) : <EmptyResult>No stable directional contrast stood out strongly enough to summarize.</EmptyResult>}
+        ) : <EmptyResult>No clear preference for one side of a dynamic stood out.</EmptyResult>}
       </section>
 
       <section className="fantasy-result-section">
         <div className="fantasy-section-number">4</div>
         <div className="fantasy-section-heading">
-          <span className="kicker">These patterns sometimes connect to…</span>
-          <h2>Possible vocabulary to explore</h2>
-          <p>These are areas your themes may overlap with, not identities the profile assigns to you.</p>
+          <span className="kicker">Words you might want to look up</span>
+          <h2>Kink areas that overlap with your results</h2>
+          <p>These are possible directions for further exploring — not labels we’re assigning to you.</p>
         </div>
         {results.suggestions.length ? (
           <div className="fantasy-suggestion-list">
@@ -84,14 +84,14 @@ export default function FantasyResults({ profile, answers, results, onOpenTheme,
                   <h3>{suggestion.label}</h3>
                   <p>{suggestion.summary}</p>
                   <details>
-                    <summary>Why am I seeing this?</summary>
+                    <summary>Why this showed up</summary>
                     <div className="fantasy-why-content">
                       {suggestion.why.length > 0 && (
                         <ul>{suggestion.why.map((reason) => <li key={reason}>{reason.charAt(0).toUpperCase() + reason.slice(1)}.</li>)}</ul>
                       )}
                       {detail?.examples?.length > 0 && (
                         <div>
-                          <strong>Examples that contributed</strong>
+                          <strong>Answers that contributed</strong>
                           <ul className="fantasy-example-list">
                             {detail.examples.map((example) => <li key={example.questionId}>“{example.statement}” — {example.responseLabel}</li>)}
                           </ul>
@@ -103,7 +103,7 @@ export default function FantasyResults({ profile, answers, results, onOpenTheme,
               )
             })}
           </div>
-        ) : <EmptyResult>No conventional kink area has enough positive evidence to suggest. That is a valid result.</EmptyResult>}
+        ) : <EmptyResult>No particular kink area stood out strongly enough to suggest. That’s completely fine.</EmptyResult>}
       </section>
     </main>
   )

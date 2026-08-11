@@ -1,7 +1,7 @@
 export default function FantasyQuestionCard({ question, responseScale, selected, onAnswer }) {
   return (
     <section className="fantasy-question-card" aria-labelledby="fantasy-question-text">
-      <div className="fantasy-question-prompt">When I imagine this, how does my mind respond?</div>
+      <div className="fantasy-question-prompt">As a fantasy, how does this land for you?</div>
       <h1 id="fantasy-question-text">{question.statement}</h1>
       <div className="fantasy-response-grid" role="radiogroup" aria-label="Fantasy response">
         {responseScale.map((choice) => (

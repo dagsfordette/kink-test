@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "title": "Activity Explorer",
     "audience": "adults_only",
-    "purpose": "Rate your current real-world stance toward concrete activities, roles, practices, and relationship structures.",
+    "purpose": "Go through specific activities and mark what you want, might try, do not want, or consider a limit.",
     "answerShape": {
       "stance": "required",
       "experience": "optional_independent",
@@ -75,109 +75,109 @@
     {
       "id": "physical",
       "label": "Physical considerations",
-      "prompt": "Physical effects can vary. If you are considering a real-world version, relevant knowledge, agreed limits, stopping mechanisms, and appropriate precautions may matter."
+      "prompt": "Think about technique, limits, how you’ll pause or stop, and any precautions this activity needs."
     },
     {
       "id": "medical",
       "label": "Medical / health considerations",
-      "prompt": "Health or medical factors may be relevant. Consider whether additional knowledge, precautions, or appropriate professional guidance are needed before any real-world version."
+      "prompt": "Some activities have health risks. Learn what matters for this one and get professional advice when appropriate."
     },
     {
       "id": "psychological",
       "label": "Psychological / emotional considerations",
-      "prompt": "Consider emotional boundaries, vulnerable topics, the intended tone, and what kind of check-in or aftercare would help this feel well negotiated."
+      "prompt": "Talk about emotional boundaries, sensitive topics, the tone you want, and what kind of check-in or aftercare may help."
     },
     {
       "id": "consent_complexity",
       "label": "Consent complexity",
-      "prompt": "Prior negotiation and a clear, mutually understood way to pause, check in, or stop are especially important when consent may be harder to communicate in the moment."
+      "prompt": "Agree in advance on how you’ll check in, pause, or stop — especially if communicating clearly may be harder in the moment."
     },
     {
       "id": "privacy",
       "label": "Privacy considerations",
-      "prompt": "Clarify who may see, know about, or retain information or media connected with this interest, including identification and sharing boundaries."
+      "prompt": "Be clear about who can see, know about, store, or share anything connected to this activity."
     },
     {
       "id": "digital_security",
       "label": "Digital security considerations",
-      "prompt": "Discuss storage, screenshots, identification, account or device access, redistribution, and deletion expectations before creating or exchanging digital material."
+      "prompt": "Agree on screenshots, storage, device or account access, sharing, and deletion before creating or exchanging digital material."
     },
     {
       "id": "reputational",
       "label": "Reputational / social considerations",
-      "prompt": "Consider accidental disclosure, who might encounter the activity or records of it, and any social, family, or professional visibility boundaries."
+      "prompt": "Think about accidental disclosure and who could come across the activity, evidence of it, or information about it."
     },
     {
       "id": "financial",
       "label": "Financial considerations",
-      "prompt": "Set explicit financial limits and boundaries in advance, including what forms of spending or transfer are never on the table and how changes would be agreed."
+      "prompt": "Set clear money limits in advance, including what is never on the table and how any change would be agreed."
     }
   ],
   "categories": [
     {
       "id": "power_exchange",
       "label": "Power exchange",
-      "description": "Negotiated authority, permission, rules, and decision-making roles."
+      "description": "Who leads, who follows, and how much control gets handed over."
     },
     {
       "id": "service_protocol",
       "label": "Service & protocol",
-      "description": "Service, tasks, rituals, etiquette, and structured routines."
+      "description": "Tasks, rituals, etiquette, and the feeling of serving or being served."
     },
     {
       "id": "bondage_restraint",
       "label": "Bondage & restraint",
-      "description": "Physical restraint, immobilization, positions, and restraint equipment."
+      "description": "Being restrained, holding someone in place, and different ways movement can be limited."
     },
     {
       "id": "rope_bondage",
       "label": "Rope bondage",
-      "description": "Rope-based restraint, decorative rope, and rope-focused scenes."
+      "description": "Rope for restraint, positioning, sensation, display, or the rope itself."
     },
     {
       "id": "sensory_deprivation",
       "label": "Sensory deprivation & control",
-      "description": "Agreed reduction, control, or intensification of sensory input."
+      "description": "Changing what someone can see, hear, feel, or anticipate."
     },
     {
       "id": "impact_play",
       "label": "Impact play",
-      "description": "Consensual striking and impact sensations with different tools or styles."
+      "description": "Spanking, striking, and other kinds of impact with hands, tools, or different styles."
     },
     {
       "id": "pain_play",
       "label": "Pain play",
-      "description": "Activities where controlled discomfort or pain is intentionally part of the experience."
+      "description": "Activities where pain or discomfort is deliberately part of the experience."
     },
     {
       "id": "sensation_play",
       "label": "Sensation play",
-      "description": "Touch, temperature, texture, vibration, and other body sensations."
+      "description": "Temperature, texture, vibration, touch, and other ways of changing physical sensation."
     },
     {
       "id": "rough_physical",
       "label": "Rough / physical play",
-      "description": "Rough physical interaction, wrestling, pinning, pursuit, and forceful positioning."
+      "description": "Wrestling, pinning, pursuit, forceful positioning, and rough physical interaction."
     },
     {
       "id": "sexual_activities",
       "label": "Sexual activities",
-      "description": "Specific partnered sexual activities and forms of stimulation."
+      "description": "Specific sexual activities and kinds of stimulation."
     },
     {
       "id": "anal_play",
       "label": "Anal play",
-      "description": "Anal-focused touch, stimulation, toys, penetration, and related interests."
+      "description": "Anal touch, stimulation, toys, penetration, and related activities."
     },
     {
       "id": "toys_devices",
       "label": "Toys & devices",
-      "description": "Sex toys, devices, and equipment used in partnered play."
+      "description": "Sex toys, devices, and equipment used with a partner."
     },
     {
       "id": "orgasm_control",
       "label": "Orgasm control",
-      "description": "Edging, denial, permission, timing, and other negotiated orgasm-control activities."
+      "description": "Edging, denial, permission, timing, and other ways of controlling orgasm."
     },
     {
       "id": "chastity",
@@ -187,82 +187,82 @@
     {
       "id": "humiliation_degradation",
       "label": "Humiliation & degradation",
-      "description": "Consensual embarrassment, degradation, exposure, and status-lowering roleplay."
+      "description": "Consensual embarrassment, degradation, exposure, and lowered-status play."
     },
     {
       "id": "praise_worship",
       "label": "Praise, worship & adoration",
-      "description": "Praise, adoration, worship, approval, and concentrated positive attention."
+      "description": "Praise, adoration, worship, approval, and focused positive attention."
     },
     {
       "id": "objectification",
       "label": "Objectification & dollification",
-      "description": "Consensual objectification, dollification, use, display, and functional roles."
+      "description": "Being used, displayed, positioned, dollified, or treated as an object within agreed play."
     },
     {
       "id": "exhibition_observation",
       "label": "Exhibitionism & observation",
-      "description": "Being watched, watching, photography, video, and consensual exhibition settings."
+      "description": "Being watched, watching, taking photos or video, and other forms of consensual display."
     },
     {
       "id": "multi_partner",
       "label": "Multi-partner / partner-sharing",
-      "description": "Activities and relationship arrangements involving more than two consenting adults."
+      "description": "Sexual or kink activities involving more than two consenting adults."
     },
     {
       "id": "roleplay",
       "label": "Roleplay",
-      "description": "Adult roleplay scenarios, identities, characters, and negotiated fictional situations."
+      "description": "Characters, identities, scenarios, and other agreed fictional setups between adults."
     },
     {
       "id": "pet_primal",
       "label": "Pet play & primal play",
-      "description": "Pet-role dynamics, primal play, pursuit, instinctive roles, and animal-style roleplay."
+      "description": "Pet roles, pursuit, instinctive dynamics, resistance, and primal play."
     },
     {
       "id": "medical_edge",
       "label": "Medical-themed & edge activities",
-      "description": "Medical-themed roleplay and higher-risk edge activities with relevant safety considerations."
+      "description": "Medical-themed roleplay and higher-risk activities that need extra knowledge or care."
     },
     {
       "id": "fetish_materials",
       "label": "Materials, clothing & object interests",
-      "description": "Clothing, materials, textures, and objects used as a deliberate erotic focus."
+      "description": "Clothing, materials, textures, and objects that are part of the turn-on."
     },
     {
       "id": "body_part_fetishes",
       "label": "Body-area interests",
-      "description": "Specific adult body areas made a deliberate focus of sexual or kink play."
+      "description": "Making a particular adult body area the focus of attention or play."
     },
     {
       "id": "fluids_mess",
       "label": "Fluids & messy play",
-      "description": "Fluids, mess, wetness, and related sensory or symbolic activities."
+      "description": "Fluids, wetness, mess, and the sensations or meanings around them."
     },
     {
       "id": "sensory_fetishes",
       "label": "Sensory & stimulus interests",
-      "description": "Sounds, smells, textures, movement, and other sensory stimuli used as an erotic focus."
+      "description": "Sounds, smells, textures, movement, and other sensory things that can become a turn-on."
     },
     {
       "id": "psychological_play",
       "label": "Psychological play",
-      "description": "Negotiated suspense, fear-like tension, teasing, challenge, uncertainty, and psychological roleplay."
+      "description": "Suspense, fear-like tension, teasing, challenge, uncertainty, and other head-game dynamics."
     },
     {
       "id": "relationship_dynamics",
       "label": "Relationship structures & ongoing dynamics",
-      "description": "Ongoing relationship structures, authority arrangements, service, permissions, and negotiated commitments."
+      "description": "Ongoing arrangements around authority, service, permissions, roles, or commitments."
     },
     {
       "id": "remote_digital",
       "label": "Remote / digital dynamics",
-      "description": "Distance-based communication, tasks, observation, media, and app-mediated activities."
+      "description": "Distance-based tasks, messages, media, observation, and app-mediated play."
     },
     {
       "id": "sexual_context",
       "label": "Sexual settings & contexts",
-      "description": "Real-world private, adult-only, or otherwise consensual settings for sexual activity."
+      "description": "The settings and situations where sexual activity happens."
     }
   ],
   "activities": [
@@ -15219,7 +15219,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -15247,7 +15247,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -15275,7 +15275,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -15332,7 +15332,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -15520,7 +15520,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -15553,7 +15553,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",
@@ -15983,7 +15983,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -16011,7 +16011,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -16039,7 +16039,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -16096,7 +16096,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -16284,7 +16284,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -16317,7 +16317,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",
@@ -19312,8 +19312,8 @@
         {
           "id": "detail_note",
           "type": "text",
-          "label": "Anything else you want to capture?",
-          "placeholder": "Optional nuance, condition, or boundary",
+          "label": "Anything else you want to remember?",
+          "placeholder": "Optional note, condition, or boundary",
           "appliesToActivityIds": [
             "give_praise_kink",
             "receive_praise_kink",
@@ -20209,8 +20209,8 @@
         {
           "id": "detail_note",
           "type": "text",
-          "label": "Anything else you want to capture?",
-          "placeholder": "Optional nuance, condition, or boundary",
+          "label": "Anything else you want to remember?",
+          "placeholder": "Optional note, condition, or boundary",
           "appliesToActivityIds": [
             "give_praise_kink",
             "receive_praise_kink",
@@ -20303,7 +20303,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -20331,7 +20331,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -20359,7 +20359,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -20416,7 +20416,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -20604,7 +20604,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -20637,7 +20637,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",
@@ -23016,7 +23016,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -23044,7 +23044,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -23072,7 +23072,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -23129,7 +23129,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -23317,7 +23317,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -23350,7 +23350,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",
@@ -23481,7 +23481,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -23509,7 +23509,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -23537,7 +23537,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -23594,7 +23594,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -23782,7 +23782,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -23815,7 +23815,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",
@@ -24149,7 +24149,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -24177,7 +24177,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -24205,7 +24205,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -24262,7 +24262,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -24450,7 +24450,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -24483,7 +24483,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",
@@ -24996,7 +24996,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -25024,7 +25024,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -25052,7 +25052,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -25109,7 +25109,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -25297,7 +25297,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -25330,7 +25330,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",
@@ -31063,7 +31063,7 @@
         {
           "id": "body_partner_gender",
           "type": "multi_select",
-          "label": "Partner gender(s) this interest matters to you with",
+          "label": "Which partner gender(s) matter for this interest?",
           "options": [
             {
               "id": "men",
@@ -31091,7 +31091,7 @@
         {
           "id": "body_gender_expression",
           "type": "multi_select",
-          "label": "Gender expression you tend to be attracted to here",
+          "label": "Which gender expressions are you drawn to here?",
           "options": [
             {
               "id": "masculine",
@@ -31119,7 +31119,7 @@
         {
           "id": "body_partner_anatomy",
           "type": "multi_select",
-          "label": "Anatomy that is relevant to attraction or compatibility for this interest",
+          "label": "Which anatomy, if any, matters for this interest?",
           "help": "Choose any that matter for this interest.",
           "options": [
             {
@@ -31176,7 +31176,7 @@
         {
           "id": "body_build",
           "type": "multi_select",
-          "label": "Body build(s) you tend to prefer here",
+          "label": "Any body builds you tend to prefer here?",
           "options": [
             {
               "id": "very_slim",
@@ -31364,7 +31364,7 @@
         {
           "id": "body_penis_size",
           "type": "multi_select",
-          "label": "If penis size is relevant, what tends to would fit?",
+          "label": "If penis size matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "contains",
@@ -31397,7 +31397,7 @@
         {
           "id": "body_breast_chest",
           "type": "multi_select",
-          "label": "If chest / breast anatomy is relevant, what tends to would fit?",
+          "label": "If chest or breast anatomy matters here, what tends to fit?",
           "showWhen": {
             "field": "body_partner_anatomy",
             "operator": "containsAny",

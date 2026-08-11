@@ -3,8 +3,8 @@
     "id": "fantasy_profile",
     "name": "Fantasy Profile",
     "version": "1.0.0-prototype",
-    "purpose": "A self-discovery questionnaire about what turns the imagination on, separate from real-world willingness, experience, consent negotiation, and boundaries.",
-    "prompt": "When I imagine this, how does my mind respond?",
+    "purpose": "A private questionnaire for noticing what kinds of fantasies, feelings, and dynamics you respond to.",
+    "prompt": "As a fantasy, how does this land for you?",
     "targetMinutes": [
       10,
       15
@@ -19,8 +19,8 @@
       ],
       "selection": "deterministic"
     },
-    "adultScope": "All people described in partner or group scenarios are adults. Group scenarios refer to consenting adult observers or participants where observation is involved.",
-    "disclaimer": "Fantasy responses describe imagination only. They are not evidence of consent, intent, morality, diagnosis, or a real-world plan."
+    "adultScope": "All partner and group scenarios refer to adults. Any group scenario involving observation assumes consenting adults.",
+    "disclaimer": "Fantasy is not the same as consent, intent, identity, or something you want to do in real life."
   },
   "responseScale": [
     {
@@ -64,7 +64,7 @@
       "id": "surrender",
       "label": "Surrender",
       "resultLayer": "driver",
-      "description": "Interest in letting personal control recede within fantasy.",
+      "description": "Letting go of control and not having to decide what happens next.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where yielding, following, or not having to decide is especially charged.",
       "negativeInterpretation": "Weaker or negative evidence may mean fantasies are more appealing when personal agency remains central."
     },
@@ -72,7 +72,7 @@
       "id": "authority_responsibility",
       "label": "Authority & responsibility",
       "resultLayer": "driver",
-      "description": "Interest in holding authority and responsibility for directing an adult partner within fantasy.",
+      "description": "Taking the lead, making decisions, and being responsible for how the moment unfolds.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where taking the lead and carrying responsibility are part of the appeal.",
       "negativeInterpretation": "Weaker or negative evidence may mean being responsible for directing another person is not an important fantasy driver."
     },
@@ -80,7 +80,7 @@
       "id": "helplessness_vulnerability",
       "label": "Helplessness & vulnerability",
       "resultLayer": "driver",
-      "description": "Interest in feeling or evoking exposed vulnerability, limited agency, or being at another adult’s mercy.",
+      "description": "Feeling exposed, unable to change the moment, or having someone else in that position.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where vulnerability or inability to change the moment heightens intensity.",
       "negativeInterpretation": "Weaker or negative evidence may mean fantasies are more appealing when vulnerability remains limited or easily reversible."
     },
@@ -88,7 +88,7 @@
       "id": "trust_safety",
       "label": "Trust & emotional safety",
       "resultLayer": "driver",
-      "description": "Interest in deep trust, emotional security, and the ability to lower one’s guard inside fantasy.",
+      "description": "The charge that comes from feeling safe enough to drop your guard completely.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies whose intensity depends on feeling deeply trusted, trusting, or emotionally held.",
       "negativeInterpretation": "Weaker or negative evidence may mean trust is assumed rather than a primary source of fantasy charge."
     },
@@ -96,7 +96,7 @@
       "id": "anticipation_denial",
       "label": "Anticipation & denial",
       "resultLayer": "driver",
-      "description": "Interest in waiting, suspense, delayed gratification, and wanting without immediate resolution.",
+      "description": "Waiting, wanting, suspense, and having gratification delayed.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where waiting or being kept wanting is part of the pleasure.",
       "negativeInterpretation": "Weaker or negative evidence may mean direct gratification is more appealing than prolonged suspense or denial."
     },
@@ -104,7 +104,7 @@
       "id": "fear_adrenaline",
       "label": "Fear & adrenaline",
       "resultLayer": "driver",
-      "description": "Interest in fear-like tension, uncertainty, pursuit, or adrenaline as an arousal driver within fantasy.",
+      "description": "The rush of uncertainty, pursuit, danger-like tension, or adrenaline in fantasy.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where a racing-heart sense of threat or uncertainty is part of the appeal.",
       "negativeInterpretation": "Weaker or negative evidence may mean fear-like tension reduces rather than increases fantasy appeal."
     },
@@ -112,7 +112,7 @@
       "id": "pain_intensity",
       "label": "Pain & physical intensity",
       "resultLayer": "driver",
-      "description": "Interest in pain or physically overwhelming sensation as an erotic or emotionally charged fantasy element.",
+      "description": "Pain or overwhelming physical sensation being part of what makes a fantasy intense.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where pain or intense physical sensation becomes a central focus.",
       "negativeInterpretation": "Weaker or negative evidence may mean physical intensity is more appealing when it stays below the threshold of pain."
     },
@@ -120,7 +120,7 @@
       "id": "humiliation_embarrassment",
       "label": "Humiliation & embarrassment",
       "resultLayer": "driver",
-      "description": "Interest in embarrassment, lowered status, mortification, or feeling personally exposed within fantasy.",
+      "description": "Embarrassment, lowered status, or feeling personally exposed.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where embarrassment or being made to feel small creates erotic charge.",
       "negativeInterpretation": "Weaker or negative evidence may mean dignity, affirmation, or emotional neutrality is more important in fantasy."
     },
@@ -128,7 +128,7 @@
       "id": "praise_approval",
       "label": "Praise & approval",
       "resultLayer": "driver",
-      "description": "Interest in approval, affirmation, admiration, and emotionally powerful positive feedback.",
+      "description": "Praise, approval, admiration, and the emotional hit of being told you’re doing well.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where praise or approval from an adult partner has unusually strong emotional impact.",
       "negativeInterpretation": "Weaker or negative evidence may mean external approval is not a major source of fantasy intensity."
     },
@@ -136,7 +136,7 @@
       "id": "being_desired_attention",
       "label": "Being desired & attention",
       "resultLayer": "driver",
-      "description": "Interest in being the focus of unmistakable desire or giving another adult that concentrated sense of being wanted.",
+      "description": "Being unmistakably wanted — or giving someone else that kind of focused attention.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where focused desire and attention are central to the charge.",
       "negativeInterpretation": "Weaker or negative evidence may mean being the center of desire is less important than other dynamics."
     },
@@ -144,7 +144,7 @@
       "id": "possession_belonging",
       "label": "Possession & belonging",
       "resultLayer": "driver",
-      "description": "Interest in emotionally charged fantasies of claiming, being claimed, belonging, or possessive attachment.",
+      "description": "The feeling of claiming, being claimed, belonging, or being “mine” in fantasy.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where a sense of being mine or belonging to someone is especially powerful.",
       "negativeInterpretation": "Weaker or negative evidence may mean closeness is more appealing without possessive or claiming themes."
     },
@@ -152,7 +152,7 @@
       "id": "tenderness_care",
       "label": "Tenderness & care",
       "resultLayer": "driver",
-      "description": "Interest in giving or receiving tenderness, comfort, caretaking, and affectionate attention during intense fantasy.",
+      "description": "Care, comfort, affection, and looking after someone during or after intensity.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where care, soothing, or affectionate attention is a major part of the emotional payoff.",
       "negativeInterpretation": "Weaker or negative evidence may mean tenderness is secondary to other fantasy drivers."
     },
@@ -160,7 +160,7 @@
       "id": "control_permission",
       "label": "Control & permission",
       "resultLayer": "motif",
-      "description": "Interest in fantasies structured by who decides, who may act, and whose permission matters.",
+      "description": "Who gets to decide, who has to ask, and whose permission matters.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where explicit decision power or permission creates much of the charge.",
       "negativeInterpretation": "Weaker or negative evidence may mean control is more appealing when choices remain shared or informal."
     },
@@ -168,7 +168,7 @@
       "id": "rules_ritual_protocol",
       "label": "Rules, ritual & structure",
       "resultLayer": "motif",
-      "description": "Interest in rules, repeated rituals, formal structure, and expected patterns of behavior.",
+      "description": "Rules, rituals, repeated routines, and the appeal of doing things a particular way.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where structure, ritual, or rule-following is exciting in its own right.",
       "negativeInterpretation": "Weaker or negative evidence may mean spontaneity is more appealing than formal rules or repeated structure."
     },
@@ -176,7 +176,7 @@
       "id": "service_usefulness",
       "label": "Service & usefulness",
       "resultLayer": "motif",
-      "description": "Interest in being useful to an adult partner or receiving focused service from them.",
+      "description": "Being useful to someone, serving them, or being on the receiving end of focused service.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where usefulness, attending to needs, or being served carries special meaning.",
       "negativeInterpretation": "Weaker or negative evidence may mean service roles add little to fantasy appeal."
     },
@@ -184,7 +184,7 @@
       "id": "restraint_confinement",
       "label": "Restraint & confinement",
       "resultLayer": "motif",
-      "description": "Interest in restricted movement, immobilization, or confinement as a fantasy pattern.",
+      "description": "Restricted movement, being held in place, or controlling someone else’s movement.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where physical restriction or inability to move freely is central.",
       "negativeInterpretation": "Weaker or negative evidence may mean freedom of movement is important to fantasy enjoyment."
     },
@@ -192,7 +192,7 @@
       "id": "objectification_use",
       "label": "Objectification & use",
       "resultLayer": "motif",
-      "description": "Interest in fantasies where a person is treated primarily as a body, object, function, or means to another adult’s pleasure.",
+      "description": "Being treated — or treating someone — more like a body, object, or function within the fantasy.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where personhood temporarily recedes behind being used, positioned, or reduced to a function.",
       "negativeInterpretation": "Weaker or negative evidence may mean mutual recognition and personhood are important to maintaining fantasy appeal."
     },
@@ -200,7 +200,7 @@
       "id": "exposure_being_seen",
       "label": "Exposure & being seen",
       "resultLayer": "motif",
-      "description": "Interest in revealing, displaying, or being visibly exposed to consenting adults.",
+      "description": "Being revealed, displayed, or visibly exposed to consenting adults.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where being visibly exposed or placed on display creates the charge.",
       "negativeInterpretation": "Weaker or negative evidence may mean privacy is more appealing than being exposed or displayed."
     },
@@ -208,7 +208,7 @@
       "id": "watching_observation",
       "label": "Watching & observation",
       "resultLayer": "motif",
-      "description": "Interest in observing adult reactions, private moments, or interactions, and in knowing one is being closely observed.",
+      "description": "Watching someone closely, or knowing that someone is closely watching you.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where watching or being watched is a meaningful part of the experience.",
       "negativeInterpretation": "Weaker or negative evidence may mean direct participation matters more than observation."
     },
@@ -216,7 +216,7 @@
       "id": "sensory_focus_alteration",
       "label": "Sensory focus & alteration",
       "resultLayer": "motif",
-      "description": "Interest in narrowing, removing, intensifying, or overwhelming sensory input.",
+      "description": "Changing what someone can see, hear, feel, or process so certain sensations take over.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where altered sensory awareness becomes the main route to intensity.",
       "negativeInterpretation": "Weaker or negative evidence may mean ordinary sensory awareness is preferable to restriction or overload."
     },
@@ -224,7 +224,7 @@
       "id": "roleplay_transformation",
       "label": "Roleplay & transformation",
       "resultLayer": "motif",
-      "description": "Interest in becoming, encountering, or being treated as a different adult role, identity, status, or transformed self.",
+      "description": "Stepping into a different role, identity, status, or version of yourself.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where leaving everyday identity behind is a central source of excitement.",
       "negativeInterpretation": "Weaker or negative evidence may mean fantasy appeal depends less on changed roles or identity."
     },
@@ -232,7 +232,7 @@
       "id": "primal_struggle_competition",
       "label": "Struggle & competition",
       "resultLayer": "motif",
-      "description": "Interest in pursuit, resistance, wrestling, competition, or raw physical contest between adults.",
+      "description": "Pursuit, resistance, wrestling, competition, and raw physical struggle.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where struggle, pursuit, resistance, or winning and losing create the charge.",
       "negativeInterpretation": "Weaker or negative evidence may mean cooperation is more appealing than competition or physical struggle."
     },
@@ -240,7 +240,7 @@
       "id": "taboo_transgression",
       "label": "Taboo & transgression",
       "resultLayer": "motif",
-      "description": "Interest in the feeling of crossing a social boundary, violating an expectation, or entering a forbidden adult-only scenario.",
+      "description": "The thrill of crossing a social boundary or entering a forbidden-feeling adult scenario.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where forbiddenness or social transgression is itself a source of excitement.",
       "negativeInterpretation": "Weaker or negative evidence may mean taboo or rule-breaking themes reduce fantasy appeal."
     },
@@ -248,7 +248,7 @@
       "id": "novelty_experimentation",
       "label": "Novelty & experimentation",
       "resultLayer": "motif",
-      "description": "Interest in unfamiliar, surprising, changing, or exploratory fantasy material.",
+      "description": "Newness, surprise, changing things up, and imagining something unfamiliar.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies driven by curiosity, surprise, and unfamiliar possibilities.",
       "negativeInterpretation": "Weaker or negative evidence may mean familiar patterns are more appealing than novelty for its own sake."
     },
@@ -256,7 +256,7 @@
       "id": "group_social_multipartner",
       "label": "Group & multi-partner dynamics",
       "resultLayer": "motif",
-      "description": "Interest in fantasies involving several consenting adults and the social energy created by multiple participants.",
+      "description": "The social and erotic energy of fantasies involving several consenting adults.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where attention, desire, or interaction among several adults is central.",
       "negativeInterpretation": "Weaker or negative evidence may mean one-to-one scenarios are more appealing than group dynamics."
     },
@@ -264,7 +264,7 @@
       "id": "fetish_focus",
       "label": "Focused objects, materials & body details",
       "resultLayer": "motif",
-      "description": "Interest in a specific material, object, garment, sensation, or body area becoming unusually central to fantasy.",
+      "description": "A particular material, object, garment, sensation, or body detail becoming the main focus.",
       "positiveInterpretation": "Stronger positive evidence may reflect fantasies where a concrete object, texture, sensation, or body detail carries concentrated appeal.",
       "negativeInterpretation": "Weaker or negative evidence may mean broader relational or situational themes matter more than a specific focus."
     }
@@ -3484,7 +3484,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns often overlap with fantasies organized around giving, receiving, or structuring authority and decision-making."
+      "summary": "Your answers suggest you may enjoy fantasies where one person leads and the other gives up some control."
     },
     {
       "id": "service_protocol",
@@ -3533,7 +3533,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore themes where usefulness, attending to needs, rules, or repeated structure are part of the fantasy."
+      "summary": "You may enjoy fantasies built around serving, being useful, following rules, or having a clear structure."
     },
     {
       "id": "bondage_restraint",
@@ -3583,7 +3583,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns often overlap with fantasies where restricted movement, confinement, or physical inability to move freely is central."
+      "summary": "Restricted movement or being physically held in place seems to overlap with some of your stronger themes."
     },
     {
       "id": "sensory_deprivation",
@@ -3625,7 +3625,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore fantasy themes involving narrowed, removed, controlled, or intensified sensory input."
+      "summary": "You may enjoy fantasies where sight, sound, touch, or other senses are reduced, controlled, or intensified."
     },
     {
       "id": "impact_pain",
@@ -3675,7 +3675,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns often overlap with fantasies where pain or forceful physical sensation supplies much of the intensity."
+      "summary": "Pain or forceful physical sensation appears to be part of the intensity in some fantasies you responded to."
     },
     {
       "id": "orgasm_control",
@@ -3717,7 +3717,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore fantasy themes where waiting, permission, timing, or being kept wanting are especially important."
+      "summary": "Waiting, permission, timing, or being kept wanting may be part of what appeals to you."
     },
     {
       "id": "chastity",
@@ -3772,7 +3772,7 @@
         }
       ],
       "minimumEvidencePoints": 3.0,
-      "summary": "Some combinations of denial, permission, rules, and belonging overlap with chastity-oriented fantasy themes."
+      "summary": "Your answers overlap with some of the themes people often explore through chastity: denial, permission, rules, and belonging."
     },
     {
       "id": "humiliation_degradation",
@@ -3814,7 +3814,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns often overlap with fantasies centered on embarrassment, lowered status, mortification, or personally exposing dynamics."
+      "summary": "Embarrassment, lowered status, or feeling personally exposed showed up strongly enough to make this worth exploring."
     },
     {
       "id": "praise_worship",
@@ -3863,7 +3863,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore themes involving praise, adoration, approval, or concentrated positive attention."
+      "summary": "Praise, approval, adoration, or concentrated positive attention seems to matter in some of your fantasies."
     },
     {
       "id": "objectification",
@@ -3912,7 +3912,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns often overlap with fantasies where someone is treated as a body, object, function, or means to another adult’s pleasure."
+      "summary": "Some of your answers overlap with fantasies about being used, displayed, positioned, or treated more like an object or function."
     },
     {
       "id": "exhibition_observation",
@@ -3968,7 +3968,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore fantasies involving being visibly on display, closely watched, or observing adult interactions."
+      "summary": "Being watched, being on display, or watching someone else closely showed up in your results."
     },
     {
       "id": "multi_partner",
@@ -4017,7 +4017,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns often overlap with fantasies where the social energy, attention, or interaction of several consenting adults is central."
+      "summary": "Some of your stronger themes involve the attention and social energy of more than two consenting adults."
     },
     {
       "id": "roleplay",
@@ -4059,7 +4059,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore adult roleplay or transformation themes that create distance from ordinary identity and everyday roles."
+      "summary": "Changing roles or stepping outside your everyday identity seems to add something for you."
     },
     {
       "id": "pet_primal",
@@ -4109,7 +4109,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns often overlap with fantasies involving pursuit, resistance, raw physical contest, instinctive roles, or being caught."
+      "summary": "Pursuit, resistance, instinctive roles, or raw physical competition showed up in your answers."
     },
     {
       "id": "psychological_play",
@@ -4166,7 +4166,7 @@
       ],
       "contradictingEvidence": [],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore psychological fantasy themes built from anticipation, vulnerability, fear-like tension, transgression, or emotionally charged uncertainty."
+      "summary": "Suspense, vulnerability, fear-like tension, teasing, or uncertainty may be part of the appeal for you."
     },
     {
       "id": "relationship_dynamics",
@@ -4216,7 +4216,7 @@
       ],
       "contradictingEvidence": [],
       "minimumEvidencePoints": 2.5,
-      "summary": "These patterns may overlap with relationship-oriented fantasies about belonging, care, trust, authority, or ongoing structure."
+      "summary": "Belonging, care, trust, authority, or ongoing structure showed up strongly enough to make relationship-style dynamics worth a look."
     },
     {
       "id": "fetish_material_interests",
@@ -4252,7 +4252,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may want to explore areas where a particular material, garment, texture, sensation, or object carries concentrated fantasy appeal."
+      "summary": "A particular material, garment, texture, sensation, or object may carry more weight for you than the surrounding scenario."
     },
     {
       "id": "body_part_interests",
@@ -4294,7 +4294,7 @@
         }
       ],
       "minimumEvidencePoints": 3.0,
-      "summary": "A strong focused-interest pattern can overlap with fantasies centered on a particular adult body area or physical detail."
+      "summary": "A specific body area or physical detail may sometimes become the main focus of attraction in your fantasies."
     }
   ],
   "resultCopy": {
@@ -4316,18 +4316,18 @@
       "insufficient": "Insufficient evidence"
     },
     "language": {
-      "leadPositive": "You responded strongly to fantasies involving {dimension}.",
-      "leadNotable": "You showed notable interest in fantasies involving {dimension}.",
-      "leadMixed": "Your responses to fantasies involving {dimension} were mixed or context-dependent.",
-      "leadLow": "You showed relatively low interest in fantasies involving {dimension}.",
-      "leadNegative": "You tended to respond negatively to fantasies involving {dimension}.",
-      "leadInsufficient": "There was not enough evidence to summarize fantasies involving {dimension}.",
-      "suggestionLead": "These patterns often overlap with…",
-      "exploreLead": "You may want to explore…",
-      "identityWarning": "Results describe response patterns, not identities, consent, intent, diagnoses, or real-world plans."
+      "leadPositive": "This came up strongly in your answers: {dimension}.",
+      "leadNotable": "This came up more than once in your answers: {dimension}.",
+      "leadMixed": "Your answers around {dimension} were mixed — it may depend a lot on context.",
+      "leadLow": "{dimension} did not seem to add much for you.",
+      "leadNegative": "You usually reacted negatively to fantasies involving {dimension}.",
+      "leadInsufficient": "There is not enough here yet to say much about {dimension}.",
+      "suggestionLead": "You might want to look at…",
+      "exploreLead": "Worth exploring…",
+      "identityWarning": "These are patterns in your answers, not labels, boundaries, or instructions for real life."
     },
     "explanationTemplate": {
-      "heading": "Why",
+      "heading": "Why this showed up",
       "maxReasons": 4,
       "includePerspectiveComparison": true
     }

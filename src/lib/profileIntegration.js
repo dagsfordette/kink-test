@@ -25,20 +25,20 @@ export function buildFantasyRealityObservations(activityCatalog, fantasyResults,
     if (limits.length && positive.length === 0) {
       observations.push({
         type: 'fantasy_limit',
-        text: `Fantasy interest around ${suggestion.label.toLowerCase()} sits alongside ${limits.length} related real-world ${limits.length === 1 ? 'limit' : 'limits'} in the activities you have answered.`,
+        text: `${suggestion.label} showed up in fantasy, but the related activities you answered are ${limits.length === 1 ? 'a limit' : 'limits'} for you in real life. Fantasy and boundaries do not have to match.`,
       })
     } else if (positive.length) {
       const curious = positive.filter((activity) => answers[activity.id].stance === 'curious').length
       observations.push({
         type: 'fantasy_translation',
         text: curious
-          ? `${suggestion.label} connects with ${positive.length} related real-world ${positive.length === 1 ? 'activity' : 'activities'} you marked positively, including ${curious} ${curious === 1 ? 'curiosity' : 'curiosities'}.`
-          : `${suggestion.label} connects with ${positive.length} related real-world ${positive.length === 1 ? 'activity' : 'activities'} you marked positively.`,
+          ? `${suggestion.label} shows up in both places: you responded to it in fantasy, and you marked ${positive.length} related ${positive.length === 1 ? 'activity' : 'activities'} positively. ${curious} ${curious === 1 ? 'is' : 'are'} still in the “curious” zone.`
+          : `${suggestion.label} shows up in both places: you responded to it in fantasy, and you marked ${positive.length} related ${positive.length === 1 ? 'activity' : 'activities'} positively.`,
       })
     } else if (dontWant.length) {
       observations.push({
         type: 'fantasy_low_reality',
-        text: `Fantasy interest around ${suggestion.label.toLowerCase()} does not currently translate into positive real-world stances among the related activities you have answered.`,
+        text: `${suggestion.label} showed up in fantasy, but you have not marked any related activities as something you want in real life.`,
       })
     }
   }
@@ -49,7 +49,7 @@ export function buildFantasyRealityObservations(activityCatalog, fantasyResults,
     if (!POSITIVE_STANCES.has(stance) || coveredCategories.has(activity.categoryId)) continue
     observations.push({
       type: 'reality_without_fantasy',
-      text: `${activity.label} interests you in real life even though its broader category was not prominent in your current Fantasy Profile suggestions.`,
+      text: `${activity.label} interests you in real life even though that area did not stand out in your Fantasy Profile.`,
     })
   }
 

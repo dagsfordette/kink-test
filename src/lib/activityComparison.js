@@ -44,7 +44,7 @@ function experienceNote(leftAnswer, rightAnswer) {
   const left = EXPERIENCE_RANK.get(leftAnswer?.experience)
   const right = EXPERIENCE_RANK.get(rightAnswer?.experience)
   if (left === undefined || right === undefined || Math.abs(left - right) < 2) return null
-  return 'Shared interest, but one of you has substantially more experience.'
+  return 'You’re both interested, but one of you has substantially more experience.'
 }
 
 export function compareActivityProfiles(catalog, leftProfile = {}, rightProfile = {}) {
@@ -85,6 +85,6 @@ export function compareActivityProfiles(catalog, leftProfile = {}, rightProfile 
     rows,
     counts,
     hardLimitConflicts: rows.filter((row) => row.state === 'hard_limit_conflict'),
-    note: 'Comparison uses Activity Explorer stance data only. Hard-limit conflicts take precedence, experience differences are informational, and no overall compatibility percentage or score is calculated.',
+    note: 'This compares Activity Explorer answers only. Hard limits are shown first, experience differences are just context, and there is no overall compatibility percentage or score.',
   }
 }

@@ -4,7 +4,7 @@ import PartnerComparison from './PartnerComparison.jsx'
 import PartnerPrintReport from '../product/PartnerPrintReport.jsx'
 
 const VIEWS = [
-  ['stance', 'By stance'],
+  ['stance', 'By answer'],
   ['category', 'By category'],
   ['experience', 'By experience'],
   ['notes', 'With notes'],
@@ -24,17 +24,17 @@ export default function ActivityResults({ catalog, activityState, playPreference
     <main className="activity-shell activity-results-shell">
       <div className="screen-only">
         <header className="activity-results-hero">
-          <div><span className="kicker">Activity Explorer</span><h1>Your real-world activity map.</h1><p>Practical groups for interests, limits, experience, notes, and conditions. Hard limits stay easy to locate and are never interpreted from Fantasy Profile.</p></div>
-          <div className="activity-results-actions no-print"><button type="button" className="primary-button" onClick={onBack}>Continue exploring</button><button type="button" className="secondary-button" onClick={onPlayPreferences}>Play Preferences</button><button type="button" className="text-button" onClick={onIntro}>Activity Explorer intro</button></div>
+          <div><span className="kicker">Activity Explorer</span><h1>Here’s where you landed.</h1><p>See your yeses, maybes, noes, limits, experience, and notes. This is your list — Fantasy Profile never decides any of these answers for you.</p></div>
+          <div className="activity-results-actions no-print"><button type="button" className="primary-button" onClick={onBack}>Keep sorting</button><button type="button" className="secondary-button" onClick={onPlayPreferences}>Play Preferences</button><button type="button" className="text-button" onClick={onIntro}>How Activity Explorer works</button></div>
         </header>
 
         <section className="activity-unanswered-summary">
-          <div><h2>Unanswered <span>— {unansweredCount}</span></h2><p>{unansweredCount === 1 ? '1 activity still needs a stance.' : `${unansweredCount} activities still need a stance.`}</p></div>
-          {unansweredCount > 0 && <button type="button" className="secondary-button" onClick={onUnanswered}>Continue with unanswered activities</button>}
+          <div><h2>Not answered yet <span>— {unansweredCount}</span></h2><p>{unansweredCount === 1 ? 'There’s 1 activity left without an answer.' : `There are ${unansweredCount} activities left without an answer.`}</p></div>
+          {unansweredCount > 0 && <button type="button" className="secondary-button" onClick={onUnanswered}>Show me the unanswered ones</button>}
         </section>
 
         {answeredCount === 0 ? (
-          <section className="activity-empty-state activity-results-empty"><h2>No real-world stances yet.</h2><p>Activity Explorer stays blank until you choose your own stance for an activity.</p><button type="button" className="primary-button" onClick={onUnanswered || onBack}>Start exploring</button></section>
+          <section className="activity-empty-state activity-results-empty"><h2>You haven’t answered anything yet.</h2><p>Pick a few activities and mark how you feel about them. Your results will build from there.</p><button type="button" className="primary-button" onClick={onUnanswered || onBack}>Browse activities</button></section>
         ) : (
           <>
             <div className="activity-result-view-tabs no-print">{VIEWS.map(([id, label]) => <button type="button" key={id} className={view === id ? 'active' : ''} onClick={() => setView(id)}>{label}</button>)}</div>
@@ -56,8 +56,8 @@ export default function ActivityResults({ catalog, activityState, playPreference
             </section>
 
             <section className="activity-share-section no-print">
-              <div className="activity-results-section-heading"><span className="kicker">Partner sharing</span><h2>Share the real-world profile, not private fantasy data.</h2><p>The partner-share format contains Activity Explorer answers only, plus Play Preferences only when you explicitly choose to include them.</p></div>
-              <div className="activity-share-actions"><label className="share-toggle"><input type="checkbox" checked={includePlayPreferences} onChange={(event) => setIncludePlayPreferences(event.target.checked)} /><span>Include Play Preferences in export and print report</span></label><div><button type="button" className="secondary-button" onClick={() => onPartnerExport(includePlayPreferences)}>Download partner-share file</button><button type="button" className="text-button" onClick={() => window.print()}>Print partner report</button></div></div>
+              <div className="activity-results-section-heading"><span className="kicker">Share with a partner</span><h2>Share only what you want them to see.</h2><p>The share file contains your Activity Explorer answers. Your Fantasy Profile stays private. You can choose whether to include Play Preferences too.</p></div>
+              <div className="activity-share-actions"><label className="share-toggle"><input type="checkbox" checked={includePlayPreferences} onChange={(event) => setIncludePlayPreferences(event.target.checked)} /><span>Include my Play Preferences</span></label><div><button type="button" className="secondary-button" onClick={() => onPartnerExport(includePlayPreferences)}>Download share file</button><button type="button" className="text-button" onClick={() => window.print()}>Print share report</button></div></div>
             </section>
 
             <PartnerComparison catalog={catalog} activityState={activityState} />

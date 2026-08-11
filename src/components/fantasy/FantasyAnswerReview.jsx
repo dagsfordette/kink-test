@@ -12,7 +12,7 @@ export default function FantasyAnswerReview({ profile, fantasy, onBack, onEdit }
       <header className="fantasy-review-header">
         <span className="kicker">Fantasy Profile</span>
         <h1>Review your answers</h1>
-        <p>Change any response. If an earlier change alters which adaptive questions are relevant, the later route will be rebuilt and stale adaptive answers will be removed.</p>
+        <p>Tap any answer to change it. If that changes which follow-up questions make sense, we’ll update the rest of the questionnaire automatically.</p>
       </header>
       <div className="fantasy-review-list">
         {rows.map((row) => (

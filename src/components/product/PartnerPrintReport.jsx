@@ -8,8 +8,8 @@ export default function PartnerPrintReport({ catalog, activities, playPreference
 
   return (
     <section className="partner-print-report print-only">
-      {!embedded && <header><span>Kink Exploration · Activity Explorer</span><h1>Partner activity profile</h1><p>Real-world Activity Explorer data only. Fantasy Profile information is intentionally excluded.</p></header>}
-      {embedded && <h2>Activity Explorer <small>Real-world profile</small></h2>}
+      {!embedded && <header><span>Kink Exploration · Activity Explorer</span><h1>My activity answers</h1><p>This report contains Activity Explorer answers only. Fantasy Profile is not included.</p></header>}
+      {embedded && <h2>Activity Explorer <small>What I’d be up for</small></h2>}
       {SHARE_STANCE_ORDER.map((stanceId) => {
         const rows = answered.filter((activity) => activities.answers[activity.id].stance === stanceId)
         if (!rows.length) return null

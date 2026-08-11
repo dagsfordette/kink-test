@@ -4,56 +4,56 @@ export default function Home({ fantasy, activities, onFantasy, onActivities, onF
   const fantasyComplete = fantasy.status === 'complete'
   const fantasyInProgress = fantasy.status === 'in_progress' && fantasyAnswered > 0
 
-  const fantasyAction = fantasyComplete ? 'View fantasy profile' : fantasyInProgress ? 'Continue fantasy profile' : 'Discover my fantasy profile'
-  const activityAction = activityAnswered ? 'Continue exploring' : 'Start exploring activities'
+  const fantasyAction = fantasyComplete ? 'See my fantasy results' : fantasyInProgress ? 'Keep going' : 'Start with fantasy'
+  const activityAction = activityAnswered ? 'Keep sorting activities' : 'Browse activities'
 
   return (
     <main className="product-home-shell">
       <section className="product-home-hero">
         <span className="kicker">Kink Exploration</span>
-        <h1>Discover yourself broadly. Explore reality precisely.</h1>
-        <p>Two complementary tools, kept deliberately separate: one for private imagination and one for real-world interests, experience, conditions, and limits.</p>
+        <h1>Not sure what you’re into? Start there.</h1>
+        <p>Use Fantasy Profile if you’re still figuring out what catches your attention. Use Activity Explorer if you already have some ideas and want to sort out what you’d actually want, might try, or definitely don’t want.</p>
       </section>
 
       <section className="product-path-grid" aria-label="Exploration paths">
         <article className="product-path-card fantasy-path-card">
           <div className="product-path-icon" aria-hidden="true">✦</div>
           <div>
-            <span className="kicker">Private self-discovery</span>
+            <span className="kicker">I’m still figuring it out</span>
             <h2>Fantasy Profile</h2>
-            <p>Discover the themes, emotions, roles, and situations that turn your imagination on.</p>
+            <p>React to a series of fantasies and see what keeps showing up — the feelings, dynamics, and themes you seem to respond to most.</p>
           </div>
           <div className="product-path-meta">
             <strong>About 10–15 minutes</strong>
-            <span>Fantasy only — this does not set real-world boundaries or consent.</span>
+            <span>A good place to start if you don’t know the vocabulary yet, or you’re curious about what sits underneath the things you already like.</span>
           </div>
           <div className="product-card-actions">
             <button type="button" className="primary-button" onClick={fantasyComplete ? onFantasyResults : onFantasy}>{fantasyAction}</button>
-            {fantasyComplete && <button type="button" className="text-button" onClick={onFantasy}>Review or edit answers</button>}
+            {fantasyComplete && <button type="button" className="text-button" onClick={onFantasy}>Review or change answers</button>}
           </div>
         </article>
 
         <article className="product-path-card activity-path-card">
           <div className="product-path-icon" aria-hidden="true">◇</div>
           <div>
-            <span className="kicker">Real-world precision</span>
+            <span className="kicker">I know some of what I like</span>
             <h2>Activity Explorer</h2>
-            <p>Build a detailed real-world profile of activities you love, want, might explore, or consider a limit.</p>
+            <p>Go through specific activities and mark where you stand: love it, want it, curious, not for me, or a limit. Add experience and conditions when they matter.</p>
           </div>
           <div className="product-path-meta">
-            <strong>Detailed and open-ended</strong>
-            <span>{fantasyComplete ? 'Personalized suggestions available from your Fantasy Profile.' : 'You can use Activity Explorer on its own.'}</span>
+            <strong>Go at your own pace</strong>
+            <span>{fantasyComplete ? 'Your Fantasy Profile can give you a few places to look first.' : 'Start here if you already know what you want to sort through. You do not need to do Fantasy Profile first.'}</span>
           </div>
           <div className="product-card-actions">
             <button type="button" className="primary-button" onClick={onActivities}>{activityAction}</button>
-            {activityAnswered > 0 && <button type="button" className="secondary-button" onClick={onActivityResults}>View activity profile</button>}
+            {activityAnswered > 0 && <button type="button" className="secondary-button" onClick={onActivityResults}>See where I landed</button>}
           </div>
         </article>
       </section>
 
       {(fantasyComplete || activityAnswered > 0) && (
         <section className="product-profile-callout">
-          <div><span className="kicker">Your combined view</span><h2>My Profile keeps fantasy and reality distinct.</h2><p>See both sets of results together, with neutral fantasy-to-reality observations and privacy-aware sharing controls.</p></div>
+          <div><span className="kicker">Your profile</span><h2>See everything you’ve learned in one place.</h2><p>Your fantasy results and your real-life answers can sit side by side without having to match. My Profile shows both, plus the parts you can save or share.</p></div>
           <button type="button" className="secondary-button" onClick={onProfile}>Open My Profile</button>
         </section>
       )}

@@ -25,8 +25,8 @@ export function buildActivityRecommendations(activityCatalog, fantasyProfile, fa
         activity,
         suggestion,
         reason: suggestion.why?.length
-          ? `Suggested because of: ${suggestion.why.slice(0, 2).map((reason) => reason.replace(/^(strong|notable|mixed) response to /, '')).join(' + ')}.`
-          : `Suggested from your ${suggestion.label.toLowerCase()} themes in Fantasy Profile.`,
+          ? `This connects with ${suggestion.why.slice(0, 2).join(' and ')}.`
+          : `This overlaps with your ${suggestion.label.toLowerCase()} results.`,
       })
     }
   }

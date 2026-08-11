@@ -7,7 +7,7 @@ export default function ActivityCategoryNav({ catalog, activityState, categoryId
       <div className="activity-sidebar-heading"><span>Categories</span><small>{Object.keys(activityState.answers || {}).length} answered</small></div>
       <nav>
         <button type="button" className={categoryId === 'all' ? 'active' : ''} onClick={() => onSelect('all')}>
-          <span>Browse everything</span><small>{activityProgress(catalog, activityState, 'all').answered}</small>
+          <span>Everything</span><small>{activityProgress(catalog, activityState, 'all').answered}</small>
         </button>
         {catalog.categories.map((category) => {
           const progress = activityProgress(catalog, activityState, category.id)
@@ -21,7 +21,7 @@ export default function ActivityCategoryNav({ catalog, activityState, categoryId
       </nav>
       <div className="activity-sidebar-footer">
         <button type="button" className="text-button" onClick={onPlayPreferences}>Play Preferences</button>
-        <button type="button" className="text-button" onClick={onResults}>Activity results</button>
+        <button type="button" className="text-button" onClick={onResults}>My answers</button>
       </div>
     </aside>
   )

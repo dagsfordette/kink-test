@@ -16,14 +16,14 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
     <main className="fantasy-shell fantasy-detail-shell">
       <button type="button" className="text-button fantasy-back-link" onClick={onBack}>← Back to results</button>
       <section className="fantasy-detail-hero">
-        <span className="kicker">Fantasy theme</span>
+        <span className="kicker">A closer look</span>
         <h1>{theme.label}</h1>
         <p className="fantasy-detail-definition">{theme.description}</p>
         {evidence?.band !== 'insufficient' && <p className="fantasy-theme-summary">{summary}</p>}
       </section>
 
       <section className="fantasy-detail-section">
-        <h2>What contributed</h2>
+        <h2>What you responded to</h2>
         {examples.length ? (
           <div className="fantasy-statement-list">
             {examples.map((row) => (
@@ -33,12 +33,12 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
               </div>
             ))}
           </div>
-        ) : <p className="muted">Your evidence here was mixed, neutral, or mostly skipped, so there are no positive examples to highlight.</p>}
+        ) : <p className="muted">Your answers here were mixed, neutral, or mostly skipped, so there isn’t a clear example to point to.</p>}
       </section>
 
       {directions.length > 0 && (
         <section className="fantasy-detail-section">
-          <h2>Directionality</h2>
+          <h2>Which side appealed more</h2>
           <div className="fantasy-direction-list">
             {directions.map((row) => <p key={row.text}>{row.text}</p>)}
           </div>
@@ -47,7 +47,7 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
 
       {nearby.length > 0 && (
         <section className="fantasy-detail-section">
-          <h2>Nearby themes</h2>
+          <h2>Related themes</h2>
           <div className="fantasy-nearby-list">
             {nearby.map((row) => <button type="button" className="secondary-button" key={row.id} onClick={() => onOpenTheme(row.id)}>{row.label}</button>)}
           </div>
@@ -56,21 +56,21 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
 
       {kinkAreas.length > 0 && (
         <section className="fantasy-detail-section">
-          <h2>This theme sometimes connects to…</h2>
+          <h2>Terms that sometimes overlap</h2>
           <div className="fantasy-kink-pills">
             {kinkAreas.map((row) => <span key={row.id}>{row.label}</span>)}
           </div>
-          <p className="muted">Possible vocabulary only — not an identity assignment.</p>
+          <p className="muted">Think of these as search terms, not identities.</p>
         </section>
       )}
 
       <section className="fantasy-more-card">
         <div>
           <span className="kicker">Optional</span>
-          <h2>{unansweredDeepDiveCount ? 'Explore this more' : 'Theme explored'}</h2>
-          <p>{unansweredDeepDiveCount ? 'Add a few unanswered deep-dive statements about this theme. This does not lengthen the initial questionnaire.' : 'There are no additional deep-dive statements for this theme right now.'}</p>
+          <h2>{unansweredDeepDiveCount ? 'Want to dig into this one?' : 'You’ve explored this theme'}</h2>
+          <p>{unansweredDeepDiveCount ? 'Answer a few more fantasies that focus on this theme. They’ll be added only if you choose to continue.' : 'There aren’t any more follow-up questions for this theme right now.'}</p>
         </div>
-        {unansweredDeepDiveCount > 0 && <button type="button" className="primary-button" onClick={() => onExploreMore(dimensionId)}>Explore this theme</button>}
+        {unansweredDeepDiveCount > 0 && <button type="button" className="primary-button" onClick={() => onExploreMore(dimensionId)}>Ask me more</button>}
       </section>
     </main>
   )

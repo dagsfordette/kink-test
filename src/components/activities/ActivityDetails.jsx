@@ -54,16 +54,16 @@ export default function ActivityDetails({ catalog, activity, answer, onDetails, 
     <div className="activity-details-panel">
       {fields.length > 0 ? fields.map((field) => (
         <Field key={field.id} field={field} value={details[field.id]} onChange={(value) => onDetails({ ...details, [field.id]: value })} />
-      )) : <p className="muted">No additional structured details are needed for this activity.</p>}
+      )) : <p className="muted">Nothing else to fill in here unless you want to leave yourself a note.</p>}
 
       <label className="activity-detail-field activity-note-field">
         <span>Private note</span>
-        <textarea rows="3" value={answer?.note || ''} placeholder={answer?.stance === 'soft_limit' ? 'Conditions, boundaries, or context that matter…' : 'Optional nuance, context, or reminder…'} onChange={(event) => onNote(event.target.value)} />
+        <textarea rows="3" value={answer?.note || ''} placeholder={answer?.stance === 'soft_limit' ? 'What would need to be true for this to feel okay?' : 'Anything you want to remember about this one?'} onChange={(event) => onNote(event.target.value)} />
       </label>
 
       {riskRows.length > 0 && (
         <details className="activity-considerations">
-          <summary>Relevant considerations</summary>
+          <summary>Things to think about</summary>
           <div>{riskRows.map((row) => <p key={row.id}><strong>{row.label}:</strong> {row.prompt}</p>)}</div>
         </details>
       )}
