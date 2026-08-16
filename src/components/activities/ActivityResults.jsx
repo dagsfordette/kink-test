@@ -15,10 +15,9 @@ export default function ActivityResults({ catalog, activityState, playPreference
   const [view, setView] = useState('stance')
   const [includePlayPreferences, setIncludePlayPreferences] = useState(false)
   const resultData = useMemo(() => groupActivityResults(catalog, activityState, view), [catalog, activityState, view])
-  const { groups, unansweredCount } = resultData
+  const { groups, unansweredCount, answeredCount, consideredCount } = resultData
   const stanceLabels = new Map(catalog.stanceScale.map((row) => [row.id, row.label]))
   const experienceLabels = new Map(catalog.experienceScale.map((row) => [row.id, row.label]))
-  const answeredCount = catalog.activities.length - unansweredCount
 
   return (
     <main className="activity-shell activity-results-shell">
@@ -29,7 +28,7 @@ export default function ActivityResults({ catalog, activityState, playPreference
         </header>
 
         <section className="activity-unanswered-summary">
-          <div><h2>Not answered yet <span>— {unansweredCount}</span></h2><p>{unansweredCount === 1 ? 'There’s 1 activity left without an answer.' : `There are ${unansweredCount} activities left without an answer.`}</p></div>
+          <div><h2>Not answered yet <span>— {unansweredCount}</span></h2><p>{unansweredCount === 1 ? 'There’s 1 activity left in your current path without an answer.' : `There are ${unansweredCount} activities left in your current path without an answer.`} {consideredCount < catalog.activities.length ? 'Questions outside this path are not counted here.' : ''}</p></div>
           {unansweredCount > 0 && <button type="button" className="secondary-button" onClick={onUnanswered}>Show me the unanswered ones</button>}
         </section>
 

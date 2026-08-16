@@ -18,7 +18,7 @@ import { addThemeDeepDive, answerFantasyQuestion, fantasyProgress, goToFantasyQu
 import { buildFantasyResults } from './lib/fantasyResults.js'
 import { createAppState, normalizeAppState, resolveAppRoute, withActivityState, withFantasyState } from './lib/appState.js'
 import { loadAppState, saveAppState } from './lib/appStorage.js'
-import { buildActivityRecommendations } from './lib/activityRecommendations.js'
+import { buildActivityCategorySuggestions } from './lib/activityRecommendations.js'
 import { buildFantasyRealityObservations } from './lib/profileIntegration.js'
 import { buildDebugAnswerExport, buildPartnerShareExport, buildPrivateBackup, jsonDownloadName } from './lib/profileExports.js'
 import { updatePlayPreferences } from './lib/playPreferences.js'
@@ -60,10 +60,9 @@ export default function App() {
 
   const fantasyResults = useMemo(() => buildFantasyResults(fantasyProfile, fantasy.answers), [fantasy.answers])
   const progress = useMemo(() => fantasyProgress(fantasyProfile, fantasy), [fantasy])
-  const recommendationMaxItems = appState.relevancePreferences?.recommendationMaxItems || 10
-  const activityRecommendations = useMemo(
-    () => fantasy.status === 'complete' ? buildActivityRecommendations(activityCatalog, fantasyProfile, fantasy.answers, { maxItems: recommendationMaxItems }) : [],
-    [fantasy.status, fantasy.answers, recommendationMaxItems],
+  const activityCategorySuggestions = useMemo(
+    () => fantasy.status === 'complete' ? buildActivityCategorySuggestions(activityCatalog, fantasyProfile, fantasy.answers) : [],
+    [fantasy.status, fantasy.answers],
   )
   const observations = useMemo(
     () => fantasy.status === 'complete' ? buildFantasyRealityObservations(activityCatalog, fantasyResults, activities) : [],
@@ -93,12 +92,52 @@ export default function App() {
     scrollTop()
   }
 
-  const handleStartActivities = () => {
-    setAppState((prev) => ({
-      ...prev,
-      route: prev.basics?.complete ? resolveAppRoute('activity_explorer', prev.settings) : 'basics',
-      basics: prev.basics?.complete ? prev.basics : { ...prev.basics, nextRoute: 'activity_explorer' },
-    }))
+  const handleStartActivities = (categoryId = null) => {
+    setAppState((prev) => {
+      let nextActivities = prev.activities
+      if (categoryId) {
+        if (categoryId === 'all') {
+          nextActivities = updateActivityNavigation(prev.activities, {
+            categoryId: 'all',
+            entryCategoryId: 'all',
+            adaptiveHiddenCategoryIds: [],
+            search: '',
+            stanceFilter: 'all',
+            experienceFilter: 'all',
+            answerFilter: 'all',
+            depth: 'all',
+            showHidden: true,
+          })
+        } else {
+          const currentSuggestions = prev.fantasy.status === 'complete'
+            ? buildActivityCategorySuggestions(activityCatalog, fantasyProfile, prev.fantasy.answers)
+            : []
+          const suggestedIds = new Set(currentSuggestions.map((row) => row.category.id))
+          suggestedIds.add(categoryId)
+          const adaptiveHiddenCategoryIds = currentSuggestions.length > 0
+            ? activityCatalog.categories.filter((row) => !suggestedIds.has(row.id)).map((row) => row.id)
+            : []
+          nextActivities = updateActivityNavigation(prev.activities, {
+            categoryId,
+            entryCategoryId: categoryId,
+            adaptiveHiddenCategoryIds,
+            skippedCategoryIds: (prev.activities.navigation?.skippedCategoryIds || []).filter((id) => id !== categoryId),
+            search: '',
+            stanceFilter: 'all',
+            experienceFilter: 'all',
+            answerFilter: 'all',
+            depth: 'all',
+            showHidden: false,
+          })
+        }
+      }
+      return {
+        ...prev,
+        activities: nextActivities,
+        route: prev.basics?.complete ? resolveAppRoute('activity_explorer', prev.settings) : 'basics',
+        basics: prev.basics?.complete ? prev.basics : { ...prev.basics, nextRoute: 'activity_explorer' },
+      }
+    })
     scrollTop()
   }
 
@@ -217,15 +256,13 @@ export default function App() {
       )}
 
       {appState.route === 'activity_intro' && (
-        <ActivityIntro catalog={activityCatalog} activity={activities} fantasyComplete={fantasy.status === 'complete'} adultConfirmed={settings.adultConfirmed} onAdultConfirmed={(value) => updateSettings({ adultConfirmed: value })} onStart={handleStartActivities} onResults={() => navigate('activity_results')} onFantasy={() => navigate('fantasy_intro')} />
+        <ActivityIntro catalog={activityCatalog} activity={activities} fantasyComplete={fantasy.status === 'complete'} categorySuggestions={activityCategorySuggestions} adultConfirmed={settings.adultConfirmed} onAdultConfirmed={(value) => updateSettings({ adultConfirmed: value })} onStart={handleStartActivities} onResume={() => handleStartActivities()} onResults={() => navigate('activity_results')} onFantasy={() => navigate('fantasy_intro')} />
       )}
 
       {appState.route === 'activity_explorer' && (
         <ActivityExplorer
           catalog={activityCatalog}
           activityState={activities}
-          recommendations={activityRecommendations}
-          fantasyComplete={fantasy.status === 'complete'}
           onNavigation={(patch) => updateActivity((current) => updateActivityNavigation(current, patch), 'activity_explorer')}
           onStance={(activityId, stance) => updateActivity((current) => setActivityStance(current, activityId, stance), 'activity_explorer')}
           onExperience={(activityId, experience) => updateActivity((current) => setActivityExperience(current, activityId, experience), 'activity_explorer')}
@@ -256,7 +293,7 @@ export default function App() {
           playPreferences={playPreferences}
           observations={observations}
           onFantasy={() => navigate(fantasy.status === 'complete' ? 'fantasy_results' : 'fantasy_intro')}
-          onActivities={handleStartActivities}
+          onActivities={() => handleStartActivities()}
           onPrivateExport={exportPrivate}
           onDebugExport={exportDebugAnswers}
           onPartnerExport={exportPartner}

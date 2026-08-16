@@ -55,12 +55,14 @@ export function createActivityState(catalog) {
     answers: {},
     navigation: {
       categoryId: catalog?.categories?.[0]?.id || 'all',
+      entryCategoryId: catalog?.categories?.[0]?.id || 'all',
       search: '',
       stanceFilter: 'all',
       experienceFilter: 'all',
       answerFilter: 'all',
       depth: 'starter',
       skippedCategoryIds: [],
+      adaptiveHiddenCategoryIds: [],
       hiddenActivityIds: [],
       showHidden: false,
     },
@@ -97,12 +99,14 @@ export function normalizeActivityState(catalog, saved) {
     navigation: {
       ...clean.navigation,
       categoryId: navigation.categoryId === 'all' || categoryIds.has(navigation.categoryId) ? navigation.categoryId : clean.navigation.categoryId,
+      entryCategoryId: navigation.entryCategoryId === 'all' || categoryIds.has(navigation.entryCategoryId) ? navigation.entryCategoryId : clean.navigation.entryCategoryId,
       search: typeof navigation.search === 'string' ? navigation.search : '',
       stanceFilter: navigation.stanceFilter === 'all' || STANCE_SET.has(navigation.stanceFilter) ? navigation.stanceFilter : 'all',
       experienceFilter: navigation.experienceFilter === 'all' || navigation.experienceFilter === 'unanswered' || EXPERIENCE_SET.has(navigation.experienceFilter) ? navigation.experienceFilter : 'all',
       answerFilter: ['all', 'answered', 'unanswered'].includes(navigation.answerFilter) ? navigation.answerFilter : 'all',
       depth: DEPTH_SET.has(navigation.depth) ? navigation.depth : 'starter',
       skippedCategoryIds: safeIds(navigation.skippedCategoryIds, categoryIds),
+      adaptiveHiddenCategoryIds: safeIds(navigation.adaptiveHiddenCategoryIds, categoryIds),
       hiddenActivityIds: safeIds(navigation.hiddenActivityIds, activityIds),
       showHidden: Boolean(navigation.showHidden),
     },
@@ -176,7 +180,7 @@ export function focusUnansweredActivities(state) {
     experienceFilter: 'all',
     answerFilter: 'unanswered',
     depth: 'all',
-    showHidden: true,
+    showHidden: Boolean(state.navigation?.showHidden),
   })
 }
 
@@ -194,7 +198,13 @@ export function toggleHiddenActivity(state, activityId) {
 
 
 export function activityProgress(catalog, state, categoryId = null) {
-  const rows = (catalog?.activities || []).filter((activity) => !categoryId || categoryId === 'all' || activity.categoryId === categoryId)
+  const nav = state.navigation || {}
+  const hiddenCategories = new Set([...(nav.skippedCategoryIds || []), ...(nav.adaptiveHiddenCategoryIds || [])])
+  const hiddenActivities = new Set(nav.hiddenActivityIds || [])
+  const rows = (catalog?.activities || [])
+    .filter((activity) => !categoryId || categoryId === 'all' || activity.categoryId === categoryId)
+    .filter((activity) => nav.showHidden || categoryId !== 'all' || !hiddenCategories.has(activity.categoryId))
+    .filter((activity) => nav.showHidden || !hiddenActivities.has(activity.id))
   const answered = rows.filter((activity) => isActivityAnswered(state.answers?.[activity.id])).length
   return { answered, total: rows.length, percent: rows.length ? Math.round((answered / rows.length) * 100) : 0 }
 }
@@ -208,11 +218,13 @@ function priorityVisible(priority, depth) {
 export function filterActivities(catalog, state, overrides = {}) {
   const nav = { ...state.navigation, ...overrides }
   const hidden = new Set(nav.hiddenActivityIds || [])
+  const hiddenCategories = new Set([...(nav.skippedCategoryIds || []), ...(nav.adaptiveHiddenCategoryIds || [])])
   const query = String(nav.search || '').trim().toLowerCase()
   const searchMode = query.length > 0
 
   return (catalog?.activities || [])
     .filter((activity) => searchMode || nav.categoryId === 'all' || activity.categoryId === nav.categoryId)
+    .filter((activity) => searchMode || nav.categoryId !== 'all' || nav.showHidden || !hiddenCategories.has(activity.categoryId))
     .filter((activity) => searchMode || priorityVisible(activity.priority, nav.depth))
     .filter((activity) => nav.showHidden || !hidden.has(activity.id))
     .filter((activity) => !query || `${activity.label} ${activity.description} ${(activity.tags || []).join(' ')} ${(activity.aliases || []).join(' ')}`.toLowerCase().includes(query))
@@ -259,8 +271,13 @@ export function groupActivityResults(catalog, state, mode = 'stance') {
   const categoryById = new Map((catalog?.categories || []).map((row) => [row.id, row]))
   const stanceById = new Map((catalog?.stanceScale || []).map((row) => [row.id, row]))
   const experienceById = new Map((catalog?.experienceScale || []).map((row) => [row.id, row]))
+  const showHidden = Boolean(state.navigation?.showHidden)
+  const hiddenCategories = new Set(showHidden ? [] : [...(state.navigation?.skippedCategoryIds || []), ...(state.navigation?.adaptiveHiddenCategoryIds || [])])
+  const hiddenActivities = new Set(showHidden ? [] : (state.navigation?.hiddenActivityIds || []))
   const groups = new Map()
   const unansweredIds = []
+  let consideredCount = 0
+  let answeredCount = 0
   const add = (key, label, activity, answer) => {
     if (!groups.has(key)) groups.set(key, { key, label, rows: [] })
     groups.get(key).rows.push({ activity, answer })
@@ -268,10 +285,15 @@ export function groupActivityResults(catalog, state, mode = 'stance') {
 
   for (const activity of catalog?.activities || []) {
     const answer = state.answers?.[activity.id]
-    if (!isActivityAnswered(answer)) {
+    const answered = isActivityAnswered(answer)
+    const hiddenFromPath = hiddenCategories.has(activity.categoryId) || hiddenActivities.has(activity.id)
+    if (!answered && hiddenFromPath) continue
+    consideredCount += 1
+    if (!answered) {
       unansweredIds.push(activity.id)
       continue
     }
+    answeredCount += 1
     if (mode === 'notes' && !answer?.note?.trim()) continue
     if (mode === 'conditions' && answer.stance !== 'soft_limit') continue
     if (mode === 'category') add(activity.categoryId, categoryById.get(activity.categoryId)?.label || activity.categoryId, activity, answer)
@@ -290,7 +312,7 @@ export function groupActivityResults(catalog, state, mode = 'stance') {
   if (order) groupsArray.sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key))
   else groupsArray.sort((a, b) => a.label.localeCompare(b.label))
   for (const group of groupsArray) group.rows.sort((a, b) => a.activity.label.localeCompare(b.activity.label))
-  return { groups: groupsArray, unansweredCount: unansweredIds.length, unansweredIds }
+  return { groups: groupsArray, unansweredCount: unansweredIds.length, unansweredIds, consideredCount, answeredCount }
 }
 
 export function comparisonProfileFromActivityState(state) {
