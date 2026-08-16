@@ -130,7 +130,7 @@ textarea { width: 100%; resize: vertical; }
 .fantasy-theme-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .7rem; }
 .fantasy-theme-card { display: grid; gap: .45rem; min-height: 10rem; padding: 1.05rem; border: 1px solid var(--border); border-radius: 16px; background: var(--panel); color: inherit; text-align: left; cursor: pointer; }
 .fantasy-theme-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
-.fantasy-theme-card strong { font-size: 1.04rem; }
+.fantasy-theme-card > strong { font-size: 1.04rem; }
 .fantasy-theme-card > span:not(.fantasy-result-strength):not(.fantasy-card-link) { color: var(--muted); font-size: .8rem; line-height: 1.45; }
 .fantasy-result-strength { color: var(--accent); font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
 .fantasy-card-link { align-self: end; color: var(--text); font-size: .75rem; font-weight: 800; }
@@ -517,3 +517,24 @@ textarea { width: 100%; resize: vertical; }
   .print-activity-row p, .print-preference-row p { margin: 1.5mm 0 0; color: #333; }
   .private-print-report .partner-print-report { margin-top: 8mm; }
 }
+
+/* Directional role results: each side is independent, so both can score high. */
+.fantasy-theme-card > strong { font-size: 1.04rem; }
+.fantasy-role-breakdown { display: grid; gap: .7rem; margin-top: .35rem; padding-top: .7rem; border-top: 1px solid var(--border); }
+.fantasy-role-row { display: grid; gap: .32rem; }
+.fantasy-role-row.is-unsampled { opacity: .55; }
+.fantasy-role-row-heading { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; font-size: .73rem; line-height: 1.35; }
+.fantasy-role-row-heading span { color: var(--text); }
+.fantasy-role-row-heading b { flex: 0 0 auto; color: var(--accent); font-size: .68rem; }
+.fantasy-role-track { position: relative; height: 4px; border-radius: 999px; background: var(--border); }
+.fantasy-role-track::after { content: ''; position: absolute; left: 50%; top: -2px; width: 1px; height: 8px; background: var(--faint); transform: translateX(-50%); }
+.fantasy-role-marker { position: absolute; top: 50%; width: 10px; height: 10px; border: 2px solid var(--panel); border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%); box-shadow: 0 0 0 1px var(--accent); }
+.fantasy-role-axis { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: -.28rem; color: var(--faint); font-size: .58rem; }
+.fantasy-role-axis span:nth-child(2) { text-align: center; }
+.fantasy-role-axis span:last-child { text-align: right; }
+.fantasy-role-summary { margin: .05rem 0 0; color: var(--muted); font-size: .72rem; line-height: 1.45; }
+.fantasy-role-breakdown-detail { max-width: 680px; gap: .9rem; margin-top: 1rem; padding: 1rem; border: 1px solid var(--border); border-radius: 14px; background: var(--panel-soft); }
+.fantasy-role-breakdown-detail .fantasy-role-row-heading { font-size: .85rem; }
+.fantasy-role-breakdown-detail .fantasy-role-row-heading b { font-size: .76rem; }
+.fantasy-role-breakdown-detail .fantasy-role-track { height: 5px; }
+.fantasy-role-breakdown-detail .fantasy-role-summary { font-size: .84rem; }

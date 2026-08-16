@@ -4,6 +4,34 @@ function EmptyResult({ children }) {
   return <p className="fantasy-empty-result">{children}</p>
 }
 
+function RoleBreakdown({ direction }) {
+  if (!direction?.roles?.length) return null
+  return (
+    <div className="fantasy-role-breakdown">
+      {direction.roles.map((role) => (
+        <div className={`fantasy-role-row${role.observations ? '' : ' is-unsampled'}`} key={role.key}>
+          <div className="fantasy-role-row-heading">
+            <span>{role.label}</span>
+            <b>{role.strength}</b>
+          </div>
+          <div
+            className="fantasy-role-track"
+            role="meter"
+            aria-label={`${role.label}: ${role.strength}`}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow={role.position ?? 50}
+          >
+            {role.position !== null && <span className="fantasy-role-marker" style={{ left: `${role.position}%` }} />}
+          </div>
+        </div>
+      ))}
+      <div className="fantasy-role-axis" aria-hidden="true"><span>Turn-off</span><span>Neutral</span><span>Turn-on</span></div>
+      {direction.summary && <p className="fantasy-role-summary">{direction.summary}</p>}
+    </div>
+  )
+}
+
 function ThemeGrid({ themes, onOpenTheme }) {
   if (!themes.length) return <EmptyResult>Nothing stood out clearly here. We’d rather leave it open than force a label onto mixed or skipped answers.</EmptyResult>
   return (
@@ -13,6 +41,7 @@ function ThemeGrid({ themes, onOpenTheme }) {
           <span className="fantasy-result-strength">{theme.band === 'strong' ? 'Came up strongly' : 'Came up more than once'}</span>
           <strong>{theme.label}</strong>
           <span>{theme.description}</span>
+          <RoleBreakdown direction={theme.direction} />
           <span className="fantasy-card-link">Take a closer look →</span>
         </button>
       ))}
@@ -57,9 +86,9 @@ export default function FantasyResults({ profile, answers, results, onOpenTheme,
       <section className="fantasy-result-section">
         <div className="fantasy-section-number">3</div>
         <div className="fantasy-section-heading">
-          <span className="kicker">Which side appealed more</span>
-          <h2>Giving, receiving, watching, being watched</h2>
-          <p>When your answers were clear enough to compare, this is where one side of a dynamic seemed to appeal more than the other.</p>
+          <span className="kicker">Your role preferences</span>
+          <h2>How the two sides compare</h2>
+          <p>These are independent preferences. Liking one side does not reduce your score on the other, so both can be strong at the same time.</p>
         </div>
         {results.directions.length ? (
           <div className="fantasy-direction-list">

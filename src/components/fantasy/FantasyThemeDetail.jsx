@@ -1,4 +1,4 @@
-import { contributingAnswers, fantasyDirectionality, kinkAreasForTheme, nearbyFantasyThemes } from '../../lib/fantasyResults.js'
+import { contributingAnswers, fantasyRoleBreakdown, kinkAreasForTheme, nearbyFantasyThemes } from '../../lib/fantasyResults.js'
 import { describeFantasyDimension, scoreFantasyProfile } from '../../lib/fantasyProfile.js'
 
 export default function FantasyThemeDetail({ profile, answers, dimensionId, onBack, onOpenTheme, onExploreMore }) {
@@ -9,7 +9,7 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
   const examples = contributingAnswers(profile, answers, dimensionId, 6)
   const nearby = nearbyFantasyThemes(profile, dimensionId, answers, 4)
   const kinkAreas = kinkAreasForTheme(profile, answers, dimensionId)
-  const directions = fantasyDirectionality(profile, answers, 50).filter((row) => row.dimensionId === dimensionId)
+  const direction = fantasyRoleBreakdown(profile, answers, dimensionId)
   const unansweredDeepDiveCount = profile.questions.filter((question) => question.stage === 'deep_dive' && !Object.prototype.hasOwnProperty.call(answers, question.id) && (question.signals?.some((signal) => signal.dimensionId === dimensionId) || question.parentDimensionId === dimensionId)).length
 
   return (
@@ -36,11 +36,21 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
         ) : <p className="muted">Your answers here were mixed, neutral, or mostly skipped, so there isn’t a clear example to point to.</p>}
       </section>
 
-      {directions.length > 0 && (
+      {direction?.roles?.length > 0 && (
         <section className="fantasy-detail-section">
-          <h2>Which side appealed more</h2>
-          <div className="fantasy-direction-list">
-            {directions.map((row) => <p key={row.text}>{row.text}</p>)}
+          <h2>How each side landed</h2>
+          <p className="muted">These scores are independent, so both sides can be strong at the same time.</p>
+          <div className="fantasy-role-breakdown fantasy-role-breakdown-detail">
+            {direction.roles.map((role) => (
+              <div className={`fantasy-role-row${role.observations ? '' : ' is-unsampled'}`} key={role.key}>
+                <div className="fantasy-role-row-heading"><span>{role.label}</span><b>{role.strength}</b></div>
+                <div className="fantasy-role-track" role="meter" aria-label={`${role.label}: ${role.strength}`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={role.position ?? 50}>
+                  {role.position !== null && <span className="fantasy-role-marker" style={{ left: `${role.position}%` }} />}
+                </div>
+              </div>
+            ))}
+            <div className="fantasy-role-axis" aria-hidden="true"><span>Turn-off</span><span>Neutral</span><span>Turn-on</span></div>
+            {direction.summary && <p className="fantasy-role-summary">{direction.summary}</p>}
           </div>
         </section>
       )}
