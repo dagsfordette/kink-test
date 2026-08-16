@@ -134,6 +134,102 @@ function routingDimensions(question) {
   return question.parentDimensionId ? [question.parentDimensionId] : []
 }
 
+
+// Related dimensions are grouped only for presentation order. This does not
+// change scoring or which adaptive questions are selected; it simply keeps
+// similar fantasy themes from bleeding into the next question.
+const DIMENSION_THEME_TAGS = {
+  surrender: ['power_agency'],
+  authority_responsibility: ['power_agency'],
+  helplessness_vulnerability: ['power_agency', 'intensity'],
+  trust_safety: ['care_connection'],
+  anticipation_denial: ['suspense'],
+  fear_adrenaline: ['suspense', 'intensity'],
+  pain_intensity: ['physical_intensity', 'intensity'],
+  humiliation_embarrassment: ['social_exposure', 'intensity'],
+  praise_approval: ['care_connection', 'attention'],
+  being_desired_attention: ['care_connection', 'attention', 'social_exposure'],
+  possession_belonging: ['power_agency', 'care_connection'],
+  tenderness_care: ['care_connection'],
+  control_permission: ['power_agency', 'structure'],
+  rules_ritual_protocol: ['power_agency', 'structure'],
+  service_usefulness: ['care_connection', 'structure'],
+  restraint_confinement: ['power_agency', 'physical_intensity'],
+  objectification_use: ['power_agency', 'social_exposure'],
+  exposure_being_seen: ['social_exposure', 'observation'],
+  watching_observation: ['observation', 'attention'],
+  sensory_focus_alteration: ['sensory', 'physical_intensity'],
+  roleplay_transformation: ['identity_novelty'],
+  primal_struggle_competition: ['physical_intensity', 'suspense'],
+  taboo_transgression: ['identity_novelty', 'transgression'],
+  novelty_experimentation: ['identity_novelty'],
+  group_social_multipartner: ['social_exposure', 'attention'],
+  fetish_focus: ['sensory'],
+  romance: ['care_connection'],
+  transformation: ['body_change', 'identity_novelty'],
+  becoming_huge: ['body_change', 'scale'],
+  mind_control: ['power_agency', 'mind'],
+  being_tiny: ['body_change', 'scale', 'power_agency'],
+  nonconsent: ['power_agency', 'transgression', 'intensity'],
+  animal_transformation: ['body_change', 'identity_novelty'],
+  monsters_supernatural: ['identity_novelty', 'nonhuman'],
+}
+
+function questionThemeTags(question) {
+  const tags = new Set()
+  for (const dimensionId of routingDimensions(question)) {
+    for (const tag of DIMENSION_THEME_TAGS[dimensionId] || []) tags.add(tag)
+  }
+  return tags
+}
+
+function themeSimilarity(a, b) {
+  if (!a || !b) return 0
+  const aDimensions = new Set(routingDimensions(a))
+  const bDimensions = new Set(routingDimensions(b))
+  const aPrimary = routingDimensions(a)[0]
+  const bPrimary = routingDimensions(b)[0]
+  let similarity = aPrimary && aPrimary === bPrimary ? 12 : 0
+  for (const dimensionId of aDimensions) if (bDimensions.has(dimensionId)) similarity += 5
+  const aTags = questionThemeTags(a)
+  const bTags = questionThemeTags(b)
+  for (const tag of aTags) if (bTags.has(tag)) similarity += 2
+  if (a.mirrorGroup && a.mirrorGroup === b.mirrorGroup) similarity += 8
+  return similarity
+}
+
+function spreadQuestionsByTheme(profile, questions, priorQuestionIds = []) {
+  if (questions.length < 2) return questions
+  const questionMap = new Map((profile.questions || []).map((question) => [question.id, question]))
+  const recent = priorQuestionIds.map((id) => questionMap.get(id)).filter(Boolean).slice(-8)
+  const remaining = [...questions]
+  const ordered = []
+
+  while (remaining.length) {
+    let bestIndex = 0
+    let bestPenalty = Number.POSITIVE_INFINITY
+    for (let index = 0; index < remaining.length; index += 1) {
+      const candidate = remaining[index]
+      const history = [...recent, ...ordered]
+      let penalty = 0
+      for (let distance = 1; distance <= Math.min(8, history.length); distance += 1) {
+        const previous = history[history.length - distance]
+        // Immediate bleed-over matters most; similarity fades with distance.
+        const similarity = themeSimilarity(previous, candidate)
+        penalty += similarity * (9 - distance)
+        // If any unrelated option is available, never put a related theme directly next.
+        if (distance === 1 && similarity > 0) penalty += 10000
+      }
+      if (penalty < bestPenalty || (penalty === bestPenalty && candidate.id.localeCompare(remaining[bestIndex].id) < 0)) {
+        bestIndex = index
+        bestPenalty = penalty
+      }
+    }
+    ordered.push(remaining.splice(bestIndex, 1)[0])
+  }
+  return ordered
+}
+
 function questionIsActive(question, answers, evidence) {
   const activation = question.activation
   if (!activation) return true
@@ -246,7 +342,7 @@ function selectAdaptive(profile, answers, stage, maxCount, options = {}) {
     lastMirrorGroup = chosen.mirrorGroup || null
   }
 
-  return selected
+  return spreadQuestionsByTheme(profile, selected, options.priorQuestionIds || [])
 }
 
 export function selectDiscriminatorQuestions(profile, answers = {}, options = {}) {
