@@ -1,4 +1,4 @@
-export const STORAGE_KEY = 'kink-exploration:profile:v2'
+export const STORAGE_KEY = 'kink-exploration:profile'
 
 export function loadAppState() {
   try {
@@ -17,10 +17,3 @@ export function saveAppState(state) {
   }
 }
 
-export function clearAppState() {
-  try {
-    localStorage.removeItem(STORAGE_KEY)
-  } catch {
-    // no-op
-  }
-}

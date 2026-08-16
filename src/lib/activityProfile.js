@@ -1,5 +1,3 @@
-export const ACTIVITY_STATE_VERSION = 1
-
 export const STANCE_IDS = ['love', 'want', 'curious', 'if_partner_wants', 'dont_want', 'soft_limit', 'hard_limit']
 export const EXPERIENCE_IDS = ['not_tried', 'tried_once', 'some_experience', 'experienced', 'very_experienced']
 export const DEPTH_IDS = ['starter', 'extended', 'specialized', 'all']
@@ -10,7 +8,6 @@ const DEPTH_SET = new Set(DEPTH_IDS)
 
 export function createActivityState(catalog) {
   return {
-    version: ACTIVITY_STATE_VERSION,
     answers: {},
     navigation: {
       categoryId: catalog?.categories?.[0]?.id || 'all',
@@ -28,7 +25,7 @@ export function createActivityState(catalog) {
 
 export function normalizeActivityState(catalog, saved) {
   const clean = createActivityState(catalog)
-  if (!saved || saved.version !== ACTIVITY_STATE_VERSION) return clean
+  if (!saved || typeof saved !== 'object') return clean
 
   const activityIds = new Set((catalog?.activities || []).map((row) => row.id))
   const categoryIds = new Set((catalog?.categories || []).map((row) => row.id))
@@ -171,7 +168,7 @@ export function filterActivities(catalog, state, overrides = {}) {
     .filter((activity) => searchMode || nav.categoryId === 'all' || activity.categoryId === nav.categoryId)
     .filter((activity) => priorityVisible(activity.priority, nav.depth))
     .filter((activity) => nav.showHidden || !hidden.has(activity.id))
-    .filter((activity) => !query || `${activity.label} ${activity.description} ${(activity.tags || []).join(' ')}`.toLowerCase().includes(query))
+    .filter((activity) => !query || `${activity.label} ${activity.description} ${(activity.tags || []).join(' ')} ${(activity.aliases || []).join(' ')}`.toLowerCase().includes(query))
     .filter((activity) => {
       const answer = state.answers?.[activity.id]
       if (nav.answerFilter === 'answered' && !isActivityAnswered(answer)) return false

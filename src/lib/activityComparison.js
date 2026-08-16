@@ -81,7 +81,6 @@ export function compareActivityProfiles(catalog, leftProfile = {}, rightProfile 
   const counts = Object.fromEntries(priority.map((state) => [state, rows.filter((row) => row.state === state).length]))
 
   return {
-    modelVersion: '2.0.0',
     rows,
     counts,
     hardLimitConflicts: rows.filter((row) => row.state === 'hard_limit_conflict'),

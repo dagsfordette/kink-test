@@ -115,6 +115,7 @@ export function scoreFantasyProfile(profile, answers = {}) {
 
 function unresolvedPriority(metric) {
   if (!metric || metric.observations < 2) return 5
+  if (metric.positiveEvidence === 0 && metric.negativeEvidence === 0) return 1.1
   if (metric.contradictory) return 4.5
   if (metric.band === 'mixed') return 3.6
   if (metric.confidence < 0.5) return 3.2
@@ -127,37 +128,61 @@ function positiveBand(metric) {
   return metric?.band === 'strong' || metric?.band === 'notable'
 }
 
-function candidateDiscriminatorScore(question, evidence, selectedDimensionCounts) {
+function routingDimensions(question) {
   const signalDimensions = [...new Set((question.signals || []).map((signal) => signal.dimensionId))]
+  if (signalDimensions.length) return signalDimensions
+  return question.parentDimensionId ? [question.parentDimensionId] : []
+}
+
+function questionIsActive(question, answers, evidence) {
+  const activation = question.activation
+  if (!activation) return true
+  if (activation.type === 'question_response') {
+    const state = answerState(answers?.[activation.questionId])
+    return (activation.responses || []).includes(state)
+  }
+  if (activation.type === 'any_dimension_band') {
+    return (activation.conditions || []).some((condition) => (condition.bands || []).includes(evidence?.[condition.dimensionId]?.band))
+  }
+  return false
+}
+
+function candidateDiscriminatorScore(question, evidence, selectedDimensionCounts) {
+  const signalDimensions = routingDimensions(question)
   const primaryDimension = signalDimensions[0]
+  const primaryMetric = evidence[primaryDimension]
   let score = 0
+  if (primaryMetric && (primaryMetric.positiveEvidence > 0 || primaryMetric.negativeEvidence > 0)) score += Number(question.routingBoost || 0)
   for (const dimensionId of signalDimensions) score += unresolvedPriority(evidence[dimensionId])
 
   for (const otherId of question.discriminates || []) {
-    const primary = evidence[primaryDimension]
+    const primary = primaryMetric
     const other = evidence[otherId]
     if (positiveBand(primary) && positiveBand(other)) score += 2.2
-    else if (primary?.band === 'mixed' || other?.band === 'mixed') score += 1.4
+    else if (primary?.contradictory || other?.contradictory) score += 1.4
     else if (!other || other.band === 'insufficient') score += 1.1
   }
 
-  const primaryMetric = evidence[primaryDimension]
   if (primaryMetric?.observations >= 4 && !primaryMetric.contradictory && ['strong', 'negative'].includes(primaryMetric.band)) score -= 1.4
+  score += Number(question.activation?.priorityBoost || 0)
+  if (question.detailKey) score += 0.75
   score -= (selectedDimensionCounts.get(primaryDimension) || 0) * 1.25
   return score
 }
 
 function candidateDeepDiveScore(question, evidence, selectedDimensionCounts) {
-  const signalDimensions = [...new Set((question.signals || []).map((signal) => signal.dimensionId))]
+  const signalDimensions = routingDimensions(question)
   const primaryDimension = signalDimensions[0]
   const metric = evidence[primaryDimension]
-  let score = 0
-  if (!metric || metric.band === 'insufficient') score = 1.2
-  else if (metric.contradictory) score = 7
-  else if (metric.band === 'strong' || metric.band === 'negative') score = 6
-  else if (metric.band === 'mixed') score = 5
-  else if (metric.band === 'notable' || metric.band === 'low') score = 3.8
+  let score = Number(question.routingBoost || 0)
+  if (!metric || metric.band === 'insufficient') score += 1.2
+  else if (metric.contradictory) score += 7
+  else if (metric.band === 'strong' || metric.band === 'negative') score += 6
+  else if (metric.band === 'mixed') score += 5
+  else if (metric.band === 'notable' || metric.band === 'low') score += 3.8
   score += Math.abs(metric?.score || 0)
+  score += Number(question.activation?.priorityBoost || 0)
+  if (question.detailKey) score += 0.5
   score -= (selectedDimensionCounts.get(primaryDimension) || 0) * 1.5
   return score
 }
@@ -180,18 +205,26 @@ function lastKnownMirrorGroup(profile, answers, priorQuestionIds = []) {
 function selectAdaptive(profile, answers, stage, maxCount, options = {}) {
   const evidence = scoreFantasyProfile(profile, answers)
   const answeredIds = new Set(Object.keys(answers || {}))
-  const candidates = (profile.questions || []).filter((question) => question.stage === stage && !answeredIds.has(question.id))
+  const candidates = (profile.questions || []).filter((question) => question.stage === stage && !answeredIds.has(question.id) && questionIsActive(question, answers, evidence))
   const selected = []
   const selectedDimensionCounts = new Map()
+  const selectedBucketCounts = new Map()
+  let selectedDetailCount = 0
   let lastMirrorGroup = lastKnownMirrorGroup(profile, answers, options.priorQuestionIds || [])
   const maxPrimaryPerDimension = stage === 'discriminator' ? 2 : 1
+  const configuredDetailLimit = stage === 'discriminator'
+    ? profile.questionnaire?.administration?.maxDetailDiscriminatorCount
+    : profile.questionnaire?.administration?.maxDetailDeepDiveCount
+  const maxDetailCount = Math.min(options.maxDetailCount ?? configuredDetailLimit ?? maxCount, maxCount)
 
   while (selected.length < maxCount) {
     const ranked = candidates
       .filter((question) => !selected.includes(question))
+      .filter((question) => !question.detailKey || selectedDetailCount < maxDetailCount)
       .filter((question) => {
-        const primaryDimension = question.signals?.[0]?.dimensionId
-        return (selectedDimensionCounts.get(primaryDimension) || 0) < maxPrimaryPerDimension
+        const primaryDimension = routingDimensions(question)[0]
+        const bucket = question.detailKey ? `detail:${question.detailKey}` : primaryDimension
+        return primaryDimension && (selectedBucketCounts.get(bucket) || 0) < maxPrimaryPerDimension
       })
       .filter((question) => !lastMirrorGroup || question.mirrorGroup !== lastMirrorGroup)
       .map((question) => ({
@@ -205,8 +238,11 @@ function selectAdaptive(profile, answers, stage, maxCount, options = {}) {
     if (!ranked.length) break
     const chosen = ranked[0].question
     selected.push(chosen)
-    const primaryDimension = chosen.signals?.[0]?.dimensionId
-    selectedDimensionCounts.set(primaryDimension, (selectedDimensionCounts.get(primaryDimension) || 0) + 1)
+    const primaryDimension = routingDimensions(chosen)[0]
+    const bucket = chosen.detailKey ? `detail:${chosen.detailKey}` : primaryDimension
+    if (!chosen.detailKey) selectedDimensionCounts.set(primaryDimension, (selectedDimensionCounts.get(primaryDimension) || 0) + 1)
+    selectedBucketCounts.set(bucket, (selectedBucketCounts.get(bucket) || 0) + 1)
+    if (chosen.detailKey) selectedDetailCount += 1
     lastMirrorGroup = chosen.mirrorGroup || null
   }
 

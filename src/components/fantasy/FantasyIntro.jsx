@@ -8,17 +8,17 @@ export default function FantasyIntro({ profile, fantasy, adultConfirmed, onAdult
         <div className="fantasy-brand-mark" aria-hidden="true">✦</div>
         <span className="kicker">Fantasy Profile</span>
         <h1>See what your fantasies have in common.</h1>
-        <p className="fantasy-lede">You’ll react to a series of fantasies, then we’ll show you the themes and dynamics that came up most often. It usually takes about 10–15 minutes.</p>
+        <p className="fantasy-lede">You’ll react to a series of scenarios, then we’ll show you the themes and dynamics that came up most often. It usually takes about {profile.questionnaire?.targetMinutes?.[0] ?? 12} to {profile.questionnaire?.targetMinutes?.[1] ?? 18} minutes.</p>
 
         <div className="fantasy-reality-note">
           <strong>Answer for the fantasy itself.</strong>
-          <p>You can be turned on by something in your head and never want it in real life. This is not a consent checklist, a diagnosis, or a label. If something does nothing for you — or you just don’t know — choose <em>Unsure / skip</em>.</p>
+          <p>You can be turned on by something in your head and never want it in real life. This is not a consent checklist, a diagnosis, or a label. If you don’t know, choose <em>Unsure / skip</em>.</p>
         </div>
 
         {!hasProgress && !isComplete && (
           <label className="fantasy-adult-confirmation">
             <input type="checkbox" checked={adultConfirmed} onChange={(event) => onAdultConfirmed(event.target.checked)} />
-            <span>I’m an adult and I’m okay continuing with sexual and kink-related fantasy content.</span>
+            <span>I’m 18 or older and I’m okay continuing with sexual and kink-related content.</span>
           </label>
         )}
 

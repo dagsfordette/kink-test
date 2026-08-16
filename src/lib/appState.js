@@ -2,8 +2,6 @@ import { createFantasyState, reconcileFantasyState } from './fantasyRouting.js'
 import { createActivityState, normalizeActivityState } from './activityProfile.js'
 import { createPlayPreferences, normalizePlayPreferences } from './playPreferences.js'
 
-export const APP_VERSION = '2.0.0'
-
 const ROUTES = new Set([
   'home',
   'fantasy_intro', 'fantasy_questions', 'fantasy_results', 'fantasy_theme', 'fantasy_review',
@@ -20,7 +18,6 @@ export function resolveAppRoute(route, settings = {}) {
 
 export function createAppState(fantasyProfile, activityCatalog = null) {
   return {
-    version: APP_VERSION,
     route: 'home',
     settings: {
       theme: 'dark',
@@ -38,7 +35,7 @@ export function createAppState(fantasyProfile, activityCatalog = null) {
 
 export function normalizeAppState(fantasyProfile, activityCatalog, saved) {
   const clean = createAppState(fantasyProfile, activityCatalog)
-  if (!saved || saved.version !== APP_VERSION) return clean
+  if (!saved || typeof saved !== 'object') return clean
 
   const recommendationMaxItems = Number(saved.relevancePreferences?.recommendationMaxItems)
   return {

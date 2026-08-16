@@ -149,7 +149,7 @@ export function addThemeDeepDive(profile, fantasy, dimensionId, maxCount = 3) {
   const candidates = (profile.questions || []).filter((question) => (
     question.stage === 'deep_dive'
     && !alreadyUsed.has(question.id)
-    && question.signals?.some((signal) => signal.dimensionId === dimensionId)
+    && (question.signals?.some((signal) => signal.dimensionId === dimensionId) || question.parentDimensionId === dimensionId)
   ))
   const extra = []
   let lastMirror = profile.questions.find((question) => question.id === current.questionSequence.at(-1))?.mirrorGroup || null

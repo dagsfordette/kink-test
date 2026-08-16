@@ -1,11 +1,9 @@
-import { APP_VERSION } from './appState.js'
 import { normalizeActivityState } from './activityProfile.js'
 import { normalizePlayPreferences } from './playPreferences.js'
 import { buildFantasyResults } from './fantasyResults.js'
 
 export const PRIVATE_PROFILE_FORMAT = 'kink-exploration-private-profile'
 export const PARTNER_ACTIVITY_FORMAT = 'kink-exploration-activity-profile'
-export const PARTNER_ACTIVITY_EXPORT_VERSION = '1.0.0'
 
 function clone(value) {
   if (typeof structuredClone === 'function') return structuredClone(value)
@@ -29,7 +27,6 @@ export function buildPrivateBackup(appState, fantasyProfile, activityCatalog, op
   const results = options.fantasyResults || buildFantasyResults(fantasyProfile, appState.fantasy?.answers || {})
   return {
     format: PRIVATE_PROFILE_FORMAT,
-    version: APP_VERSION,
     exportedAt: options.exportedAt || new Date().toISOString(),
     datasets: datasetMetadata(fantasyProfile, activityCatalog),
     settings: clone(appState.settings || {}),
@@ -58,7 +55,6 @@ export function buildPartnerShareExport(appState, activityCatalog, options = {})
   const normalized = normalizeActivityState(activityCatalog, appState.activities)
   const payload = {
     format: PARTNER_ACTIVITY_FORMAT,
-    version: PARTNER_ACTIVITY_EXPORT_VERSION,
     exportedAt: options.exportedAt || new Date().toISOString(),
     catalog: {
       id: activityCatalog?.questionnaire?.id || 'activity-explorer',
@@ -86,11 +82,7 @@ export function parsePartnerShareExport(value, activityCatalog) {
     throw new Error('This partner-share export does not contain valid Activity Explorer answers.')
   }
 
-  const normalized = normalizeActivityState(activityCatalog, {
-    version: 1,
-    answers: value.activities.answers,
-    navigation: {},
-  })
+  const normalized = normalizeActivityState(activityCatalog, { answers: value.activities.answers, navigation: {} })
 
   return {
     activities: { answers: normalized.answers },

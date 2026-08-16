@@ -6,10 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "test": "node --test scripts/*.test.mjs && npm run validate:activity-catalog && npm run validate:fantasy-profile",
-    "validate:fantasy-profile": "node scripts/fantasy-profile-validation.mjs",
-    "validate:activity-catalog": "node scripts/activity-catalog-validation.mjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.0.0",

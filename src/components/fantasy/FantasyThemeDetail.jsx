@@ -10,7 +10,7 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
   const nearby = nearbyFantasyThemes(profile, dimensionId, answers, 4)
   const kinkAreas = kinkAreasForTheme(profile, answers, dimensionId)
   const directions = fantasyDirectionality(profile, answers, 50).filter((row) => row.dimensionId === dimensionId)
-  const unansweredDeepDiveCount = profile.questions.filter((question) => question.stage === 'deep_dive' && !Object.prototype.hasOwnProperty.call(answers, question.id) && question.signals?.some((signal) => signal.dimensionId === dimensionId)).length
+  const unansweredDeepDiveCount = profile.questions.filter((question) => question.stage === 'deep_dive' && !Object.prototype.hasOwnProperty.call(answers, question.id) && (question.signals?.some((signal) => signal.dimensionId === dimensionId) || question.parentDimensionId === dimensionId)).length
 
   return (
     <main className="fantasy-shell fantasy-detail-shell">
@@ -42,6 +42,13 @@ export default function FantasyThemeDetail({ profile, answers, dimensionId, onBa
           <div className="fantasy-direction-list">
             {directions.map((row) => <p key={row.text}>{row.text}</p>)}
           </div>
+        </section>
+      )}
+
+      {theme.searchTerms?.length > 0 && (
+        <section className="fantasy-detail-section">
+          <h2>Common terms</h2>
+          <p>People may also use terms such as {theme.searchTerms.join(', ')}.</p>
         </section>
       )}
 

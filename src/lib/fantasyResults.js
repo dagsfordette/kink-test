@@ -49,7 +49,6 @@ function directionalSentence(label, leftName, left, rightName, right) {
   const leftPositive = left.score >= 0.35
   const rightPositive = right.score >= 0.35
   if (!leftPositive && !rightPositive) return null
-  const normalizedLabel = label.replace(/ & /g, ' and ').toLowerCase()
   if (leftPositive && rightPositive && Math.abs(left.score - right.score) < 0.35) {
     return `${label} worked for you both when ${leftName} and when ${rightName}.`
   }
@@ -63,11 +62,21 @@ export function fantasyDirectionality(profile, answers, maxCount = 6) {
   const rows = []
   for (const dimension of profile.dimensions || []) {
     const metric = evidence[dimension.id]
-    const receiveGive = directionalSentence(dimension.label, 'receiving it', metric?.perspectives?.receive, 'giving it', metric?.perspectives?.give)
-    if (receiveGive) rows.push({ dimensionId: dimension.id, text: receiveGive, strength: Math.max(metric.perspectives.receive.score, metric.perspectives.give.score) })
-
-    const watchSeen = directionalSentence(dimension.label, 'being observed', metric?.perspectives?.be_observed, 'watching', metric?.perspectives?.observe)
-    if (watchSeen) rows.push({ dimensionId: dimension.id, text: watchSeen, strength: Math.max(metric.perspectives.be_observed.score, metric.perspectives.observe.score) })
+    const pairs = dimension.directionPairs || [
+      { left: 'receive', leftLabel: 'receiving it', right: 'give', rightLabel: 'giving it' },
+      { left: 'be_observed', leftLabel: 'being observed', right: 'observe', rightLabel: 'watching' },
+    ]
+    for (const pair of pairs) {
+      const left = metric?.perspectives?.[pair.left]
+      const right = metric?.perspectives?.[pair.right]
+      const text = directionalSentence(dimension.label, pair.leftLabel, left, pair.rightLabel, right)
+      if (!text) continue
+      rows.push({
+        dimensionId: dimension.id,
+        text,
+        strength: Math.max(left.score, right.score),
+      })
+    }
   }
   return rows.sort((a, b) => b.strength - a.strength || a.text.localeCompare(b.text)).slice(0, maxCount)
 }
@@ -118,7 +127,7 @@ export function fantasySuggestionDetails(profile, answers, suggestionId) {
 export function buildFantasyResults(profile, answers) {
   return {
     drivers: rankedFantasyThemes(profile, answers, 'driver', 6),
-    patterns: rankedFantasyThemes(profile, answers, 'motif', 7),
+    patterns: rankedFantasyThemes(profile, answers, 'motif', 10),
     directions: fantasyDirectionality(profile, answers, 6),
     suggestions: buildFantasySuggestions(profile, answers, { maxSuggestions: 6 }),
   }

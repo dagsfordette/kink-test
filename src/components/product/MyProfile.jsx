@@ -36,17 +36,17 @@ export default function MyProfile({ catalog, fantasyComplete, fantasyResults, ac
       <header className="combined-profile-hero screen-only">
         <span className="kicker">My Profile</span>
         <h1>See what you’ve learned so far.</h1>
-        <p>Fantasy Profile shows what catches your imagination. Activity Explorer shows what you’d actually want, might try, or don’t want. They can overlap, but they don’t have to.</p>
+        <p>Your fantasy results and activity answers, side by side. They may overlap, but they don’t have to.</p>
       </header>
 
       <div className="screen-only">
         <section className="combined-profile-section fantasy-profile-summary">
-          <div className="combined-section-heading"><div><span className="kicker">What catches your imagination</span><h2>Fantasy Profile</h2><p>The themes that came up in your fantasy answers.</p></div><button type="button" className="secondary-button" onClick={onFantasy}>{fantasyComplete ? 'See fantasy results' : 'Start Fantasy Profile'}</button></div>
+          <div className="combined-section-heading"><div><span className="kicker">What draws you in</span><h2>Fantasy Profile</h2></div><button type="button" className="secondary-button" onClick={onFantasy}>{fantasyComplete ? 'See fantasy results' : 'Start Fantasy Profile'}</button></div>
           <FantasySummary results={fantasyComplete ? fantasyResults : null} onOpenFantasy={onFantasy} />
         </section>
 
         <section className="combined-profile-section activity-profile-summary">
-          <div className="combined-section-heading"><div><span className="kicker">What you’d actually be up for</span><h2>Activity Explorer</h2><p>{answeredCount ? `You’ve answered ${answeredCount} ${answeredCount === 1 ? 'activity' : 'activities'} so far.` : 'You haven’t sorted any activities yet.'}</p></div><button type="button" className="secondary-button" onClick={onActivities}>{answeredCount ? 'Keep sorting' : 'Browse activities'}</button></div>
+          <div className="combined-section-heading"><div><span className="kicker">Where you stand</span><h2>Activity Explorer</h2><p>{answeredCount ? `You’ve answered ${answeredCount} ${answeredCount === 1 ? 'activity' : 'activities'} so far.` : 'You haven’t sorted any activities yet.'}</p></div><button type="button" className="secondary-button" onClick={onActivities}>{answeredCount ? 'Keep sorting' : 'Browse activities'}</button></div>
           {answeredCount ? (
             <div className="activity-profile-sections">
               {STANCE_SECTIONS.map((stanceId) => {
@@ -60,7 +60,7 @@ export default function MyProfile({ catalog, fantasyComplete, fantasyResults, ac
 
         {fantasyComplete && answeredCount > 0 && (
           <section className="combined-profile-section integration-observations">
-            <div className="combined-section-heading"><div><span className="kicker">Where the two overlap</span><h2>Things worth noticing</h2><p>Some fantasy themes may line up with your activity answers. Others may not — both are useful to see.</p></div></div>
+            <div className="combined-section-heading"><div><span className="kicker">Where the two overlap</span><h2>Things worth noticing</h2><p>Some fantasy themes may line up with your activity answers. Others may not. Both are useful to see.</p></div></div>
             {observations.length ? <div className="observation-list">{observations.map((row, index) => <p key={`${row.type}-${index}`}>{row.text}</p>)}</div> : <p className="profile-empty">There isn’t enough overlap yet to say much here.</p>}
           </section>
         )}
