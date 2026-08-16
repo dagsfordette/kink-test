@@ -6,6 +6,50 @@ const STANCE_SET = new Set(STANCE_IDS)
 const EXPERIENCE_SET = new Set(EXPERIENCE_IDS)
 const DEPTH_SET = new Set(DEPTH_IDS)
 
+const BASICS_DETAIL_FIELD_IDS = new Set([
+  'body_partner_gender', 'body_gender_expression', 'body_partner_anatomy', 'body_build',
+  'body_height_relative', 'body_hair', 'body_feature_focus', 'body_pubic_hair',
+  'body_penis_size', 'body_breast_chest',
+])
+
+const ALWAYS_REDUNDANT_DETAIL_FIELD_IDS = new Set(['detail_note'])
+const ROLE_ALREADY_IN_ACTIVITY_FIELD_IDS = new Set(['role_preferences', 'edge_role', 'pet_role'])
+const GENERIC_SEXUAL_CONTEXT_FIELD_IDS = new Set(['completion', 'context_preferences', 'physical_privacy'])
+const AVAILABILITY_ACTIVITY_IDS = new Set(['direct_negotiated_sexual_availability', 'follow_negotiated_sexual_availability'])
+const AVAILABILITY_REDUNDANT_FIELD_IDS = new Set(['scope', 'protocol', 'areas', 'sexual_submission_scope'])
+const IMMOBILIZATION_ACTIVITY_IDS = new Set(['give_partial_immobilization', 'receive_partial_immobilization', 'give_full_immobilization', 'receive_full_immobilization'])
+const POSITION_ALREADY_IN_ACTIVITY_IDS = new Set([
+  'give_standing_restraint', 'receive_standing_restraint', 'give_kneeling_restraint', 'receive_kneeling_restraint',
+  'give_hands_behind_back', 'receive_hands_behind_back', 'give_arms_overhead', 'receive_arms_overhead',
+  'give_spread_position_restraint', 'receive_spread_position_restraint',
+])
+const BODY_AREA_ALREADY_IN_ACTIVITY_IDS = new Set([
+  'give_wrist_restraint', 'receive_wrist_restraint', 'give_ankle_restraint', 'receive_ankle_restraint',
+  'give_arm_restraint', 'receive_arm_restraint', 'give_leg_restraint', 'receive_leg_restraint',
+  'give_full_body_restraint', 'receive_full_body_restraint', 'give_hands_behind_back', 'receive_hands_behind_back',
+  'give_arms_overhead', 'receive_arms_overhead', 'give_spread_position_restraint', 'receive_spread_position_restraint',
+])
+
+function trimRoleSpecificOptions(activity, field) {
+  if (field.id === 'interaction' && activity.detailProfileId === 'body_part_interest_with_partner_body_general') {
+    if (activity.id.startsWith('observe_')) {
+      return { ...field, options: (field.options || []).filter((option) => ['looking'].includes(option.id)) }
+    }
+    if (activity.id.startsWith('give_')) {
+      return { ...field, options: (field.options || []).filter((option) => option.id !== 'receiving_attention') }
+    }
+  }
+  if (field.id === 'interaction' && activity.detailProfileId === 'material_interest_with_partner_body_general') {
+    if (activity.id.startsWith('self_')) {
+      return { ...field, options: (field.options || []).filter((option) => option.id !== 'partner_wearing') }
+    }
+    if (activity.id.startsWith('observe_')) {
+      return { ...field, options: (field.options || []).filter((option) => !['wearing', 'touching'].includes(option.id)) }
+    }
+  }
+  return field
+}
+
 export function createActivityState(catalog) {
   return {
     answers: {},
@@ -27,16 +71,19 @@ export function normalizeActivityState(catalog, saved) {
   const clean = createActivityState(catalog)
   if (!saved || typeof saved !== 'object') return clean
 
-  const activityIds = new Set((catalog?.activities || []).map((row) => row.id))
+  const activityById = new Map((catalog?.activities || []).map((row) => [row.id, row]))
+  const activityIds = new Set(activityById.keys())
   const categoryIds = new Set((catalog?.categories || []).map((row) => row.id))
   const answers = {}
 
   for (const [activityId, raw] of Object.entries(saved.answers || {})) {
     if (!activityIds.has(activityId) || !raw || !STANCE_SET.has(raw.stance)) continue
+    const rawDetails = raw.details && typeof raw.details === 'object' && !Array.isArray(raw.details) ? raw.details : {}
+    const allowedDetailIds = new Set(detailFieldsForActivity(catalog, activityById.get(activityId), rawDetails).map((field) => field.id))
     answers[activityId] = {
       stance: raw.stance,
       ...(EXPERIENCE_SET.has(raw.experience) ? { experience: raw.experience } : {}),
-      details: raw.details && typeof raw.details === 'object' && !Array.isArray(raw.details) ? raw.details : {},
+      details: Object.fromEntries(Object.entries(rawDetails).filter(([fieldId]) => allowedDetailIds.has(fieldId))),
       note: typeof raw.note === 'string' ? raw.note : '',
     }
   }
@@ -166,7 +213,7 @@ export function filterActivities(catalog, state, overrides = {}) {
 
   return (catalog?.activities || [])
     .filter((activity) => searchMode || nav.categoryId === 'all' || activity.categoryId === nav.categoryId)
-    .filter((activity) => priorityVisible(activity.priority, nav.depth))
+    .filter((activity) => searchMode || priorityVisible(activity.priority, nav.depth))
     .filter((activity) => nav.showHidden || !hidden.has(activity.id))
     .filter((activity) => !query || `${activity.label} ${activity.description} ${(activity.tags || []).join(' ')} ${(activity.aliases || []).join(' ')}`.toLowerCase().includes(query))
     .filter((activity) => {
@@ -190,6 +237,13 @@ export function detailFieldsForActivity(catalog, activity, details = {}) {
   if (!profile) return []
 
   return (profile.fields || []).filter((field) => {
+    if (BASICS_DETAIL_FIELD_IDS.has(field.id) || ALWAYS_REDUNDANT_DETAIL_FIELD_IDS.has(field.id)) return false
+    if (ROLE_ALREADY_IN_ACTIVITY_FIELD_IDS.has(field.id)) return false
+    if (GENERIC_SEXUAL_CONTEXT_FIELD_IDS.has(field.id) && ['sexual_activity', 'sexual_activity_with_partner_body_general'].includes(activity.detailProfileId)) return false
+    if (AVAILABILITY_ACTIVITY_IDS.has(activity.id) && AVAILABILITY_REDUNDANT_FIELD_IDS.has(field.id)) return false
+    if (IMMOBILIZATION_ACTIVITY_IDS.has(activity.id) && ['restriction', 'mobility_preferences'].includes(field.id)) return false
+    if (POSITION_ALREADY_IN_ACTIVITY_IDS.has(activity.id) && field.id === 'preferred_positions') return false
+    if (BODY_AREA_ALREADY_IN_ACTIVITY_IDS.has(activity.id) && field.id === 'preferred_areas') return false
     if (Array.isArray(field.appliesToActivityIds) && !field.appliesToActivityIds.includes(activity.id)) return false
     if (Array.isArray(field.excludeForActivityIds) && field.excludeForActivityIds.includes(activity.id)) return false
     if (!field.showWhen) return true
@@ -198,7 +252,7 @@ export function detailFieldsForActivity(catalog, activity, details = {}) {
     if (field.showWhen.operator === 'containsAny') return Array.isArray(current) && (field.showWhen.value || []).some((value) => current.includes(value))
     if (field.showWhen.operator === 'equals') return current === field.showWhen.value
     return true
-  })
+  }).map((field) => trimRoleSpecificOptions(activity, field))
 }
 
 export function groupActivityResults(catalog, state, mode = 'stance') {

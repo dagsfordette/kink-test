@@ -1,11 +1,13 @@
 import { createFantasyState, reconcileFantasyState } from './fantasyRouting.js'
 import { createActivityState, normalizeActivityState } from './activityProfile.js'
 import { createPlayPreferences, normalizePlayPreferences } from './playPreferences.js'
+import { createBasicsProfile, normalizeBasicsProfile } from './basicsProfile.js'
 
 const ROUTES = new Set([
   'home',
   'fantasy_intro', 'fantasy_questions', 'fantasy_results', 'fantasy_theme', 'fantasy_review',
   'activity_intro', 'activity_explorer', 'activity_results', 'activity_play_preferences',
+  'basics',
   'profile',
 ])
 
@@ -25,6 +27,7 @@ export function createAppState(fantasyProfile, activityCatalog = null) {
     },
     selectedThemeId: null,
     fantasy: createFantasyState(fantasyProfile),
+    basics: createBasicsProfile(),
     activities: createActivityState(activityCatalog),
     playPreferences: createPlayPreferences(),
     relevancePreferences: {
@@ -47,6 +50,7 @@ export function normalizeAppState(fantasyProfile, activityCatalog, saved) {
     },
     selectedThemeId: typeof saved.selectedThemeId === 'string' ? saved.selectedThemeId : null,
     fantasy: reconcileFantasyState(fantasyProfile, saved.fantasy || clean.fantasy),
+    basics: normalizeBasicsProfile(saved.basics),
     activities: normalizeActivityState(activityCatalog, saved.activities),
     playPreferences: normalizePlayPreferences(saved.playPreferences),
     relevancePreferences: {

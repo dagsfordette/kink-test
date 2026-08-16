@@ -30,6 +30,7 @@ export function buildPrivateBackup(appState, fantasyProfile, activityCatalog, op
     exportedAt: options.exportedAt || new Date().toISOString(),
     datasets: datasetMetadata(fantasyProfile, activityCatalog),
     settings: clone(appState.settings || {}),
+    basics: clone(appState.basics || { complete: false, values: {} }),
     fantasy: {
       status: appState.fantasy?.status || 'not_started',
       answers: clone(appState.fantasy?.answers || {}),
@@ -90,6 +91,7 @@ export function buildDebugAnswerExport(appState, fantasyProfile, activityCatalog
     format: DEBUG_ANSWER_FORMAT,
     exportedAt: options.exportedAt || new Date().toISOString(),
     datasets: datasetMetadata(fantasyProfile, activityCatalog),
+    basics: clone(appState.basics || { complete: false, values: {} }),
     summary: {
       fantasy: {
         totalQuestionBank: (fantasyProfile?.questions || []).length,

@@ -4,6 +4,7 @@ import activityCatalog from './data/activityCatalog.json'
 import ProductNav from './components/product/ProductNav.jsx'
 import Home from './components/product/Home.jsx'
 import MyProfile from './components/product/MyProfile.jsx'
+import Basics from './components/product/Basics.jsx'
 import FantasyIntro from './components/fantasy/FantasyIntro.jsx'
 import FantasyQuestionnaire from './components/fantasy/FantasyQuestionnaire.jsx'
 import FantasyResults from './components/fantasy/FantasyResults.jsx'
@@ -47,7 +48,7 @@ function downloadJson(payload, filename) {
 
 export default function App() {
   const [appState, setAppState] = useState(() => normalizeAppState(fantasyProfile, activityCatalog, loadAppState()) || createAppState(fantasyProfile, activityCatalog))
-  const { fantasy, activities, playPreferences, settings } = appState
+  const { fantasy, basics, activities, playPreferences, settings } = appState
 
   useEffect(() => {
     document.documentElement.dataset.theme = settings.theme
@@ -85,7 +86,31 @@ export default function App() {
 
   const handleStartFantasy = () => {
     const next = startFantasyProfile(fantasyProfile, fantasy)
-    setAppState((prev) => withFantasyState(prev, next, 'fantasy_questions'))
+    setAppState((prev) => ({
+      ...withFantasyState(prev, next, prev.basics?.complete ? 'fantasy_questions' : 'basics'),
+      basics: prev.basics?.complete ? prev.basics : { ...prev.basics, nextRoute: 'fantasy_questions' },
+    }))
+    scrollTop()
+  }
+
+  const handleStartActivities = () => {
+    setAppState((prev) => ({
+      ...prev,
+      route: prev.basics?.complete ? resolveAppRoute('activity_explorer', prev.settings) : 'basics',
+      basics: prev.basics?.complete ? prev.basics : { ...prev.basics, nextRoute: 'activity_explorer' },
+    }))
+    scrollTop()
+  }
+
+  const handleBasicsContinue = () => {
+    setAppState((prev) => {
+      const nextRoute = prev.basics?.nextRoute || 'home'
+      return {
+        ...prev,
+        route: resolveAppRoute(nextRoute, prev.settings),
+        basics: { ...prev.basics, complete: true, nextRoute: null },
+      }
+    })
     scrollTop()
   }
 
@@ -162,6 +187,15 @@ export default function App() {
         />
       )}
 
+      {appState.route === 'basics' && (
+        <Basics
+          values={basics?.values || {}}
+          onChange={(patch) => setAppState((prev) => ({ ...prev, basics: { ...prev.basics, values: { ...(prev.basics?.values || {}), ...patch } } }))}
+          onContinue={handleBasicsContinue}
+          onBack={() => navigate(basics?.nextRoute === 'activity_explorer' ? 'activity_intro' : 'fantasy_intro')}
+        />
+      )}
+
       {appState.route === 'fantasy_intro' && (
         <FantasyIntro profile={fantasyProfile} fantasy={fantasy} adultConfirmed={settings.adultConfirmed} onAdultConfirmed={(value) => updateSettings({ adultConfirmed: value })} onStart={handleStartFantasy} onResume={handleStartFantasy} onResults={() => navigate('fantasy_results')} onActivity={() => navigate('activity_intro')} />
       )}
@@ -183,7 +217,7 @@ export default function App() {
       )}
 
       {appState.route === 'activity_intro' && (
-        <ActivityIntro catalog={activityCatalog} activity={activities} fantasyComplete={fantasy.status === 'complete'} adultConfirmed={settings.adultConfirmed} onAdultConfirmed={(value) => updateSettings({ adultConfirmed: value })} onStart={() => navigate('activity_explorer')} onResults={() => navigate('activity_results')} onFantasy={() => navigate('fantasy_intro')} />
+        <ActivityIntro catalog={activityCatalog} activity={activities} fantasyComplete={fantasy.status === 'complete'} adultConfirmed={settings.adultConfirmed} onAdultConfirmed={(value) => updateSettings({ adultConfirmed: value })} onStart={handleStartActivities} onResults={() => navigate('activity_results')} onFantasy={() => navigate('fantasy_intro')} />
       )}
 
       {appState.route === 'activity_explorer' && (
@@ -222,7 +256,7 @@ export default function App() {
           playPreferences={playPreferences}
           observations={observations}
           onFantasy={() => navigate(fantasy.status === 'complete' ? 'fantasy_results' : 'fantasy_intro')}
-          onActivities={() => navigate(resolveAppRoute('activity_explorer', settings))}
+          onActivities={handleStartActivities}
           onPrivateExport={exportPrivate}
           onDebugExport={exportDebugAnswers}
           onPartnerExport={exportPartner}
