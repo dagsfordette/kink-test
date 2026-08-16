@@ -17,7 +17,7 @@ function FantasySummary({ results, onOpenFantasy }) {
   )
 }
 
-export default function MyProfile({ catalog, fantasyComplete, fantasyResults, activities, playPreferences, observations, onFantasy, onActivities, onPrivateExport, onPartnerExport, onPrintPrivate }) {
+export default function MyProfile({ catalog, fantasyComplete, fantasyResults, activities, playPreferences, observations, onFantasy, onActivities, onPrivateExport, onDebugExport, onPartnerExport, onPrintPrivate }) {
   const [includePlayPreferences, setIncludePlayPreferences] = useState(false)
   const stanceLabels = useMemo(() => new Map(catalog.stanceScale.map((row) => [row.id, row.label])), [catalog])
   const categoryLabels = useMemo(() => new Map(catalog.categories.map((row) => [row.id, row.label])), [catalog])
@@ -69,6 +69,7 @@ export default function MyProfile({ catalog, fantasyComplete, fantasyResults, ac
           <div className="combined-section-heading"><div><span className="kicker">Save or share</span><h2>What do you want to take with you?</h2><p>You can keep a full backup for yourself, or make a smaller file that only contains the activity answers you may want to share with a partner.</p></div></div>
           <div className="export-card-grid">
             <article className="export-card private-export-card"><strong>Full private backup</strong><p>This includes your fantasy answers and results, activity answers, Play Preferences, and app settings. Keep it private; it contains sensitive personal information.</p><div><button type="button" className="primary-button" onClick={onPrivateExport}>Download my backup</button><button type="button" className="text-button" onClick={onPrintPrivate}>Print private report</button></div></article>
+            <article className="export-card debug-export-card"><strong>Debug answer export</strong><p>This lists every Fantasy Profile question and every Activity Explorer item with its ID, wording, answer, and useful scoring metadata. Unanswered items are included too.</p><button type="button" className="secondary-button" onClick={onDebugExport}>Download debug answers</button></article>
             <article className="export-card partner-export-card"><strong>Share with a partner</strong><p>This only includes your Activity Explorer answers. Your fantasy answers and results are left out.</p><label className="share-toggle"><input type="checkbox" checked={includePlayPreferences} onChange={(event) => setIncludePlayPreferences(event.target.checked)} /><span>Also include my Play Preferences</span></label><button type="button" className="secondary-button" onClick={() => onPartnerExport(includePlayPreferences)}>Download share file</button></article>
           </div>
         </section>

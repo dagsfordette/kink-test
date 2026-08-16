@@ -102,7 +102,7 @@ export default function FantasyResults({ profile, answers, results, onOpenTheme,
         <div className="fantasy-section-heading">
           <span className="kicker">Words you might want to look up</span>
           <h2>Kink areas that overlap with your results</h2>
-          <p>These are possible directions for further exploring, not labels we’re assigning to you.</p>
+          <p>These are possible directions for further exploring.</p>
         </div>
         {results.suggestions.length ? (
           <div className="fantasy-suggestion-list">

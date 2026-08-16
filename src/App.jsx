@@ -19,7 +19,7 @@ import { createAppState, normalizeAppState, resolveAppRoute, withActivityState, 
 import { loadAppState, saveAppState } from './lib/appStorage.js'
 import { buildActivityRecommendations } from './lib/activityRecommendations.js'
 import { buildFantasyRealityObservations } from './lib/profileIntegration.js'
-import { buildPartnerShareExport, buildPrivateBackup, jsonDownloadName } from './lib/profileExports.js'
+import { buildDebugAnswerExport, buildPartnerShareExport, buildPrivateBackup, jsonDownloadName } from './lib/profileExports.js'
 import { updatePlayPreferences } from './lib/playPreferences.js'
 import {
   clearActivityAnswer,
@@ -133,6 +133,10 @@ export default function App() {
     const payload = buildPartnerShareExport(appState, activityCatalog, { includePlayPreferences })
     downloadJson(payload, jsonDownloadName('partner'))
   }
+  const exportDebugAnswers = () => {
+    const payload = buildDebugAnswerExport(appState, fantasyProfile, activityCatalog)
+    downloadJson(payload, jsonDownloadName('debug'))
+  }
 
   return (
     <div className="app-root fantasy-app-root">
@@ -220,6 +224,7 @@ export default function App() {
           onFantasy={() => navigate(fantasy.status === 'complete' ? 'fantasy_results' : 'fantasy_intro')}
           onActivities={() => navigate(resolveAppRoute('activity_explorer', settings))}
           onPrivateExport={exportPrivate}
+          onDebugExport={exportDebugAnswers}
           onPartnerExport={exportPartner}
           onPrintPrivate={() => window.print()}
         />

@@ -71,6 +71,102 @@ export function buildPartnerShareExport(appState, activityCatalog, options = {})
   return payload
 }
 
+
+export const DEBUG_ANSWER_FORMAT = 'kink-exploration-debug-answers'
+
+export function buildDebugAnswerExport(appState, fantasyProfile, activityCatalog, options = {}) {
+  const fantasyAnswers = appState.fantasy?.answers || {}
+  const fantasySequence = appState.fantasy?.questionSequence || []
+  const sequenceIndex = new Map(fantasySequence.map((id, index) => [id, index]))
+  const responseById = new Map((fantasyProfile?.responseScale || []).map((row) => [row.id, row]))
+  const dimensionById = new Map((fantasyProfile?.dimensions || []).map((row) => [row.id, row]))
+
+  const categoryById = new Map((activityCatalog?.categories || []).map((row) => [row.id, row]))
+  const stanceById = new Map((activityCatalog?.stanceScale || []).map((row) => [row.id, row]))
+  const experienceById = new Map((activityCatalog?.experienceScale || []).map((row) => [row.id, row]))
+  const activityAnswers = appState.activities?.answers || {}
+
+  return {
+    format: DEBUG_ANSWER_FORMAT,
+    exportedAt: options.exportedAt || new Date().toISOString(),
+    datasets: datasetMetadata(fantasyProfile, activityCatalog),
+    summary: {
+      fantasy: {
+        totalQuestionBank: (fantasyProfile?.questions || []).length,
+        inAdaptiveSequence: fantasySequence.length,
+        answered: Object.keys(fantasyAnswers).length,
+      },
+      activities: {
+        totalCatalog: (activityCatalog?.activities || []).length,
+        answered: Object.keys(activityAnswers).length,
+      },
+    },
+    fantasy: {
+      status: appState.fantasy?.status || 'not_started',
+      currentIndex: Number(appState.fantasy?.currentIndex || 0),
+      questionSequence: clone(fantasySequence),
+      questions: (fantasyProfile?.questions || []).map((question) => {
+        const responseId = fantasyAnswers[question.id] ?? null
+        const response = responseId ? responseById.get(responseId) : null
+        return {
+          id: question.id,
+          text: question.statement,
+          stage: question.stage || null,
+          intensity: question.intensity || null,
+          asked: sequenceIndex.has(question.id),
+          sequenceIndex: sequenceIndex.has(question.id) ? sequenceIndex.get(question.id) : null,
+          answered: responseId !== null,
+          answer: responseId === null ? null : {
+            id: responseId,
+            label: response?.label || responseId,
+            score: response?.score ?? null,
+          },
+          signals: (question.signals || []).map((signal) => ({
+            dimensionId: signal.dimensionId,
+            dimensionLabel: dimensionById.get(signal.dimensionId)?.label || signal.dimensionId,
+            perspective: signal.perspective || null,
+            weight: signal.weight ?? 1,
+          })),
+          discriminates: clone(question.discriminates || []),
+          mirrorGroup: question.mirrorGroup || null,
+        }
+      }),
+    },
+    activities: {
+      questions: (activityCatalog?.activities || []).map((activity) => {
+        const answer = activityAnswers[activity.id] || null
+        const stance = answer?.stance ? stanceById.get(answer.stance) : null
+        const experience = answer?.experience ? experienceById.get(answer.experience) : null
+        return {
+          id: activity.id,
+          text: activity.label,
+          description: activity.description || null,
+          categoryId: activity.categoryId || null,
+          categoryLabel: categoryById.get(activity.categoryId)?.label || activity.categoryId || null,
+          priority: activity.priority || null,
+          answered: Boolean(answer?.stance),
+          answer: answer?.stance ? {
+            stance: {
+              id: answer.stance,
+              label: stance?.label || answer.stance,
+              meaning: stance?.meaning || null,
+            },
+            experience: answer.experience ? {
+              id: answer.experience,
+              label: experience?.label || answer.experience,
+            } : null,
+            details: clone(answer.details || {}),
+            note: typeof answer.note === 'string' ? answer.note : '',
+          } : null,
+          riskDomains: clone(activity.riskDomains || []),
+          tags: clone(activity.tags || []),
+          complementId: activity.complementId || null,
+        }
+      }),
+    },
+  }
+}
+
 export function parsePartnerShareExport(value, activityCatalog) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error('That doesn’t look like an Activity Explorer share file.')
@@ -92,7 +188,7 @@ export function parsePartnerShareExport(value, activityCatalog) {
 
 export function jsonDownloadName(kind, date = new Date()) {
   const stamp = date.toISOString().slice(0, 10)
-  return kind === 'private'
-    ? `kink-exploration-private-profile-${stamp}.json`
-    : `kink-exploration-activity-profile-${stamp}.json`
+  if (kind === 'private') return `kink-exploration-private-profile-${stamp}.json`
+  if (kind === 'debug') return `kink-exploration-debug-answers-${stamp}.json`
+  return `kink-exploration-activity-profile-${stamp}.json`
 }
