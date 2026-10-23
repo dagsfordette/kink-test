@@ -1,34 +1,25 @@
 const PAGE_SIZE = 50
 
-// Keep the page order intact; retain off-page drafts after its regular cards.
+// Drafts live in the same keyed list on every page, even outside the selected scope.
 export function activityPage(
   rows,
   drafts = {},
   requestedPage = 0,
-  { size = PAGE_SIZE, anchorId = null } = {}
+  size = PAGE_SIZE
 ) {
-  const pageCount = Math.max(1, Math.ceil(rows.length / size))
-  let page = Math.max(0, Math.min(pageCount - 1, requestedPage))
-  const anchorIndex = rows.findIndex((a) => a.id === anchorId)
-  if (anchorIndex >= 0 && Math.floor(anchorIndex / size) !== page)
-    page = Math.floor(anchorIndex / size)
-  const regular = rows.slice(page * size, (page + 1) * size)
-  const regularIds = new Set(regular.map((a) => a.id))
-  const retained = rows.filter((a) => drafts[a.id] && !regularIds.has(a.id))
+  const pinned = rows.filter((a) => drafts[a.id])
+  const matches = rows.filter((a) => !drafts[a.id])
+  const pageCount = Math.max(1, Math.ceil(matches.length / size))
+  const page = Math.max(0, Math.min(pageCount - 1, requestedPage))
   return {
     page,
     pageCount,
-    pinned: retained.length,
-    total: rows.length,
-    rows: [...regular, ...retained],
-    from: rows.length ? page * size + 1 : 0,
-    to: Math.min(rows.length, (page + 1) * size)
+    pinned: pinned.length,
+    total: matches.length,
+    rows: [...pinned, ...matches.slice(page * size, (page + 1) * size)],
+    from: matches.length ? page * size + 1 : 0,
+    to: Math.min(matches.length, (page + 1) * size)
   }
-}
-
-export function nextActivityId(rows, id) {
-  const index = rows.findIndex((a) => a.id === id)
-  return index < 0 ? null : (rows[index + 1] || rows[index - 1])?.id || null
 }
 export function explorationViewKey(nav, exploration) {
   return JSON.stringify([

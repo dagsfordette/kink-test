@@ -74,11 +74,12 @@ export default function FantasyThemeDetail({
 
       {direction?.roles?.length > 0 && (
         <section className="fantasy-detail-section">
-          <h2>How each side landed</h2>
-          <p className="muted">
-            These scores are independent, so both sides can be strong at the
-            same time.
-          </p>
+          <h2>{direction.roles.length > 1 ? 'How each side landed' : 'How this theme landed'}</h2>
+          {direction.roles.length > 1 && (
+            <p className="muted">
+              These scores are independent, so both sides can be strong at the same time.
+            </p>
+          )}
           <div className="fantasy-role-breakdown fantasy-role-breakdown-detail">
             {direction.roles.map((role) => (
               <div

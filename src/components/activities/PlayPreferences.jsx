@@ -1,4 +1,36 @@
-import { PLAY_PREFERENCE_FIELDS } from '../../lib/playPreferences.js'
+const FIELDS = [
+  [
+    'communication',
+    'Talking about it',
+    'How do you like to talk about activities, boundaries, or changes?'
+  ],
+  [
+    'checkIns',
+    'Check-ins',
+    'What kind of check-ins feel good before, during, or after?'
+  ],
+  [
+    'stopSignals',
+    'Stop / pause signals',
+    'Any words, signals, or habits you want to use for slowing down or stopping?'
+  ],
+  ['aftercare', 'Aftercare', 'What helps you feel good afterward?'],
+  [
+    'marksAfterEffects',
+    'Marks and after-effects',
+    'Anything you want to avoid or allow around marks, soreness, or other after-effects?'
+  ],
+  [
+    'partnerContext',
+    'Who / when / where',
+    'Does familiarity, relationship context, privacy, or setting change what feels okay?'
+  ],
+  [
+    'other',
+    'Anything else',
+    'Anything else you’d want a partner to know before you start?'
+  ]
+]
 
 export default function PlayPreferences({ values, onChange, onBack }) {
   return (
@@ -18,7 +50,7 @@ export default function PlayPreferences({ values, onChange, onBack }) {
         </button>
       </header>
       <section className="activity-settings-card">
-        {PLAY_PREFERENCE_FIELDS.map(([id, label, placeholder]) => (
+        {FIELDS.map(([id, label, placeholder]) => (
           <label key={id} className="activity-setting-field">
             <span>{label}</span>
             <textarea

@@ -84,6 +84,9 @@ export default function MyProfile({
   observations,
   onFantasy,
   onActivities,
+  onEditBody,
+  onEditAttraction,
+  onPlayPreferences,
   onPrivateExport,
   onDebugExport,
   onPartnerExport,
@@ -131,6 +134,11 @@ export default function MyProfile({
           }}
         />
       </label>
+      <div className="profile-settings-actions no-print">
+        <button type="button" onClick={onEditBody}>About your body</button>
+        <button type="button" onClick={onEditAttraction}>Attraction preferences</button>
+        <button type="button" onClick={onPlayPreferences}>Play Preferences</button>
+      </div>
       <header className="combined-profile-hero screen-only">
         <span className="kicker">My Profile</span>
         <h1>See what you’ve learned so far.</h1>

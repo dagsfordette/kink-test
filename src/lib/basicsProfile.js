@@ -27,7 +27,7 @@ export const BASICS_FIELDS = [
   {
     id: 'partnerAnatomy',
     label: 'Anatomy that can matter for attraction or sexual compatibility',
-    help: 'This is a general preference, not a requirement for every activity.',
+    help: 'Genital preferences filter matching partner activities. Choose ‘Depends’ to keep them unrestricted.',
     type: 'multi_select',
     options: [
       ['penis', 'Penis'],
@@ -139,20 +139,6 @@ export const BASICS_FIELDS = [
       ['large', 'Large breasts'],
       ['varies', 'Varies'],
       ['doesnt_matter', 'No strong preference']
-    ]
-  },
-  {
-    id: 'intensity',
-    label: 'Your general intensity range',
-    help: 'This is a baseline only. Individual activities can still be gentler or more intense.',
-    type: 'paired_select',
-    options: [
-      ['very_light', 'Very light'],
-      ['light', 'Light'],
-      ['moderate', 'Moderate'],
-      ['strong', 'Strong'],
-      ['very_strong', 'Very strong / intense'],
-      ['varies', 'Varies a lot by activity']
     ]
   }
 ]

@@ -7,9 +7,7 @@ export default function ActivityCategoryNav({
   counts,
   activityState,
   categoryId,
-  onSelect,
-  onPlayPreferences,
-  onResults
+  onSelect
 }) {
   return (
     <aside className="activity-category-sidebar no-print">
@@ -60,14 +58,6 @@ export default function ActivityCategoryNav({
           )
         })}
       </nav>
-      <div className="activity-sidebar-footer">
-        <button type="button" onClick={onPlayPreferences}>
-          Play Preferences
-        </button>
-        <button type="button" onClick={onResults}>
-          Review answers
-        </button>
-      </div>
     </aside>
   )
 }

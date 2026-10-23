@@ -2,5 +2,6 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   esbuild: { jsx: 'automatic' },
-  base: './'
+  base: './',
+  server: { allowedHosts: ['terminal.local'] }
 })

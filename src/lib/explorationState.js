@@ -1,14 +1,14 @@
-export const ANATOMY_FEATURES = [
-  'penis',
-  'vagina',
-  'prostate',
-  'testicles',
-  'breasts',
-  'nipples',
-  'vulva',
-  'clitoris',
-  'anus'
-]
+export const ANATOMY_FEATURES = ['penis', 'vagina']
+
+export function bodyFactsFromSelection(selected) {
+  return {
+    self: {
+      anatomy: Object.fromEntries(ANATOMY_FEATURES.map((id) => [
+        id, selected.length ? (selected.includes(id) ? 'present' : 'absent') : 'undisclosed'
+      ]))
+    }
+  }
+}
 export const ROLE_VALUES = {
   action: [
     'giving',
@@ -24,15 +24,14 @@ export const ROLE_VALUES = {
 export function createExploration() {
   return {
     facts: {
-      self: { anatomy: {} },
-      partnerContexts: {},
-      selectedPartnerContextId: null
+      self: { anatomy: {} }
     },
     roles: { global: {}, byCategory: {} },
     inferredFilterOverrides: {},
     relevanceOverrides: {},
     manualApplicability: {},
     promptResponses: {},
+    topicPreferences: {},
     sessionSize: 10,
     session: null,
     boundaries: [],
@@ -56,12 +55,6 @@ export function normalizeExploration(value, catalog) {
       ANATOMY_FEATURES.map((k) => [k, anatomyState(raw?.anatomy?.[k])])
     )
   })
-  const contexts = Object.fromEntries(
-    Object.entries(record(e.facts?.partnerContexts)).map(([id, p]) => [
-      id,
-      participant(p)
-    ])
-  )
   const roles = (raw) =>
     Object.fromEntries(
       Object.entries(record(raw))
@@ -124,14 +117,7 @@ export function normalizeExploration(value, catalog) {
   return {
     ...base,
     facts: {
-      self: participant(e.facts?.self),
-      partnerContexts: contexts,
-      selectedPartnerContextId: Object.hasOwn(
-        contexts,
-        e.facts?.selectedPartnerContextId
-      )
-        ? e.facts.selectedPartnerContextId
-        : null
+      self: participant(e.facts?.self)
     },
     roles: {
       global: roles(e.roles?.global),
@@ -166,6 +152,7 @@ export function normalizeExploration(value, catalog) {
           ]
         })
     ),
+    topicPreferences: Object.fromEntries(Object.entries(record(e.topicPreferences)).filter(([key, v]) => /^(power|[a-z_]+\/[a-z_]+)\/(give|receive|observe|be_observed|overall)$/.test(key) && [-1, 0, 1, 3].includes(v))),
     sessionSize: Math.max(
       1,
       Math.min(50, Math.round(Number(e.sessionSize) || 10))
@@ -187,10 +174,6 @@ export function normalizeExploration(value, catalog) {
 }
 export function participantFacts(facts, participant) {
   if (participant === 'self') return facts?.self || {}
-  if (participant === 'partner')
-    return facts?.selectedPartnerContextId
-      ? facts.partnerContexts?.[facts.selectedPartnerContextId] || {}
-      : {}
   return {}
 }
 export function anatomyState(value) {

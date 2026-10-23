@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   compareActivityProfiles,
-  comparisonPage,
   comparisonStateLabels
 } from '../../lib/activityComparison.js'
 import { comparisonProfileFromActivityState } from '../../lib/activityProfile.js'
-import { PLAY_PREFERENCE_FIELDS } from '../../lib/playPreferences.js'
 import {
   buildPartnerShareExport,
   parsePartnerShareExport
@@ -34,9 +32,6 @@ export default function PartnerComparison({
   const [error, setError] = useState('')
   const [copyStatus, setCopyStatus] = useState('')
   const [manualCopy, setManualCopy] = useState('')
-  const [filter, setFilter] = useState('all')
-  const [requestedPage, setRequestedPage] = useState(0)
-  const rangeRef = useRef(null)
   const copyGeneration = useRef(0)
   useEffect(() => {
     copyGeneration.current++
@@ -58,38 +53,12 @@ export default function PartnerComparison({
         : null,
     [catalog, ownProfile, partnerProfile, shareAllowed]
   )
-  const page = comparisonPage(comparison?.rows || [], filter, requestedPage)
-  const sharedPreferences = PLAY_PREFERENCE_FIELDS.filter(
-    ([id]) => partnerProfile?.playPreferences?.[id]?.trim()
-  )
-  const movePage = (nextPage) => {
-    setRequestedPage(nextPage)
-    window.requestAnimationFrame(() => {
-      rangeRef.current?.focus()
-      rangeRef.current?.scrollIntoView({ block: 'nearest' })
-    })
-  }
-  const pagination = (
-    <nav className="exploration-pagination" aria-label="Comparison pages">
-      <button type="button" disabled={page.page === 0}
-        onClick={() => movePage(page.page - 1)}>
-        Previous page
-      </button>
-      <span>Page {page.page + 1} of {page.pageCount}</span>
-      <button type="button" disabled={page.page + 1 === page.pageCount}
-        onClick={() => movePage(page.page + 1)}>
-        Next page
-      </button>
-    </nav>
-  )
 
   const load = () => {
     try {
       const parsed = JSON.parse(partnerText)
       const share = parsePartnerShareExport(parsed, catalog)
       setPartnerProfile(share)
-      setFilter('all')
-      setRequestedPage(0)
       setError('')
     } catch (err) {
       setPartnerProfile(null)
@@ -142,11 +111,10 @@ export default function PartnerComparison({
         <span className="kicker">Compare with a partner</span>
         <h2>See where your answers line up</h2>
         <p>
-          Paste a partner’s Activity Explorer share file below. It includes
-          activity answers, reviewed boundary scopes, and any Play Preferences
-          your partner chose to share. Private activity notes, detailed activity
-          preferences and Fantasy Profile are excluded. Both exports must use
-          the same Activity Explorer catalogue version.
+          Paste a partner’s Activity Explorer share file below. Only activity
+          stances and experience are shared, not private notes, detailed
+          preferences or Fantasy Profile. Both exports must use the same
+          Activity Explorer catalogue version.
         </p>
       </div>
 
@@ -207,21 +175,6 @@ export default function PartnerComparison({
           </div>
           <p className="muted">{comparison.note}</p>
           <p>{partnerProfile.contextNote}</p>
-          <section className="partner-play-preferences" aria-label="Partner’s Play Preferences">
-            <h2>Partner’s Play Preferences</h2>
-            {!partnerProfile.playPreferences ? (
-              <p>Your partner did not include Play Preferences in this share file.</p>
-            ) : sharedPreferences.length === 0 ? (
-              <p>Your partner shared this section without any entries.</p>
-            ) : (
-              sharedPreferences.map(([id, label]) => (
-                <div key={id}>
-                  <h3>{label}</h3>
-                  <p>{partnerProfile.playPreferences[id]}</p>
-                </div>
-              ))
-            )}
-          </section>
           <section aria-label="Partner boundary context">
             {partnerProfile.boundaryContext?.map((c) => (
               <div key={c.ownerId}>
@@ -262,28 +215,8 @@ export default function PartnerComparison({
               cancels out a hard limit.
             </div>
           )}
-          <label>
-            Show results{' '}
-            <select value={filter} onChange={(event) => {
-              setFilter(event.target.value)
-              setRequestedPage(0)
-            }}>
-              <option value="all">All results ({comparison.rows.length})</option>
-              {ORDER.map((state) => (
-                <option key={state} value={state}>
-                  {comparisonStateLabels[state]} ({comparison.counts[state] || 0})
-                </option>
-              ))}
-            </select>
-          </label>
-          <p role="status" ref={rangeRef} tabIndex={-1}>
-            Showing {page.from}–{page.to} of {page.total} results
-            {filter !== 'all' ? ` · ${comparisonStateLabels[filter]}` : ''}.
-          </p>
-          {page.total === 0 && <p>No results in this view. Choose another result type.</p>}
-          {page.pageCount > 1 && pagination}
           <div className="activity-comparison-list">
-            {page.rows.map((row) => (
+            {comparison.rows.slice(0, 120).map((row) => (
               <article
                 key={row.key}
                 className={`activity-comparison-row comparison-${row.state}`}
@@ -318,7 +251,6 @@ export default function PartnerComparison({
               </article>
             ))}
           </div>
-          {page.pageCount > 1 && pagination}
         </div>
       )}
     </section>

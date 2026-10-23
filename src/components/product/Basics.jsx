@@ -26,8 +26,8 @@ export default function Basics({ values, onChange, onContinue, onBack }) {
         <span className="kicker">Basics</span>
         <h1>Who are you into, generally?</h1>
         <p className="basics-lede">
-          These broad defaults keep the same attraction and body-preference
-          questions from repeating under individual fantasies or activities.
+          These optional preferences describe who you tend to be attracted to.
+          They help filter activities involving a partner’s anatomy or particular body features.
           Skip anything that does not matter to you.
         </p>
 
@@ -37,67 +37,20 @@ export default function Basics({ values, onChange, onContinue, onBack }) {
               <div className="basics-field" key={field.id}>
                 <strong>{field.label}</strong>
                 {field.help && <small>{field.help}</small>}
-                {field.type === 'paired_select' ? (
-                  <div className="activity-paired-select">
-                    <label>
-                      <small>Preferred</small>
-                      <select
-                        value={values[field.id]?.preferred || ''}
-                        onChange={(event) =>
-                          onChange({
-                            [field.id]: {
-                              ...(values[field.id] || {}),
-                              preferred: event.target.value
-                            }
-                          })
-                        }
-                      >
-                        <option value="">Choose</option>
-                        {field.options.map(([id, label]) => (
-                          <option value={id} key={id}>
-                            {label}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <label>
-                      <small>Maximum</small>
-                      <select
-                        value={values[field.id]?.maximum || ''}
-                        onChange={(event) =>
-                          onChange({
-                            [field.id]: {
-                              ...(values[field.id] || {}),
-                              maximum: event.target.value
-                            }
-                          })
-                        }
-                      >
-                        <option value="">Choose</option>
-                        {field.options.map(([id, label]) => (
-                          <option value={id} key={id}>
-                            {label}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  </div>
-                ) : (
-                  <div className="activity-detail-chips">
-                    {field.options.map(([id, label]) => (
-                      <button
-                        type="button"
-                        key={id}
-                        className={`chip ${(values[field.id] || []).includes(id) ? 'selected' : ''}`}
-                        onClick={() =>
-                          onChange({ [field.id]: toggle(values[field.id], id) })
-                        }
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <div className="activity-detail-chips">
+                  {field.options.map(([id, label]) => (
+                    <button
+                      type="button"
+                      key={id}
+                      className={`chip ${(values[field.id] || []).includes(id) ? 'selected' : ''}`}
+                      onClick={() =>
+                        onChange({ [field.id]: toggle(values[field.id], id) })
+                      }
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
             )
           )}

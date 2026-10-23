@@ -1,7 +1,7 @@
 import BoundaryReview from './components/activities/BoundaryReview.jsx'
 import { flushSync } from 'react-dom'
 import { fantasyEvidence } from './lib/eligibility.js'
-import { recordSessionAction } from './lib/explorationSessions.js'
+import { reviewBoundaries } from './lib/boundaryReview.js'
 import { parsePrivateBackup } from './lib/profileExports.js'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import fantasyProfile from './data/fantasyProfile.json'
@@ -40,7 +40,7 @@ import {
   withActivityState,
   withFantasyState
 } from './lib/appState.js'
-import { createAppStorage, STORAGE_KEY } from './lib/appStorage.js'
+import { eraseAppState, loadAppState, saveAppState } from './lib/appStorage.js'
 import { buildActivityCategorySuggestions } from './lib/activityRecommendations.js'
 import { buildFantasyRealityObservations } from './lib/profileIntegration.js'
 import {
@@ -52,10 +52,8 @@ import {
 import { updatePlayPreferences } from './lib/playPreferences.js'
 import {
   clearActivityAnswer,
-  editActivityDraft,
-  discardActivityDraft,
-  saveActivityDraft,
-  undoActivitySave,
+  saveActivityEdit,
+  undoActivityEdit,
   setActivityDetails,
   setActivityExperience,
   setActivityNote,
@@ -82,11 +80,9 @@ function downloadJson(payload, filename) {
 }
 
 export default function App() {
-  const [storage] = useState(() => createAppStorage())
   const [appState, setAppState] = useState(() =>
-    normalizeAppState(fantasyProfile, activityCatalog, storage.load())
+    normalizeAppState(fantasyProfile, activityCatalog, loadAppState())
   )
-  const [storageStatus, setStorageStatus] = useState(() => storage.check())
   const {
     fantasy,
     basics,
@@ -102,12 +98,13 @@ export default function App() {
     () => ({
       ...storedActivities,
       exploration: appState.exploration,
-      fantasyEvidence: evidence
+      fantasyEvidence: evidence,
+      attraction: basics.values
     }),
-    [storedActivities, appState.exploration, evidence]
+    [storedActivities, appState.exploration, evidence, basics.values]
   )
+  const boundaryCount = useMemo(() => reviewBoundaries(activityCatalog, activities).blockers.length, [activities])
   const skipNextSave = useRef(false)
-  const lastState = useRef(appState)
   const [printingPrivate, setPrintingPrivate] = useState(false)
   const [printIncludePlayPreferences, setPrintIncludePlayPreferences] =
     useState(false)
@@ -117,35 +114,12 @@ export default function App() {
   }, [settings.theme])
 
   useEffect(() => {
-    if (lastState.current === appState) return
-    lastState.current = appState
     if (skipNextSave.current) {
       skipNextSave.current = false
       return
     }
-    storage.save(appState).then(() => reportStorageStatus(storage.check()))
+    saveAppState(appState)
   }, [appState])
-
-  function reportStorageStatus(status) {
-    if (status === 'erased') {
-      skipNextSave.current = true
-      setAppState(createAppState(fantasyProfile, activityCatalog))
-    }
-    setStorageStatus(status)
-  }
-
-  useEffect(() => {
-    const check = () => reportStorageStatus(storage.check())
-    const changed = (event) => {
-      if (event.key === STORAGE_KEY || event.key === null) check()
-    }
-    window.addEventListener('storage', changed)
-    window.addEventListener('focus', check)
-    return () => {
-      window.removeEventListener('storage', changed)
-      window.removeEventListener('focus', check)
-    }
-  }, [storage])
 
   const activeAnswers = useMemo(() => activeFantasyAnswers(fantasy), [fantasy])
   const fantasyResults = useMemo(
@@ -173,9 +147,11 @@ export default function App() {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
     )
   const navigate = (route, updates = {}) => {
+    if (route === 'activity_intro' && settings.adultConfirmed) { handleStartActivities(); return }
     setAppState((prev) => {
       const next = { ...prev, ...updates }
-      return { ...next, route: resolveAppRoute(route, next.settings) }
+      return { ...next, route: resolveAppRoute(route, next.settings, next.basics),
+        basics: route === 'activity_explorer' && (!next.basics.aboutYouComplete || !next.basics.complete) ? { ...next.basics, nextRoute: 'activity_explorer' } : next.basics }
     })
     scrollTop()
   }
@@ -240,22 +216,33 @@ export default function App() {
           resetView: mode === 'start' && !hasProgress
         }
       )
+      if (!hasProgress && nextActivities.navigation.categoryId === 'all') nextActivities.navigation.categoryId = categoryOrder[0]
       return {
         ...prev,
+        exploration: { ...prev.exploration, session: null },
         activities: nextActivities,
-        route: resolveAppRoute('activity_explorer', prev.settings)
+        route: resolveAppRoute(
+          !prev.basics.aboutYouComplete
+            ? 'about_you'
+            : !prev.basics.complete
+              ? 'basics'
+              : 'activity_explorer',
+          prev.settings
+        ),
+        basics: { ...prev.basics, nextRoute: 'activity_explorer' }
       }
     })
     scrollTop()
   }
 
-  const handleAboutYouContinue = () => {
+  const handleAboutYouContinue = (facts) => {
     setAppState((prev) => {
       const nextRoute = prev.basics?.complete
         ? prev.basics?.nextRoute || 'home'
         : 'basics'
       return {
         ...prev,
+        exploration: facts ? { ...prev.exploration, facts } : prev.exploration,
         route: resolveAppRoute(nextRoute, prev.settings),
         basics: {
           ...prev.basics,
@@ -343,24 +330,22 @@ export default function App() {
     scrollTop()
   }
 
-  const eraseAllData = async () => {
+  const eraseAllData = () => {
     if (
       !window.confirm(
         'Erase ALL answers, notes, settings, and profiles saved in this browser? This cannot be undone. Download any private or debug export you want to keep first.'
       )
     )
       return
-    const result = await storage.erase()
-    if (result !== 'ready') {
-      reportStorageStatus(result)
-      if (result === 'unavailable')
-        window.alert(
-          'Browser storage could not be cleared. No data was erased. Check your browser settings and try again.'
-        )
+    try {
+      eraseAppState()
+    } catch {
+      window.alert(
+        'Browser storage could not be cleared. No data was erased. Check your browser settings and try again.'
+      )
       return
     }
     skipNextSave.current = true
-    setStorageStatus('ready')
     setAppState(createAppState(fantasyProfile, activityCatalog))
     scrollTop()
   }
@@ -394,35 +379,8 @@ export default function App() {
     downloadJson(payload, jsonDownloadName('debug'))
   }
 
-  if (storageStatus === 'conflict' || storageStatus === 'erased') {
-    return (
-      <main className="fantasy-shell">
-        <section className="fantasy-intro-card" role="alert">
-          <h1>{storageStatus === 'erased' ? 'Profile erased in another tab' : 'Newer profile found in another tab'}</h1>
-          <p>This tab has stopped saving. Reload to continue with the current profile.</p>
-          {storageStatus === 'conflict' && (
-            <>
-              <p>Any work still in this tab can be downloaded as a private backup before reloading.</p>
-              <button type="button" onClick={exportPrivate}>Download this tab’s private backup</button>
-            </>
-          )}
-          <button type="button" className="primary-button" onClick={() => window.location.reload()}>
-            Reload current profile
-          </button>
-        </section>
-      </main>
-    )
-  }
-
   return (
     <div className="app-root fantasy-app-root">
-      {storageStatus === 'unavailable' && (
-        <section className="boundary-review no-print" role="alert">
-          <strong>Changes are only kept in this tab. Browser saving is unavailable.</strong>
-          <p>Download a private backup before closing or reloading.</p>
-          <button type="button" onClick={exportPrivate}>Download private backup</button>
-        </section>
-      )}
       <div className="app-workspace">
         <ProductNav route={appState.route} onNavigate={navigate} />
         <button
@@ -439,7 +397,7 @@ export default function App() {
         </button>
 
         {settings.adultConfirmed &&
-          ['activity_explorer', 'activity_results', 'profile'].includes(
+          ['activity_results', 'profile'].includes(
             appState.route
           ) && (
             <BoundaryReview
@@ -469,13 +427,8 @@ export default function App() {
         {appState.route === 'about_you' && (
           <AboutYou
             facts={appState.exploration.facts}
-            onFacts={(facts) =>
-              setAppState((prev) => ({
-                ...prev,
-                exploration: { ...prev.exploration, facts }
-              }))
-            }
-            onContinue={handleAboutYouContinue}
+            onSave={handleAboutYouContinue}
+            onContinue={() => handleAboutYouContinue()}
             onBack={() =>
               navigate(
                 basics?.nextRoute === 'activity_explorer'
@@ -592,7 +545,7 @@ export default function App() {
             onStance={(activityId, stance) =>
               updateActivity(
                 (current) =>
-                  editActivityDraft(current, activityId, (draft) =>
+                  saveActivityEdit(current, activityId, (draft) =>
                     setActivityStance(draft, activityId, stance)
                   ),
                 'activity_explorer'
@@ -601,7 +554,7 @@ export default function App() {
             onExperience={(activityId, experience) =>
               updateActivity(
                 (current) =>
-                  editActivityDraft(current, activityId, (draft) =>
+                  saveActivityEdit(current, activityId, (draft) =>
                     setActivityExperience(draft, activityId, experience)
                   ),
                 'activity_explorer'
@@ -610,7 +563,7 @@ export default function App() {
             onDetails={(activityId, details) =>
               updateActivity(
                 (current) =>
-                  editActivityDraft(current, activityId, (draft) =>
+                  saveActivityEdit(current, activityId, (draft) =>
                     setActivityDetails(draft, activityId, details)
                   ),
                 'activity_explorer'
@@ -619,32 +572,14 @@ export default function App() {
             onNote={(activityId, note) =>
               updateActivity(
                 (current) =>
-                  editActivityDraft(current, activityId, (draft) =>
+                  saveActivityEdit(current, activityId, (draft) =>
                     setActivityNote(draft, activityId, note)
                   ),
                 'activity_explorer'
               )
             }
-            onSave={(activityId) =>
-              updateActivity((current) => {
-                const next = saveActivityDraft(current, activityId)
-                return {
-                  ...next,
-                  exploration: recordSessionAction(
-                    next.exploration,
-                    activityId,
-                    'save'
-                  )
-                }
-              }, 'activity_explorer')
-            }
-            onDiscard={(activityId) =>
-              updateActivity(
-                (current) => discardActivityDraft(current, activityId),
-                'activity_explorer'
-              )
-            }
-            onUndo={() => updateActivity(undoActivitySave, 'activity_explorer')}
+            onUndo={() => updateActivity(undoActivityEdit, 'activity_explorer')}
+            boundaryCount={boundaryCount}
             onClear={(activityId) =>
               updateActivity(
                 (current) => clearActivityAnswer(current, activityId),
@@ -658,7 +593,6 @@ export default function App() {
               )
             }
             onResults={() => navigate('activity_results')}
-            onPlayPreferences={() => navigate('activity_play_preferences')}
           />
         )}
 
@@ -713,6 +647,9 @@ export default function App() {
             activities={activities}
             playPreferences={playPreferences}
             observations={observations}
+            onEditBody={() => navigate('about_you', { basics: { ...basics, nextRoute: 'profile' } })}
+            onEditAttraction={() => navigate('basics', { basics: { ...basics, nextRoute: 'profile' } })}
+            onPlayPreferences={() => navigate('activity_play_preferences')}
             onFantasy={() =>
               navigate(
                 fantasy.status === 'complete'

@@ -334,7 +334,6 @@ export function parsePrivateBackup(value, activityCatalog, fantasyProfile) {
     typeof state.settings.adultConfirmed !== 'boolean' ||
     !['dark', 'light'].includes(state.settings.theme) ||
     !record(state.exploration.facts?.self?.anatomy) ||
-    !record(state.exploration.facts?.partnerContexts) ||
     !record(state.exploration.roles?.global) ||
     !record(state.exploration.roles?.byCategory) ||
     !Array.isArray(state.exploration.boundaries) ||

@@ -204,13 +204,24 @@ export function fantasyRoleBreakdown(profile, answers, dimensionId) {
   )
   if (!dimension) return null
   const pair = directionPairForDimension(dimension)
-  if (!pair) return null
-
   const metric = scoreFantasyProfile(profile, answers)[dimensionId]
-  const left = metric?.perspectives?.[pair.left]
-  const right = metric?.perspectives?.[pair.right]
-  if (!left?.observations && !right?.observations) return null
-
+  const left = pair ? metric?.perspectives?.[pair.left] : null
+  const right = pair ? metric?.perspectives?.[pair.right] : null
+  if (!left?.observations && !right?.observations) {
+    if (!metric?.observations) return null
+    return {
+      dimensionId,
+      roles: [{
+        key: 'overall',
+        label: 'Overall appeal',
+        observations: metric.observations,
+        score: metric.score,
+        position: scorePosition(metric.score),
+        strength: scoreStrength(metric.score)
+      }],
+      summary: null
+    }
+  }
   const roles = [
     { key: pair.left, label: pair.leftLabel, metric: left },
     { key: pair.right, label: pair.rightLabel, metric: right }

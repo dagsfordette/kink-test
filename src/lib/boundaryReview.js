@@ -19,7 +19,8 @@ export function canonical(v) {
       .join(',')}}`
   return JSON.stringify(v)
 }
-export const newIdentity = () => globalThis.crypto.randomUUID()
+export const newIdentity = () => globalThis.crypto.randomUUID?.() ||
+  [...globalThis.crypto.getRandomValues(new Uint32Array(4))].map((n) => n.toString(16).padStart(8, '0')).join('')
 export const answerMeaning = (a) =>
   canonical({
     stance: a?.stance,

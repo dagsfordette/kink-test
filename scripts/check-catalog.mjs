@@ -31,7 +31,7 @@ function requirement(rule) {
       ['self', 'partner', 'other', 'unspecified'].includes(rule.participant)
     )
     assert.ok(
-      ANATOMY_FEATURES.includes(rule.anatomy) ||
+      [...ANATOMY_FEATURES, 'prostate', 'testicles', 'breasts', 'nipples', 'vulva', 'clitoris', 'anus'].includes(rule.anatomy) ||
         typeof rule.deviceId === 'string'
     )
   }

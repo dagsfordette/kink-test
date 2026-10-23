@@ -33,9 +33,6 @@ export default function ActivityCard({
   catalog,
   activity,
   answer,
-  draft,
-  onSave,
-  onDiscard,
   focused,
   hidden,
   onStance,
@@ -66,7 +63,7 @@ export default function ActivityCard({
           {(answer?.stance || hidden) && (
             <div className="activity-card-meta">
               {answer?.stance && (
-                <span>{draft ? 'unfinished edits' : 'saved answer'}</span>
+                <span>Saved</span>
               )}
               {hidden && <span>hidden for now</span>}
             </div>
@@ -79,7 +76,7 @@ export default function ActivityCard({
           className="text-button activity-hide-button no-print"
           onClick={onToggleHidden}
         >
-          {hidden ? 'Put back in the list' : 'Hide for now'}
+          {hidden ? 'Show again' : 'Skip'}
         </button>
       </header>
 
@@ -102,23 +99,17 @@ export default function ActivityCard({
       </div>
 
       <div className="activity-secondary-controls">
-        <label className="activity-experience-control">
-          <span>
-            Have you tried it? <small>optional</small>
-          </span>
-          <select
-            disabled={!answer?.stance}
-            value={answer?.experience || ''}
-            onChange={(event) => onExperience(event.target.value)}
-          >
-            <option value="">Not answered</option>
+        <fieldset className="activity-experience-control">
+          <legend>Have you tried it?</legend>
+          <div className="activity-detail-chips">
             {catalog.experienceScale.map((row) => (
-              <option key={row.id} value={row.id}>
-                {row.label}
-              </option>
+              <button type="button" key={row.id} disabled={!answer?.stance}
+                aria-pressed={answer?.experience === row.id}
+                className={`chip ${answer?.experience === row.id ? 'selected' : ''}`}
+                onClick={() => onExperience(answer?.experience === row.id ? '' : row.id)}>{row.label}</button>
             ))}
-          </select>
-        </label>
+          </div>
+        </fieldset>
         <div className="activity-card-actions no-print">
           {answer?.stance && answer.stance !== 'hard_limit' && (
             <button
@@ -159,25 +150,6 @@ export default function ActivityCard({
           onNote={onNote}
         />
       )}
-      <div className="activity-save-actions no-print">
-        <button
-          type="button"
-          className="primary-button"
-          disabled={!answer?.stance}
-          onClick={onSave}
-        >
-          Save &amp; next
-        </button>
-        {draft && (
-          <button type="button" className="text-button" onClick={onDiscard}>
-            Discard edits
-          </button>
-        )}
-        <small>
-          Experience, details and notes are optional. Edits are kept until you
-          save.
-        </small>
-      </div>
     </article>
   )
 }

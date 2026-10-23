@@ -18,9 +18,7 @@ export default function ActivityIntro({
         <span className="kicker">Activity Explorer</span>
         <h1>Explore what you’d actually be up for.</h1>
         <p className="activity-lede">
-          Browse any category immediately, or choose an optional topic for a
-          short session. Body facts and role preferences are optional, and you
-          can change them whenever you like.
+          Choose a category and answer at your own pace.
         </p>
 
         {!adultConfirmed && (

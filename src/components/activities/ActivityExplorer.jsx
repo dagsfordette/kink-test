@@ -1,631 +1,115 @@
 import { useMemo, useRef, useState } from 'react'
 import ActivityCategoryNav from './ActivityCategoryNav.jsx'
 import ActivityCard from './ActivityCard.jsx'
-import ExplorationSettings from './ExplorationSettings.jsx'
 import { filterActivities } from '../../lib/activityProfile.js'
-import {
-  createEligibilityContext,
-  evaluateActivity,
-  roleSuggestions
-} from '../../lib/eligibility.js'
-import {
-  startSession,
-  sessionProgress,
-  choosePrompt,
-  recordSessionAction
-} from '../../lib/explorationSessions.js'
-import { activityPage, explorationViewKey, nextActivityId } from '../../lib/explorationView.js'
+import { createEligibilityContext, evaluateActivity } from '../../lib/eligibility.js'
+import { filterQuestions, questionLimit } from '../../lib/explorationFilters.js'
 
-export default function ActivityExplorer({
-  catalog,
-  activityState,
-  onExploration,
-  onNavigation,
-  onSave,
-  onDiscard,
-  onUndo,
-  onStance,
-  onExperience,
-  onDetails,
-  onNote,
-  onClear,
-  onToggleHidden,
-  onResults,
-  onPlayPreferences
-}) {
-  const nav = activityState.navigation,
-    e = activityState.exploration
-  const listRef = useRef(null),
-    headingRef = useRef(null),
-    pendingFocus = useRef(null)
-  const [paging, setPaging] = useState({ key: '', page: 0 })
-  const context = useMemo(
-    () =>
-      createEligibilityContext(
-        catalog,
-        activityState,
-        activityState.fantasyEvidence
-      ),
-    [catalog, activityState.answers, nav, e, activityState.fantasyEvidence]
-  )
-  const suggestions = useMemo(
-    () => roleSuggestions(catalog, activityState.fantasyEvidence),
-    [catalog, activityState.fantasyEvidence]
-  )
-  const progress = useMemo(
-    () => sessionProgress(catalog, activityState, context),
-    [catalog, context]
-  )
-  const reviewing = Boolean(nav.reviewActivityId)
-  const available = new Set(progress?.availableIds)
-  const rows = filterActivities(catalog, activityState, {}, context).filter(
-    (a) =>
-      reviewing ||
-      activityState.drafts?.[a.id] ||
-      !e.session ||
-      (e.session.status === 'active' && available.has(a.id))
-  )
-  const viewKey = explorationViewKey(nav, e)
-  const page = activityPage(
-    rows,
-    activityState.drafts,
-    paging.key === viewKey ? paging.page : 0,
-    { anchorId: paging.key === viewKey ? paging.anchorId : null }
-  )
-  const category = catalog.categories.find((c) => c.id === nav.categoryId)
-  const counts = useMemo(() => {
-    const result = Object.fromEntries(
-      catalog.categories.map((c) => [
-        c.id,
-        { answered: 0, available: 0, excluded: 0 }
-      ])
+function PreferenceQuestions({ questions, exploration, evidence, onChange }) {
+  return questions.map((question) => {
+    const manual = exploration.topicPreferences || {}
+    const selected = Object.hasOwn(manual, question.key) ? manual[question.key] : questionLimit(question, exploration, evidence)
+    return (
+      <fieldset className="topic-preference" key={question.key}>
+        <legend>{question.text}</legend>
+        <div className="activity-detail-chips">
+          {[[3, 'Interested'], [1, 'Mild only'], [0, 'Not interested'], [-1, 'Not sure']].map(([value, label]) => (
+            <button type="button" className={`chip ${selected === value ? 'selected' : ''}`} aria-pressed={selected === value} key={value}
+              onClick={() => onChange({ ...exploration, topicPreferences: { ...exploration.topicPreferences, [question.key]: value } })}>{label}</button>
+          ))}
+          {Object.hasOwn(manual, question.key) && <button type="button" className="text-button" onClick={() => {
+            const next = { ...exploration.topicPreferences }
+            delete next[question.key]
+            onChange({ ...exploration, topicPreferences: next })
+          }}>Use fantasy result / reset</button>}
+        </div>
+      </fieldset>
     )
+  })
+}
+
+export default function ActivityExplorer({ catalog, activityState, onExploration, onNavigation, onUndo,
+  onStance, onExperience, onDetails, onNote, onClear, onToggleHidden, onResults, boundaryCount = 0 }) {
+  const nav = activityState.navigation, e = activityState.exploration
+  const headingRef = useRef(null)
+  const [pageNumber, setPageNumber] = useState(0)
+  const context = useMemo(() => createEligibilityContext(catalog, activityState, activityState.fantasyEvidence), [catalog, activityState])
+  const rows = useMemo(() => filterActivities(catalog, activityState, {}, context), [catalog, activityState, context])
+  const category = catalog.categories.find((c) => c.id === nav.categoryId)
+  const reviewing = Boolean(nav.reviewActivityId)
+  const counts = useMemo(() => {
+    const result = Object.fromEntries(catalog.categories.map((c) => [c.id, { answered: 0, available: 0, excluded: 0 }]))
     for (const a of catalog.activities) {
-      const row = result[a.categoryId]
-      if (activityState.answers[a.id]) row.answered++
-      else if (
-        evaluateActivity(a, context, { ignoreSession: true }).queueVisible
-      )
-        row.available++
-      else row.excluded++
+      const count = result[a.categoryId]
+      if (activityState.answers[a.id]) count.answered++
+      else if (evaluateActivity(a, context, { ignoreSession: true }).queueVisible) count.available++
+      else count.excluded++
     }
     return result
-  }, [catalog, context])
-  const scopedCounts =
-    nav.categoryId === 'all'
-      ? Object.values(counts).reduce(
-          (r, c) => ({
-            answered: r.answered + c.answered,
-            available: r.available + c.available,
-            excluded: r.excluded + c.excluded
-          }),
-          { answered: 0, available: 0, excluded: 0 }
-        )
-      : counts[nav.categoryId]
-  const prompts = catalog.routingPrompts.filter(
-    (p) => nav.categoryId === 'all' || p.categoryIds.includes(nav.categoryId)
-  )
-  const focusAfter = (selector, fallbackHeading = false) => {
-    pendingFocus.current = selector
-    window.requestAnimationFrame(() => {
-      const node =
-        listRef.current?.querySelector(pendingFocus.current) ||
-        (fallbackHeading ? headingRef.current : null)
-      node?.focus()
-      node?.scrollIntoView({ block: 'nearest' })
-      pendingFocus.current = null
-    })
-  }
+  }, [catalog, activityState, context])
+  // Stable page membership: saving and cascading filters never pull a different card into an edited page.
+  const scope = JSON.stringify([nav.categoryId, nav.showHidden, nav.reviewActivityId])
+  const membership = useRef({ scope: null, ids: [] })
+  if (membership.current.scope !== scope) membership.current = { scope, ids: rows.map((a) => a.id) }
+  const known = new Set(membership.current.ids)
+  for (const row of rows) if (!known.has(row.id)) membership.current.ids.push(row.id)
+  const byId = new Map(rows.map((a) => [a.id, a]))
+  const pageCount = Math.max(1, Math.ceil(membership.current.ids.length / 30))
+  const page = Math.min(pageNumber, pageCount - 1)
+  const visibleRows = membership.current.ids.slice(page * 30, (page + 1) * 30).map((id) => byId.get(id)).filter(Boolean)
+  const questions = filterQuestions(nav.categoryId)
+  const unansweredQuestions = questions.filter((q) => !Object.hasOwn(e.topicPreferences || {}, q.key) && questionLimit(q, e, activityState.fantasyEvidence) === null)
   const selectCategory = (id) => {
-    onExploration({ ...e, session: null })
-    onNavigation({
-      categoryId: id,
-      reviewActivityId: null,
-      search: '',
-      bypassPromptDeferral: true
-    })
-    focusAfter('h3', true)
+    setPageNumber(0)
+    onNavigation({ categoryId: id, reviewActivityId: null, search: '', bypassPromptDeferral: true })
   }
-  const browse = () => {
-    onExploration({ ...e, session: null })
-    onNavigation({
-      reviewActivityId: null,
-      search: '',
-      bypassPromptDeferral: true
-    })
-    focusAfter('h3', true)
-  }
-  const start = (topicId) => {
-    onExploration(
-      startSession(catalog, activityState, {
-        size: e.sessionSize,
-        topicId,
-        categoryId: nav.categoryId
-      })
-    )
-    onNavigation({
-      reviewActivityId: null,
-      search: '',
-      bypassPromptDeferral: true
-    })
-    focusAfter('h3', true)
-  }
-  const promptChoice = (prompt, response) => {
-    let next = choosePrompt(e, prompt, response)
-    if (response === 'explore') {
-      next = startSession(
-        catalog,
-        { ...activityState, exploration: next },
-        { size: e.sessionSize, topicId: prompt.id }
-      )
-      next = choosePrompt(next, prompt, response)
-      onNavigation({
-        categoryId: 'all',
-        reviewActivityId: null,
-        search: '',
-        bypassPromptDeferral: true
-      })
-      focusAfter('h3', true)
-    }
-    if (response === 'skip_for_now')
-      onNavigation({ bypassPromptDeferral: false })
-    onExploration(next)
-  }
-  const save = (id) => {
-    const nextId = nextActivityId(rows, id)
-    setPaging({ key: viewKey, page: page.page, anchorId: nextId })
-    onSave(id)
-    focusAfter(nextId ? `#activity-${nextId} h3` : 'h3', true)
-  }
-  const undo = () => {
-    const id = activityState.lastSave?.activityId
-    onUndo()
-    focusAfter(`#activity-${id} h3`, true)
-  }
-  const movePage = (requested) => {
-    setPaging({ key: viewKey, page: requested })
-    focusAfter('h3', true)
-  }
-  const pagination = (
-    <nav className="exploration-pagination" aria-label="Activity pages">
-      <button
-        type="button"
-        disabled={page.page === 0}
-        onClick={() => movePage(page.page - 1)}
-      >
-        Previous page
-      </button>
-      <span>
-        Page {page.page + 1} of {page.pageCount}
-      </span>
-      <button
-        type="button"
-        disabled={page.page + 1 === page.pageCount}
-        onClick={() => movePage(page.page + 1)}
-      >
-        Next page
-      </button>
-    </nav>
-  )
+  const pagination = <nav className="exploration-pagination" aria-label="Activity pages">
+    <button type="button" disabled={page === 0} onClick={() => { setPageNumber(page - 1); headingRef.current?.scrollIntoView() }}>Previous page</button>
+    <span>Page {page + 1} of {pageCount}</span>
+    <button type="button" disabled={page + 1 === pageCount} onClick={() => { setPageNumber(page + 1); headingRef.current?.scrollIntoView() }}>Next page</button>
+  </nav>
   return (
     <div className="activity-explorer-root no-print">
-      <header className="activity-app-header no-print">
-        <div className="activity-context-label">
-          <strong>Activity Explorer</strong>
-          <span>What would you actually be up for?</span>
-        </div>
-        <div className="activity-header-actions">
-          <button type="button" onClick={onPlayPreferences}>
-            Play Preferences
-          </button>
-          <button
-            type="button"
-            className="primary-button compact"
-            onClick={onResults}
-          >
-            Review answers
-          </button>
-        </div>
-      </header>
       <div className="activity-workspace">
-        <ActivityCategoryNav
-          catalog={catalog}
-          counts={counts}
-          activityState={activityState}
-          categoryId={nav.categoryId}
-          onSelect={selectCategory}
-          onPlayPreferences={onPlayPreferences}
-          onResults={onResults}
-        />
+        <ActivityCategoryNav catalog={catalog} counts={counts} activityState={activityState} categoryId={nav.categoryId} onSelect={selectCategory} />
         <main className="activity-main">
-          <section className="activity-category-intro">
-            <div>
-              <span className="kicker">
-                Browse freely or try a short session
-              </span>
-              <h1 ref={headingRef} tabIndex={-1}>
-                {reviewing
-                  ? 'Review this answer'
-                  : category?.label || 'Explore at your own pace'}
-              </h1>
-              <p>
-                {category?.description ||
-                  'Choose a category below, start a short session, or open the optional topics.'}
-              </p>
-            </div>
-          </section>
-          <ExplorationSettings
-            catalog={catalog}
-            exploration={e}
-            suggestions={suggestions}
-            onChange={onExploration}
-          />
-          <section
-            className="session-panel no-print"
-            aria-label="Short session"
-          >
-            <h2>
-              {e.session
-                ? e.session.topicId
-                  ? catalog.routingPrompts.find(
-                      (p) => p.id === e.session.topicId
-                    )?.text
-                  : `Short session · ${catalog.categories.find((c) => c.id === e.session.categoryId)?.label || 'All activities'}`
-                : 'Try a short session'}
-            </h2>
-            <label>
-              Session length{' '}
-              <input
-                aria-label="Session length"
-                type="number"
-                min="1"
-                max="50"
-                value={e.sessionSize}
-                onChange={(event) =>
-                  onExploration({
-                    ...e,
-                    sessionSize: Math.max(
-                      1,
-                      Math.min(50, Math.round(Number(event.target.value) || 10))
-                    )
-                  })
-                }
-              />
-            </label>
-            <button
-              type="button"
-              className="primary-button"
-              onClick={() => start(null)}
-            >
-              {e.session ? 'Start fresh session' : 'Start short session'}
-            </button>
-            {e.session && (
-              <>
-                <p role="status">
-                  {progress.answered} saved · {progress.skipped} skipped ·{' '}
-                  {progress.remaining} left toward your target of{' '}
-                  {e.session.target}.
-                </p>
-                <p>
-                  {progress.poolSize} activities in this topic’s starting pool ·{' '}
-                  {progress.filtered} currently excluded
-                  {progress.savedOutside
-                    ? ` · ${progress.savedOutside} saved outside this session`
-                    : ''}
-                  . Skipping leaves the activity unanswered.
-                </p>
-                {progress.done && (
-                  <p>
-                    {e.session.status === 'ended'
-                      ? 'Paused here. Resume whenever you like.'
-                      : progress.remainingSlots === 0
-                        ? 'Your short session is finished.'
-                        : 'No more available activities in this topic right now.'}{' '}
-                    This does not mean you answered the whole category.
-                  </p>
-                )}
-                {e.session.status === 'active' && !progress.done && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onExploration({
-                        ...e,
-                        session: { ...e.session, status: 'ended' }
-                      })
-                      focusAfter('h3', true)
-                    }}
-                  >
-                    Finish early
-                  </button>
-                )}
-                {e.session.status === 'ended' && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onExploration({
-                        ...e,
-                        session: { ...e.session, status: 'active' }
-                      })
-                      focusAfter('h3', true)
-                    }}
-                  >
-                    Resume session
-                  </button>
-                )}
-                <button type="button" onClick={browse}>
-                  Browse / change topic
-                </button>
-              </>
-            )}
-          </section>
-          <details className="topic-prompts no-print">
-            <summary>Optional topics ({prompts.length})</summary>
-            <p>
-              Explore starts a short session within that topic. Not for now sets
-              it aside for this session or browsing visit; choosing a category
-              or starting a fresh session brings it back. Not sure keeps it
-              available. These choices never save an activity answer.
-            </p>
-            {prompts.map((p) => (
-              <article key={p.id}>
-                <h3>{p.text}</h3>
-                <p>{p.description}</p>
-                <small>
-                  {e.promptResponses[p.id]?.response?.replaceAll('_', ' ') ||
-                    'No choice yet'}
-                </small>
-                <div>
-                  {[
-                    ['explore', 'Explore'],
-                    ['skip_for_now', 'Not for now'],
-                    ['not_sure', 'Not sure']
-                  ].map(([id, label]) => (
-                    <button
-                      type="button"
-                      key={id}
-                      aria-label={`${label}: ${p.text}`}
-                      onClick={() => promptChoice(p, id)}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </details>
-          <div className="exploration-toolbar no-print">
-            <label>
-              Find an activity{' '}
-              <input
-                type="search"
-                value={nav.search}
-                onChange={(event) =>
-                  onNavigation({ search: event.target.value })
-                }
-              />
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={nav.showHidden}
-                onChange={(event) =>
-                  onNavigation({ showHidden: event.target.checked })
-                }
-              />{' '}
-              Show excluded activities in this scope
-            </label>
-            <small>
-              {scopedCounts?.answered || 0} saved in this category scope ·{' '}
-              {scopedCounts?.excluded || 0} excluded. Showing exclusions keeps
-              your facts and preferences intact.
-            </small>
+          <header className="activity-category-intro activity-heading-row">
+            <h1 ref={headingRef} tabIndex={-1}>{reviewing ? 'Review this answer' : category?.label || 'Activities'}</h1>
+            <button type="button" className="secondary-button" onClick={onResults}>Review answers{boundaryCount ? ` · ${boundaryCount} to check` : ''}</button>
+          </header>
+          {!reviewing && unansweredQuestions.length > 0 && <section className="activity-clarification">
+            <p>A quick preference to help narrow this down:</p>
+            <PreferenceQuestions questions={unansweredQuestions} exploration={e} evidence={activityState.fantasyEvidence} onChange={onExploration} />
+          </section>}
+          <div className="activity-filter-toolbar">
+            <span role="status">{rows.length} activities · {Object.keys(activityState.answers).length} answered</span>
+            <details className="activity-filter-options">
+              <summary>Adjust filters</summary>
+              <PreferenceQuestions questions={questions} exploration={e} evidence={activityState.fantasyEvidence} onChange={onExploration} />
+              <label><input type="checkbox" checked={nav.showHidden} onChange={(event) => onNavigation({ showHidden: event.target.checked })} /> Show excluded activities</label>
+            </details>
           </div>
-          {reviewing && (
-            <div className="activity-review-banner">
-              <span>Saved answers stay reviewable regardless of filters.</span>
-              <button
-                type="button"
-                onClick={() =>
-                  onNavigation({
-                    reviewActivityId: null,
-                    ...(e.session
-                      ? {
-                          categoryId: e.session.topicId
-                            ? 'all'
-                            : e.session.categoryId,
-                          search: ''
-                        }
-                      : {})
-                  })
-                }
-              >
-                Back to exploration
-              </button>
-            </div>
-          )}
-          {activityState.lastSave && (
-            <div className="activity-review-banner" role="status">
-              <span>Answer saved.</span>
-              <button type="button" onClick={undo}>
-                Undo last save
-              </button>
-            </div>
-          )}
-          <p role="status" className="exploration-results-count">
-            Showing {page.from}–{page.to} of {page.total}{' '}
-            {e.session ? 'session' : 'matching'} activities
-            {page.pinned
-              ? `, plus ${page.pinned} unfinished ${page.pinned === 1 ? 'edit' : 'edits'} from outside this page kept open`
-              : ''}
-            .
-          </p>
-          {page.pageCount > 1 && pagination}
-          <section
-            ref={listRef}
-            className="activity-card-list"
-            aria-label="Activities"
-          >
-            {rows.length === 0 && (
-              <div className="activity-empty-state">
-                <h2>
-                  {progress?.done
-                    ? 'A good place to stop.'
-                    : 'No unanswered activities match this view.'}
-                </h2>
-                <p>
-                  {nav.search
-                    ? 'Try a different search or clear it. '
-                    : 'Review your answers, show exclusions, or choose a new topic. '}
-                  Saved answers, skipped activities and exclusions are separate.
-                </p>
-                {nav.search && (
-                  <button
-                    type="button"
-                    onClick={() => onNavigation({ search: '' })}
-                  >
-                    Clear search
-                  </button>
-                )}
-                <button type="button" onClick={onResults}>
-                  Review answers
-                </button>
-                {e.session && (
-                  <button type="button" onClick={browse}>
-                    Browse / change topic
-                  </button>
-                )}
+          {reviewing && <button type="button" className="text-button" onClick={() => onNavigation({ reviewActivityId: null })}>Back to activities</button>}
+          {activityState.lastSave && <div className="activity-autosave" role="status">Saved automatically. <button type="button" className="text-button" onClick={onUndo}>Undo last change</button></div>}
+          {pageCount > 1 && pagination}
+          <section className="activity-card-list" aria-label="Activities">
+            {!visibleRows.length && <div className="activity-empty-state"><p>No activities on this page fit your current answers.</p><p>Choose another page or category, or adjust filters to see exclusions.</p></div>}
+            {visibleRows.map((activity) => {
+              const derived = evaluateActivity(activity, context, { reveal: nav.showHidden || reviewing })
+              const excluded = derived.reasons.filter((r) => r.suppresses && r.code !== 'already_answered')
+              return <div key={activity.id} className="exploration-item">
+                {(nav.showHidden || reviewing) && excluded.map((r, i) => <p className="eligibility-reason" key={i}>{r.message}</p>)}
+                <ActivityCard catalog={catalog} activity={activity} answer={activityState.answers[activity.id]} focused={reviewing}
+                  hidden={nav.hiddenActivityIds.includes(activity.id)}
+                  onStance={(v) => onStance(activity.id, v)} onExperience={(v) => onExperience(activity.id, v)}
+                  onDetails={(v) => onDetails(activity.id, v)} onNote={(v) => onNote(activity.id, v)}
+                  onClear={() => onClear(activity.id)} onToggleHidden={() => onToggleHidden(activity.id)} />
+                {nav.showHidden && excluded.some((r) => ['theme_preference', 'power_preference'].includes(r.code)) &&
+                  <button type="button" className="text-button" onClick={() => onExploration({ ...e, inferredFilterOverrides: { ...e.inferredFilterOverrides, [activity.id]: 'keep_in_exploration' } })}>Include anyway</button>}
               </div>
-            )}
-            {page.rows.map((activity) => {
-              const derived = evaluateActivity(activity, context, {
-                  reveal: nav.showHidden || reviewing
-                }),
-                draft = Boolean(activityState.drafts?.[activity.id])
-              return (
-                <div key={activity.id} className="exploration-item">
-                  {draft && (
-                    <p className="draft-pin-label">
-                      Unfinished edits · kept open until you save or discard
-                    </p>
-                  )}
-                  {derived.reasons
-                    .filter(
-                      (r) =>
-                        ![
-                          'already_answered',
-                          'outside_session',
-                          'applicability_unknown'
-                        ].includes(r.code)
-                    )
-                    .map((r, i) => (
-                      <p className="eligibility-reason" key={`${r.code}-${i}`}>
-                        {r.message}
-                        {r.bypassed ? ' Shown by your request.' : ''}
-                      </p>
-                    ))}
-                  {derived.reviewItems.some(
-                    (r) => r.severity === 'blocking'
-                  ) && (
-                    <p role="alert">
-                      This saved preference needs boundary scope review before
-                      partner sharing.
-                    </p>
-                  )}
-                  <ActivityCard
-                    catalog={catalog}
-                    activity={activity}
-                    answer={
-                      activityState.drafts?.[activity.id] ||
-                      activityState.answers[activity.id]
-                    }
-                    draft={draft}
-                    focused={reviewing}
-                    hidden={nav.hiddenActivityIds.includes(activity.id)}
-                    onSave={() => save(activity.id)}
-                    onDiscard={() => onDiscard(activity.id)}
-                    onStance={(v) => onStance(activity.id, v)}
-                    onExperience={(v) => onExperience(activity.id, v)}
-                    onDetails={(v) => onDetails(activity.id, v)}
-                    onNote={(v) => onNote(activity.id, v)}
-                    onClear={() => onClear(activity.id)}
-                    onToggleHidden={() => onToggleHidden(activity.id)}
-                  />
-                  <details className="item-relevance-actions no-print">
-                    <summary>Availability options</summary>
-                    <p>
-                      Adjust this activity’s place in exploration. Your body
-                      facts and saved boundaries stay the same.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        onExploration({
-                          ...e,
-                          inferredFilterOverrides: {
-                            ...e.inferredFilterOverrides,
-                            [activity.id]:
-                              e.inferredFilterOverrides[activity.id] ||
-                              e.relevanceOverrides[activity.id]
-                                ? undefined
-                                : 'keep_in_exploration'
-                          },
-                          relevanceOverrides: {
-                            ...e.relevanceOverrides,
-                            [activity.id]:
-                              e.inferredFilterOverrides[activity.id] ||
-                              e.relevanceOverrides[activity.id]
-                                ? undefined
-                                : 'keep_in_exploration'
-                          }
-                        })
-                      }
-                    >
-                      {e.inferredFilterOverrides[activity.id] ||
-                      e.relevanceOverrides[activity.id]
-                        ? 'Reset exploration override'
-                        : 'Keep this activity in exploration'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        onExploration({
-                          ...e,
-                          manualApplicability: {
-                            ...e.manualApplicability,
-                            [activity.id]: e.manualApplicability[activity.id]
-                              ? undefined
-                              : 'not_applicable'
-                          }
-                        })
-                      }
-                    >
-                      {e.manualApplicability[activity.id]
-                        ? 'Reset not applicable'
-                        : 'Not applicable in this context'}
-                    </button>
-                  </details>
-                  {e.session?.status === 'active' &&
-                    available.has(activity.id) && (
-                      <button
-                        type="button"
-                        className="session-skip"
-                        onClick={() => {
-                          onExploration(
-                            recordSessionAction(e, activity.id, 'skip')
-                          )
-                          focusAfter('h3', true)
-                        }}
-                      >
-                        {draft
-                          ? 'Skip for this session (keep edits)'
-                          : 'Skip in this session'}
-                      </button>
-                    )}
-                </div>
-              )
             })}
           </section>
-          {page.pageCount > 1 && pagination}
+          {pageCount > 1 && pagination}
         </main>
       </div>
     </div>

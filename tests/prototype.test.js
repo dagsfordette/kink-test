@@ -1,3 +1,7 @@
+import { fantasyRoleBreakdown, buildFantasyResults } from '../src/lib/fantasyResults.js'
+import { scoreFantasyProfile } from '../src/lib/fantasyProfile.js'
+import { bodyFactsFromSelection } from '../src/lib/explorationState.js'
+import { BASICS_FIELDS } from '../src/lib/basicsProfile.js'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
@@ -38,7 +42,7 @@ import {
   recordSessionAction,
   sessionProgress
 } from '../src/lib/explorationSessions.js'
-import { compareActivityProfiles, comparisonPage } from '../src/lib/activityComparison.js'
+import { compareActivityProfiles } from '../src/lib/activityComparison.js'
 const load = (name) =>
   JSON.parse(readFileSync(new URL(`../src/data/${name}.json`, import.meta.url)))
 const c = load('activityCatalog'),
@@ -196,10 +200,10 @@ test('partner output strips private data; imports strip extra fields and reject 
   assert.deepEqual(normalizeAppState(f, c, { profileVersion: 3 }), fresh())
 })
 
-test('body facts and confirmed roles filter; unknown facts stay available', () => {
+test('body facts filter; unknown facts stay available', () => {
   const state = activityState(fresh())
   const a = c.activities.find(
-    (a) => a.applicability?.participant === 'self' && a.applicability?.anatomy
+    (a) => a.id === 'receive_vaginal_penetration'
   )
   assert.ok(
     evaluateActivity(a, createEligibilityContext(c, state)).queueVisible
@@ -209,15 +213,7 @@ test('body facts and confirmed roles filter; unknown facts stay available', () =
     evaluateActivity(a, createEligibilityContext(c, state)).queueVisible,
     false
   )
-  const giving = c.activities.find((a) => a.id === 'give_massage')
-  state.exploration.roles.global.action = {
-    confirmation: 'confirmed',
-    allowed: ['observing']
-  }
-  assert.equal(
-    evaluateActivity(giving, createEligibilityContext(c, state)).queueVisible,
-    false
-  )
+
 })
 
 test('finite sessions count Save and Undo without losing later skips or facts', () => {
@@ -294,37 +290,55 @@ test('comparison honors local scope and exact branch exceptions without exemptin
   assert.equal(result.rows.find((r) => r.activityId === 'give_floor_rope').state, 'hard_limit_conflict')
 })
 
-test('all comparison results remain reachable across pages and result filters', () => {
-  const parents = new Set(c.relationships.filter((e) => e.type === 'subtype').map((e) => e.fromId))
-  const pairs = c.relationships.filter((e) => e.type === 'complement' && !parents.has(e.toId)).slice(0, 151)
-  assert.equal(pairs.length, 151)
-  const own = fresh(), partner = fresh()
-  pairs.forEach((e, i) => {
-    own.activities.answers[e.fromId] = { stance: 'want' }
-    partner.activities.answers[e.toId] = { stance: i < 150 ? 'hard_limit' : 'want' }
-  })
-  const result = compareActivityProfiles(c,
-    comparisonProfileFromActivityState(activityState(own), c),
-    parsePartnerShareExport(buildPartnerShareExport(partner, c), c))
-  assert.equal(result.counts.hard_limit_conflict, 150)
-  assert.equal(result.counts.strong_match, 1)
-  for (const filter of ['all', 'hard_limit_conflict', 'strong_match']) {
-    const expected = filter === 'all' ? result.rows : result.rows.filter((r) => r.state === filter)
-    const first = comparisonPage(result.rows, filter)
-    const visited = []
-    for (let i = 0; i < first.pageCount; i++) {
-      const page = comparisonPage(result.rows, filter, i)
-      assert.ok(page.rows.length <= 50)
-      assert.equal(page.from, visited.length + 1)
-      visited.push(...page.rows)
-      assert.equal(page.to, visited.length)
-    }
-    assert.deepEqual(visited, expected)
-    assert.equal(new Set(visited.map((r) => r.key)).size, expected.length)
+
+test('simple body selections filter only self anatomy and clearing restores availability', () => {
+  const state = activityState(fresh())
+  const visible = (id) => evaluateActivity(
+    c.activities.find((a) => a.id === id), createEligibilityContext(c, state)
+  ).queueVisible
+  state.exploration.facts = bodyFactsFromSelection(['penis'])
+  assert.equal(visible('receive_vaginal_penetration'), false)
+  assert.equal(visible('give_vaginal_penetration'), true)
+  assert.equal(visible('anal_penetration_receiving'), true)
+  state.exploration.facts = bodyFactsFromSelection(['penis', 'vagina'])
+  assert.equal(visible('receive_vaginal_penetration'), true)
+  state.exploration.facts = bodyFactsFromSelection(['vagina'])
+  assert.equal(state.exploration.facts.self.anatomy.penis, 'absent')
+  state.exploration.facts = bodyFactsFromSelection([])
+  assert.equal(visible('receive_vaginal_penetration'), true)
+  assert.equal(state.exploration.facts.self.anatomy.penis, 'undisclosed')
+  const restored = normalizeAppState(f, c, parsePrivateBackup(buildPrivateBackup(asApp(state), f, c), c, f))
+  assert.deepEqual(restored.exploration.facts, state.exploration.facts)
+  assert.equal('partnerContexts' in restored.exploration.facts, false)
+  assert.equal(BASICS_FIELDS.some((field) => field.id === 'intensity'), false)
+})
+
+
+test('chasing fantasies have independent answers and every ranked theme has a scored bar', () => {
+  const chase = f.questions.find((q) => q.statement === 'Chasing a partner.')
+  const chased = f.questions.find((q) => q.statement === 'Being chased by a partner.')
+  assert.ok(chase && chased)
+  assert.notEqual(chase.id, chased.id)
+  assert.equal(chase.stage, 'core')
+  assert.equal(chased.stage, 'core')
+  const score = scoreFantasyProfile(f, {
+    [chase.id]: 'strong_turn_on', [chased.id]: 'strong_turn_off'
+  }).primal_struggle_competition
+  assert.equal(score.perspectives.give.score, 2)
+  assert.equal(score.perspectives.receive.score, -2)
+  assert.equal(f.questionnaire.administration.coreCount, f.questions.filter((q) => q.stage === 'core').length)
+  const positive = Object.fromEntries(f.questions.map((q) => [q.id, 'strong_turn_on']))
+  for (const id of ['authority_responsibility', 'novelty_experimentation']) {
+    const breakdown = fantasyRoleBreakdown(f, positive, id)
+    assert.equal(breakdown.roles.length, 1)
+    assert.equal(breakdown.roles[0].key, 'overall')
+    assert.equal(breakdown.roles[0].position, 100)
+    assert.equal(breakdown.summary, null)
+    assert.equal(fantasyRoleBreakdown(f, {}, id), null)
   }
-  const clamped = comparisonPage(result.rows, 'strong_match', 3)
-  assert.equal(clamped.page, 0)
-  assert.equal(clamped.rows[0].state, 'strong_match')
-  const empty = comparisonPage(result.rows, 'mutual_curiosity', 3)
-  assert.deepEqual([empty.rows, empty.from, empty.to, empty.total, empty.page, empty.pageCount], [[], 0, 0, 0, 0, 1])
+  const results = buildFantasyResults(f, positive)
+  for (const theme of [...results.drivers, ...results.patterns]) {
+    assert.ok(theme.direction.roles.some((role) => role.position !== null), theme.id)
+  }
+  assert.equal(results.directions.some((row) => row.dimensionId === 'novelty_experimentation'), false)
 })

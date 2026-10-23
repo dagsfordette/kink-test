@@ -1,9 +1,10 @@
+import { preferenceExclusion, attractionFits } from './explorationFilters.js'
 import {
   INTEREST,
   reviewBoundaries,
   buildShareProjection
 } from './boundaryReview.js'
-import { relationshipGraph, scopeMembers } from './relationships.js'
+import { relationshipGraph, scopeMembers, traverse } from './relationships.js'
 import { participantFacts, anatomyState } from './explorationState.js'
 import { scoreFantasyProfile } from './fantasyProfile.js'
 import {
@@ -181,11 +182,18 @@ function boundaryCoverage(catalog, exploration, answers) {
 }
 
 export function createEligibilityContext(catalog, state, evidence = null) {
+  const graph = relationshipGraph(catalog)
+  const deferred = new Map()
+  if (graph.valid) for (const [id, answer] of Object.entries(state.answers || {})) {
+    if (!['dont_want', 'hard_limit'].includes(answer.stance)) continue
+    for (const child of traverse(graph, id)) deferred.set(child, id)
+  }
   return {
     catalog,
     state,
     evidence,
-    graph: relationshipGraph(catalog),
+    deferred,
+    graph,
     coverage: boundaryCoverage(catalog, state.exploration, state.answers || {})
   }
 }
@@ -217,7 +225,7 @@ export function evaluateActivity(
   if (fit === 'does_not_apply')
     add(
       'applicability_false',
-      'The explicit body facts do not fit this activity.'
+      'The explicit body facts do not fit this activity.', [], !hasSavedAnswer
     )
   if (fit === 'unknown')
     add(
@@ -232,7 +240,13 @@ export function evaluateActivity(
       'You marked this as not applicable in the current context.'
     )
   if (hasSavedAnswer)
-    add('already_answered', 'Your answer is saved. Open Review to edit it.')
+    add('already_answered', 'Your answer is saved.', [], false)
+  if (!attractionFits(activity, state.attraction))
+    add('attraction_preference', 'Outside your saved attraction preferences.', [], !hasSavedAnswer)
+  const preference = preferenceExclusion(activity, e, evidence)
+  if (preference) add(preference.code, preference.message, [], !hasSavedAnswer && !e.inferredFilterOverrides?.[id])
+  if (!hasSavedAnswer && context.deferred?.has(id))
+    add('parent_declined', 'A broader activity was declined; this follow-up is set aside.', [context.deferred.get(id)])
   for (const row of coverage.get(id) || []) {
     add(
       row.kind,
@@ -240,7 +254,7 @@ export function evaluateActivity(
         ? 'This saved answer has an exact exception to this covering Hard limit.'
         : 'A covering hard limit needs scope review.',
       [row.source],
-      !row.resolved
+      !row.resolved && !hasSavedAnswer
     )
     if (explicitInterest && !row.resolved)
       reviewItems.push({
@@ -252,21 +266,6 @@ export function evaluateActivity(
       })
   }
   const override = e.inferredFilterOverrides?.[id] === 'keep_in_exploration'
-  if (!rolesCompatible(activity, e.roles))
-    add(
-      'role_excluded',
-      'Outside your confirmed role preferences.',
-      [],
-      !override && !hasSavedAnswer
-    )
-  const negatives = fantasyExclusion(activity, evidence)
-  if (negatives.length)
-    add(
-      'fantasy_negative',
-      'Several active fantasy answers disliked this exact theme and perspective.',
-      negatives,
-      !override && !hasSavedAnswer
-    )
   for (const rule of catalog.relevanceRules || [])
     if (
       rule.activityIds.includes(id) &&
@@ -287,11 +286,7 @@ export function evaluateActivity(
         anatomy: 'penis',
         state: 'absent',
         ruleRevision: rule.ruleRevision,
-        policyVersion: catalog.runtimePolicy?.relevancePolicyVersion,
-        partnerContextId:
-          rule.participant === 'partner'
-            ? e.facts.selectedPartnerContextId
-            : null
+        policyVersion: catalog.runtimePolicy?.relevancePolicyVersion
       }
     }
   if (!ignoreNavigation) {
@@ -325,7 +320,7 @@ export function evaluateActivity(
     add('outside_session', 'Outside this short session.')
   if (
     hasSavedAnswer &&
-    (fit === 'does_not_apply' || !rolesCompatible(activity, e.roles))
+    fit === 'does_not_apply'
   )
     reviewItems.push({
       code:

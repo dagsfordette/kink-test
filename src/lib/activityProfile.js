@@ -450,9 +450,7 @@ export function filterActivities(
           .toLowerCase()
           .includes(nav.search.toLowerCase())) &&
       (Boolean(state.drafts?.[a.id]) ||
-        (!state.answers?.[a.id] &&
-          evaluateActivity(a, context, { reveal: nav.showHidden })
-            .queueVisible))
+        evaluateActivity(a, context, { reveal: nav.showHidden }).queueVisible)
   )
   const mixed = interleaveByCategory(
     rows,
@@ -743,4 +741,14 @@ export function undoActivitySave(state) {
     exploration,
     navigation: { ...last.navigation, reviewActivityId: last.activityId }
   }
+}
+
+export function saveActivityEdit(state, activityId, updater) {
+  const navigation = state.navigation
+  const next = saveActivityDraft(editActivityDraft(state, activityId, updater), activityId)
+  return { ...next, navigation }
+}
+export function undoActivityEdit(state) {
+  const id = state.lastSave?.activityId
+  return discardActivityDraft(undoActivitySave(state), id)
 }

@@ -28,10 +28,12 @@ const ROUTES = new Set([
   'profile'
 ])
 
-export function resolveAppRoute(route, settings = {}) {
+export function resolveAppRoute(route, settings = {}, basics = null) {
   const safeRoute = ROUTES.has(route) ? route : 'home'
   if (safeRoute === 'activity_explorer' && settings?.adultConfirmed !== true)
     return 'activity_intro'
+  if (safeRoute === 'activity_explorer' && basics && !basics.aboutYouComplete) return 'about_you'
+  if (safeRoute === 'activity_explorer' && basics && !basics.complete) return 'basics'
   return safeRoute
 }
 
@@ -61,7 +63,7 @@ export function normalizeAppState(fantasyProfile, activityCatalog, saved) {
     exploration: normalizeExploration(saved.exploration, activityCatalog),
     route: resolveAppRoute(saved.route, {
       adultConfirmed: saved.settings?.adultConfirmed === true
-    }),
+    }, normalizeBasicsProfile(saved.basics)),
     settings: {
       ...clean.settings,
       theme: saved.settings?.theme === 'light' ? 'light' : 'dark',
@@ -73,7 +75,7 @@ export function normalizeAppState(fantasyProfile, activityCatalog, saved) {
       fantasyProfile,
       saved.fantasy || clean.fantasy
     ),
-    basics: normalizeBasicsProfile(saved.basics),
+    basics: { ...normalizeBasicsProfile(saved.basics), ...(saved.route === 'activity_explorer' && (!saved.basics?.aboutYouComplete || !saved.basics?.complete) ? { nextRoute: 'activity_explorer' } : {}) },
     activities: normalizeActivityState(activityCatalog, saved.activities),
     playPreferences: normalizePlayPreferences(saved.playPreferences)
   }
@@ -90,7 +92,7 @@ export function withActivityState(
 ) {
   return {
     ...appState,
-    route: resolveAppRoute(route, appState.settings),
+    route: resolveAppRoute(route, appState.settings, appState.basics),
     activities
   }
 }

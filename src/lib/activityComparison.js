@@ -11,21 +11,6 @@ export const comparisonStateLabels = {
   insufficient_data: 'Insufficient data'
 }
 
-export function comparisonPage(rows, filter = 'all', requestedPage = 0) {
-  const matches = filter === 'all' ? rows : rows.filter((r) => r.state === filter)
-  const size = 50
-  const pageCount = Math.max(1, Math.ceil(matches.length / size))
-  const page = Math.max(0, Math.min(pageCount - 1, requestedPage))
-  return {
-    rows: matches.slice(page * size, (page + 1) * size),
-    page,
-    pageCount,
-    total: matches.length,
-    from: matches.length ? page * size + 1 : 0,
-    to: Math.min(matches.length, (page + 1) * size)
-  }
-}
-
 const ACTIVE = new Set(['love', 'want'])
 const TENTATIVE = new Set(['curious', 'if_partner_wants'])
 const POSITIVE = new Set([...ACTIVE, ...TENTATIVE])
