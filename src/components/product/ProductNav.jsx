@@ -2,7 +2,7 @@ const ITEMS = [
   ['home', 'Home'],
   ['fantasy_intro', 'Fantasy Profile'],
   ['activity_intro', 'Activity Explorer'],
-  ['profile', 'My Profile'],
+  ['profile', 'My Profile']
 ]
 
 function activeFor(route, target) {
@@ -16,13 +16,27 @@ function activeFor(route, target) {
 export default function ProductNav({ route, onNavigate }) {
   return (
     <header className="product-nav no-print">
-      <button type="button" className="product-brand" onClick={() => onNavigate('home')}>
+      <button
+        type="button"
+        className="product-brand"
+        onClick={() => onNavigate('home')}
+      >
         <span aria-hidden="true">✦</span>
-        <span><strong>Kink Exploration</strong><small>Find what you like. Sort out what you want.</small></span>
+        <span>
+          <strong>Kink Exploration</strong>
+          <small>Find what you like. Sort out what you want.</small>
+        </span>
       </button>
       <nav aria-label="Main navigation">
         {ITEMS.map(([target, label]) => (
-          <button type="button" key={target} className={activeFor(route, target) ? 'active' : ''} onClick={() => onNavigate(target)}>{label}</button>
+          <button
+            type="button"
+            key={target}
+            className={activeFor(route, target) ? 'active' : ''}
+            onClick={() => onNavigate(target)}
+          >
+            {label}
+          </button>
         ))}
       </nav>
     </header>

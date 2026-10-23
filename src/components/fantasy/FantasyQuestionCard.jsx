@@ -1,9 +1,23 @@
-export default function FantasyQuestionCard({ question, responseScale, selected, onAnswer }) {
+export default function FantasyQuestionCard({
+  question,
+  responseScale,
+  selected,
+  onAnswer
+}) {
   return (
-    <section className="fantasy-question-card" aria-labelledby="fantasy-question-text">
-      <div className="fantasy-question-prompt">As a fantasy, how does this land for you?</div>
+    <section
+      className="fantasy-question-card"
+      aria-labelledby="fantasy-question-text"
+    >
+      <div className="fantasy-question-prompt">
+        As a fantasy, how does this land for you?
+      </div>
       <h1 id="fantasy-question-text">{question.statement}</h1>
-      <div className="fantasy-response-grid" role="radiogroup" aria-label="Fantasy response">
+      <div
+        className="fantasy-response-grid"
+        role="radiogroup"
+        aria-label="Fantasy response"
+      >
         {responseScale.map((choice) => (
           <button
             type="button"

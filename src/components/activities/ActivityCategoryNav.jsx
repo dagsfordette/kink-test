@@ -1,34 +1,72 @@
-import { activityProgress } from '../../lib/activityProfile.js'
-
-export default function ActivityCategoryNav({ catalog, activityState, categoryId, onSelect, onPlayPreferences, onResults }) {
-  const skipped = new Set(activityState.navigation.skippedCategoryIds || [])
-  const adaptiveHidden = new Set(activityState.navigation.adaptiveHiddenCategoryIds || [])
-  const showHidden = activityState.navigation.showHidden
-
+import {
+  activityProgress,
+  orderedActivityCategories
+} from '../../lib/activityProfile.js'
+export default function ActivityCategoryNav({
+  catalog,
+  counts,
+  activityState,
+  categoryId,
+  onSelect,
+  onPlayPreferences,
+  onResults
+}) {
   return (
     <aside className="activity-category-sidebar no-print">
-      <div className="activity-sidebar-heading"><span>Categories</span><small>{Object.keys(activityState.answers || {}).length} answered</small></div>
+      <label className="mobile-category-picker">
+        Category
+        <select
+          value={categoryId}
+          onChange={(event) => onSelect(event.target.value)}
+        >
+          <option value="all">All activities</option>
+          {catalog.categories.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div className="activity-sidebar-heading">
+        <span>Categories</span>
+        <small>Choose freely</small>
+      </div>
       <nav>
-        <button type="button" className={categoryId === 'all' ? 'active' : ''} onClick={() => onSelect('all')}>
-          <span>{showHidden ? 'Everything' : 'Current path'}</span><small>{activityProgress(catalog, activityState, 'all').answered}</small>
+        <button
+          type="button"
+          className={categoryId === 'all' ? 'active' : ''}
+          onClick={() => onSelect('all')}
+        >
+          All activities
         </button>
-        {catalog.categories.map((category) => {
-          const progress = activityProgress(catalog, activityState, category.id)
-          const isSkipped = skipped.has(category.id)
-          const isAdaptiveHidden = adaptiveHidden.has(category.id)
-          const hiddenFromNav = (isSkipped || isAdaptiveHidden) && !showHidden && categoryId !== category.id
-          if (hiddenFromNav) return null
+        {orderedActivityCategories(catalog, activityState).map((category) => {
+          const p =
+            counts?.[category.id] ||
+            activityProgress(catalog, activityState, category.id)
           return (
-            <button type="button" key={category.id} className={categoryId === category.id ? 'active' : ''} onClick={() => onSelect(category.id)}>
-              <span>{category.label}{isSkipped ? <em>skipped</em> : isAdaptiveHidden ? <em>adaptive</em> : null}</span>
-              <small>{progress.answered}/{progress.total}</small>
+            <button
+              type="button"
+              key={category.id}
+              aria-current={categoryId === category.id ? 'page' : undefined}
+              className={categoryId === category.id ? 'active' : ''}
+              onClick={() => onSelect(category.id)}
+            >
+              <span>{category.label}</span>
+              <small>
+                {p.answered} answered · {p.available ?? p.total - p.answered}{' '}
+                available
+              </small>
             </button>
           )
         })}
       </nav>
       <div className="activity-sidebar-footer">
-        <button type="button" className="text-button" onClick={onPlayPreferences}>Play Preferences</button>
-        <button type="button" className="text-button" onClick={onResults}>My answers</button>
+        <button type="button" onClick={onPlayPreferences}>
+          Play Preferences
+        </button>
+        <button type="button" onClick={onResults}>
+          Review answers
+        </button>
       </div>
     </aside>
   )

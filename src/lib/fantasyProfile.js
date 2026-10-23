@@ -1,13 +1,16 @@
-const VALID_BANDS = new Set(['strong', 'notable', 'mixed', 'low', 'negative', 'insufficient'])
-
-function answerState(value) {
-  if (typeof value === 'string') return value
-  if (value && typeof value === 'object') return value.response ?? value.state ?? null
-  return null
-}
+const VALID_BANDS = new Set([
+  'strong',
+  'notable',
+  'mixed',
+  'low',
+  'negative',
+  'insufficient'
+])
 
 function responseScores(profile) {
-  return new Map((profile.responseScale || []).map((row) => [row.id, row.score]))
+  return new Map(
+    (profile.responseScale || []).map((row) => [row.id, row.score])
+  )
 }
 
 function newAccumulator() {
@@ -18,12 +21,13 @@ function newAccumulator() {
     positiveEvidence: 0,
     negativeEvidence: 0,
     neutralEvidence: 0,
-    perspectives: new Map(),
+    perspectives: new Map()
   }
 }
 
 function addPerspective(acc, perspective, score, weight, questionId) {
-  if (!acc.perspectives.has(perspective)) acc.perspectives.set(perspective, newAccumulator())
+  if (!acc.perspectives.has(perspective))
+    acc.perspectives.set(perspective, newAccumulator())
   const target = acc.perspectives.get(perspective)
   target.weightedScore += score * weight
   target.totalWeight += Math.abs(weight)
@@ -48,7 +52,8 @@ function classify(acc, mean, consistency) {
   if (contradictory && Math.abs(mean) < 0.85) return 'mixed'
   if (mean >= 1.1 && observations >= 3 && consistency >= 0.67) return 'strong'
   if (mean >= 0.35) return 'notable'
-  if (mean <= -1.1 && observations >= 3 && consistency >= 0.67) return 'negative'
+  if (mean <= -1.1 && observations >= 3 && consistency >= 0.67)
+    return 'negative'
   if (mean <= -0.35) return 'low'
   return 'mixed'
 }
@@ -69,19 +74,26 @@ function finalizeAccumulator(acc) {
     contradictory,
     band: classify(acc, mean, consistency),
     positiveEvidence: Number(acc.positiveEvidence.toFixed(4)),
-    negativeEvidence: Number(acc.negativeEvidence.toFixed(4)),
+    negativeEvidence: Number(acc.negativeEvidence.toFixed(4))
   }
 }
 
 export function scoreFantasyProfile(profile, answers = {}) {
   const scores = responseScores(profile)
-  const dimensions = new Map((profile.dimensions || []).map((dimension) => [dimension.id, newAccumulator()]))
-  const questionMap = new Map((profile.questions || []).map((question) => [question.id, question]))
+  const dimensions = new Map(
+    (profile.dimensions || []).map((dimension) => [
+      dimension.id,
+      newAccumulator()
+    ])
+  )
+  const questionMap = new Map(
+    (profile.questions || []).map((question) => [question.id, question])
+  )
 
   for (const [questionId, rawAnswer] of Object.entries(answers || {})) {
     const question = questionMap.get(questionId)
     if (!question) continue
-    const state = answerState(rawAnswer)
+    const state = rawAnswer
     if (!scores.has(state)) continue
     const responseScore = scores.get(state)
     if (responseScore === null || responseScore === undefined) continue
@@ -93,8 +105,10 @@ export function scoreFantasyProfile(profile, answers = {}) {
       acc.weightedScore += responseScore * weight
       acc.totalWeight += Math.abs(weight)
       acc.observations.add(questionId)
-      if (responseScore > 0) acc.positiveEvidence += Math.abs(responseScore * weight)
-      else if (responseScore < 0) acc.negativeEvidence += Math.abs(responseScore * weight)
+      if (responseScore > 0)
+        acc.positiveEvidence += Math.abs(responseScore * weight)
+      else if (responseScore < 0)
+        acc.negativeEvidence += Math.abs(responseScore * weight)
       else acc.neutralEvidence += Math.abs(weight)
       addPerspective(acc, signal.perspective, responseScore, weight, questionId)
     }
@@ -129,15 +143,14 @@ function positiveBand(metric) {
 }
 
 function routingDimensions(question) {
-  const signalDimensions = [...new Set((question.signals || []).map((signal) => signal.dimensionId))]
+  const signalDimensions = [
+    ...new Set((question.signals || []).map((signal) => signal.dimensionId))
+  ]
   if (signalDimensions.length) return signalDimensions
   return question.parentDimensionId ? [question.parentDimensionId] : []
 }
 
-
-// Related dimensions are grouped only for presentation order. This does not
-// change scoring or which adaptive questions are selected; it simply keeps
-// similar fantasy themes from bleeding into the next question.
+// Group related themes without changing scoring or adaptive selection.
 const DIMENSION_THEME_TAGS = {
   surrender: ['power_agency'],
   authority_responsibility: ['power_agency'],
@@ -172,7 +185,7 @@ const DIMENSION_THEME_TAGS = {
   being_tiny: ['body_change', 'scale', 'power_agency'],
   nonconsent: ['power_agency', 'transgression', 'intensity'],
   animal_transformation: ['body_change', 'identity_novelty'],
-  monsters_supernatural: ['identity_novelty', 'nonhuman'],
+  monsters_supernatural: ['identity_novelty', 'nonhuman']
 }
 
 function questionThemeTags(question) {
@@ -190,7 +203,8 @@ function themeSimilarity(a, b) {
   const aPrimary = routingDimensions(a)[0]
   const bPrimary = routingDimensions(b)[0]
   let similarity = aPrimary && aPrimary === bPrimary ? 12 : 0
-  for (const dimensionId of aDimensions) if (bDimensions.has(dimensionId)) similarity += 5
+  for (const dimensionId of aDimensions)
+    if (bDimensions.has(dimensionId)) similarity += 5
   const aTags = questionThemeTags(a)
   const bTags = questionThemeTags(b)
   for (const tag of aTags) if (bTags.has(tag)) similarity += 2
@@ -200,8 +214,13 @@ function themeSimilarity(a, b) {
 
 function spreadQuestionsByTheme(profile, questions, priorQuestionIds = []) {
   if (questions.length < 2) return questions
-  const questionMap = new Map((profile.questions || []).map((question) => [question.id, question]))
-  const recent = priorQuestionIds.map((id) => questionMap.get(id)).filter(Boolean).slice(-8)
+  const questionMap = new Map(
+    (profile.questions || []).map((question) => [question.id, question])
+  )
+  const recent = priorQuestionIds
+    .map((id) => questionMap.get(id))
+    .filter(Boolean)
+    .slice(-8)
   const remaining = [...questions]
   const ordered = []
 
@@ -212,7 +231,11 @@ function spreadQuestionsByTheme(profile, questions, priorQuestionIds = []) {
       const candidate = remaining[index]
       const history = [...recent, ...ordered]
       let penalty = 0
-      for (let distance = 1; distance <= Math.min(8, history.length); distance += 1) {
+      for (
+        let distance = 1;
+        distance <= Math.min(8, history.length);
+        distance += 1
+      ) {
         const previous = history[history.length - distance]
         // Immediate bleed-over matters most; similarity fades with distance.
         const similarity = themeSimilarity(previous, candidate)
@@ -220,7 +243,11 @@ function spreadQuestionsByTheme(profile, questions, priorQuestionIds = []) {
         // If any unrelated option is available, never put a related theme directly next.
         if (distance === 1 && similarity > 0) penalty += 10000
       }
-      if (penalty < bestPenalty || (penalty === bestPenalty && candidate.id.localeCompare(remaining[bestIndex].id) < 0)) {
+      if (
+        penalty < bestPenalty ||
+        (penalty === bestPenalty &&
+          candidate.id.localeCompare(remaining[bestIndex].id) < 0)
+      ) {
         bestIndex = index
         bestPenalty = penalty
       }
@@ -234,22 +261,33 @@ function questionIsActive(question, answers, evidence) {
   const activation = question.activation
   if (!activation) return true
   if (activation.type === 'question_response') {
-    const state = answerState(answers?.[activation.questionId])
+    const state = answers?.[activation.questionId]
     return (activation.responses || []).includes(state)
   }
   if (activation.type === 'any_dimension_band') {
-    return (activation.conditions || []).some((condition) => (condition.bands || []).includes(evidence?.[condition.dimensionId]?.band))
+    return (activation.conditions || []).some((condition) =>
+      (condition.bands || []).includes(evidence?.[condition.dimensionId]?.band)
+    )
   }
   return false
 }
 
-function candidateDiscriminatorScore(question, evidence, selectedDimensionCounts) {
+function candidateDiscriminatorScore(
+  question,
+  evidence,
+  selectedDimensionCounts
+) {
   const signalDimensions = routingDimensions(question)
   const primaryDimension = signalDimensions[0]
   const primaryMetric = evidence[primaryDimension]
   let score = 0
-  if (primaryMetric && (primaryMetric.positiveEvidence > 0 || primaryMetric.negativeEvidence > 0)) score += Number(question.routingBoost || 0)
-  for (const dimensionId of signalDimensions) score += unresolvedPriority(evidence[dimensionId])
+  if (
+    primaryMetric &&
+    (primaryMetric.positiveEvidence > 0 || primaryMetric.negativeEvidence > 0)
+  )
+    score += Number(question.routingBoost || 0)
+  for (const dimensionId of signalDimensions)
+    score += unresolvedPriority(evidence[dimensionId])
 
   for (const otherId of question.discriminates || []) {
     const primary = primaryMetric
@@ -259,7 +297,12 @@ function candidateDiscriminatorScore(question, evidence, selectedDimensionCounts
     else if (!other || other.band === 'insufficient') score += 1.1
   }
 
-  if (primaryMetric?.observations >= 4 && !primaryMetric.contradictory && ['strong', 'negative'].includes(primaryMetric.band)) score -= 1.4
+  if (
+    primaryMetric?.observations >= 4 &&
+    !primaryMetric.contradictory &&
+    ['strong', 'negative'].includes(primaryMetric.band)
+  )
+    score -= 1.4
   score += Number(question.activation?.priorityBoost || 0)
   if (question.detailKey) score += 0.75
   score -= (selectedDimensionCounts.get(primaryDimension) || 0) * 1.25
@@ -284,7 +327,9 @@ function candidateDeepDiveScore(question, evidence, selectedDimensionCounts) {
 }
 
 function lastKnownMirrorGroup(profile, answers, priorQuestionIds = []) {
-  const questionMap = new Map((profile.questions || []).map((question) => [question.id, question]))
+  const questionMap = new Map(
+    (profile.questions || []).map((question) => [question.id, question])
+  )
   if (priorQuestionIds.length) {
     for (let i = priorQuestionIds.length - 1; i >= 0; i -= 1) {
       const question = questionMap.get(priorQuestionIds[i])
@@ -293,7 +338,8 @@ function lastKnownMirrorGroup(profile, answers, priorQuestionIds = []) {
   }
   let last = null
   for (const question of profile.questions || []) {
-    if (Object.prototype.hasOwnProperty.call(answers, question.id)) last = question.mirrorGroup || null
+    if (Object.prototype.hasOwnProperty.call(answers, question.id))
+      last = question.mirrorGroup || null
   }
   return last
 }
@@ -301,57 +347,120 @@ function lastKnownMirrorGroup(profile, answers, priorQuestionIds = []) {
 function selectAdaptive(profile, answers, stage, maxCount, options = {}) {
   const evidence = scoreFantasyProfile(profile, answers)
   const answeredIds = new Set(Object.keys(answers || {}))
-  const candidates = (profile.questions || []).filter((question) => question.stage === stage && !answeredIds.has(question.id) && questionIsActive(question, answers, evidence))
+  const candidates = (profile.questions || []).filter(
+    (question) =>
+      question.stage === stage &&
+      !answeredIds.has(question.id) &&
+      questionIsActive(question, answers, evidence)
+  )
   const selected = []
   const selectedDimensionCounts = new Map()
   const selectedBucketCounts = new Map()
   let selectedDetailCount = 0
-  let lastMirrorGroup = lastKnownMirrorGroup(profile, answers, options.priorQuestionIds || [])
+  let lastMirrorGroup = lastKnownMirrorGroup(
+    profile,
+    answers,
+    options.priorQuestionIds || []
+  )
   const maxPrimaryPerDimension = stage === 'discriminator' ? 2 : 1
-  const configuredDetailLimit = stage === 'discriminator'
-    ? profile.questionnaire?.administration?.maxDetailDiscriminatorCount
-    : profile.questionnaire?.administration?.maxDetailDeepDiveCount
-  const maxDetailCount = Math.min(options.maxDetailCount ?? configuredDetailLimit ?? maxCount, maxCount)
+  const configuredDetailLimit =
+    stage === 'discriminator'
+      ? profile.questionnaire?.administration?.maxDetailDiscriminatorCount
+      : profile.questionnaire?.administration?.maxDetailDeepDiveCount
+  const maxDetailCount = Math.min(
+    options.maxDetailCount ?? configuredDetailLimit ?? maxCount,
+    maxCount
+  )
 
   while (selected.length < maxCount) {
     const ranked = candidates
       .filter((question) => !selected.includes(question))
-      .filter((question) => !question.detailKey || selectedDetailCount < maxDetailCount)
+      .filter(
+        (question) =>
+          !question.detailKey || selectedDetailCount < maxDetailCount
+      )
       .filter((question) => {
         const primaryDimension = routingDimensions(question)[0]
-        const bucket = question.detailKey ? `detail:${question.detailKey}` : primaryDimension
-        return primaryDimension && (selectedBucketCounts.get(bucket) || 0) < maxPrimaryPerDimension
+        const bucket = question.detailKey
+          ? `detail:${question.detailKey}`
+          : primaryDimension
+        return (
+          primaryDimension &&
+          (selectedBucketCounts.get(bucket) || 0) < maxPrimaryPerDimension
+        )
       })
-      .filter((question) => !lastMirrorGroup || question.mirrorGroup !== lastMirrorGroup)
+      .filter(
+        (question) =>
+          !lastMirrorGroup || question.mirrorGroup !== lastMirrorGroup
+      )
       .map((question) => ({
         question,
-        score: stage === 'discriminator'
-          ? candidateDiscriminatorScore(question, evidence, selectedDimensionCounts)
-          : candidateDeepDiveScore(question, evidence, selectedDimensionCounts),
+        score:
+          stage === 'discriminator'
+            ? candidateDiscriminatorScore(
+                question,
+                evidence,
+                selectedDimensionCounts
+              )
+            : candidateDeepDiveScore(
+                question,
+                evidence,
+                selectedDimensionCounts
+              )
       }))
-      .sort((a, b) => b.score - a.score || a.question.id.localeCompare(b.question.id))
+      .sort(
+        (a, b) =>
+          b.score - a.score || a.question.id.localeCompare(b.question.id)
+      )
 
     if (!ranked.length) break
     const chosen = ranked[0].question
     selected.push(chosen)
     const primaryDimension = routingDimensions(chosen)[0]
-    const bucket = chosen.detailKey ? `detail:${chosen.detailKey}` : primaryDimension
-    if (!chosen.detailKey) selectedDimensionCounts.set(primaryDimension, (selectedDimensionCounts.get(primaryDimension) || 0) + 1)
-    selectedBucketCounts.set(bucket, (selectedBucketCounts.get(bucket) || 0) + 1)
+    const bucket = chosen.detailKey
+      ? `detail:${chosen.detailKey}`
+      : primaryDimension
+    if (!chosen.detailKey)
+      selectedDimensionCounts.set(
+        primaryDimension,
+        (selectedDimensionCounts.get(primaryDimension) || 0) + 1
+      )
+    selectedBucketCounts.set(
+      bucket,
+      (selectedBucketCounts.get(bucket) || 0) + 1
+    )
     if (chosen.detailKey) selectedDetailCount += 1
     lastMirrorGroup = chosen.mirrorGroup || null
   }
 
-  return spreadQuestionsByTheme(profile, selected, options.priorQuestionIds || [])
+  return spreadQuestionsByTheme(
+    profile,
+    selected,
+    options.priorQuestionIds || []
+  )
 }
 
-export function selectDiscriminatorQuestions(profile, answers = {}, options = {}) {
-  const maxCount = Math.min(options.maxCount ?? profile.questionnaire?.administration?.maxDiscriminatorCount ?? 12, 12)
+export function selectDiscriminatorQuestions(
+  profile,
+  answers = {},
+  options = {}
+) {
+  const maxCount = Math.min(
+    options.maxCount ??
+      profile.questionnaire?.administration?.maxDiscriminatorCount ??
+      12,
+    12
+  )
   return selectAdaptive(profile, answers, 'discriminator', maxCount, options)
 }
 
 export function selectDeepDiveQuestions(profile, answers = {}, options = {}) {
-  const maxCount = Math.min(options.maxCount ?? profile.questionnaire?.administration?.maxDeepDiveCount ?? 12, 12)
+  const maxCount = Math.min(
+    options.maxCount ??
+      profile.questionnaire?.administration?.maxDeepDiveCount ??
+      12,
+    12
+  )
   return selectAdaptive(profile, answers, 'deep_dive', maxCount, options)
 }
 
@@ -370,7 +479,8 @@ function reasonFor(dimension, evidence) {
   const label = dimension.label.toLowerCase()
   if (evidence.band === 'strong') return `you reacted strongly to ${label}`
   if (evidence.band === 'notable') return `${label} came up repeatedly`
-  if (evidence.band === 'mixed') return `your response to ${label} depended on context`
+  if (evidence.band === 'mixed')
+    return `your response to ${label} depended on context`
   if (evidence.band === 'low') return `${label} did not add much for you`
   if (evidence.band === 'negative') return `you usually disliked ${label}`
   return `there was not enough information about ${label}`
@@ -390,45 +500,77 @@ function aggregatePerspective(evidenceRows, perspective) {
 
 export function buildFantasySuggestions(profile, answers = {}, options = {}) {
   const evidence = scoreFantasyProfile(profile, answers)
-  const dimensionMap = new Map((profile.dimensions || []).map((dimension) => [dimension.id, dimension]))
+  const dimensionMap = new Map(
+    (profile.dimensions || []).map((dimension) => [dimension.id, dimension])
+  )
   const results = []
 
   for (const rule of profile.suggestionRules || []) {
-    const requiredMatches = (rule.requiredEvidence || []).filter((condition) => conditionMatches(condition, evidence[condition.dimensionId]))
-    const requiredPass = rule.matchMode === 'any_required'
-      ? requiredMatches.length > 0
-      : requiredMatches.length === (rule.requiredEvidence || []).length
+    const requiredMatches = (rule.requiredEvidence || []).filter((condition) =>
+      conditionMatches(condition, evidence[condition.dimensionId])
+    )
+    const requiredPass =
+      rule.matchMode === 'any_required'
+        ? requiredMatches.length > 0
+        : requiredMatches.length === (rule.requiredEvidence || []).length
     if (!requiredPass) continue
 
     let evidencePoints = 0
     const matchedConditions = []
     for (const condition of requiredMatches) {
-      evidencePoints += bandEvidencePoints(evidence[condition.dimensionId].band, true)
+      evidencePoints += bandEvidencePoints(
+        evidence[condition.dimensionId].band,
+        true
+      )
       matchedConditions.push(condition)
     }
     for (const condition of rule.supportingEvidence || []) {
-      if (!conditionMatches(condition, evidence[condition.dimensionId])) continue
-      evidencePoints += bandEvidencePoints(evidence[condition.dimensionId].band, false)
+      if (!conditionMatches(condition, evidence[condition.dimensionId]))
+        continue
+      evidencePoints += bandEvidencePoints(
+        evidence[condition.dimensionId].band,
+        false
+      )
       matchedConditions.push(condition)
     }
     for (const condition of rule.contradictingEvidence || []) {
-      if (conditionMatches(condition, evidence[condition.dimensionId])) evidencePoints -= 1.5
+      if (conditionMatches(condition, evidence[condition.dimensionId]))
+        evidencePoints -= 1.5
     }
     if (evidencePoints < (rule.minimumEvidencePoints ?? 2.5)) continue
 
-    const uniqueDimensionIds = [...new Set(matchedConditions.map((condition) => condition.dimensionId))]
+    const uniqueDimensionIds = [
+      ...new Set(matchedConditions.map((condition) => condition.dimensionId))
+    ]
     const reasons = uniqueDimensionIds
       .sort((a, b) => {
-        const rank = { strong: 3, notable: 2, mixed: 1, low: 0, negative: -1, insufficient: -2 }
-        return (rank[evidence[b].band] - rank[evidence[a].band]) || a.localeCompare(b)
+        const rank = {
+          strong: 3,
+          notable: 2,
+          mixed: 1,
+          low: 0,
+          negative: -1,
+          insufficient: -2
+        }
+        return (
+          rank[evidence[b].band] - rank[evidence[a].band] || a.localeCompare(b)
+        )
       })
-      .map((dimensionId) => reasonFor(dimensionMap.get(dimensionId), evidence[dimensionId]))
+      .map((dimensionId) =>
+        reasonFor(dimensionMap.get(dimensionId), evidence[dimensionId])
+      )
 
-    const evidenceRows = uniqueDimensionIds.map((dimensionId) => evidence[dimensionId])
+    const evidenceRows = uniqueDimensionIds.map(
+      (dimensionId) => evidence[dimensionId]
+    )
     const receive = aggregatePerspective(evidenceRows, 'receive')
     const give = aggregatePerspective(evidenceRows, 'give')
     if (receive !== null && give !== null && Math.abs(receive - give) >= 0.35) {
-      reasons.push(receive > give ? 'receiving signals stronger than giving signals' : 'giving signals stronger than receiving signals')
+      reasons.push(
+        receive > give
+          ? 'receiving signals stronger than giving signals'
+          : 'giving signals stronger than receiving signals'
+      )
     }
 
     results.push({
@@ -437,22 +579,33 @@ export function buildFantasySuggestions(profile, answers = {}, options = {}) {
       activityCategoryIds: [...rule.activityCategoryIds],
       summary: rule.summary,
       evidencePoints: Number(evidencePoints.toFixed(3)),
-      why: reasons.slice(0, profile.resultCopy?.explanationTemplate?.maxReasons ?? 4),
+      why: reasons.slice(
+        0,
+        profile.resultCopy?.explanationTemplate?.maxReasons ?? 4
+      )
     })
   }
 
-  results.sort((a, b) => b.evidencePoints - a.evidencePoints || a.id.localeCompare(b.id))
+  results.sort(
+    (a, b) => b.evidencePoints - a.evidencePoints || a.id.localeCompare(b.id)
+  )
   return results.slice(0, options.maxSuggestions ?? results.length)
 }
 
 export function describeFantasyDimension(profile, dimensionId, answers = {}) {
-  const dimension = (profile.dimensions || []).find((row) => row.id === dimensionId)
+  const dimension = (profile.dimensions || []).find(
+    (row) => row.id === dimensionId
+  )
   if (!dimension) return null
   const evidence = scoreFantasyProfile(profile, answers)[dimensionId]
   if (!VALID_BANDS.has(evidence.band)) return null
   const key = {
-    strong: 'leadPositive', notable: 'leadNotable', mixed: 'leadMixed', low: 'leadLow',
-    negative: 'leadNegative', insufficient: 'leadInsufficient',
+    strong: 'leadPositive',
+    notable: 'leadNotable',
+    mixed: 'leadMixed',
+    low: 'leadLow',
+    negative: 'leadNegative',
+    insufficient: 'leadInsufficient'
   }[evidence.band]
   const template = profile.resultCopy?.language?.[key] || '{dimension}'
   return template.replace('{dimension}', dimension.label.toLowerCase())
