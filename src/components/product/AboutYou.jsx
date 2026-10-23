@@ -7,7 +7,6 @@ export default function AboutYou({ facts, onSave, onContinue, onBack }) {
       <section className="basics-card">
         <span className="kicker">Optional setup</span>
         <h1>About your body</h1>
-        <p>Share only what helps. Changes apply when you save.</p>
         <BodyFacts facts={draft} onChange={setDraft} />
         <div className="basics-actions">
           <button type="button" className="primary-button" onClick={() => onSave(draft)}>

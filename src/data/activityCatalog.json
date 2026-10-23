@@ -212,12 +212,12 @@
     {
       "id": "multi_partner",
       "label": "Multi-partner / partner-sharing",
-      "description": "Sexual or kink activities involving more than two consenting adults."
+      "description": "Sexual or kink activities involving more than two consenting people."
     },
     {
       "id": "roleplay",
       "label": "Roleplay",
-      "description": "Characters, identities, scenarios, and other agreed fictional setups between adults."
+      "description": "Characters, identities, scenarios, and other agreed fictional setups."
     },
     {
       "id": "pet_primal",
@@ -237,7 +237,7 @@
     {
       "id": "body_part_fetishes",
       "label": "Body-area interests",
-      "description": "Making a particular adult body area the focus of attention or play."
+      "description": "Making a particular body area the focus of attention or play."
     },
     {
       "id": "fluids_mess",
@@ -16864,7 +16864,7 @@
     {
       "id": "observe_consensual_voyeurism",
       "categoryId": "exhibition_observation",
-      "label": "Watching another adult during sexual activity",
+      "label": "Watching another person during sexual activity",
       "description": "",
       "priority": "starter",
       "riskDomains": [
@@ -17141,7 +17141,7 @@
     {
       "id": "consensual_group_observation",
       "categoryId": "exhibition_observation",
-      "label": "Being watched by several adults at a play event",
+      "label": "Being watched by several people at a play event",
       "description": "",
       "priority": "extended",
       "riskDomains": [
@@ -17674,7 +17674,7 @@
       "id": "teacher_student_adult_roleplay",
       "categoryId": "roleplay",
       "label": "Teacher-and-student roleplay",
-      "description": "Acting as a teacher and student in a fictional adult scenario.",
+      "description": "Acting as a teacher and student in a fictional scenario.",
       "priority": "starter",
       "riskDomains": [
         "psychological",
@@ -33909,7 +33909,7 @@
       "id": "adult_age_play_roleplay",
       "categoryId": "roleplay",
       "label": "Age-play roleplay",
-      "description": "Acting as a different age or using an age-based role while the real participants remain adults.",
+      "description": "Acting as a different age or using an age-based role.",
       "priority": "specialized",
       "riskDomains": [
         "psychological",
@@ -33939,7 +33939,7 @@
       "id": "direct_caregiver_little_adult_dynamic",
       "categoryId": "relationship_dynamics",
       "label": "Taking the caregiver role in an ongoing caregiver/little relationship",
-      "description": "A caregiver/little relationship can include nurturing, caretaking, rules, routines, or age-regression-style roles between adults.",
+      "description": "A caregiver/little relationship can include nurturing, caretaking, rules, routines, or age-regression-style roles.",
       "priority": "specialized",
       "riskDomains": [
         "psychological",
@@ -33975,7 +33975,7 @@
       "id": "follow_caregiver_little_adult_dynamic",
       "categoryId": "relationship_dynamics",
       "label": "Taking the little role in an ongoing caregiver/little relationship",
-      "description": "A caregiver/little relationship can include nurturing, caretaking, rules, routines, or age-regression-style roles between adults.",
+      "description": "A caregiver/little relationship can include nurturing, caretaking, rules, routines, or age-regression-style roles.",
       "priority": "specialized",
       "riskDomains": [
         "psychological",
@@ -36698,7 +36698,7 @@
     {
       "id": "same_gender_sex_at_dom_instruction",
       "categoryId": "multi_partner",
-      "label": "Having sex with another adult of the same gender because my partner directs me to",
+      "label": "Having sex with another person of the same gender because my partner directs me to",
       "description": "",
       "priority": "specialized",
       "riskDomains": [
@@ -38475,7 +38475,7 @@
             },
             {
               "id": "consenting_display",
-              "label": "Display among consenting adults"
+              "label": "Display among consenting people"
             }
           ],
           "excludeForActivityIds": [
@@ -39158,7 +39158,7 @@
             },
             {
               "id": "adult_event",
-              "label": "Consenting adults at an adult event"
+              "label": "Consenting people at an adult event"
             },
             {
               "id": "remote_consensual",
@@ -41392,7 +41392,7 @@
             },
             {
               "id": "social_roleplay",
-              "label": "Social roleplay among consenting adults"
+              "label": "Social roleplay among consenting people"
             },
             {
               "id": "costume_event",
@@ -42921,11 +42921,11 @@
             },
             {
               "id": "trusted_known",
-              "label": "Trusted known adults"
+              "label": "Trusted people I know"
             },
             {
               "id": "new_consensual",
-              "label": "New consenting adults"
+              "label": "New consenting people"
             },
             {
               "id": "adult_event",
@@ -45424,7 +45424,7 @@
         {
           "id": "caregiving_style",
           "type": "preference_matrix",
-          "label": "Which adult caregiving elements?",
+          "label": "Which caregiving elements?",
           "options": [
             {
               "id": "nurturing",
@@ -47152,7 +47152,7 @@
         {
           "id": "adult_age_difference_frame",
           "type": "preference_matrix",
-          "label": "What part of the adult age-difference roleplay matters?",
+          "label": "What part of the age-difference roleplay matters?",
           "options": [
             {
               "id": "experience_contrast",
@@ -47168,7 +47168,7 @@
             },
             {
               "id": "mentor_flavor",
-              "label": "Mentor-like flavor between adults"
+              "label": "Mentor-like flavor"
             }
           ],
           "appliesToActivityIds": [
@@ -48078,7 +48078,7 @@
             },
             {
               "id": "consenting_observation",
-              "label": "Being seen by consenting adults",
+              "label": "Being seen by consenting people",
               "appliesToActivityIds": [
                 "sex_club_context",
                 "play_party_context",
@@ -48112,7 +48112,7 @@
             },
             {
               "id": "consenting_adults_only",
-              "label": "Only around consenting adults in an adult venue"
+              "label": "Only around consenting people in an adult venue"
             }
           ],
           "placeholder": "Choose one"

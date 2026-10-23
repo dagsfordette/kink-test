@@ -173,6 +173,22 @@ const DIRECTIONAL_ROLE_PAIRS = {
   }
 }
 
+const AUTHORITY_THEMES = ['authority_responsibility', 'surrender']
+
+export function fantasyThemePresentation(profile, dimensionId) {
+  const dimension = profile.dimensions.find((row) => row.id === dimensionId)
+  if (!dimension) return null
+  if (!AUTHORITY_THEMES.includes(dimensionId))
+    return { ...dimension, dimensionIds: [dimensionId] }
+  return {
+    ...dimension,
+    id: 'authority_responsibility',
+    label: 'Authority & surrender',
+    description: 'Taking the lead and carrying responsibility, or handing control to a partner and letting them decide.',
+    dimensionIds: AUTHORITY_THEMES
+  }
+}
+
 function directionPairForDimension(dimension) {
   if (DIRECTIONAL_ROLE_PAIRS[dimension.id])
     return DIRECTIONAL_ROLE_PAIRS[dimension.id]
@@ -203,10 +219,17 @@ export function fantasyRoleBreakdown(profile, answers, dimensionId) {
     (row) => row.id === dimensionId
   )
   if (!dimension) return null
-  const pair = directionPairForDimension(dimension)
-  const metric = scoreFantasyProfile(profile, answers)[dimensionId]
-  const left = pair ? metric?.perspectives?.[pair.left] : null
-  const right = pair ? metric?.perspectives?.[pair.right] : null
+  const authority = AUTHORITY_THEMES.includes(dimensionId)
+  const pair = authority ? {
+    left: 'authority_responsibility',
+    leftLabel: 'Taking authority and responsibility',
+    right: 'surrender',
+    rightLabel: 'Giving up control and responsibility'
+  } : directionPairForDimension(dimension)
+  const evidence = scoreFantasyProfile(profile, answers)
+  const metric = evidence[dimensionId]
+  const left = authority ? evidence[pair.left] : pair ? metric?.perspectives?.[pair.left] : null
+  const right = authority ? evidence[pair.right] : pair ? metric?.perspectives?.[pair.right] : null
   if (!left?.observations && !right?.observations) {
     if (!metric?.observations) return null
     return {
@@ -287,29 +310,27 @@ export function contributingAnswers(
 
 function rankedFantasyThemes(profile, answers, layer, maxCount = 6) {
   const evidence = scoreFantasyProfile(profile, answers)
-  return (profile.dimensions || [])
+  const candidates = (profile.dimensions || [])
     .filter((dimension) => dimension.resultLayer === layer)
     .map((dimension) => ({ ...dimension, evidence: evidence[dimension.id] }))
-    .filter(
-      (row) =>
-        row.evidence.observations >= 2 && POSITIVE_BANDS.has(row.evidence.band)
-    )
-    .sort(
-      (a, b) =>
-        b.evidence.score - a.evidence.score ||
-        b.evidence.confidence - a.evidence.confidence ||
-        a.label.localeCompare(b.label)
-    )
-    .slice(0, maxCount)
-    .map((row) => ({
-      id: row.id,
-      label: row.label,
-      description: row.description,
+    .filter((row) => row.evidence.observations >= 2 && POSITIVE_BANDS.has(row.evidence.band))
+    .sort((a, b) => b.evidence.score - a.evidence.score ||
+      b.evidence.confidence - a.evidence.confidence || a.label.localeCompare(b.label))
+  const seen = new Set()
+  return candidates.flatMap((row) => {
+    const theme = fantasyThemePresentation(profile, row.id)
+    if (seen.has(theme.id)) return []
+    seen.add(theme.id)
+    return [{
+      id: theme.id,
+      label: theme.label,
+      description: theme.description,
       interpretation: row.positiveInterpretation,
       band: row.evidence.band,
-      direction: fantasyRoleBreakdown(profile, answers, row.id),
-      examples: contributingAnswers(profile, answers, row.id, 3)
-    }))
+      direction: fantasyRoleBreakdown(profile, answers, theme.id),
+      examples: theme.dimensionIds.flatMap((id) => contributingAnswers(profile, answers, id, 3))
+    }]
+  }).slice(0, maxCount)
 }
 
 function directionalSentence(dimension, breakdown) {
@@ -321,13 +342,14 @@ function fantasyDirectionality(profile, answers, maxCount = 6) {
   const evidence = scoreFantasyProfile(profile, answers)
   const rows = []
   for (const dimension of profile.dimensions || []) {
+    if (dimension.id === 'surrender') continue
     const breakdown = fantasyRoleBreakdown(profile, answers, dimension.id)
     if (
       !breakdown?.summary ||
       breakdown.roles.filter((role) => role.observations).length < 2
     )
       continue
-    const text = directionalSentence(dimension, breakdown)
+    const text = directionalSentence(fantasyThemePresentation(profile, dimension.id), breakdown)
     const strength = Math.max(
       ...breakdown.roles
         .filter((role) => role.score !== null)

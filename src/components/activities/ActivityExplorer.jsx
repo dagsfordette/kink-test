@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import ActivityCategoryNav from './ActivityCategoryNav.jsx'
 import ActivityCard from './ActivityCard.jsx'
+import BodyAreaExplorer from './BodyAreaExplorer.jsx'
 import { filterActivities } from '../../lib/activityProfile.js'
 import { createEligibilityContext, evaluateActivity } from '../../lib/eligibility.js'
 import { filterQuestions, questionLimit } from '../../lib/explorationFilters.js'
@@ -37,6 +38,7 @@ export default function ActivityExplorer({ catalog, activityState, onExploration
   const rows = useMemo(() => filterActivities(catalog, activityState, {}, context), [catalog, activityState, context])
   const category = catalog.categories.find((c) => c.id === nav.categoryId)
   const reviewing = Boolean(nav.reviewActivityId)
+  const bodyMap = nav.categoryId === 'body_part_fetishes' && !reviewing
   const counts = useMemo(() => {
     const result = Object.fromEntries(catalog.categories.map((c) => [c.id, { answered: 0, available: 0, excluded: 0 }]))
     for (const a of catalog.activities) {
@@ -53,10 +55,11 @@ export default function ActivityExplorer({ catalog, activityState, onExploration
   if (membership.current.scope !== scope) membership.current = { scope, ids: rows.map((a) => a.id) }
   const known = new Set(membership.current.ids)
   for (const row of rows) if (!known.has(row.id)) membership.current.ids.push(row.id)
-  const byId = new Map(rows.map((a) => [a.id, a]))
-  const pageCount = Math.max(1, Math.ceil(membership.current.ids.length / 30))
+  const byId = new Map(rows.filter((a) => reviewing || a.categoryId !== 'body_part_fetishes').map((a) => [a.id, a]))
+  const listIds = membership.current.ids.filter((id) => reviewing || !catalog.activities.some((a) => a.id === id && a.categoryId === 'body_part_fetishes'))
+  const pageCount = Math.max(1, Math.ceil(listIds.length / 30))
   const page = Math.min(pageNumber, pageCount - 1)
-  const visibleRows = membership.current.ids.slice(page * 30, (page + 1) * 30).map((id) => byId.get(id)).filter(Boolean)
+  const visibleRows = listIds.slice(page * 30, (page + 1) * 30).map((id) => byId.get(id)).filter(Boolean)
   const questions = filterQuestions(nav.categoryId)
   const unansweredQuestions = questions.filter((q) => !Object.hasOwn(e.topicPreferences || {}, q.key) && questionLimit(q, e, activityState.fantasyEvidence) === null)
   const selectCategory = (id) => {
@@ -77,12 +80,12 @@ export default function ActivityExplorer({ catalog, activityState, onExploration
             <h1 ref={headingRef} tabIndex={-1}>{reviewing ? 'Review this answer' : category?.label || 'Activities'}</h1>
             <button type="button" className="secondary-button" onClick={onResults}>Review answers{boundaryCount ? ` · ${boundaryCount} to check` : ''}</button>
           </header>
-          {!reviewing && unansweredQuestions.length > 0 && <section className="activity-clarification">
+          {!reviewing && !bodyMap && unansweredQuestions.length > 0 && <section className="activity-clarification">
             <p>A quick preference to help narrow this down:</p>
             <PreferenceQuestions questions={unansweredQuestions} exploration={e} evidence={activityState.fantasyEvidence} onChange={onExploration} />
           </section>}
           <div className="activity-filter-toolbar">
-            <span role="status">{rows.length} activities · {Object.keys(activityState.answers).length} answered</span>
+            <span role="status">{bodyMap ? '41 areas and features' : `${rows.length} activities`} · {Object.keys(activityState.answers).length} answered</span>
             <details className="activity-filter-options">
               <summary>Adjust filters</summary>
               <PreferenceQuestions questions={questions} exploration={e} evidence={activityState.fantasyEvidence} onChange={onExploration} />
@@ -91,7 +94,10 @@ export default function ActivityExplorer({ catalog, activityState, onExploration
           </div>
           {reviewing && <button type="button" className="text-button" onClick={() => onNavigation({ reviewActivityId: null })}>Back to activities</button>}
           {activityState.lastSave && <div className="activity-autosave" role="status">Saved automatically. <button type="button" className="text-button" onClick={onUndo}>Undo last change</button></div>}
-          {pageCount > 1 && pagination}
+          {!bodyMap && pageCount > 1 && pagination}
+          {bodyMap ? <BodyAreaExplorer catalog={catalog} activityState={activityState} context={context}
+            onStance={onStance} onExperience={onExperience} onDetails={onDetails} onNote={onNote} onClear={onClear} onToggleHidden={onToggleHidden} /> : <>
+          {(!nav.categoryId || nav.categoryId === 'all') && <button type="button" className="body-map-entry secondary-button" onClick={() => selectCategory('body_part_fetishes')}>Explore body-area interests on the body map →</button>}
           <section className="activity-card-list" aria-label="Activities">
             {!visibleRows.length && <div className="activity-empty-state"><p>No activities on this page fit your current answers.</p><p>Choose another page or category, or adjust filters to see exclusions.</p></div>}
             {visibleRows.map((activity) => {
@@ -108,8 +114,8 @@ export default function ActivityExplorer({ catalog, activityState, onExploration
                   <button type="button" className="text-button" onClick={() => onExploration({ ...e, inferredFilterOverrides: { ...e.inferredFilterOverrides, [activity.id]: 'keep_in_exploration' } })}>Include anyway</button>}
               </div>
             })}
-          </section>
-          {pageCount > 1 && pagination}
+          </section></>}
+          {!bodyMap && pageCount > 1 && pagination}
         </main>
       </div>
     </div>

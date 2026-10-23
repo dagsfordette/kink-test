@@ -1,6 +1,7 @@
 import {
   contributingAnswers,
   fantasyRoleBreakdown,
+  fantasyThemePresentation,
   kinkAreasForTheme,
   nearbyFantasyThemes
 } from '../../lib/fantasyResults.js'
@@ -17,23 +18,34 @@ export default function FantasyThemeDetail({
   onOpenTheme,
   onExploreMore
 }) {
-  const theme = profile.dimensions.find(
-    (dimension) => dimension.id === dimensionId
-  )
+  const theme = fantasyThemePresentation(profile, dimensionId)
   if (!theme) return null
   const evidence = scoreFantasyProfile(profile, answers)[dimensionId]
   const summary = describeFantasyDimension(profile, dimensionId, answers)
-  const examples = contributingAnswers(profile, answers, dimensionId, 6)
-  const nearby = nearbyFantasyThemes(profile, dimensionId, answers, 4)
-  const kinkAreas = kinkAreasForTheme(profile, answers, dimensionId)
+  const examples = [...new Map(theme.dimensionIds.flatMap(
+    (id) => contributingAnswers(profile, answers, id, 3)
+  ).map((row) => [row.questionId, row])).values()]
+  const nearby = [...new Map(theme.dimensionIds.flatMap(
+    (id) => nearbyFantasyThemes(profile, id, answers, 4)
+  ).map((row) => {
+    const related = fantasyThemePresentation(profile, row.id)
+    return [related.id, related]
+  })).values()].filter((row) => row.id !== theme.id).slice(0, 4)
+  const kinkAreas = [...new Map(theme.dimensionIds.flatMap(
+    (id) => kinkAreasForTheme(profile, answers, id)
+  ).map((row) => [row.id, row])).values()]
   const direction = fantasyRoleBreakdown(profile, answers, dimensionId)
-  const unansweredDeepDiveCount = profile.questions.filter(
-    (question) =>
-      question.stage === 'deep_dive' &&
-      !Object.prototype.hasOwnProperty.call(answers, question.id) &&
-      (question.signals?.some((signal) => signal.dimensionId === dimensionId) ||
-        question.parentDimensionId === dimensionId)
-  ).length
+  const followUps = theme.dimensionIds.map((id) => ({
+    id,
+    label: profile.dimensions.find((row) => row.id === id).label,
+    count: profile.questions.filter(
+      (question) =>
+        question.stage === 'deep_dive' &&
+        !Object.prototype.hasOwnProperty.call(answers, question.id) &&
+        (question.signals?.some((signal) => signal.dimensionId === id) ||
+          question.parentDimensionId === id)
+    ).length
+  }))
 
   return (
     <main className="fantasy-shell fantasy-detail-shell">
@@ -48,7 +60,7 @@ export default function FantasyThemeDetail({
         <span className="kicker">A closer look</span>
         <h1>{theme.label}</h1>
         <p className="fantasy-detail-definition">{theme.description}</p>
-        {evidence?.band !== 'insufficient' && (
+        {theme.dimensionIds.length === 1 && evidence?.band !== 'insufficient' && (
           <p className="fantasy-theme-summary">{summary}</p>
         )}
       </section>
@@ -160,30 +172,32 @@ export default function FantasyThemeDetail({
         </section>
       )}
 
-      <section className="fantasy-more-card">
-        <div>
-          <span className="kicker">Optional</span>
-          <h2>
-            {unansweredDeepDiveCount
-              ? 'Want to dig into this one?'
-              : 'You’ve explored this theme'}
-          </h2>
-          <p>
-            {unansweredDeepDiveCount
-              ? 'Answer a few more fantasies that focus on this theme. They’ll be added only if you choose to continue.'
-              : 'There aren’t any more follow-up questions for this theme right now.'}
-          </p>
-        </div>
-        {unansweredDeepDiveCount > 0 && (
-          <button
-            type="button"
-            className="primary-button"
-            onClick={() => onExploreMore(dimensionId)}
-          >
-            Ask me more
-          </button>
-        )}
-      </section>
+      {followUps.map(({ id, label, count: unansweredDeepDiveCount }) => (
+        <section className="fantasy-more-card" key={id}>
+          <div>
+            <span className="kicker">Optional</span>
+            <h2>
+              {unansweredDeepDiveCount
+                ? (followUps.length > 1 ? `Explore ${label.toLowerCase()}` : 'Want to dig into this one?')
+                : (followUps.length > 1 ? `You’ve explored ${label.toLowerCase()}` : 'You’ve explored this theme')}
+            </h2>
+            <p>
+              {unansweredDeepDiveCount
+                ? 'Answer a few more fantasies that focus on this theme. They’ll be added only if you choose to continue.'
+                : 'There aren’t any more follow-up questions for this theme right now.'}
+            </p>
+          </div>
+          {unansweredDeepDiveCount > 0 && (
+            <button
+              type="button"
+              className="primary-button"
+              onClick={() => onExploreMore(id)}
+            >
+              Ask me more
+            </button>
+          )}
+        </section>
+      ))}
     </main>
   )
 }

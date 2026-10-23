@@ -328,7 +328,7 @@ test('chasing fantasies have independent answers and every ranked theme has a sc
   assert.equal(score.perspectives.receive.score, -2)
   assert.equal(f.questionnaire.administration.coreCount, f.questions.filter((q) => q.stage === 'core').length)
   const positive = Object.fromEntries(f.questions.map((q) => [q.id, 'strong_turn_on']))
-  for (const id of ['authority_responsibility', 'novelty_experimentation']) {
+  for (const id of ['novelty_experimentation']) {
     const breakdown = fantasyRoleBreakdown(f, positive, id)
     assert.equal(breakdown.roles.length, 1)
     assert.equal(breakdown.roles[0].key, 'overall')
@@ -341,4 +341,35 @@ test('chasing fantasies have independent answers and every ranked theme has a sc
     assert.ok(theme.direction.roles.some((role) => role.position !== null), theme.id)
   }
   assert.equal(results.directions.some((row) => row.dimensionId === 'novelty_experimentation'), false)
+})
+
+
+test('authority and surrender stay independent and share one results card', () => {
+  const authority = f.questions.filter((q) => q.id.startsWith('fp_core_authority_responsibility_'))
+  const surrender = f.questions.filter((q) => q.id.startsWith('fp_core_surrender_'))
+  const answers = Object.fromEntries([
+    ...authority.map((q) => [q.id, 'strong_turn_off']),
+    ...surrender.map((q) => [q.id, 'strong_turn_on'])
+  ])
+  const evidence = scoreFantasyProfile(f, answers)
+  assert.equal(evidence.authority_responsibility.score, -2)
+  assert.equal(evidence.surrender.score, 2)
+  const breakdown = fantasyRoleBreakdown(f, answers, 'authority_responsibility')
+  assert.deepEqual(breakdown.roles.map((r) => r.position), [0, 100])
+  assert.deepEqual(fantasyRoleBreakdown(f, answers, 'surrender').roles, breakdown.roles)
+  const results = buildFantasyResults(f, answers)
+  const card = results.drivers.find((r) => r.id === 'authority_responsibility')
+  assert.ok(card)
+  assert.equal(card.label, 'Authority & surrender')
+  assert.equal(results.drivers.some((r) => r.id === 'surrender'), false)
+  assert.equal(card.direction.roles.length, 2)
+  const both = Object.fromEntries([...authority, ...surrender].map((q) => [q.id, 'strong_turn_on']))
+  assert.deepEqual(fantasyRoleBreakdown(f, both, 'authority_responsibility').roles.map((r) => r.position), [100, 100])
+  assert.equal(buildFantasyResults(f, both).drivers.filter((r) => ['authority_responsibility', 'surrender'].includes(r.id)).length, 1)
+  const onlySurrender = Object.fromEntries(surrender.map((q) => [q.id, 'turn_on']))
+  assert.equal(scoreFantasyProfile(f, onlySurrender).authority_responsibility.observations, 0)
+  const partial = fantasyRoleBreakdown(f, onlySurrender, 'authority_responsibility')
+  assert.equal(partial.roles[0].position, null)
+  assert.equal(partial.roles[0].strength, 'Not enough data')
+  assert.equal(fantasyRoleBreakdown(f, {}, 'authority_responsibility'), null)
 })
