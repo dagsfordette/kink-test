@@ -1,3 +1,4 @@
+import BodyPaintSummary from '../activities/BodyPaintSummary.jsx'
 import { useMemo, useState } from 'react'
 import PartnerComparison from '../activities/PartnerComparison.jsx'
 import PartnerPrintReport from './PartnerPrintReport.jsx'
@@ -147,6 +148,8 @@ export default function MyProfile({
           overlap, but they don’t have to.
         </p>
       </header>
+      <div className="screen-only"><BodyPaintSummary paint={activities.exploration?.bodyPaint} /></div>
+
 
       <div className="screen-only">
         <section className="combined-profile-section fantasy-profile-summary">
@@ -327,7 +330,7 @@ export default function MyProfile({
                 </a>
               </p>
               <p>
-                Includes activity stances, experience and reviewed boundary
+                Includes painted body maps, activity stances, experience and reviewed boundary
                 scope. Private notes, detailed preferences, and Fantasy Profile
                 data are excluded. The downloaded file is unencrypted; optional
                 Play Preferences may contain sensitive text.

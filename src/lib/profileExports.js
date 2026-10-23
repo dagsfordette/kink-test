@@ -1,3 +1,4 @@
+import { normalizeBodyPaint, parsePublicBodyMaps } from './bodyPaint.js'
 import {
   buildShareProjection,
   validatePublicContext
@@ -259,6 +260,7 @@ export function parsePartnerShareExport(value, activityCatalog) {
       )
     },
     boundaryContext,
+    bodyMaps: parsePublicBodyMaps(value.bodyMaps),
     contextNote:
       'Boundary context is the sender’s declared scope and exact exceptions. Private answer dependencies and consent are not independently verified. Uncertainty and soft limits need discussion.',
     playPreferences: value.playPreferences
@@ -371,5 +373,6 @@ export function parsePrivateBackup(value, activityCatalog, fantasyProfile) {
       session.answeredIds.some((id) => session.skippedIds.includes(id)))
   )
     throw new Error('This backup contains an invalid session.')
+  normalizeBodyPaint(state.exploration.bodyPaint, { strict: true })
   return clone(state)
 }

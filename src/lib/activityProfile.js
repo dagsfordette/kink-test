@@ -30,27 +30,6 @@ const EXPERIENCE_SET = new Set(EXPERIENCE_IDS)
 function trimRoleSpecificOptions(activity, field) {
   if (
     field.id === 'interaction' &&
-    activity.detailProfileId === 'body_part_interest_with_partner_body_general'
-  ) {
-    if (activity.id.startsWith('observe_')) {
-      return {
-        ...field,
-        options: (field.options || []).filter((option) =>
-          ['looking'].includes(option.id)
-        )
-      }
-    }
-    if (activity.id.startsWith('give_')) {
-      return {
-        ...field,
-        options: (field.options || []).filter(
-          (option) => option.id !== 'receiving_attention'
-        )
-      }
-    }
-  }
-  if (
-    field.id === 'interaction' &&
     activity.detailProfileId === 'material_interest_with_partner_body_general'
   ) {
     if (activity.id.startsWith('self_')) {

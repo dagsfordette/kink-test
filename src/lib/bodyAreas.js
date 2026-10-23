@@ -1,21 +1,29 @@
 export const bodyRegions = [
-  { id: 'head', label: 'Head & face', x: 150, y: 49, areas: ['hair', 'scalp', 'face', 'eyes', 'ears', 'lips', 'mouth', 'tongue', 'teeth'] },
-  { id: 'neck', label: 'Neck & shoulders', x: 150, y: 100, areas: ['neck', 'shoulders'] },
-  { id: 'chest', label: 'Chest', x: 150, y: 145, areas: ['chest', 'breasts', 'nipples', 'areolas'] },
-  { id: 'arms', label: 'Arms & hands', x: 65, y: 208, areas: ['arms', 'hands', 'fingers'] },
-  { id: 'middle', label: 'Torso', x: 150, y: 203, areas: ['abdomen', 'navel', 'waist', 'back', 'armpit'] },
-  { id: 'hips', label: 'Hips & buttocks', x: 150, y: 260, areas: ['hips', 'buttocks'] },
-  { id: 'intimate', label: 'Genitals', x: 150, y: 294, areas: ['genital'] },
-  { id: 'legs', label: 'Legs', x: 124, y: 366, areas: ['legs', 'thighs', 'calves', 'knees'] },
-  { id: 'feet', label: 'Feet', x: 117, y: 475, areas: ['feet', 'toes', 'ankles'] },
-  { id: 'features', label: 'Features & scent', areas: ['body_hair', 'pubic_hair', 'facial_hair', 'muscle', 'height_size', 'tattoo', 'piercing', 'scented_body_area'] }
+  { id: 'head', label: 'Head & face', x: 155, y: 45 },
+  { id: 'neck', label: 'Neck & shoulders', x: 155, y: 90 },
+  { id: 'chest', label: 'Chest', x: 155, y: 136 },
+  { id: 'arms', label: 'Arms & hands', x: 88, y: 245 },
+  { id: 'middle', label: 'Torso', x: 155, y: 192 },
+  { id: 'hips', label: 'Hips & buttocks', x: 178, y: 222 },
+  { id: 'intimate', label: 'Genitals', x: 155, y: 253 },
+  { id: 'legs', label: 'Legs', x: 124, y: 346 },
+  { id: 'feet', label: 'Feet', x: 120, y: 464 }
 ]
-const labels = { genital: 'Genitals', armpit: 'Armpits', muscle: 'Musculature', height_size: 'Height / body-size difference', tattoo: 'Tattoos', piercing: 'Piercings', scented_body_area: 'Body scent' }
-export const bodyAreaLabel = (id) => labels[id] || (id.replaceAll('_', ' ').replace(/^./, (c) => c.toUpperCase()))
-export const bodyActivityIds = (area, owner) => (owner === 'self' ? ['receive'] : ['observe', 'give']).map((p) => `${p}_${area}_fetish`)
-export function bodyAreaStatus(answers) {
-  const values = answers.map((a) => a?.stance).filter(Boolean)
-  if (!values.length) return 'unanswered'
-  const kinds = new Set(values.map((v) => ['hard_limit', 'soft_limit'].includes(v) ? 'limit' : ['love', 'want', 'curious'].includes(v) ? 'interest' : 'other'))
-  return kinds.size > 1 ? 'mixed' : [...kinds][0]
+export function suggestedBodyModel(owner, state) {
+  if (owner === 'self') {
+    const anatomy = state.exploration?.facts?.self?.anatomy || {}
+    const penis = anatomy.penis === 'present', vagina = anatomy.vagina === 'present'
+    return penis === vagina ? null : penis ? 'male' : 'female'
+  }
+  const attraction = state.attraction || {}
+  const genders = attraction.partnerGender || []
+  if (genders.length === 1 && ['men', 'women'].includes(genders[0]))
+    return genders[0] === 'men' ? 'male' : 'female'
+  const anatomy = attraction.partnerAnatomy || []
+  if (anatomy.includes('depends_person')) return null
+  const penis = anatomy.includes('penis')
+  const vagina = anatomy.includes('vagina') || anatomy.includes('vulva_clitoris')
+  return penis === vagina ? null : penis ? 'male' : 'female'
 }
+
+export const bodyModelAsset = (model) => model === 'male' ? 'body-figure-male.webp' : 'body-figure-realistic.webp'

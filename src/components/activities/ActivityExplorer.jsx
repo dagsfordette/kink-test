@@ -55,8 +55,8 @@ export default function ActivityExplorer({ catalog, activityState, onExploration
   if (membership.current.scope !== scope) membership.current = { scope, ids: rows.map((a) => a.id) }
   const known = new Set(membership.current.ids)
   for (const row of rows) if (!known.has(row.id)) membership.current.ids.push(row.id)
-  const byId = new Map(rows.filter((a) => reviewing || a.categoryId !== 'body_part_fetishes').map((a) => [a.id, a]))
-  const listIds = membership.current.ids.filter((id) => reviewing || !catalog.activities.some((a) => a.id === id && a.categoryId === 'body_part_fetishes'))
+  const byId = new Map(rows.map((a) => [a.id, a]))
+  const listIds = membership.current.ids
   const pageCount = Math.max(1, Math.ceil(listIds.length / 30))
   const page = Math.min(pageNumber, pageCount - 1)
   const visibleRows = listIds.slice(page * 30, (page + 1) * 30).map((id) => byId.get(id)).filter(Boolean)
@@ -84,19 +84,18 @@ export default function ActivityExplorer({ catalog, activityState, onExploration
             <p>A quick preference to help narrow this down:</p>
             <PreferenceQuestions questions={unansweredQuestions} exploration={e} evidence={activityState.fantasyEvidence} onChange={onExploration} />
           </section>}
-          <div className="activity-filter-toolbar">
-            <span role="status">{bodyMap ? '41 areas and features' : `${rows.length} activities`} · {Object.keys(activityState.answers).length} answered</span>
+          {!bodyMap && <div className="activity-filter-toolbar">
+            <span role="status">{rows.length} activities · {Object.keys(activityState.answers).length} answered</span>
             <details className="activity-filter-options">
               <summary>Adjust filters</summary>
               <PreferenceQuestions questions={questions} exploration={e} evidence={activityState.fantasyEvidence} onChange={onExploration} />
               <label><input type="checkbox" checked={nav.showHidden} onChange={(event) => onNavigation({ showHidden: event.target.checked })} /> Show excluded activities</label>
             </details>
-          </div>
+          </div>}
           {reviewing && <button type="button" className="text-button" onClick={() => onNavigation({ reviewActivityId: null })}>Back to activities</button>}
-          {activityState.lastSave && <div className="activity-autosave" role="status">Saved automatically. <button type="button" className="text-button" onClick={onUndo}>Undo last change</button></div>}
+          {!bodyMap && activityState.lastSave && <div className="activity-autosave" role="status">Saved automatically. <button type="button" className="text-button" onClick={onUndo}>Undo last change</button></div>}
           {!bodyMap && pageCount > 1 && pagination}
-          {bodyMap ? <BodyAreaExplorer catalog={catalog} activityState={activityState} context={context}
-            onStance={onStance} onExperience={onExperience} onDetails={onDetails} onNote={onNote} onClear={onClear} onToggleHidden={onToggleHidden} /> : <>
+          {bodyMap ? <BodyAreaExplorer activityState={activityState} onExploration={onExploration} /> : <>
           {(!nav.categoryId || nav.categoryId === 'all') && <button type="button" className="body-map-entry secondary-button" onClick={() => selectCategory('body_part_fetishes')}>Explore body-area interests on the body map →</button>}
           <section className="activity-card-list" aria-label="Activities">
             {!visibleRows.length && <div className="activity-empty-state"><p>No activities on this page fit your current answers.</p><p>Choose another page or category, or adjust filters to see exclusions.</p></div>}

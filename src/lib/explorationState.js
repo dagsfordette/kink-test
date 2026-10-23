@@ -1,3 +1,4 @@
+import { normalizeBodyPaint } from './bodyPaint.js'
 export const ANATOMY_FEATURES = ['penis', 'vagina']
 
 export function bodyFactsFromSelection(selected) {
@@ -26,6 +27,8 @@ export function createExploration() {
     facts: {
       self: { anatomy: {} }
     },
+    bodyPaint: {},
+    bodyMapModels: { self: 'auto', partner: 'auto' },
     roles: { global: {}, byCategory: {} },
     inferredFilterOverrides: {},
     relevanceOverrides: {},
@@ -116,6 +119,10 @@ export function normalizeExploration(value, catalog) {
       : null
   return {
     ...base,
+    bodyPaint: normalizeBodyPaint(e.bodyPaint),
+    bodyMapModels: Object.fromEntries(['self', 'partner'].map((owner) => [owner,
+      ['male', 'female'].includes(e.bodyMapModels?.[owner]) ? e.bodyMapModels[owner] : 'auto'
+    ])),
     facts: {
       self: participant(e.facts?.self)
     },

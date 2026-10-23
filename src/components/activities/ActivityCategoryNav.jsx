@@ -51,8 +51,9 @@ export default function ActivityCategoryNav({
             >
               <span>{category.label}</span>
               <small>
-                {p.answered} answered · {p.available ?? p.total - p.answered}{' '}
-                available
+                {category.id === 'body_part_fetishes'
+                  ? 'Paint preferences'
+                  : `${p.answered} answered · ${p.available ?? p.total - p.answered} available`}
               </small>
             </button>
           )

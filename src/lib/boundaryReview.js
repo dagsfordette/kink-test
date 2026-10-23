@@ -1,3 +1,4 @@
+import { publicBodyMaps } from './bodyPaint.js'
 import { normalizePlayPreferences } from './playPreferences.js'
 import { relationshipGraph, traverse } from './relationships.js'
 
@@ -371,6 +372,9 @@ export function buildShareProjection(catalog, state, options = {}) {
   const review = reviewBoundaries(catalog, state)
   if (!review.allowed)
     return { allowed: false, blockers: review.blockers, payload: null }
+  let bodyMaps
+  try { bodyMaps = publicBodyMaps(state.exploration?.bodyPaint) }
+  catch { return { allowed: false, blockers: [{ code: 'body_maps', message: 'A saved body map needs repair before sharing.' }], payload: null } }
   const ids = new Set(catalog.activities.map((a) => a.id)),
     stances = new Set(catalog.stanceScale.map((s) => s.id)),
     exp = new Set(catalog.experienceScale.map((s) => s.id))
@@ -413,6 +417,7 @@ export function buildShareProjection(catalog, state, options = {}) {
         version: catalog.questionnaire.version
       },
       activities: { answers },
+      bodyMaps,
       boundaryContext,
       ...(options.includePlayPreferences === true
         ? { playPreferences: normalizePlayPreferences(options.playPreferences) }

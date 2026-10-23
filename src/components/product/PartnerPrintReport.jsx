@@ -1,3 +1,4 @@
+import BodyPaintSummary from '../activities/BodyPaintSummary.jsx'
 import { buildShareProjection } from '../../lib/boundaryReview.js'
 const SHARE_STANCE_ORDER = [
   'hard_limit',
@@ -93,6 +94,7 @@ export default function PartnerPrintReport({
           ))}
         </section>
       )}
+      <BodyPaintSummary paint={embedded ? activities.exploration?.bodyPaint : projection.payload.bodyMaps} />
       {SHARE_STANCE_ORDER.map((stanceId) => {
         const rows = answered.filter(
           (activity) => activities.answers[activity.id].stance === stanceId

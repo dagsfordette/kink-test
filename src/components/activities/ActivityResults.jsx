@@ -1,3 +1,5 @@
+import { paintedViews } from '../../lib/bodyPaint.js'
+import BodyPaintSummary from './BodyPaintSummary.jsx'
 import { buildShareProjection } from '../../lib/boundaryReview.js'
 import { useMemo, useState } from 'react'
 import { groupActivityResults } from '../../lib/activityProfile.js'
@@ -33,6 +35,7 @@ export default function ActivityResults({
     [catalog, activityState, view]
   )
   const { groups, unansweredCount, answeredCount, consideredCount } = resultData
+  const hasBodyMaps = paintedViews(activityState.exploration?.bodyPaint).length > 0
   const stanceLabels = new Map(
     catalog.stanceScale.map((row) => [row.id, row.label])
   )
@@ -69,6 +72,8 @@ export default function ActivityResults({
           </div>
         </header>
 
+        <BodyPaintSummary paint={activityState.exploration?.bodyPaint} />
+
         <section className="activity-unanswered-summary">
           <div>
             <h2>
@@ -96,10 +101,9 @@ export default function ActivityResults({
 
         {answeredCount === 0 ? (
           <section className="activity-empty-state activity-results-empty">
-            <h2>You haven’t answered anything yet.</h2>
+            <h2>{hasBodyMaps ? 'Your body maps are saved.' : 'You haven’t answered anything yet.'}</h2>
             <p>
-              Start Activity Explorer and answer a few questions. Your review
-              will build from there.
+              {hasBodyMaps ? 'Keep painting, or explore the other activity categories.' : 'Start Activity Explorer and answer a few questions. Your review will build from there.'}
             </p>
             <button
               type="button"
@@ -181,7 +185,7 @@ export default function ActivityResults({
                 <span className="kicker">Share with a partner</span>
                 <h2>Share only what you want them to see.</h2>
                 <p>
-                  The share file includes activity stances, experience and
+                  The share file includes painted body maps, activity stances, experience and
                   reviewed boundary scope—not private notes, detailed
                   preferences, or Fantasy Profile. You can separately choose to
                   include Play Preferences, which may contain sensitive text.

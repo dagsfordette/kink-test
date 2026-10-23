@@ -1,3 +1,4 @@
+import BodyPaintSummary from './BodyPaintSummary.jsx'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   compareActivityProfiles,
@@ -112,7 +113,7 @@ export default function PartnerComparison({
         <h2>See where your answers line up</h2>
         <p>
           Paste a partner’s Activity Explorer share file below. Only activity
-          stances and experience are shared, not private notes, detailed
+          stances, experience and painted body maps are shared, not private notes, detailed
           preferences or Fantasy Profile. Both exports must use the same
           Activity Explorer catalogue version.
         </p>
@@ -173,6 +174,8 @@ export default function PartnerComparison({
               Use different partner data
             </button>
           </div>
+          <BodyPaintSummary paint={ownProfile.bodyMaps} title="Your body maps" />
+          <BodyPaintSummary paint={partnerProfile.bodyMaps} title="Their body maps" person="other" />
           <p className="muted">{comparison.note}</p>
           <p>{partnerProfile.contextNote}</p>
           <section aria-label="Partner boundary context">
