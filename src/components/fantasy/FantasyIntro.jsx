@@ -83,7 +83,7 @@ export default function FantasyIntro({
             className="secondary-button large"
             onClick={onActivity}
           >
-            I’d rather browse activities
+            I’d rather explore activities
           </button>
         </div>
         <p className="fine-print">

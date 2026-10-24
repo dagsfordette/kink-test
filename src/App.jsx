@@ -58,7 +58,6 @@ import {
   setActivityExperience,
   setActivityNote,
   setActivityStance,
-  toggleHiddenActivity,
   updateActivityNavigation,
   focusUnansweredActivities,
   focusActivityForReview,
@@ -586,13 +585,8 @@ export default function App() {
                 'activity_explorer'
               )
             }
-            onToggleHidden={(activityId) =>
-              updateActivity(
-                (current) => toggleHiddenActivity(current, activityId),
-                'activity_explorer'
-              )
-            }
             onResults={() => navigate('activity_results')}
+            onPause={() => navigate('home')}
           />
         )}
 

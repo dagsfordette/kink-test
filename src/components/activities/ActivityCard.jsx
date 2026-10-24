@@ -1,5 +1,7 @@
+import { detailFieldsForActivity } from '../../lib/activityProfile.js'
 import { useEffect, useState } from 'react'
 import ActivityDetails from './ActivityDetails.jsx'
+import ActivityExamples from './ActivityExamples.jsx'
 
 function usefulDescription(description = '') {
   if (
@@ -34,24 +36,38 @@ export default function ActivityCard({
   activity,
   answer,
   focused,
-  hidden,
   onStance,
   onExperience,
   onDetails,
   onNote,
   onClear,
-  onToggleHidden
+  guided = false,
+  sharedPreferences = {},
+  onRemember
 }) {
   const [expanded, setExpanded] = useState(
-    Boolean(focused || answer?.stance === 'soft_limit')
+    Boolean(focused || answer?.stance === 'soft_limit' || (activity.learning && answer?.stance && !['dont_want','hard_limit'].includes(answer.stance)))
   )
   const description = usefulDescription(activity.description)
   useEffect(() => {
     if (focused) setExpanded(true)
   }, [focused])
   useEffect(() => {
-    if (answer?.stance === 'soft_limit') setExpanded(true)
-  }, [answer?.stance])
+    if (answer?.stance === 'soft_limit' || (activity.learning && answer?.stance && !['dont_want', 'hard_limit'].includes(answer.stance))) setExpanded(true)
+    else if (activity.learning && !focused) setExpanded(false)
+  }, [answer?.stance, activity.learning, focused])
+
+  const experienceControl = (<fieldset className="activity-experience-control">
+          <legend>Have you tried it?</legend>
+          <div className="activity-detail-chips">
+            {catalog.experienceScale.map((row) => (
+              <button type="button" key={row.id} disabled={!answer?.stance}
+                aria-pressed={answer?.experience === row.id}
+                className={`chip ${answer?.experience === row.id ? 'selected' : ''}`}
+                onClick={() => onExperience(answer?.experience === row.id ? '' : row.id)}>{row.label}</button>
+            ))}
+          </div>
+        </fieldset>)
 
   return (
     <article
@@ -60,25 +76,22 @@ export default function ActivityCard({
     >
       <header className="activity-card-header">
         <div>
-          {(answer?.stance || hidden) && (
+          {answer?.stance && (
             <div className="activity-card-meta">
               {answer?.stance && (
                 <span>Saved</span>
               )}
-              {hidden && <span>hidden for now</span>}
             </div>
           )}
           <h3 tabIndex={-1}>{activity.label}</h3>
           {description && <p>{description}</p>}
         </div>
-        <button
-          type="button"
-          className="text-button activity-hide-button no-print"
-          onClick={onToggleHidden}
-        >
-          {hidden ? 'Show again' : 'Skip'}
-        </button>
+
       </header>
+
+      <ActivityExamples key={activity.id} activityId={activity.id} />
+
+      {guided && <ActivityVariations catalog={catalog} activity={activity} />}
 
       <div
         className="activity-stance-grid"
@@ -98,18 +111,22 @@ export default function ActivityCard({
         ))}
       </div>
 
+      {expanded && answer?.stance && (
+        <ActivityDetails
+          catalog={catalog}
+          activity={activity}
+          answer={answer}
+          onDetails={onDetails}
+          onNote={onNote}
+          guided={guided}
+          sharedPreferences={sharedPreferences}
+          onRemember={onRemember}
+        />
+      )}
+
       <div className="activity-secondary-controls">
-        <fieldset className="activity-experience-control">
-          <legend>Have you tried it?</legend>
-          <div className="activity-detail-chips">
-            {catalog.experienceScale.map((row) => (
-              <button type="button" key={row.id} disabled={!answer?.stance}
-                aria-pressed={answer?.experience === row.id}
-                className={`chip ${answer?.experience === row.id ? 'selected' : ''}`}
-                onClick={() => onExperience(answer?.experience === row.id ? '' : row.id)}>{row.label}</button>
-            ))}
-          </div>
-        </fieldset>
+        {(!guided || answer?.stance) && (activity.learning ? <details className="guided-experience"><summary>Experience</summary>{experienceControl}</details> : experienceControl)}
+
         <div className="activity-card-actions no-print">
           {answer?.stance && answer.stance !== 'hard_limit' && (
             <button
@@ -121,7 +138,7 @@ export default function ActivityCard({
                 ? 'Close'
                 : answer.stance === 'soft_limit'
                   ? 'Add my conditions'
-                  : 'Add details'}
+                  : 'Explore my preferences'}
             </button>
           )}
           {answer?.stance === 'hard_limit' && (
@@ -141,15 +158,21 @@ export default function ActivityCard({
         </div>
       </div>
 
-      {expanded && answer?.stance && (
-        <ActivityDetails
-          catalog={catalog}
-          activity={activity}
-          answer={answer}
-          onDetails={onDetails}
-          onNote={onNote}
-        />
-      )}
+
     </article>
   )
+}
+
+function ActivityVariations({ catalog, activity }) {
+  if (activity.learning?.examples?.length) return <details className="guided-examples"><summary>Explore variations</summary>
+    <ul>{activity.learning.examples.map((example, i) => <li key={i}>{example}</li>)}</ul>
+    <p>You can be interested in one version and unsure about another.</p>
+  </details>
+  const fields = detailFieldsForActivity(catalog, activity).filter(f => !['tone','role_scope','structure'].includes(f.id) && !f.showWhen && f.options?.length)
+  if (!fields.length) return null
+  const field = fields[0]
+  return <details className="guided-examples"><summary>Explore variations</summary>
+    <p>{field.label}</p><ul>{field.options.slice(0,4).map(o => <li key={o.id}>{o.label}</li>)}</ul>
+    <p>These are examples. You can be interested in some versions and unsure about others.</p>
+  </details>
 }

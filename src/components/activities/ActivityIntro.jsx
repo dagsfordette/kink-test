@@ -18,7 +18,7 @@ export default function ActivityIntro({
         <span className="kicker">Activity Explorer</span>
         <h1>Explore what you’d actually be up for.</h1>
         <p className="activity-lede">
-          Choose a category and answer at your own pace.
+          Choose a topic and explore one activity at a time.
         </p>
 
         {!adultConfirmed && (

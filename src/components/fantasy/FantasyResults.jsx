@@ -64,7 +64,9 @@ function ThemeGrid({ themes, onOpenTheme }) {
           onClick={() => onOpenTheme(theme.id)}
         >
           <span className="fantasy-result-strength">
-            {theme.band === 'strong'
+            {theme.roleSpecific
+              ? 'Stronger in one role'
+              : theme.band === 'strong'
               ? 'Came up strongly'
               : 'Came up more than once'}
           </span>

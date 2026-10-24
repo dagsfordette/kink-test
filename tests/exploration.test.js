@@ -118,3 +118,32 @@ test('manual topic choices stay within the category and unsure leaves it unrestr
   assert.equal(visible(s, 'receive_wrist_restraint'), false)
   assert.equal(visible(s, 'receive_blowjob'), true)
 })
+
+test('explorer puts broader activities before their subtypes in every category and the mixed view', () => {
+  for (const categoryId of ['all', ...c.categories.map((category) => category.id)]) {
+    const s = state()
+    const rows = filterActivities(c, s, { categoryId, showHidden: true })
+    const positions = new Map(rows.map((row, index) => [row.id, index]))
+    for (const relation of c.relationships) {
+      if (relation.type !== 'subtype' || !positions.has(relation.fromId) || !positions.has(relation.toId)) continue
+      assert.ok(positions.get(relation.fromId) < positions.get(relation.toId), `${categoryId}: ${relation.fromId} before ${relation.toId}`)
+    }
+  }
+})
+
+test('broad-first ordering keeps search results scoped and works through filtered intermediate activities', () => {
+  const catalog = {
+    ...c,
+    routingPrompts: [],
+    activities: ['specific', 'middle', 'broad'].map((id) => ({ ...c.activities[0], id, label: id, description: '' })),
+    relationships: [
+      { id: 'broad-middle', type: 'subtype', fromId: 'broad', toId: 'middle' },
+      { id: 'middle-specific', type: 'subtype', fromId: 'middle', toId: 'specific' }
+    ]
+  }
+  const s = state()
+  assert.deepEqual(filterActivities(catalog, s, { categoryId: 'all', showHidden: true, search: 'specific' }).map((row) => row.id), ['specific'])
+  catalog.activities[0].label = 'a match'
+  catalog.activities[2].label = 'z match'
+  assert.deepEqual(filterActivities(catalog, s, { categoryId: 'all', showHidden: true, search: 'match' }).map((row) => row.id), ['broad', 'specific'])
+})

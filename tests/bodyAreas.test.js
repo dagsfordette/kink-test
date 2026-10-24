@@ -22,7 +22,17 @@ test('partner illustration uses partner preferences independently of self anatom
   assert.equal(partner({ partnerAnatomy: ['penis', 'depends_person'] }), null)
   assert.equal(partner({}), null)
 })
-test('manual model selections persist independently and invalid values reset to automatic', () => {
-  assert.deepEqual(normalizeExploration({ bodyMapModels: { self: 'male', partner: 'female' } }, catalog).bodyMapModels, { self: 'male', partner: 'female' })
-  assert.deepEqual(normalizeExploration({ bodyMapModels: { self: 'invalid' } }, catalog).bodyMapModels, { self: 'auto', partner: 'auto' })
+test('saved model overrides are discarded and self/partner preferences remain independent', () => {
+  const exploration = normalizeExploration({
+    bodyMapModels: { self: 'female', partner: 'male' },
+    facts: { self: { anatomy: { penis: 'present', vagina: 'absent' } } }
+  }, catalog)
+  assert.equal('bodyMapModels' in exploration, false)
+  const state = { exploration, attraction: { partnerGender: ['women'] } }
+  assert.equal(suggestedBodyModel('self', state), 'male')
+  assert.equal(suggestedBodyModel('partner', state), 'female')
+  state.attraction.partnerGender = ['men']
+  assert.equal(suggestedBodyModel('partner', state), 'male')
+  state.attraction.partnerGender = ['women']
+  assert.equal(suggestedBodyModel('partner', state), 'female')
 })

@@ -644,3 +644,44 @@ button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visi
   .body-paint-summary-grid { grid-template-columns:repeat(2, minmax(0, 220px)); }
   .body-paint-summary-grid article { break-inside:avoid; }
 }
+.activity-examples {
+  margin: 0 0 1rem;
+  padding: .75rem;
+  border: 1px solid currentColor;
+  border-radius: .75rem;
+}
+.activity-examples summary { cursor: pointer; font-weight: 600; }
+.activity-examples summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.activity-example { margin: 1rem 0 0; }
+.activity-example img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 24rem;
+  object-fit: contain;
+  border-radius: .5rem;
+}
+.activity-example figcaption { margin-top: .65rem; overflow-wrap: anywhere; }
+.activity-example figcaption p { margin: 0 0 .4rem; }
+.activity-example figcaption small { display: block; line-height: 1.5; }
+
+
+.guided-explorer { max-width: 860px; }
+.guided-topic-actions, .guided-controls, .guided-offer-actions { display:flex; flex-wrap:wrap; gap:.8rem; align-items:center; }
+.guided-topic-actions { justify-content:space-between; margin-bottom:1.2rem; }
+.guided-controls { margin:1.5rem 0; }
+.guided-controls .primary-button { margin-left:auto; }
+.guided-topic-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1.5rem 0; }
+.guided-topic { display:flex; flex-direction:column; gap:.55rem; padding:1.2rem; text-align:left; border:1px solid var(--border); background:var(--panel); color:var(--text); border-radius:16px; cursor:pointer; }
+.guided-topic:hover, .guided-topic:focus-visible { border-color:var(--accent); }
+.guided-topic strong { font-size:1.1rem; }
+.guided-topic small, .guided-progress { color:var(--muted); }
+.guided-examples, .guided-more-details, .guided-path-settings { padding:1rem; margin:1rem 0; border:1px solid var(--border); border-radius:12px; }
+.guided-examples summary, .guided-more-details summary, .guided-path-settings summary { cursor:pointer; font-weight:600; }
+.guided-more-details .activity-detail-field { margin-top:1.2rem; }
+.guided-remembered { padding:.8rem; border-left:3px solid var(--accent); margin-top:1rem; }
+.guided-preference-offer h2 { margin-top:0; }
+@media(max-width:600px) { .guided-topic-grid { grid-template-columns:1fr; } .guided-controls .primary-button { margin-left:0; } .guided-controls { justify-content:space-between; } }
+.guided-experience summary { cursor:pointer; color:var(--muted); font-weight:600; }
+.guided-experience .activity-experience-control { margin-top:.8rem; }

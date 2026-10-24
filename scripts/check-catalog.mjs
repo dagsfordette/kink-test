@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { relationshipGraph, scopeMembers } from '../src/lib/relationships.js'
+import { detailFieldsForActivity } from '../src/lib/activityProfile.js'
 import { ANATOMY_FEATURES, ROLE_VALUES } from '../src/lib/explorationState.js'
 
 const load = (name) =>
@@ -41,6 +42,19 @@ for (const a of catalog.activities) {
     a.label && categories.has(a.categoryId) && profiles.has(a.detailProfileId),
     a.id
   )
+  if (a.learning) {
+    assert.ok(Number.isFinite(a.learning.order), a.id)
+    assert.ok(['directing', 'following', 'restraining', 'being_restrained'].includes(a.guidedRole), a.id)
+    assert.ok(Array.isArray(a.learning.examples) && a.learning.examples.length >= 2 && a.learning.examples.every(text => typeof text === 'string' && text.trim()), a.id)
+    const fields = detailFieldsForActivity(catalog, a)
+    assert.equal(fields[0]?.id, a.learning.primaryDetailFieldId, a.id)
+    assert.notEqual(fields[0]?.sharedPreference, true, a.id)
+    for (const link of a.learning.followUps || []) {
+      assert.ok(fields.find(f => f.id === link.fieldId)?.options?.some(o => o.id === link.optionId), a.id)
+      assert.ok(link.activityIds.length && link.activityIds.every(id => catalog.activities.some(target => target.id === id && target.categoryId === a.categoryId && target.guidedRole === a.guidedRole)), a.id)
+    }
+    assert.ok(catalog.categories.find(c => c.id === a.categoryId)?.guidedDetails?.help, a.id)
+  }
   requirement(a.applicability)
   assert.equal(
     a.boundaryCapability,
@@ -72,6 +86,7 @@ for (const profile of catalog.detailProfiles) {
       field.id
     )
     unique(field.options || [])
+    if (field.sharedPreference) assert.ok(['single_select', 'multi_select'].includes(field.type), field.id)
     for (const id of [
       ...(field.appliesToActivityIds || []),
       ...(field.excludeForActivityIds || [])

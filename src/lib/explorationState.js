@@ -1,3 +1,4 @@
+import { createGuided, normalizeGuided } from './guidedExploration.js'
 import { normalizeBodyPaint } from './bodyPaint.js'
 export const ANATOMY_FEATURES = ['penis', 'vagina']
 
@@ -28,7 +29,7 @@ export function createExploration() {
       self: { anatomy: {} }
     },
     bodyPaint: {},
-    bodyMapModels: { self: 'auto', partner: 'auto' },
+    guided: createGuided(),
     roles: { global: {}, byCategory: {} },
     inferredFilterOverrides: {},
     relevanceOverrides: {},
@@ -120,9 +121,7 @@ export function normalizeExploration(value, catalog) {
   return {
     ...base,
     bodyPaint: normalizeBodyPaint(e.bodyPaint),
-    bodyMapModels: Object.fromEntries(['self', 'partner'].map((owner) => [owner,
-      ['male', 'female'].includes(e.bodyMapModels?.[owner]) ? e.bodyMapModels[owner] : 'auto'
-    ])),
+    guided: normalizeGuided(e.guided, catalog),
     facts: {
       self: participant(e.facts?.self)
     },

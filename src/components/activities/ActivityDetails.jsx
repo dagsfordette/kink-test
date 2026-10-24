@@ -1,3 +1,4 @@
+import { sharedFields, preferenceKey, describePreference, validValue } from '../../lib/guidedExploration.js'
 import { detailFieldsForActivity } from '../../lib/activityProfile.js'
 
 function toggleArray(current, option, options) {
@@ -112,33 +113,28 @@ export default function ActivityDetails({
   activity,
   answer,
   onDetails,
-  onNote
+  onNote,
+  guided = false,
+  sharedPreferences = {},
+  onRemember
 }) {
   const details = answer?.details || {}
-  const fields = detailFieldsForActivity(catalog, activity, details)
+  const allFields = ['hard_limit', 'dont_want'].includes(answer?.stance) ? [] : detailFieldsForActivity(catalog, activity, details)
+  const shared = guided ? sharedFields(catalog, activity).filter(f => allFields.some(a => a.id === f.id)) : []
+  const fields = allFields.filter(f => !shared.some(s => s.id === f.id))
+  // A conditional follow-up stays next to its parent, even across progressive disclosure.
+  const primaryCount = activity.learning ? 1 : 2
+  const cut = fields.findIndex((f, i) => i >= primaryCount && !f.showWhen)
+  const primary = guided && cut >= 0 ? fields.slice(0, cut) : fields
+  const more = guided && cut >= 0 ? fields.slice(cut) : []
+  const sharedIntroduction = catalog.categories.find(c => c.id === activity.categoryId)?.guidedDetails
+  const renderField = field => <Field key={field.id} field={field} value={details[field.id]} onChange={value => onDetails({ ...details, [field.id]: value })} />
   const riskMap = new Map(catalog.riskDomains.map((row) => [row.id, row]))
   const riskRows = (activity.riskDomains || [])
     .map((id) => riskMap.get(id))
     .filter(Boolean)
 
-  return (
-    <div className="activity-details-panel">
-      {fields.length > 0 ? (
-        fields.map((field) => (
-          <Field
-            key={field.id}
-            field={field}
-            value={details[field.id]}
-            onChange={(value) => onDetails({ ...details, [field.id]: value })}
-          />
-        ))
-      ) : (
-        <p className="muted">
-          Nothing else to fill in here unless you want to leave yourself a note.
-        </p>
-      )}
-
-      <label className="activity-detail-field activity-note-field">
+  const noteField = (<label className="activity-detail-field activity-note-field">
         <span>Private note</span>
         <textarea
           rows="3"
@@ -150,7 +146,29 @@ export default function ActivityDetails({
           }
           onChange={(event) => onNote(event.target.value)}
         />
-      </label>
+      </label>)
+
+  return (
+    <div className="activity-details-panel">
+      {primary.map(renderField)}
+      {more.length > 0 && <details className="guided-more-details"><summary>More details</summary>{more.map(renderField)}</details>}
+      {shared.length > 0 && <details className="guided-more-details"><summary>{sharedIntroduction?.title || 'Explore broader preferences'}</summary>
+        <p>{sharedIntroduction?.help || 'You can leave these preferences undecided. Remembered choices are suggestions for other activities in the same role.'}</p>
+        {shared.map(field => {
+          const remembered = sharedPreferences[preferenceKey(activity, field)]
+          return <div key={field.id}>
+            {remembered && <div className="guided-remembered"><p>Previously chosen in this role: <strong>{describePreference(field, remembered)}</strong></p>
+              <button type="button" className="text-button" onClick={() => onDetails({ ...details, [field.id]: remembered })}>Use for this activity</button></div>}
+            {renderField(field)}
+            {onRemember && validValue(field, details[field.id]) && JSON.stringify(details[field.id]) !== JSON.stringify(remembered) && <button type="button" className="text-button" onClick={() => onRemember(field, details[field.id])}>Remember this choice for this role</button>}
+            <button type="button" className="text-button" onClick={() => {
+              const next = { ...details }; delete next[field.id]; onDetails(next)
+            }}>I’m not sure yet</button>
+          </div>
+        })}
+      </details>}
+
+      {activity.learning && !['soft_limit','hard_limit','dont_want'].includes(answer?.stance) ? <details className="guided-more-details"><summary>Add a private note</summary>{noteField}</details> : noteField}
 
       {riskRows.length > 0 && (
         <details className="activity-considerations">

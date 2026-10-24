@@ -190,7 +190,7 @@ export default function MyProfile({
               className="secondary-button"
               onClick={onActivities}
             >
-              {answeredCount ? 'Keep sorting' : 'Browse activities'}
+              {answeredCount ? 'Keep sorting' : 'Explore activities'}
             </button>
           </div>
           {answeredCount ? (

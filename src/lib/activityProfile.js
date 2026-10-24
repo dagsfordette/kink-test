@@ -406,6 +406,25 @@ function interleaveByCategory(rows, categoryOrder) {
   return mixed
 }
 
+function broadActivitiesFirst(rows, relationships) {
+  const byId = new Map(rows.map((row) => [row.id, row]))
+  const parents = new Map()
+  for (const relation of relationships) {
+    if (relation.type !== 'subtype') continue
+    if (!parents.has(relation.toId)) parents.set(relation.toId, [])
+    parents.get(relation.toId).push(relation.fromId)
+  }
+  const visited = new Set(), ordered = []
+  function visit(id) {
+    if (visited.has(id)) return
+    visited.add(id)
+    for (const parentId of parents.get(id) || []) visit(parentId)
+    if (byId.has(id)) ordered.push(byId.get(id))
+  }
+  for (const row of rows) visit(row.id)
+  return ordered
+}
+
 export function filterActivities(
   catalog,
   state,
@@ -431,10 +450,10 @@ export function filterActivities(
       (Boolean(state.drafts?.[a.id]) ||
         evaluateActivity(a, context, { reveal: nav.showHidden }).queueVisible)
   )
-  const mixed = interleaveByCategory(
+  const mixed = broadActivitiesFirst(interleaveByCategory(
     rows,
     orderedActivityCategories(catalog, effective).map((c) => c.id)
-  )
+  ), catalog.relationships || [])
   // Pin existing drafts even when their context or category changes while editing.
   for (const a of catalog.activities)
     if (state.drafts?.[a.id] && !mixed.some((x) => x.id === a.id))
@@ -475,6 +494,12 @@ export function detailFieldsForActivity(catalog, activity, details = {}) {
       return true
     })
     .map((field) => trimRoleSpecificOptions(activity, field))
+    .sort((a, b) => {
+      const primary = activity.learning?.primaryDetailFieldId
+      if (!primary) return 0
+      const isPrimary = field => field.id === primary || field.showWhen?.field === primary
+      return Number(isPrimary(b)) - Number(isPrimary(a))
+    })
 }
 
 export function groupActivityResults(catalog, state, mode = 'stance') {

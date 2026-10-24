@@ -373,3 +373,39 @@ test('authority and surrender stay independent and share one results card', () =
   assert.equal(partial.roles[0].strength, 'Not enough data')
   assert.equal(fantasyRoleBreakdown(f, {}, 'authority_responsibility'), null)
 })
+
+test('opposite perspective answers survive saving, route reconciliation and reload independently', () => {
+  assert.equal(new Set(f.questions.map((q) => q.id)).size, f.questions.length)
+  for (const dimension of ['pain_intensity', 'restraint_confinement', 'praise_approval', 'control_permission', 'tenderness_care']) {
+    const pair = ['give', 'receive'].map((perspective) => f.questions.find((q) =>
+      q.stage === 'core' && q.signals.some((s) => s.dimensionId === dimension && s.perspective === perspective && s.weight === 1)))
+    let state = fresh()
+    state.fantasy = answerFantasyQuestion(f, state.fantasy, pair[0].id, 'strong_turn_on', { advance: false })
+    state.fantasy = answerFantasyQuestion(f, state.fantasy, pair[1].id, 'strong_turn_off', { advance: false })
+    state = normalizeAppState(f, c, JSON.parse(JSON.stringify(state)))
+    assert.equal(state.fantasy.answers[pair[0].id], 'strong_turn_on')
+    assert.equal(state.fantasy.answers[pair[1].id], 'strong_turn_off')
+    const roles = fantasyRoleBreakdown(f, activeFantasyAnswers(state.fantasy), dimension).roles
+    assert.equal(roles.find((r) => r.key === 'give').position, 100)
+    assert.equal(roles.find((r) => r.key === 'receive').position, 0)
+    const result = buildFantasyResults(f, activeFantasyAnswers(state.fantasy))
+    assert.ok([...result.drivers, ...result.patterns].some((r) => r.id === dimension), dimension)
+  }
+})
+
+test('receiving follow-ups move their bar without altering the giving bar', () => {
+  for (const [dimension, followUps] of [
+    ['pain_intensity', ['fp_discriminator_pain_intensity_01', 'fp_discriminator_pain_intensity_02', 'fp_deep_dive_pain_intensity_01']],
+    ['restraint_confinement', ['fp_discriminator_restraint_confinement_02', 'fp_deep_dive_restraint_confinement_01']],
+    ['anticipation_denial', ['fp_discriminator_anticipation_denial_01', 'fp_deep_dive_anticipation_denial_01']],
+    ['rules_ritual_protocol', ['fp_deep_dive_rules_ritual_protocol_01']]
+  ]) {
+    const core = Object.fromEntries(f.questions.filter((q) => q.stage === 'core' &&
+      q.signals.some((s) => s.dimensionId === dimension && s.weight === 1)).map((q) => [q.id, 'strong_turn_on']))
+    for (const id of followUps) {
+      const roles = fantasyRoleBreakdown(f, { ...core, [id]: 'strong_turn_off' }, dimension).roles
+      assert.equal(roles.find((r) => r.key === 'receive').score, 0, id)
+      assert.equal(roles.find((r) => r.key === 'give').score, 2, id)
+    }
+  }
+})

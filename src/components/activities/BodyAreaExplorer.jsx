@@ -9,8 +9,7 @@ export default function BodyAreaExplorer({ activityState, onExploration }) {
   const [brush, setBrush] = useState('enjoy'), [size, setSize] = useState(18)
   const [past, setPast] = useState({}), [future, setFuture] = useState({})
   const [jumpTo, setJumpTo] = useState(null), [message, setMessage] = useState('')
-  const savedModel = e.bodyMapModels?.[owner]
-  const model = suggestedBodyModel(owner, activityState) || (['male', 'female'].includes(savedModel) ? savedModel : 'female')
+  const model = suggestedBodyModel(owner, activityState) || 'female'
   const key = `${owner}-${model}-${side}`
   const strokes = e.bodyPaint?.[owner]?.[model]?.[side] || []
   const save = (next) => onExploration({ ...e, bodyPaint: setPaintView(e.bodyPaint, owner, model, side, next) })

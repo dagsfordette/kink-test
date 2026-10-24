@@ -312,7 +312,19 @@ function rankedFantasyThemes(profile, answers, layer, maxCount = 6) {
   const evidence = scoreFantasyProfile(profile, answers)
   const candidates = (profile.dimensions || [])
     .filter((dimension) => dimension.resultLayer === layer)
-    .map((dimension) => ({ ...dimension, evidence: evidence[dimension.id] }))
+    .map((dimension) => {
+      const metric = evidence[dimension.id]
+      const direction = fantasyRoleBreakdown(profile, answers, dimension.id)
+      const strongest = direction?.roles
+        .filter((role) => role.observations && role.score >= 0.35)
+        .sort((a, b) => b.score - a.score)[0]
+      const roleSpecific = Boolean(strongest && !POSITIVE_BANDS.has(metric.band))
+      return {
+        ...dimension,
+        roleSpecific,
+        evidence: roleSpecific ? { ...metric, score: strongest.score, band: 'notable' } : metric
+      }
+    })
     .filter((row) => row.evidence.observations >= 2 && POSITIVE_BANDS.has(row.evidence.band))
     .sort((a, b) => b.evidence.score - a.evidence.score ||
       b.evidence.confidence - a.evidence.confidence || a.label.localeCompare(b.label))
@@ -327,6 +339,7 @@ function rankedFantasyThemes(profile, answers, layer, maxCount = 6) {
       description: theme.description,
       interpretation: row.positiveInterpretation,
       band: row.evidence.band,
+      roleSpecific: row.roleSpecific,
       direction: fantasyRoleBreakdown(profile, answers, theme.id),
       examples: theme.dimensionIds.flatMap((id) => contributingAnswers(profile, answers, id, 3))
     }]

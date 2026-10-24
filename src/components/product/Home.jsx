@@ -22,7 +22,7 @@ export default function Home({
       : 'Start with fantasy'
   const activityAction = activityAnswered
     ? 'Keep sorting activities'
-    : 'Browse activities'
+    : 'Explore activities'
 
   return (
     <main className="product-home-shell">
@@ -31,9 +31,8 @@ export default function Home({
         <h1>Not sure what you’re into? Start there.</h1>
         <p>
           Use Fantasy Profile if you’re still figuring out what catches your
-          attention. Use Activity Explorer if you already have some ideas and
-          want to sort out what you’d actually want, might try, or definitely
-          don’t want.
+          attention. Use Activity Explorer to learn about specific activities and
+          discover what you’d want, might try, or definitely don’t want.
         </p>
       </section>
 
@@ -79,7 +78,7 @@ export default function Home({
             ◇
           </div>
           <div>
-            <span className="kicker">I know some of what I like</span>
+            <span className="kicker">Explore specific activities</span>
             <h2>Activity Explorer</h2>
             <p>
               Go through specific activities and mark where you stand: love it,
@@ -92,7 +91,7 @@ export default function Home({
             <span>
               {fantasyComplete
                 ? 'Your Fantasy Profile can give you a few places to look first.'
-                : 'Start here if you already know what you want to sort through. You do not need to do Fantasy Profile first.'}
+                : 'Explore one activity at a time, with examples when you need them. You do not need to do Fantasy Profile first.'}
             </span>
           </div>
           <div className="product-card-actions">
