@@ -3,20 +3,20 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { buildFantasyResults, fantasyRoleBreakdown, fantasySuggestionDetails, specificFantasyAnswers } from '../src/lib/fantasyResults.js'
 import { buildFantasySuggestions } from '../src/lib/fantasyProfile.js'
-import { startFantasyProfile, createFantasyState, answerFantasyQuestion, activeFantasyAnswers, addThemeDeepDive, reconcileFantasyState } from '../src/lib/fantasyRouting.js'
+import { startFantasyProfile, createFantasyState, answerFantasyQuestion, activeFantasyAnswers, reconcileFantasyState } from '../src/lib/fantasyRouting.js'
 
 const profile = JSON.parse(readFileSync(new URL('../src/data/fantasyProfile.json', import.meta.url)))
 
 function complete(responseFor) {
   let state = startFantasyProfile(profile, createFantasyState(profile))
   let count = 0
-  while (state.status !== 'complete' && count++ < 100) {
+  while (state.status !== 'complete' && count++ < profile.questions.length) {
     const id = state.questionSequence[state.currentIndex]
     const question = profile.questions.find((row) => row.id === id)
     state = answerFantasyQuestion(profile, state, id, responseFor(question))
   }
   assert.equal(state.status, 'complete')
-  assert.ok(count <= profile.questionnaire.administration.coreCount + 24)
+  assert.ok(count <= profile.questions.length)
   return state
 }
 
@@ -79,7 +79,7 @@ test('paired themes retain follow-ups on both sides without forcing duplicate st
   }
 })
 
-test('pain follow-ups and optional exploration follow the independently preferred role', () => {
+test('pain follow-ups follow the independently preferred role', () => {
   for (const preferred of ['give', 'receive']) {
     const state = complete((q) => {
       const pain = q.signals.find((row) => row.dimensionId === 'pain_intensity')
@@ -94,15 +94,7 @@ test('pain follow-ups and optional exploration follow the independently preferre
     assert.equal(roles.find((role) => role.key === preferred).score, 2)
     assert.equal(roles.find((role) => role.key !== preferred).score, -2)
 
-    const extra = addThemeDeepDive(profile, state, 'pain_intensity')
-    const added = extra.questionSequence.filter((id) => !state.questionSequence.includes(id))
-    assert.equal(new Set(extra.questionSequence).size, extra.questionSequence.length)
-    assert.ok(added.every((id) => {
-      const question = profile.questions.find((q) => q.id === id)
-      return question.signals.some((signal) => signal.dimensionId === 'pain_intensity') ||
-        question.parentDimensionId === 'pain_intensity' ||
-        question.activation?.conditions?.some((condition) => condition.dimensionId === 'pain_intensity')
-    }))
+
   }
 })
 
@@ -148,51 +140,84 @@ test('bondage detail routing checks the relevant role rather than the opposite r
   for (const preferred of ['receive', 'give']) {
     const answers = coreAnswers((q) => q.id === `fp_core_restraint_confinement_${preferred === 'receive' ? '01' : '02'}` ? 'strong_turn_on' : 'strong_turn_off')
     const selected = selectDeepDiveQuestions(profile, answers, {
-      dimensionId: 'restraint_confinement', maxCount: 12, maxDetailCount: 12,
       priorQuestionIds: Object.keys(answers)
     }).filter((q) => bondageFantasies.some((row) => row.id === q.id))
-    assert.equal(selected.length, 7)
+    assert.ok(selected.length > 0)
     assert.ok(selected.every((q) => q.perspective === preferred))
   }
   const negative = coreAnswers(() => 'strong_turn_off')
   const selected = selectDeepDiveQuestions(profile, negative, {
-    dimensionId: 'restraint_confinement', maxCount: 12, maxDetailCount: 12,
     priorQuestionIds: Object.keys(negative)
   })
   assert.ok(selected.every((q) => !bondageFantasies.some((row) => row.id === q.id)))
 })
 
-test('all fourteen bondage details can be explored, saved and changed independently', () => {
-  const responseFor = (q) => q.parentDimensionId === 'restraint_confinement' || q.signals[0]?.dimensionId === 'restraint_confinement' ? 'strong_turn_on' : 'neutral'
-  let state = complete(responseFor)
-  for (let visit = 0; visit < 15 && bondageFantasies.some((q) => !state.answers[q.id]); visit++) {
-    const next = addThemeDeepDive(profile, state, 'restraint_confinement')
-    assert.ok(next.questionSequence.length > state.questionSequence.length)
-    state = next
-    let count = 0
-    while (state.status !== 'complete' && count++ < 15) {
-      const id = state.questionSequence[state.currentIndex]
-      state = answerFantasyQuestion(profile, state, id, responseFor(profile.questions.find((q) => q.id === id)))
-    }
-    assert.equal(state.status, 'complete')
-  }
-  assert.ok(bondageFantasies.every((q) => state.answers[q.id] === 'strong_turn_on'))
+test('bondage detail answers remain independent through saving and reload', () => {
+  let state = complete((q) => q.parentDimensionId === 'restraint_confinement' ||
+    q.signals[0]?.dimensionId === 'restraint_confinement' ? 'strong_turn_on' : 'neutral')
+  state = answerFantasyQuestion(profile, state, 'fp_deep_dive_restraint_release_receive', 'strong_turn_off', { advance: false })
+  state = answerFantasyQuestion(profile, state, 'fp_deep_dive_restraint_release_give', 'strong_turn_on', { advance: false })
   state = reconcileFantasyState(profile, JSON.parse(JSON.stringify(state)))
-  const id = 'fp_deep_dive_restraint_release_receive'
-  state = answerFantasyQuestion(profile, state, id, 'strong_turn_off', { advance: false })
-  const results = buildFantasyResults(profile, activeFantasyAnswers(state))
-  assert.equal(results.specifics.find((row) => row.questionId === id).response, 'strong_turn_off')
-  assert.equal(results.specifics.find((row) => row.questionId === 'fp_deep_dive_restraint_release_give').response, 'strong_turn_on')
-  assert.equal(results.specifics.filter((row) => bondageFantasies.some((q) => q.id === row.questionId)).length, 14)
+  const specifics = specificFantasyAnswers(profile, state.answers)
+  assert.equal(specifics.find((row) => row.questionId === 'fp_deep_dive_restraint_release_receive').response, 'strong_turn_off')
+  assert.equal(specifics.find((row) => row.questionId === 'fp_deep_dive_restraint_release_give').response, 'strong_turn_on')
 })
 
+test('relevant fantasy variations appear automatically for the independently preferred role', () => {
+  for (const preferred of ['give', 'receive']) {
+    const state = complete((q) => {
+      const signal = q.signals.find((row) => row.dimensionId === 'restraint_confinement')
+      return signal?.perspective === preferred ? 'strong_turn_on' :
+        signal && ['give', 'receive'].includes(signal.perspective) ? 'strong_turn_off' : 'neutral'
+    })
+    const details = state.questionSequence.map((id) => profile.questions.find((q) => q.id === id))
+      .filter((q) => bondageFantasies.some((row) => row.id === q.id))
+    assert.equal(details.length, 7)
+    assert.ok(details.every((q) => q.perspective === preferred))
+    assert.equal('extraQuestionIds' in state, false)
+  }
+})
 
-test('the standard questionnaire stops before optional variations and theme exploration can reach them', () => {
-  const state = complete(() => 'strong_turn_on')
-  assert.equal(state.questionSequence.length, 88)
-  assert.ok(state.questionSequence.every((id) => !profile.questions.find((q) => q.id === id).optionalOnly))
-  const extra = addThemeDeepDive(profile, state, 'restraint_confinement')
-  const added = extra.questionSequence.filter((id) => !state.questionSequence.includes(id))
-  assert.ok(added.length > 0 && added.length <= 3)
-  assert.ok(added.some((id) => profile.questions.find((q) => q.id === id).optionalOnly))
+test('questionnaire length follows interest instead of a fixed quota', () => {
+  const broad = complete(() => 'strong_turn_on')
+  assert.ok(broad.questionSequence.length > 88)
+  assert.equal(new Set(broad.questionSequence).size, broad.questionSequence.length)
+  for (const response of ['strong_turn_off', 'neutral', 'unsure']) {
+    const short = complete(() => response)
+    assert.equal(short.questionSequence.length, profile.questionnaire.administration.coreCount)
+    assert.ok(short.questionSequence.length < broad.questionSequence.length)
+  }
+})
+
+test('each answer can close and reopen a branch without losing its saved answers', () => {
+  const ids = [
+    'fp_core_pain_intensity_01', 'fp_core_pain_intensity_02',
+    'fp_discriminator_pain_intensity_01', 'fp_discriminator_pain_intensity_01_give',
+    'fp_deep_dive_pain_intensity_01', 'fp_deep_dive_pain_intensity_01_give'
+  ]
+  const focused = {
+    ...profile,
+    dimensions: profile.dimensions.filter((row) => row.id === 'pain_intensity'),
+    questions: ids.map((id) => profile.questions.find((q) => q.id === id))
+  }
+  let state = startFantasyProfile(focused, createFantasyState(focused))
+  state = answerFantasyQuestion(focused, state, ids[0], 'strong_turn_on')
+  state = answerFantasyQuestion(focused, state, ids[1], 'strong_turn_off')
+  assert.equal(state.questionSequence.at(-1), ids[2])
+  state = answerFantasyQuestion(focused, state, ids[2], 'strong_turn_off')
+  assert.equal(state.status, 'complete')
+  assert.ok(!state.questionSequence.includes(ids[4]))
+  assert.ok(!state.questionSequence.includes(ids[3]))
+  state = answerFantasyQuestion(focused, state, ids[2], 'strong_turn_on', { advance: false })
+  assert.equal(state.status, 'in_progress')
+  assert.equal(state.questionSequence.at(-1), ids[4])
+  state = answerFantasyQuestion(focused, state, ids[4], 'intriguing')
+  assert.equal(state.status, 'complete')
+  state = answerFantasyQuestion(focused, state, ids[2], 'strong_turn_off', { advance: false })
+  assert.equal(state.answers[ids[4]], 'intriguing')
+  assert.equal(activeFantasyAnswers(state)[ids[4]], undefined)
+  state = reconcileFantasyState(focused, JSON.parse(JSON.stringify(state)))
+  state = answerFantasyQuestion(focused, state, ids[2], 'strong_turn_on', { advance: false })
+  assert.equal(state.status, 'complete')
+  assert.equal(activeFantasyAnswers(state)[ids[4]], 'intriguing')
 })

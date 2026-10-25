@@ -2,24 +2,12 @@
   "questionnaire": {
     "id": "fantasy_profile",
     "name": "Fantasy Profile",
-    "version": "1.1.11-prototype",
+    "version": "1.1.13-prototype",
     "purpose": "A private questionnaire for noticing what kinds of fantasies, feelings, and dynamics you respond to.",
     "prompt": "As a fantasy, how does this land for you?",
-    "targetMinutes": [
-      12,
-      18
-    ],
     "administration": {
       "coreCount": 64,
-      "maxDiscriminatorCount": 12,
-      "maxDeepDiveCount": 12,
-      "typicalResponseRange": [
-        64,
-        88
-      ],
-      "selection": "deterministic_adaptive",
-      "maxDetailDiscriminatorCount": 4,
-      "maxDetailDeepDiveCount": 3
+      "selection": "deterministic_adaptive"
     },
     "adultScope": "All partner and group scenarios involve people who are 18 or older. Any observation scenario assumes consent.",
     "disclaimer": "An appealing scenario is not the same as consent, intent, identity, or something you want to do in real life."
@@ -4082,8 +4070,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_optional_object_transformation_02",
@@ -4114,8 +4101,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_optional_body_swap_01",
@@ -4146,8 +4132,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.25,
-      "optionalOnly": true
+      "routingBoost": 1.25
     },
     {
       "id": "fp_deep_dive_optional_sex_characteristics_01",
@@ -4178,8 +4163,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1,
-      "optionalOnly": true
+      "routingBoost": 1
     },
     {
       "id": "fp_deep_dive_transformation_01",
@@ -4225,8 +4209,7 @@
           "intriguing",
           "unsure"
         ]
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_discriminator_becoming_huge_01",
@@ -4481,8 +4464,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.25,
-      "optionalOnly": true
+      "routingBoost": 1.25
     },
     {
       "id": "fp_deep_dive_optional_memory_01",
@@ -4511,8 +4493,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1,
-      "optionalOnly": true
+      "routingBoost": 1
     },
     {
       "id": "fp_deep_dive_optional_possession_01",
@@ -4543,8 +4524,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1,
-      "optionalOnly": true
+      "routingBoost": 1
     },
     {
       "id": "fp_deep_dive_mind_control_01",
@@ -4592,8 +4572,7 @@
           "intriguing",
           "unsure"
         ]
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_discriminator_nonconsent_01",
@@ -4646,8 +4625,7 @@
           "unsure"
         ],
         "priorityBoost": 3
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_deep_dive_optional_kidnapping_01",
@@ -4679,8 +4657,7 @@
           "unsure"
         ],
         "priorityBoost": 3
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_discriminator_monsters_supernatural_01",
@@ -4730,8 +4707,7 @@
           "unsure"
         ]
       },
-      "routingBoost": 1,
-      "optionalOnly": true
+      "routingBoost": 1
     },
     {
       "id": "fp_deep_dive_optional_worship_receive_01",
@@ -4773,8 +4749,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_optional_worship_give_01",
@@ -4816,8 +4791,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_optional_horror_01",
@@ -4858,8 +4832,7 @@
           }
         ]
       },
-      "routingBoost": 1.25,
-      "optionalOnly": true
+      "routingBoost": 1.25
     },
     {
       "id": "fp_deep_dive_fictional_violence_01",
@@ -4900,8 +4873,7 @@
             ]
           }
         ]
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_deep_dive_fictional_consequences_01",
@@ -4935,8 +4907,7 @@
             ]
           }
         ]
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_deep_dive_optional_pregnancy_receive_01",
@@ -4975,8 +4946,7 @@
           }
         ]
       },
-      "routingBoost": 0.75,
-      "optionalOnly": true
+      "routingBoost": 0.75
     },
     {
       "id": "fp_deep_dive_optional_pregnancy_give_01",
@@ -5015,8 +4985,7 @@
           }
         ]
       },
-      "routingBoost": 0.75,
-      "optionalOnly": true
+      "routingBoost": 0.75
     },
     {
       "id": "fp_deep_dive_impossible_pregnancy_01",
@@ -5040,8 +5009,7 @@
             ]
           }
         ]
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_deep_dive_optional_vore_receive_01",
@@ -5087,8 +5055,7 @@
           }
         ]
       },
-      "routingBoost": 1.25,
-      "optionalOnly": true
+      "routingBoost": 1.25
     },
     {
       "id": "fp_deep_dive_optional_vore_give_01",
@@ -5134,8 +5101,7 @@
           }
         ]
       },
-      "routingBoost": 1.25,
-      "optionalOnly": true
+      "routingBoost": 1.25
     },
     {
       "id": "fp_deep_dive_object_transformation_01",
@@ -5165,8 +5131,7 @@
           "intriguing",
           "unsure"
         ]
-      },
-      "optionalOnly": true
+      }
     },
     {
       "id": "fp_discriminator_helplessness_vulnerability_01_evoke_partner",
@@ -6151,8 +6116,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_bondage_duration_give",
@@ -6179,8 +6143,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_ongoing_restraints_receive",
@@ -6207,8 +6170,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_ongoing_restraints_give",
@@ -6235,8 +6197,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_release_receive",
@@ -6263,8 +6224,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_release_give",
@@ -6291,8 +6251,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_inescapability_receive",
@@ -6319,8 +6278,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_inescapability_give",
@@ -6347,8 +6305,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_nonsexual_bondage_receive",
@@ -6375,8 +6332,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_nonsexual_bondage_give",
@@ -6403,8 +6359,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_process_receive",
@@ -6431,8 +6386,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_process_give",
@@ -6459,8 +6413,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_comfort_receive",
@@ -6487,8 +6440,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_restraint_comfort_give",
@@ -6515,8 +6467,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_ongoing_authority_receive",
@@ -6542,8 +6493,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_ongoing_authority_give",
@@ -6569,8 +6519,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_discipline_receive",
@@ -6605,8 +6554,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_discipline_give",
@@ -6641,8 +6589,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_training_receive",
@@ -6677,8 +6624,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_training_give",
@@ -6713,8 +6659,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_earned_approval_receive",
@@ -6749,8 +6694,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_earned_approval_give",
@@ -6785,8 +6729,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_partner_sharing_observe",
@@ -6820,8 +6763,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_partner_sharing_be_observed",
@@ -6855,8 +6797,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_jealousy_give",
@@ -6897,8 +6838,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_jealousy_receive",
@@ -6939,8 +6879,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_exclusivity_receive",
@@ -6974,8 +6913,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_exclusivity_give",
@@ -7009,8 +6947,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_switching_control",
@@ -7050,8 +6987,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_role_reversal_receive",
@@ -7091,8 +7027,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     },
     {
       "id": "fp_deep_dive_role_reversal_give",
@@ -7132,8 +7067,7 @@
           }
         ]
       },
-      "routingBoost": 1.5,
-      "optionalOnly": true
+      "routingBoost": 1.5
     }
   ],
   "suggestionRules": [

@@ -36,70 +36,20 @@ function answersFor(questionIds, answers) {
   return next
 }
 
-function allAnswered(questionIds, answers) {
-  return (
-    questionIds.length > 0 && questionIds.every((id) => hasOwn(answers, id))
-  )
-}
-
-function deriveFantasyRoute(profile, rawAnswers = {}, options = {}) {
+function deriveFantasyRoute(profile, rawAnswers = {}) {
   const answers = sanitizeFantasyAnswers(profile, rawAnswers)
-  const coreIds = coreQuestions(profile).map((question) => question.id)
-  let keptAnswers = answersFor(coreIds, answers)
-  const base = {
-    coreIds,
-    discriminatorIds: [],
-    deepDiveIds: [],
-    extraQuestionIds: [],
-    answers: keptAnswers,
-    sequence: [...coreIds],
-    stage: 'core'
-  }
+  const sequence = coreQuestions(profile).map((question) => question.id)
+  const active = answersFor(sequence, answers)
+  if (!sequence.every((id) => hasOwn(active, id))) return { sequence, answers: active }
 
-  if (!allAnswered(coreIds, keptAnswers)) return base
-
-  const discriminatorIds = selectDiscriminatorQuestions(profile, keptAnswers, {
-    priorQuestionIds: coreIds
-  }).map((question) => question.id)
-  keptAnswers = { ...keptAnswers, ...answersFor(discriminatorIds, answers) }
-  const discriminatorSequence = [...coreIds, ...discriminatorIds]
-
-  if (!allAnswered(discriminatorIds, keptAnswers)) {
-    return {
-      ...base,
-      discriminatorIds,
-      answers: keptAnswers,
-      sequence: discriminatorSequence,
-      stage: 'discriminator'
-    }
-  }
-
-  const deepDiveIds = selectDeepDiveQuestions(profile, keptAnswers, {
-    priorQuestionIds: discriminatorSequence
-  }).map((question) => question.id)
-  keptAnswers = { ...keptAnswers, ...answersFor(deepDiveIds, answers) }
-
-  const validDeepDive = new Set(
-    (profile.questions || [])
-      .filter((question) => question.stage === 'deep_dive')
-      .map((question) => question.id)
-  )
-  const extraQuestionIds = (options.extraQuestionIds || []).filter(
-    (id, index, rows) =>
-      validDeepDive.has(id) &&
-      !deepDiveIds.includes(id) &&
-      rows.indexOf(id) === index
-  )
-  keptAnswers = { ...keptAnswers, ...answersFor(extraQuestionIds, answers) }
-
-  return {
-    ...base,
-    discriminatorIds,
-    deepDiveIds,
-    extraQuestionIds,
-    answers: keptAnswers,
-    sequence: [...discriminatorSequence, ...deepDiveIds, ...extraQuestionIds],
-    stage: extraQuestionIds.length ? 'extra' : 'deep_dive'
+  while (true) {
+    const options = { priorQuestionIds: sequence, nextOnly: true }
+    const next = selectDiscriminatorQuestions(profile, active, options)[0] ||
+      selectDeepDiveQuestions(profile, active, options)[0]
+    if (!next) return { sequence, answers: active }
+    sequence.push(next.id)
+    if (!hasOwn(answers, next.id)) return { sequence, answers: active }
+    active[next.id] = answers[next.id]
   }
 }
 
@@ -108,8 +58,7 @@ export function createFantasyState(profile) {
     status: 'not_started',
     answers: {},
     questionSequence: coreQuestions(profile).map((question) => question.id),
-    currentIndex: 0,
-    extraQuestionIds: []
+    currentIndex: 0
   }
 }
 
@@ -119,9 +68,7 @@ function firstUnansweredIndex(sequence, answers) {
 }
 
 export function reconcileFantasyState(profile, fantasy, options = {}) {
-  const route = deriveFantasyRoute(profile, fantasy?.answers || {}, {
-    extraQuestionIds: fantasy?.extraQuestionIds || []
-  })
+  const route = deriveFantasyRoute(profile, fantasy?.answers || {})
   const complete =
     route.sequence.length > 0 &&
     route.sequence.every((id) => hasOwn(route.answers, id))
@@ -147,8 +94,7 @@ export function reconcileFantasyState(profile, fantasy, options = {}) {
           : 'in_progress',
     answers: sanitizeFantasyAnswers(profile, fantasy?.answers || {}),
     questionSequence: route.sequence,
-    currentIndex,
-    extraQuestionIds: route.extraQuestionIds
+    currentIndex
   }
 }
 
@@ -202,27 +148,6 @@ export function restartFantasyProfile(profile) {
   return createFantasyState(profile)
 }
 
-export function addThemeDeepDive(profile, fantasy, dimensionId, maxCount = 3) {
-  const current = reconcileFantasyState(profile, fantasy)
-  const extra = selectDeepDiveQuestions(profile, activeFantasyAnswers(current), {
-    dimensionId,
-    maxCount,
-    priorQuestionIds: current.questionSequence
-  }).map((question) => question.id)
-  if (!extra.length) return current
-
-  const next = reconcileFantasyState(profile, {
-    ...current,
-    status: 'in_progress',
-    extraQuestionIds: [...current.extraQuestionIds, ...extra]
-  })
-  return {
-    ...next,
-    status: 'in_progress',
-    currentIndex: next.questionSequence.indexOf(extra[0])
-  }
-}
-
 export function fantasyProgress(profile, fantasy) {
   const sequence = fantasy?.questionSequence || []
   const answers = fantasy?.answers || {}
@@ -232,33 +157,9 @@ export function fantasyProgress(profile, fantasy) {
     (question) => question.id === currentId
   )
   const stage = currentQuestion?.stage || 'core'
-  const coreIds = sequence.filter((id) => id.startsWith('fp_core_'))
-  const discriminatorIds = sequence.filter((id) =>
-    id.startsWith('fp_discriminator_')
-  )
-  const deepIds = sequence.filter((id) => id.startsWith('fp_deep_dive_'))
-  const answeredWithin = (ids) => ids.filter((id) => hasOwn(answers, id)).length
-  let percent = coreIds.length
-    ? (answeredWithin(coreIds) / coreIds.length) * 68
-    : 0
-  if (discriminatorIds.length)
-    percent =
-      68 + (answeredWithin(discriminatorIds) / discriminatorIds.length) * 16
-  if (deepIds.length)
-    percent = 84 + (answeredWithin(deepIds) / deepIds.length) * 16
-  const stageLabel =
-    stage === 'core'
-      ? 'Core exploration'
-      : stage === 'discriminator'
-        ? 'Refining your profile'
-        : (fantasy?.extraQuestionIds || []).includes(currentId)
-          ? 'Exploring this theme'
-          : 'A few deeper questions'
   return {
     answered,
-    totalKnown: sequence.length,
-    percent: Math.min(100, Math.round(percent)),
-    stageLabel
+    stageLabel: stage === 'core' ? 'Exploring your interests' : 'Following your interests'
   }
 }
 

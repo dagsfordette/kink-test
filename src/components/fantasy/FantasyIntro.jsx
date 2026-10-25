@@ -1,5 +1,4 @@
 export default function FantasyIntro({
-  profile,
   fantasy,
   adultConfirmed,
   onAdultConfirmed,
@@ -23,9 +22,7 @@ export default function FantasyIntro({
         <h1>See what your fantasies have in common.</h1>
         <p className="fantasy-lede">
           You’ll react to a series of scenarios, then see the themes and
-          dynamics that came up most often. It usually takes about{' '}
-          {profile.questionnaire?.targetMinutes?.[0] ?? 12} to{' '}
-          {profile.questionnaire?.targetMinutes?.[1] ?? 18} minutes.
+          dynamics that came up most often.
         </p>
 
         <div className="fantasy-reality-note">

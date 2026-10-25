@@ -8,9 +8,7 @@ export default function FantasyProgress({ progress }) {
         <span>{progress.stageLabel}</span>
         <span>{progress.answered} answered</span>
       </div>
-      <div className="fantasy-progress-track" aria-hidden="true">
-        <span style={{ width: `${progress.percent}%` }} />
-      </div>
+
     </div>
   )
 }

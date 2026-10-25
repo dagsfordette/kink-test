@@ -24,7 +24,6 @@ import ActivityExplorer from './components/activities/ActivityExplorer.jsx'
 import ActivityResults from './components/activities/ActivityResults.jsx'
 import PlayPreferences from './components/activities/PlayPreferences.jsx'
 import {
-  addThemeDeepDive,
   answerFantasyQuestion,
   fantasyProgress,
   activeFantasyAnswers,
@@ -303,12 +302,6 @@ export default function App() {
 
   const handleOpenTheme = (dimensionId) =>
     navigate('fantasy_theme', { selectedThemeId: dimensionId })
-  const handleExploreMore = (dimensionId) => {
-    const next = addThemeDeepDive(fantasyProfile, fantasy, dimensionId)
-    if (next.questionSequence.length === fantasy.questionSequence.length) return
-    setAppState((prev) => withFantasyState(prev, next, 'fantasy_questions'))
-    scrollTop()
-  }
   const handleEdit = (questionId) => {
     const next = goToFantasyQuestion(fantasyProfile, fantasy, questionId)
     setAppState((prev) => withFantasyState(prev, next, 'fantasy_questions'))
@@ -459,7 +452,6 @@ export default function App() {
 
         {appState.route === 'fantasy_intro' && (
           <FantasyIntro
-            profile={fantasyProfile}
             fantasy={fantasy}
             adultConfirmed={settings.adultConfirmed}
             onAdultConfirmed={(value) =>
@@ -504,7 +496,6 @@ export default function App() {
             dimensionId={appState.selectedThemeId}
             onBack={() => navigate('fantasy_results')}
             onOpenTheme={handleOpenTheme}
-            onExploreMore={handleExploreMore}
           />
         )}
 

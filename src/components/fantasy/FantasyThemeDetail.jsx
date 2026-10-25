@@ -9,7 +9,6 @@ import {
 } from '../../lib/fantasyResults.js'
 import {
   describeFantasyDimension,
-  selectDeepDiveQuestions,
   scoreFantasyProfile
 } from '../../lib/fantasyProfile.js'
 
@@ -18,8 +17,7 @@ export default function FantasyThemeDetail({
   answers,
   dimensionId,
   onBack,
-  onOpenTheme,
-  onExploreMore
+  onOpenTheme
 }) {
   const theme = fantasyThemePresentation(profile, dimensionId)
   if (!theme) return null
@@ -41,15 +39,7 @@ export default function FantasyThemeDetail({
   const specifics = [...new Map(theme.dimensionIds.flatMap((id) =>
     specificFantasyAnswers(profile, answers, id)
   ).map((row) => [row.questionId, row])).values()]
-  const followUps = theme.dimensionIds.map((id) => ({
-    id,
-    label: profile.dimensions.find((row) => row.id === id).label,
-    count: selectDeepDiveQuestions(profile, answers, {
-      dimensionId: id,
-      priorQuestionIds: Object.keys(answers),
-      maxCount: 3
-    }).length
-  }))
+
 
   return (
     <main className="fantasy-shell fantasy-detail-shell">
@@ -183,32 +173,7 @@ export default function FantasyThemeDetail({
         </section>
       )}
 
-      {followUps.map(({ id, label, count: unansweredDeepDiveCount }) => (
-        <section className="fantasy-more-card" key={id}>
-          <div>
-            <span className="kicker">Optional</span>
-            <h2>
-              {unansweredDeepDiveCount
-                ? (followUps.length > 1 ? `Explore ${label.toLowerCase()}` : 'Want to dig into this one?')
-                : (followUps.length > 1 ? `You’ve explored ${label.toLowerCase()}` : 'You’ve explored this theme')}
-            </h2>
-            <p>
-              {unansweredDeepDiveCount
-                ? 'Answer a few more fantasies that focus on this theme. They’ll be added only if you choose to continue.'
-                : 'There aren’t any more follow-up questions for this theme right now.'}
-            </p>
-          </div>
-          {unansweredDeepDiveCount > 0 && (
-            <button
-              type="button"
-              className="primary-button"
-              onClick={() => onExploreMore(id)}
-            >
-              Ask me more
-            </button>
-          )}
-        </section>
-      ))}
+
     </main>
   )
 }

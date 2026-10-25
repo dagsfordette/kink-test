@@ -150,9 +150,11 @@ export function fantasySuggestionEvidence(profile, answers) {
 function questionRoleMetric(profile, question, evidence) {
   const signal = question.signals?.[0]
   const dimensionId = signal?.dimensionId || question.parentDimensionId
-  const role = fantasyRoleEvidence(profile, evidence, dimensionId)
-    .find((row) => row.perspective === (signal?.perspective || question.perspective))
-  return role || evidence[dimensionId]
+  const perspective = signal?.perspective || question.perspective
+  const pair = profile.dimensions.find((row) => row.id === dimensionId)?.directionPairs?.[0]
+  if (pair && [pair.left, pair.right].includes(perspective))
+    return evidence[dimensionId]?.perspectives?.[perspective]
+  return evidence[dimensionId]
 }
 
 function preferredRoleScore(profile, question, evidence) {
@@ -373,149 +375,50 @@ function candidateDeepDiveScore(profile, question, evidence, selectedDimensionCo
   return score
 }
 
-function lastKnownMirrorGroup(profile, answers, priorQuestionIds = []) {
-  const questionMap = new Map(
-    (profile.questions || []).map((question) => [question.id, question])
-  )
-  if (priorQuestionIds.length) {
-    for (let i = priorQuestionIds.length - 1; i >= 0; i -= 1) {
-      const question = questionMap.get(priorQuestionIds[i])
-      if (question) return question.mirrorGroup || null
-    }
-  }
-  let last = null
-  for (const question of profile.questions || []) {
-    if (Object.prototype.hasOwnProperty.call(answers, question.id))
-      last = question.mirrorGroup || null
-  }
-  return last
+function questionIsNeeded(profile, question, answers, evidence) {
+  if (!questionIsActive(profile, question, answers, evidence)) return false
+  if (!question.signals?.length) return true
+  const metric = questionRoleMetric(profile, question, evidence)
+  if (!metric?.observations) return false
+  if (metric.score >= 0.35) return true
+  return question.stage === 'discriminator' && metric.score > -0.35 &&
+    metric.positiveEvidence > 0 && metric.negativeEvidence > 0
 }
 
-function selectAdaptive(profile, answers, stage, maxCount, options = {}) {
+function selectAdaptive(profile, answers, stage, options = {}) {
   const evidence = scoreFantasyProfile(profile, answers)
-  const answeredIds = new Set(Object.keys(answers || {}))
-  const candidates = (profile.questions || []).filter(
-    (question) =>
-      question.stage === stage &&
-      (!question.optionalOnly || options.dimensionId) &&
-      !answeredIds.has(question.id) &&
-      !(options.priorQuestionIds || []).includes(question.id) &&
-      (!options.dimensionId || routingDimensions(question).includes(options.dimensionId) ||
-        question.parentDimensionId === options.dimensionId ||
-        question.activation?.conditions?.some((condition) => condition.dimensionId === options.dimensionId)) &&
-      questionIsActive(profile, question, answers, evidence)
-  )
-  const selected = []
-  const selectedDimensionCounts = new Map()
-  const selectedBucketCounts = new Map()
-  let selectedDetailCount = 0
-  let lastMirrorGroup = lastKnownMirrorGroup(
-    profile,
-    answers,
-    options.priorQuestionIds || []
-  )
-  const maxPrimaryPerDimension = stage === 'discriminator' ? 2 : 1
-  const configuredDetailLimit =
-    stage === 'discriminator'
-      ? profile.questionnaire?.administration?.maxDetailDiscriminatorCount
-      : profile.questionnaire?.administration?.maxDetailDeepDiveCount
-  const maxDetailCount = Math.min(
-    options.maxDetailCount ?? configuredDetailLimit ?? maxCount,
-    maxCount
-  )
-
-  while (selected.length < maxCount) {
-    const ranked = candidates
-      .filter((question) => !selected.includes(question))
-      .filter(
-        (question) =>
-          !question.detailKey || selectedDetailCount < maxDetailCount
-      )
-      .filter((question) => {
-        const primaryDimension = routingDimensions(question)[0]
-        const bucket = question.detailKey
-          ? `detail:${question.detailKey}`
-          : `${primaryDimension}/${question.signals?.[0]?.perspective || 'none'}`
-        return (
-          primaryDimension &&
-          (selectedBucketCounts.get(bucket) || 0) < maxPrimaryPerDimension
-        )
-      })
-      .filter(
-        (question) =>
-          options.dimensionId || !lastMirrorGroup || question.mirrorGroup !== lastMirrorGroup
-      )
-      .map((question) => ({
-        question,
-        score:
-          stage === 'discriminator'
-            ? candidateDiscriminatorScore(
-                profile,
-                question,
-                evidence,
-                selectedDimensionCounts
-              )
-            : candidateDeepDiveScore(
-                profile,
-                question,
-                evidence,
-                selectedDimensionCounts
-              )
-      }))
-      .sort(
-        (a, b) =>
-          b.score - a.score || a.question.id.localeCompare(b.question.id)
-      )
-
-    if (!ranked.length) break
-    const chosen = ranked[0].question
-    selected.push(chosen)
-    const primaryDimension = routingDimensions(chosen)[0]
-    const bucket = chosen.detailKey
-      ? `detail:${chosen.detailKey}`
-      : `${primaryDimension}/${chosen.signals?.[0]?.perspective || 'none'}`
-    if (!chosen.detailKey)
-      selectedDimensionCounts.set(
-        primaryDimension,
-        (selectedDimensionCounts.get(primaryDimension) || 0) + 1
-      )
-    selectedBucketCounts.set(
-      bucket,
-      (selectedBucketCounts.get(bucket) || 0) + 1
-    )
-    if (chosen.detailKey) selectedDetailCount += 1
-    lastMirrorGroup = chosen.mirrorGroup || null
+  const priorIds = new Set(options.priorQuestionIds || [])
+  const questions = new Map(profile.questions.map((question) => [question.id, question]))
+  const recent = (options.priorQuestionIds || []).slice(-8)
+    .map((id) => questions.get(id)).filter(Boolean)
+  const counts = new Map()
+  for (const id of priorIds) {
+    const question = questions.get(id)
+    if (!question || question.stage === 'core') continue
+    const dimensionId = routingDimensions(question)[0]
+    counts.set(dimensionId, (counts.get(dimensionId) || 0) + 1)
   }
-
-  return spreadQuestionsByTheme(
-    profile,
-    selected,
-    options.priorQuestionIds || []
-  )
+  const ranked = profile.questions.filter((question) =>
+    question.stage === stage && !Object.hasOwn(answers, question.id) &&
+    !priorIds.has(question.id) && questionIsNeeded(profile, question, answers, evidence)
+  ).map((question) => {
+    let score = stage === 'discriminator'
+      ? candidateDiscriminatorScore(profile, question, evidence, counts)
+      : candidateDeepDiveScore(profile, question, evidence, counts)
+    for (let distance = 1; distance <= recent.length; distance++)
+      score -= themeSimilarity(recent[recent.length - distance], question) * (9 - distance)
+    return { question, score }
+  }).sort((a, b) => b.score - a.score || a.question.id.localeCompare(b.question.id))
+  if (options.nextOnly) return ranked.slice(0, 1).map((row) => row.question)
+  return spreadQuestionsByTheme(profile, ranked.map((row) => row.question), options.priorQuestionIds)
 }
 
-export function selectDiscriminatorQuestions(
-  profile,
-  answers = {},
-  options = {}
-) {
-  const maxCount = Math.min(
-    options.maxCount ??
-      profile.questionnaire?.administration?.maxDiscriminatorCount ??
-      12,
-    12
-  )
-  return selectAdaptive(profile, answers, 'discriminator', maxCount, options)
+export function selectDiscriminatorQuestions(profile, answers = {}, options = {}) {
+  return selectAdaptive(profile, answers, 'discriminator', options)
 }
 
 export function selectDeepDiveQuestions(profile, answers = {}, options = {}) {
-  const maxCount = Math.min(
-    options.maxCount ??
-      profile.questionnaire?.administration?.maxDeepDiveCount ??
-      12,
-    12
-  )
-  return selectAdaptive(profile, answers, 'deep_dive', maxCount, options)
+  return selectAdaptive(profile, answers, 'deep_dive', options)
 }
 
 function bandEvidencePoints(band, required = false) {

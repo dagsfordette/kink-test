@@ -209,8 +209,6 @@ textarea { width: 100%; resize: vertical; }
 .fantasy-question-header .danger-text { color: var(--danger); }
 .fantasy-progress { margin: clamp(1.6rem, 5vw, 3rem) 0 clamp(1.2rem, 4vw, 2rem); }
 .fantasy-progress-copy { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .5rem; color: var(--muted); font-size: .75rem; font-weight: 700; }
-.fantasy-progress-track { height: 4px; overflow: hidden; background: var(--border); border-radius: 999px; }
-.fantasy-progress-track span { display: block; height: 100%; background: var(--accent); border-radius: inherit; transition: width .2s ease; }
 .fantasy-question-card { width: min(760px, 100%); margin: auto; }
 .fantasy-question-prompt { color: var(--faint); font-size: .78rem; font-weight: 700; }
 .fantasy-question-card h1 { margin: .65rem 0 clamp(1.4rem, 4vw, 2.4rem); font-size: clamp(1.85rem, 5vw, 3.2rem); line-height: 1.08; letter-spacing: -.04em; }
@@ -260,7 +258,7 @@ textarea { width: 100%; resize: vertical; }
 .fantasy-detail-definition { max-width: 62ch; color: var(--muted); font-size: 1rem; line-height: 1.6; }
 .fantasy-theme-summary { margin-top: 1.2rem; max-width: 62ch; padding: .9rem 1rem; border-radius: 13px; background: var(--accent-soft); line-height: 1.5; }
 .fantasy-detail-section { padding: 2rem 0; border-bottom: 1px solid var(--border); }
-.fantasy-detail-section h2, .fantasy-more-card h2 { margin: 0 0 1rem; font-size: 1.35rem; letter-spacing: -.025em; }
+.fantasy-detail-section h2 { margin: 0 0 1rem; font-size: 1.35rem; letter-spacing: -.025em; }
 .fantasy-statement-list { display: grid; gap: .6rem; }
 .fantasy-statement-list > div { padding: .85rem .95rem; border: 1px solid var(--border); border-radius: 13px; background: var(--panel-soft); }
 .fantasy-statement-list p { margin: 0 0 .4rem; line-height: 1.45; }
@@ -268,9 +266,6 @@ textarea { width: 100%; resize: vertical; }
 .fantasy-nearby-list { display: flex; flex-wrap: wrap; gap: .55rem; }
 .fantasy-kink-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
 .fantasy-kink-pills span { padding: .48rem .65rem; border-radius: 999px; background: var(--accent-soft); color: var(--text); font-size: .75rem; font-weight: 750; }
-.fantasy-more-card { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem; margin-top: 2rem; padding: 1.15rem; border: 1px solid color-mix(in srgb, var(--accent) 36%, var(--border)); border-radius: 18px; background: var(--panel); }
-.fantasy-more-card h2 { margin: .25rem 0 .4rem; }
-.fantasy-more-card p { max-width: 56ch; margin: 0; color: var(--muted); font-size: .82rem; line-height: 1.5; }
 
 .fantasy-review-header { padding: 1rem 0 2rem; border-bottom: 1px solid var(--border); }
 .fantasy-review-header h1 { max-width: 12ch; }
@@ -294,8 +289,6 @@ textarea { width: 100%; resize: vertical; }
   .fantasy-saved-state { display: none; }
   .fantasy-theme-grid { grid-template-columns: 1fr; }
   .fantasy-section-heading { padding-right: 3.5rem; }
-  .fantasy-more-card { align-items: stretch; flex-direction: column; }
-  .fantasy-more-card .primary-button { width: 100%; }
 }
 
 @media (max-width: 390px) {
