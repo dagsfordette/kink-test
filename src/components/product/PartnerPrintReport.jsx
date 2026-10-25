@@ -1,3 +1,11 @@
+import SensorySummary from '../activities/SensorySummary.jsx'
+import ToySummary from '../activities/ToySummary.jsx'
+import BodyScentSummary from '../activities/BodyScentSummary.jsx'
+import TattooSummary from '../activities/TattooSummary.jsx'
+import FeatureSummary from '../activities/FeatureSummary.jsx'
+import ContextSummary from '../activities/ContextSummary.jsx'
+import RoleplaySummary from '../activities/RoleplaySummary.jsx'
+import MaterialInterestsSummary from '../activities/MaterialInterestsSummary.jsx'
 import BodyPaintSummary from '../activities/BodyPaintSummary.jsx'
 import { buildShareProjection } from '../../lib/boundaryReview.js'
 const SHARE_STANCE_ORDER = [
@@ -95,6 +103,14 @@ export default function PartnerPrintReport({
         </section>
       )}
       <BodyPaintSummary paint={embedded ? activities.exploration?.bodyPaint : projection.payload.bodyMaps} />
+      <MaterialInterestsSummary interests={embedded ? activities.exploration?.materialInterests : projection.payload.materialInterests} />
+      <RoleplaySummary interests={embedded ? activities.exploration?.roleplayInterests : projection.payload.roleplayInterests} />
+      <ContextSummary interests={embedded ? activities.exploration?.contextInterests : projection.payload.contextInterests} />
+      <FeatureSummary interests={embedded ? activities.exploration?.featureInterests : projection.payload.featureInterests} />
+      <TattooSummary interests={embedded ? activities.exploration?.featureInterests : projection.payload.featureInterests} />
+      <BodyScentSummary interests={embedded ? activities.exploration?.featureInterests : projection.payload.featureInterests} />
+      <ToySummary interests={embedded ? activities.exploration?.featureInterests : projection.payload.featureInterests} />
+      <SensorySummary interests={embedded ? activities.exploration?.sensoryInterests : projection.payload.sensoryInterests} />
       {SHARE_STANCE_ORDER.map((stanceId) => {
         const rows = answered.filter(
           (activity) => activities.answers[activity.id].stance === stanceId

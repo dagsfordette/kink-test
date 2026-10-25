@@ -1,3 +1,11 @@
+import SensorySummary from './SensorySummary.jsx'
+import ToySummary from './ToySummary.jsx'
+import BodyScentSummary from './BodyScentSummary.jsx'
+import TattooSummary from './TattooSummary.jsx'
+import FeatureSummary from './FeatureSummary.jsx'
+import ContextSummary from './ContextSummary.jsx'
+import RoleplaySummary from './RoleplaySummary.jsx'
+import MaterialInterestsSummary from './MaterialInterestsSummary.jsx'
 import BodyPaintSummary from './BodyPaintSummary.jsx'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
@@ -113,7 +121,7 @@ export default function PartnerComparison({
         <h2>See where your answers line up</h2>
         <p>
           Paste a partner’s Activity Explorer share file below. Only activity
-          stances, experience and painted body maps are shared, not private notes, detailed
+          stances, experience, sensory interests, toy/device, body-feature, tattoo and body-scent ratings, setting preferences, role and pairing ratings, clothing and material ratings, and painted body maps are shared, not private notes, detailed
           preferences or Fantasy Profile. Both exports must use the same
           Activity Explorer catalogue version.
         </p>
@@ -174,6 +182,22 @@ export default function PartnerComparison({
               Use different partner data
             </button>
           </div>
+          <SensorySummary interests={ownProfile.sensoryInterests} title="Your sensory interests" />
+          <SensorySummary interests={partnerProfile.sensoryInterests} title="Their sensory interests" person="other" />
+          <ToySummary interests={ownProfile.featureInterests} title="Your toy and device interests" />
+          <ToySummary interests={partnerProfile.featureInterests} title="Their toy and device interests" person="other" />
+          <BodyScentSummary interests={ownProfile.featureInterests} title="Your body-scent interests" />
+          <BodyScentSummary interests={partnerProfile.featureInterests} title="Their body-scent interests" person="other" />
+          <TattooSummary interests={ownProfile.featureInterests} title="Your tattoo activities" />
+          <TattooSummary interests={partnerProfile.featureInterests} title="Their tattoo activities" person="other" />
+          <FeatureSummary interests={ownProfile.featureInterests} title="Your body-feature activities" />
+          <FeatureSummary interests={partnerProfile.featureInterests} title="Their body-feature activities" person="other" />
+          <ContextSummary interests={ownProfile.contextInterests} title="Your setting preferences" />
+          <ContextSummary interests={partnerProfile.contextInterests} title="Their setting preferences" />
+          <RoleplaySummary interests={ownProfile.roleplayInterests} title="Your roleplay interests" />
+          <RoleplaySummary interests={partnerProfile.roleplayInterests} title="Their roleplay interests" person="other" />
+          <MaterialInterestsSummary interests={ownProfile.materialInterests} title="Your clothing & material interests" />
+          <MaterialInterestsSummary interests={partnerProfile.materialInterests} title="Their clothing & material interests" />
           <BodyPaintSummary paint={ownProfile.bodyMaps} title="Your body maps" />
           <BodyPaintSummary paint={partnerProfile.bodyMaps} title="Their body maps" person="other" />
           <p className="muted">{comparison.note}</p>

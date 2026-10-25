@@ -1,3 +1,12 @@
+import FantasySpecificAnswers from '../fantasy/FantasySpecificAnswers.jsx'
+import SensorySummary from '../activities/SensorySummary.jsx'
+import ToySummary from '../activities/ToySummary.jsx'
+import BodyScentSummary from '../activities/BodyScentSummary.jsx'
+import TattooSummary from '../activities/TattooSummary.jsx'
+import FeatureSummary from '../activities/FeatureSummary.jsx'
+import ContextSummary from '../activities/ContextSummary.jsx'
+import RoleplaySummary from '../activities/RoleplaySummary.jsx'
+import MaterialInterestsSummary from '../activities/MaterialInterestsSummary.jsx'
 import BodyPaintSummary from '../activities/BodyPaintSummary.jsx'
 import { useMemo, useState } from 'react'
 import PartnerComparison from '../activities/PartnerComparison.jsx'
@@ -65,6 +74,12 @@ function FantasySummary({ results, onOpenFantasy }) {
           <em>No particular area stood out.</em>
         )}
       </article>
+      {results.specifics.length > 0 && (
+        <article>
+          <span>Specific fantasies</span>
+          <FantasySpecificAnswers rows={results.specifics} />
+        </article>
+      )}
       <button
         type="button"
         className="text-button no-print"
@@ -148,7 +163,7 @@ export default function MyProfile({
           overlap, but they don’t have to.
         </p>
       </header>
-      <div className="screen-only"><BodyPaintSummary paint={activities.exploration?.bodyPaint} /></div>
+      <div className="screen-only"><BodyPaintSummary paint={activities.exploration?.bodyPaint} /><MaterialInterestsSummary interests={activities.exploration?.materialInterests} privateDetails /><RoleplaySummary interests={activities.exploration?.roleplayInterests} privateDetails /><ContextSummary interests={activities.exploration?.contextInterests} privateDetails /><FeatureSummary interests={activities.exploration?.featureInterests} privateDetails /><TattooSummary interests={activities.exploration?.featureInterests} privateDetails /><BodyScentSummary interests={activities.exploration?.featureInterests} privateDetails /><ToySummary interests={activities.exploration?.featureInterests} privateDetails /><SensorySummary interests={activities.exploration?.sensoryInterests} privateDetails /></div>
 
 
       <div className="screen-only">

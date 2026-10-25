@@ -1,4 +1,9 @@
 import { createGuided, normalizeGuided } from './guidedExploration.js'
+import { normalizeSensoryInterests } from './sensoryInterests.js'
+import { normalizeFeatureInterests } from './featureInterests.js'
+import { normalizeContextInterests } from './contextInterests.js'
+import { normalizeRoleplayInterests } from './roleplayInterests.js'
+import { normalizeMaterialInterests } from './materialInterests.js'
 import { normalizeBodyPaint } from './bodyPaint.js'
 export const ANATOMY_FEATURES = ['penis', 'vagina']
 
@@ -29,6 +34,11 @@ export function createExploration() {
       self: { anatomy: {} }
     },
     bodyPaint: {},
+    materialInterests: {},
+    roleplayInterests: { roles: {}, themes: {} },
+    contextInterests: {},
+    featureInterests: {},
+    sensoryInterests: {},
     guided: createGuided(),
     roles: { global: {}, byCategory: {} },
     inferredFilterOverrides: {},
@@ -121,6 +131,11 @@ export function normalizeExploration(value, catalog) {
   return {
     ...base,
     bodyPaint: normalizeBodyPaint(e.bodyPaint),
+    materialInterests: normalizeMaterialInterests(e.materialInterests),
+    roleplayInterests: normalizeRoleplayInterests(e.roleplayInterests),
+    contextInterests: normalizeContextInterests(e.contextInterests),
+    featureInterests: normalizeFeatureInterests(e.featureInterests),
+    sensoryInterests: normalizeSensoryInterests(e.sensoryInterests),
     guided: normalizeGuided(e.guided, catalog),
     facts: {
       self: participant(e.facts?.self)

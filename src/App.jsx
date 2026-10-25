@@ -64,6 +64,8 @@ import {
   prepareActivityExplorerState
 } from './lib/activityProfile.js'
 
+const COLLECTION_CATEGORIES = { 'material-interests': 'fetish_materials', 'roleplay-interests': 'roleplay', 'context-interests': 'sexual_context', 'feature-interests': 'body_features', 'tattoo-interests': 'tattoo_interests', 'sensory-interests': 'sensory_fetishes', 'scent-interests': 'body_scent', 'toy-interests': 'toys_devices' }
+
 function downloadJson(payload, filename) {
   const blob = new Blob([JSON.stringify(payload, null, 2)], {
     type: 'application/json'
@@ -604,8 +606,12 @@ export default function App() {
                 'activity_explorer'
               )
             }
-            onEdit={(activityId) =>
-              updateActivity(
+            onEdit={(activityId) => Object.hasOwn(COLLECTION_CATEGORIES, activityId)
+              ? setAppState(prev => ({ ...prev, route: 'activity_explorer',
+                  activities: { ...prev.activities, navigation: { ...prev.activities.navigation, reviewActivityId: null, categoryId: COLLECTION_CATEGORIES[activityId] } },
+                  exploration: { ...prev.exploration, guided: { ...prev.exploration.guided, topicId: COLLECTION_CATEGORIES[activityId], trail: [], cursor: -1, pendingPreference: null, done: false, flowComplete: false } }
+                }))
+              : updateActivity(
                 (current) =>
                   focusActivityForReview(current, activityCatalog, activityId),
                 'activity_explorer'

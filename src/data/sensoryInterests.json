@@ -1,0 +1,41 @@
+[
+  {
+    "id": "voice", "group": "Voices & sounds", "label": "Speaking voice",
+    "description": "The sound of a partner’s voice, regardless of the words they use.",
+    "rows": [{ "id": "hear_voice", "label": "Hearing my partner’s speaking voice", "choices": ["Deep", "Soft", "Raspy", "Breathy", "Expressive"], "noteLabel": "Any particular vocal qualities or examples" }]
+  },
+  {
+    "id": "accent", "group": "Voices & sounds", "label": "Accents",
+    "description": "An accent or way of pronouncing words that you find particularly appealing.",
+    "rows": [{ "id": "hear_accent", "label": "Hearing an accent I find attractive", "choices": [], "noteLabel": "Which accents or ways of speaking appeal to you?" }]
+  },
+  {
+    "id": "whisper", "group": "Voices & sounds", "label": "Whispering",
+    "description": "Quiet words spoken close to the ear.",
+    "rows": [
+      { "id": "hear_whisper", "label": "Having my partner whisper into my ear", "choices": ["Soft conversation", "Affectionate words", "Hearing their breath"], "noteLabel": "Words, sounds, or situations you have in mind" },
+      { "id": "give_whisper", "label": "Whispering into my partner’s ear", "choices": ["Soft conversation", "Affectionate words", "Hearing their response"], "noteLabel": "Words, sounds, or situations you have in mind" }
+    ]
+  },
+  {
+    "id": "pleasure", "group": "Voices & sounds", "label": "Sounds of pleasure",
+    "description": "The sounds you and a partner make during intimacy.",
+    "rows": [
+      { "id": "hear_pleasure", "label": "Hearing my partner make sounds of pleasure", "choices": ["Sighs", "Breathing", "Moans", "Changes in their voice"], "noteLabel": "Particular sounds or preferences" },
+      { "id": "make_pleasure", "label": "Making sounds of pleasure for my partner to hear", "choices": ["Sighs", "Breathing", "Moans", "Letting my voice change"], "noteLabel": "How you enjoy expressing yourself" }
+    ]
+  },
+  {
+    "id": "asmr", "group": "Voices & sounds", "label": "ASMR-style audio",
+    "description": "Listening to intimate audio with close, detailed sounds.",
+    "rows": [{ "id": "listen_asmr", "label": "Listening to intimate ASMR-style audio", "choices": ["Whispering", "Breathing", "Soft repetitive sounds", "A narrated scenario"], "noteLabel": "Particular recordings, sounds, or styles" }]
+  },
+  {
+    "id": "fragrance", "group": "Fragrance", "label": "Perfume & cologne",
+    "description": "Perfume, cologne, or other scented products worn on the body.",
+    "rows": [
+      { "id": "smell_partner", "label": "Smelling fragrance on my partner", "choices": ["Fresh", "Floral", "Woody", "Spicy", "Sweet", "Musky"], "noteLabel": "Particular fragrances, strengths, or conditions" },
+      { "id": "partner_smells_me", "label": "Having my partner smell fragrance on me", "choices": ["Fresh", "Floral", "Woody", "Spicy", "Sweet", "Musky"], "noteLabel": "Particular fragrances, strengths, or conditions" }
+    ]
+  }
+]

@@ -149,17 +149,29 @@
     {
       "id": "rope_bondage",
       "label": "Rope bondage",
-      "description": "Rope for restraint, positioning, sensation, display, or the rope itself."
+      "description": "Rope for restraint, positioning, sensation, display, or the rope itself.",
+      "guidedDetails": {
+        "title": "Explore the rope atmosphere",
+        "help": "Rope can be quiet, playful, affectionate, or ritual-like. Remembering an atmosphere does not choose body areas, restriction, positions, or suspension."
+      }
     },
     {
       "id": "sensory_deprivation",
       "label": "Sensory deprivation & control",
-      "description": "Changing what someone can see, hear, feel, or anticipate."
+      "description": "Changing what someone can see, hear, feel, or anticipate.",
+      "guidedDetails": {
+        "title": "Explore the sensory atmosphere",
+        "help": "You can prefer a quiet, playful, affectionate, or formal atmosphere. That preference does not choose which senses are affected, how much they are reduced, or whether effects are combined."
+      }
     },
     {
       "id": "impact_play",
       "label": "Impact play",
-      "description": "Spanking, striking, and other kinds of impact with hands, tools, or different styles."
+      "description": "Spanking, striking, and other kinds of impact with hands, tools, or different styles.",
+      "guidedDetails": {
+        "title": "Explore the impact atmosphere",
+        "help": "The atmosphere can be playful, affectionate, focused, or formal. Remembering it does not choose a tool, body area, force level, marks, or a punishment dynamic."
+      }
     },
     {
       "id": "pain_play",
@@ -189,7 +201,7 @@
     {
       "id": "toys_devices",
       "label": "Toys & devices",
-      "description": "Sex toys, devices, and equipment used with a partner."
+      "description": "Toys and devices you might enjoy using yourself or with a partner."
     },
     {
       "id": "orgasm_control",
@@ -254,17 +266,17 @@
     {
       "id": "body_scent",
       "label": "Body scent",
-      "description": "Interest in natural body scent."
+      "description": "Enjoying natural body scent, such as the smell of skin or hair."
     },
     {
       "id": "tattoo_interests",
       "label": "Tattoos",
-      "description": "Interest in tattoos and attention to their designs."
+      "description": "Tracing or kissing tattoos during affectionate or intimate touch."
     },
     {
       "id": "body_features",
-      "label": "Appearance & body features",
-      "description": "Body hair, musculature, piercings and height or size differences."
+      "label": "Body features & attention",
+      "description": "Stroking hair, shaving for each other, feeling muscles flex, and showing them off."
     },
     {
       "id": "fluids_mess",
@@ -273,8 +285,8 @@
     },
     {
       "id": "sensory_fetishes",
-      "label": "Sensory & stimulus interests",
-      "description": "Sounds, smells, textures, movement, and other sensory things that can become a turn-on."
+      "label": "Sensory interests",
+      "description": "Voices, sounds, and fragrances that turn you on."
     },
     {
       "id": "psychological_play",
@@ -6320,7 +6332,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "subtype_branch",
       "scopeRevision": 2,
       "applicability": {
@@ -6344,7 +6356,53 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "rope_interest",
+        "examples": [
+          "Rope can be arranged mainly for its appearance without being used to immobilize someone.",
+          "Another version focuses on restriction, sensation, or the shared process of tying."
+        ],
+        "order": 0,
+        "followUps": [
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_1",
+            "activityIds": [
+              "give_decorative_rope"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_functional_rope"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_3",
+            "activityIds": [
+              "give_rope_sensation"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_4",
+            "activityIds": [
+              "give_rope_harness"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_5",
+            "activityIds": [
+              "give_rope_protocol"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_rope_bondage_general",
@@ -6359,7 +6417,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "subtype_branch",
       "scopeRevision": 2,
       "applicability": {
@@ -6383,7 +6441,53 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "rope_interest",
+        "examples": [
+          "Rope can be arranged mainly for its appearance without being used to immobilize someone.",
+          "Another version focuses on restriction, sensation, or the shared process of tying."
+        ],
+        "order": 1,
+        "followUps": [
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_1",
+            "activityIds": [
+              "receive_decorative_rope"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_functional_rope"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_3",
+            "activityIds": [
+              "receive_rope_sensation"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_4",
+            "activityIds": [
+              "receive_rope_harness"
+            ]
+          },
+          {
+            "fieldId": "rope_interest",
+            "optionId": "choice_5",
+            "activityIds": [
+              "receive_rope_protocol"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_decorative_rope",
@@ -6398,7 +6502,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6422,7 +6526,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "decorative_focus",
+        "examples": [
+          "The pattern can be the main point of the activity.",
+          "Wearing decorative rope does not have to mean being unable to move."
+        ],
+        "order": 2
+      }
     },
     {
       "id": "receive_decorative_rope",
@@ -6437,7 +6550,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6461,7 +6574,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "decorative_focus",
+        "examples": [
+          "The pattern can be the main point of the activity.",
+          "Wearing decorative rope does not have to mean being unable to move."
+        ],
+        "order": 3
+      }
     },
     {
       "id": "give_functional_rope",
@@ -6476,7 +6598,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6500,7 +6622,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "rope_restriction_focus",
+        "examples": [
+          "Here the rope serves a restraint purpose rather than being mainly decorative.",
+          "The focus can be one selected movement instead of full-body stillness."
+        ],
+        "order": 6
+      }
     },
     {
       "id": "receive_functional_rope",
@@ -6515,7 +6646,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6539,7 +6670,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "rope_restriction_focus",
+        "examples": [
+          "Here the rope serves a restraint purpose rather than being mainly decorative.",
+          "The focus can be one selected movement instead of full-body stillness."
+        ],
+        "order": 7
+      }
     },
     {
       "id": "give_rope_harness",
@@ -6554,7 +6694,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "subtype_branch",
       "scopeRevision": 2,
       "applicability": {
@@ -6578,7 +6718,32 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "harness_interest",
+        "examples": [
+          "A rope harness is an arrangement around the torso or hips.",
+          "Its appearance and feel are separate interests from using it for suspension."
+        ],
+        "order": 8,
+        "followUps": [
+          {
+            "fieldId": "harness_focus",
+            "optionId": "choice_1",
+            "activityIds": [
+              "give_chest_harness_rope"
+            ]
+          },
+          {
+            "fieldId": "harness_focus",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_hip_harness_rope"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_rope_harness",
@@ -6593,7 +6758,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "subtype_branch",
       "scopeRevision": 2,
       "applicability": {
@@ -6617,7 +6782,32 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "harness_interest",
+        "examples": [
+          "A rope harness is an arrangement around the torso or hips.",
+          "Its appearance and feel are separate interests from using it for suspension."
+        ],
+        "order": 9,
+        "followUps": [
+          {
+            "fieldId": "harness_focus",
+            "optionId": "choice_1",
+            "activityIds": [
+              "receive_chest_harness_rope"
+            ]
+          },
+          {
+            "fieldId": "harness_focus",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_hip_harness_rope"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_chest_harness_rope",
@@ -6632,7 +6822,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6656,7 +6846,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "chest_rope_interest",
+        "examples": [
+          "This focuses the rope arrangement on the chest or torso.",
+          "The interest may be the visible pattern or the experience of that area being tied."
+        ],
+        "order": 10
+      }
     },
     {
       "id": "receive_chest_harness_rope",
@@ -6671,7 +6870,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6695,7 +6894,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "chest_rope_interest",
+        "examples": [
+          "This focuses the rope arrangement on the chest or torso.",
+          "The interest may be the visible pattern or the experience of that area being tied."
+        ],
+        "order": 11
+      }
     },
     {
       "id": "give_hip_harness_rope",
@@ -6710,7 +6918,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6734,7 +6942,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "hip_rope_interest",
+        "examples": [
+          "This focuses the rope arrangement on the hips rather than the upper body.",
+          "It can be an appearance or sensation interest without an interest in being lifted."
+        ],
+        "order": 12
+      }
     },
     {
       "id": "receive_hip_harness_rope",
@@ -6749,7 +6966,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6773,7 +6990,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "hip_rope_interest",
+        "examples": [
+          "This focuses the rope arrangement on the hips rather than the upper body.",
+          "It can be an appearance or sensation interest without an interest in being lifted."
+        ],
+        "order": 13
+      }
     },
     {
       "id": "give_limb_rope",
@@ -6788,7 +7014,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6812,7 +7038,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "limb_focus",
+        "examples": [
+          "Rope can focus on the arms or on the legs.",
+          "Those interests can differ from an interest in a torso or hip harness."
+        ],
+        "order": 14
+      }
     },
     {
       "id": "receive_limb_rope",
@@ -6827,7 +7062,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6851,7 +7086,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "limb_focus",
+        "examples": [
+          "Rope can focus on the arms or on the legs.",
+          "Those interests can differ from an interest in a torso or hip harness."
+        ],
+        "order": 15
+      }
     },
     {
       "id": "give_floor_rope",
@@ -6866,7 +7110,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6890,7 +7134,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "supported_rope_interest",
+        "examples": [
+          "The body remains supported by the floor during this activity.",
+          "The focus can be arranging a pose or spending time on the tying process rather than suspension."
+        ],
+        "order": 16
+      }
     },
     {
       "id": "receive_floor_rope",
@@ -6905,7 +7158,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6929,7 +7182,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "supported_rope_interest",
+        "examples": [
+          "The body remains supported by the floor during this activity.",
+          "The focus can be arranging a pose or spending time on the tying process rather than suspension."
+        ],
+        "order": 17
+      }
     },
     {
       "id": "give_partial_suspension",
@@ -6944,7 +7206,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -6968,7 +7230,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "partial_suspension_interest",
+        "examples": [
+          "Some of the body’s weight is carried by rope while another part remains supported by a surface.",
+          "Interest in this partly supported version does not imply interest in full suspension."
+        ],
+        "order": 20
+      }
     },
     {
       "id": "receive_partial_suspension",
@@ -6983,7 +7254,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7007,7 +7278,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "partial_suspension_interest",
+        "examples": [
+          "Some of the body’s weight is carried by rope while another part remains supported by a surface.",
+          "Interest in this partly supported version does not imply interest in full suspension."
+        ],
+        "order": 21
+      }
     },
     {
       "id": "give_full_suspension",
@@ -7022,7 +7302,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7046,7 +7326,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "full_suspension_interest",
+        "examples": [
+          "All body weight is carried by rope, with no part bearing weight on the floor.",
+          "This differs from rope decoration, ordinary restraint, and partly supported suspension."
+        ],
+        "order": 22
+      }
     },
     {
       "id": "receive_full_suspension",
@@ -7061,7 +7350,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7085,7 +7374,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "full_suspension_interest",
+        "examples": [
+          "All body weight is carried by rope, with no part bearing weight on the floor.",
+          "This differs from rope decoration, ordinary restraint, and partly supported suspension."
+        ],
+        "order": 23
+      }
     },
     {
       "id": "give_rope_sensation",
@@ -7100,7 +7398,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7124,7 +7422,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "rope_sensation_focus",
+        "examples": [
+          "This can focus on the material’s texture and contact with the body.",
+          "The feeling of rope can be the interest even when it is not being used to prevent movement."
+        ],
+        "order": 4
+      }
     },
     {
       "id": "receive_rope_sensation",
@@ -7139,7 +7446,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7163,7 +7470,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "rope_sensation_focus",
+        "examples": [
+          "This can focus on the material’s texture and contact with the body.",
+          "The feeling of rope can be the interest even when it is not being used to prevent movement."
+        ],
+        "order": 5
+      }
     },
     {
       "id": "give_rope_protocol",
@@ -7178,7 +7494,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7202,7 +7518,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "rope_ritual_interest",
+        "examples": [
+          "The same sequence can be repeated as a familiar ritual.",
+          "The shared routine may matter more than creating a new pattern each time."
+        ],
+        "order": 18
+      }
     },
     {
       "id": "receive_rope_protocol",
@@ -7217,7 +7542,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "rope_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7241,7 +7566,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "rope_ritual_interest",
+        "examples": [
+          "The same sequence can be repeated as a familiar ritual.",
+          "The shared routine may matter more than creating a new pattern each time."
+        ],
+        "order": 19
+      }
     },
     {
       "id": "give_blindfolds",
@@ -7253,7 +7587,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7277,7 +7611,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "blindfold_interest",
+        "examples": [
+          "A blindfold can shift attention away from what is visible.",
+          "The interest may be anticipation or the blindfold’s appearance, rather than reducing other senses too."
+        ],
+        "order": 0
+      }
     },
     {
       "id": "receive_blindfolds",
@@ -7289,7 +7632,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7313,7 +7656,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "blindfold_interest",
+        "examples": [
+          "A blindfold can shift attention away from what is visible.",
+          "The interest may be anticipation or the blindfold’s appearance, rather than reducing other senses too."
+        ],
+        "order": 1
+      }
     },
     {
       "id": "give_hoods",
@@ -7325,7 +7677,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7349,7 +7701,32 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "hood_interest",
+        "examples": [
+          "A hood can change sight, sound, or the feel of a covering around the head.",
+          "The appearance may appeal separately from the sensory effects."
+        ],
+        "order": 14,
+        "followUps": [
+          {
+            "fieldId": "hood_interest",
+            "optionId": "choice_1",
+            "activityIds": [
+              "give_blindfolds"
+            ]
+          },
+          {
+            "fieldId": "hood_interest",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_earplugs"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_hoods",
@@ -7361,7 +7738,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7385,7 +7762,32 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "hood_interest",
+        "examples": [
+          "A hood can change sight, sound, or the feel of a covering around the head.",
+          "The appearance may appeal separately from the sensory effects."
+        ],
+        "order": 15,
+        "followUps": [
+          {
+            "fieldId": "hood_interest",
+            "optionId": "choice_1",
+            "activityIds": [
+              "receive_blindfolds"
+            ]
+          },
+          {
+            "fieldId": "hood_interest",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_earplugs"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_earplugs",
@@ -7397,7 +7799,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7421,7 +7823,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "reduced_hearing_interest",
+        "examples": [
+          "This reduces what can be heard rather than choosing a soundtrack.",
+          "Interest in reduced hearing does not imply an interest in also blocking sight."
+        ],
+        "order": 4
+      }
     },
     {
       "id": "receive_earplugs",
@@ -7433,7 +7844,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7457,7 +7868,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "reduced_hearing_interest",
+        "examples": [
+          "This reduces what can be heard rather than choosing a soundtrack.",
+          "Interest in reduced hearing does not imply an interest in also blocking sight."
+        ],
+        "order": 5
+      }
     },
     {
       "id": "give_headphones_sensory_control",
@@ -7469,7 +7889,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7493,7 +7913,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "audio_choice",
+        "examples": [
+          "Headphones can provide chosen music, sounds, or spoken directions.",
+          "Choosing what is heard differs from simply reducing hearing with earplugs."
+        ],
+        "order": 6
+      }
     },
     {
       "id": "receive_headphones_sensory_control",
@@ -7505,7 +7934,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7529,7 +7958,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "audio_choice",
+        "examples": [
+          "Headphones can provide chosen music, sounds, or spoken directions.",
+          "Choosing what is heard differs from simply reducing hearing with earplugs."
+        ],
+        "order": 7
+      }
     },
     {
       "id": "give_mittens_hand_control",
@@ -7541,7 +7979,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7557,7 +7995,16 @@
       ],
       "fantasyConnections": [],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "hand_cover_interest",
+        "examples": [
+          "The coverings limit finger use and handling objects.",
+          "This is about hand dexterity rather than necessarily removing the feeling of touch."
+        ],
+        "order": 8
+      }
     },
     {
       "id": "receive_mittens_hand_control",
@@ -7569,7 +8016,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -7585,7 +8032,16 @@
       ],
       "fantasyConnections": [],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "hand_cover_interest",
+        "examples": [
+          "The coverings limit finger use and handling objects.",
+          "This is about hand dexterity rather than necessarily removing the feeling of touch."
+        ],
+        "order": 9
+      }
     },
     {
       "id": "give_darkness",
@@ -7597,7 +8053,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7618,7 +8074,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "darkness_interest",
+        "examples": [
+          "Darkness changes the setting rather than putting a covering over the eyes.",
+          "Someone can prefer that setting without wanting a blindfold or hood."
+        ],
+        "order": 2
+      }
     },
     {
       "id": "receive_darkness",
@@ -7630,7 +8095,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7651,7 +8116,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "darkness_interest",
+        "examples": [
+          "Darkness changes the setting rather than putting a covering over the eyes.",
+          "Someone can prefer that setting without wanting a blindfold or hood."
+        ],
+        "order": 3
+      }
     },
     {
       "id": "give_silence",
@@ -7663,7 +8137,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7676,7 +8150,16 @@
       ],
       "fantasyConnections": [],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "speech_limits",
+        "examples": [
+          "This concerns when or how someone speaks.",
+          "It does not necessarily reduce what they can hear."
+        ],
+        "order": 10
+      }
     },
     {
       "id": "receive_silence",
@@ -7688,7 +8171,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7701,7 +8184,16 @@
       ],
       "fantasyConnections": [],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "speech_limits",
+        "examples": [
+          "This concerns when or how someone speaks.",
+          "It does not necessarily reduce what they can hear."
+        ],
+        "order": 11
+      }
     },
     {
       "id": "give_sensory_deprivation_combo",
@@ -7713,7 +8205,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7734,7 +8226,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "combined_controls",
+        "examples": [
+          "This combines more than one kind of sensory or hand control.",
+          "Liking one individual form does not automatically mean wanting a combination."
+        ],
+        "order": 16
+      }
     },
     {
       "id": "receive_sensory_deprivation_combo",
@@ -7746,7 +8247,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7767,7 +8268,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "combined_controls",
+        "examples": [
+          "This combines more than one kind of sensory or hand control.",
+          "Liking one individual form does not automatically mean wanting a combination."
+        ],
+        "order": 17
+      }
     },
     {
       "id": "give_sensory_overload",
@@ -7779,7 +8289,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7800,7 +8310,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "overload_interest",
+        "examples": [
+          "Several strong sensations are present together rather than being reduced.",
+          "Interest in reducing sensory input does not imply interest in this opposite experience."
+        ],
+        "order": 20
+      }
     },
     {
       "id": "receive_sensory_overload",
@@ -7812,7 +8331,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7833,7 +8352,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "overload_interest",
+        "examples": [
+          "Several strong sensations are present together rather than being reduced.",
+          "Interest in reducing sensory input does not imply interest in this opposite experience."
+        ],
+        "order": 21
+      }
     },
     {
       "id": "give_unknown_next_action",
@@ -7845,7 +8373,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7866,7 +8394,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "uncertainty_interest",
+        "examples": [
+          "The possible actions are already chosen; the next one or its timing stays unknown.",
+          "Uncertainty about the sequence is different from introducing unchosen activities."
+        ],
+        "order": 12
+      }
     },
     {
       "id": "receive_unknown_next_action",
@@ -7878,7 +8415,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7899,7 +8436,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "uncertainty_interest",
+        "examples": [
+          "The possible actions are already chosen; the next one or its timing stays unknown.",
+          "Uncertainty about the sequence is different from introducing unchosen activities."
+        ],
+        "order": 13
+      }
     },
     {
       "id": "give_controlled_environment",
@@ -7911,7 +8457,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7932,7 +8478,32 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "environment_choices",
+        "examples": [
+          "The environment itself is arranged around chosen light, sound, or sensations.",
+          "This can be different from wearing sensory-control equipment."
+        ],
+        "order": 18,
+        "followUps": [
+          {
+            "fieldId": "environment_choices",
+            "optionId": "choice_1",
+            "activityIds": [
+              "give_darkness"
+            ]
+          },
+          {
+            "fieldId": "environment_choices",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_headphones_sensory_control"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_controlled_environment",
@@ -7944,7 +8515,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "bondage",
+      "detailProfileId": "sensory_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -7965,7 +8536,32 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "environment_choices",
+        "examples": [
+          "The environment itself is arranged around chosen light, sound, or sensations.",
+          "This can be different from wearing sensory-control equipment."
+        ],
+        "order": 19,
+        "followUps": [
+          {
+            "fieldId": "environment_choices",
+            "optionId": "choice_1",
+            "activityIds": [
+              "receive_darkness"
+            ]
+          },
+          {
+            "fieldId": "environment_choices",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_headphones_sensory_control"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_hand_spanking",
@@ -7979,7 +8575,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8000,7 +8596,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "spanking_interest",
+        "examples": [
+          "A hand is the implement, rather than a paddle or another object.",
+          "The interest can be sensation, sound, contact, or the interaction between partners."
+        ],
+        "order": 0,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_hand_spanking",
@@ -8014,7 +8628,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8035,7 +8649,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 1
+      "explorationIntensity": 1,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "spanking_interest",
+        "examples": [
+          "A hand is the implement, rather than a paddle or another object.",
+          "The interest can be sensation, sound, contact, or the interaction between partners."
+        ],
+        "order": 1,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_paddling",
@@ -8049,7 +8681,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8073,7 +8705,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "paddle_interest",
+        "examples": [
+          "A paddle has a broad, flat striking surface.",
+          "Its appearance or symbolism can matter separately from the sensation."
+        ],
+        "order": 10,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_paddling",
@@ -8087,7 +8737,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8111,7 +8761,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "paddle_interest",
+        "examples": [
+          "A paddle has a broad, flat striking surface.",
+          "Its appearance or symbolism can matter separately from the sensation."
+        ],
+        "order": 11,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_flogging",
@@ -8125,7 +8793,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8149,7 +8817,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "flogger_interest",
+        "examples": [
+          "A flogger has several flexible tails attached to a handle.",
+          "The visual movement, sound, and sensation can be separate parts of the interest."
+        ],
+        "order": 12,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_flogging",
@@ -8163,7 +8849,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8187,7 +8873,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "flogger_interest",
+        "examples": [
+          "A flogger has several flexible tails attached to a handle.",
+          "The visual movement, sound, and sensation can be separate parts of the interest."
+        ],
+        "order": 13,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_caning",
@@ -8201,7 +8905,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8225,7 +8929,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "cane_interest",
+        "examples": [
+          "A cane is a slender implement associated with narrow, sharp-feeling strikes.",
+          "The implement’s symbolism and the sensation are different aspects of the interest."
+        ],
+        "order": 22,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_caning",
@@ -8239,7 +8961,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8263,7 +8985,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "cane_interest",
+        "examples": [
+          "A cane is a slender implement associated with narrow, sharp-feeling strikes.",
+          "The implement’s symbolism and the sensation are different aspects of the interest."
+        ],
+        "order": 23,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_whipping",
@@ -8277,7 +9017,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8301,7 +9041,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "whip_interest",
+        "examples": [
+          "A whip or whip-like implement is used rather than a hand or paddle.",
+          "Its appearance, movement, sound, and sensation do not have to appeal equally."
+        ],
+        "order": 24,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_whipping",
@@ -8315,7 +9073,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8339,7 +9097,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "whip_interest",
+        "examples": [
+          "A whip or whip-like implement is used rather than a hand or paddle.",
+          "Its appearance, movement, sound, and sensation do not have to appeal equally."
+        ],
+        "order": 25,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_strapping",
@@ -8353,7 +9129,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8377,7 +9153,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "strap_interest",
+        "examples": [
+          "A strap is a flexible strip rather than a broad rigid paddle.",
+          "Interest in its appearance or role associations can differ from interest in the sensation."
+        ],
+        "order": 14,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_strapping",
@@ -8391,7 +9185,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -8415,7 +9209,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "strap_interest",
+        "examples": [
+          "A strap is a flexible strip rather than a broad rigid paddle.",
+          "Interest in its appearance or role associations can differ from interest in the sensation."
+        ],
+        "order": 15,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_slapping_body",
@@ -8429,7 +9241,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8450,7 +9262,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "body_slapping_interest",
+        "examples": [
+          "This focuses on open-hand strikes to the body.",
+          "Someone can respond to the sound or interaction without wanting every other kind of impact."
+        ],
+        "order": 2,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_slapping_body",
@@ -8464,7 +9294,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8485,7 +9315,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "body_slapping_interest",
+        "examples": [
+          "This focuses on open-hand strikes to the body.",
+          "Someone can respond to the sound or interaction without wanting every other kind of impact."
+        ],
+        "order": 3,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "give_thudding_impact",
@@ -8499,7 +9347,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8520,7 +9368,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "heavy_feeling_interest",
+        "examples": [
+          "“Thudding” describes a broad, heavy-feeling quality of sensation.",
+          "It describes how impact feels rather than automatically choosing a tool or force level."
+        ],
+        "order": 6
+      }
     },
     {
       "id": "receive_thudding_impact",
@@ -8534,7 +9391,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8555,7 +9412,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "heavy_feeling_interest",
+        "examples": [
+          "“Thudding” describes a broad, heavy-feeling quality of sensation.",
+          "It describes how impact feels rather than automatically choosing a tool or force level."
+        ],
+        "order": 7
+      }
     },
     {
       "id": "give_stingy_impact",
@@ -8569,7 +9435,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8590,7 +9456,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "surface_feeling_interest",
+        "examples": [
+          "“Stingy” describes a sharp feeling at the skin’s surface.",
+          "A sensation preference does not by itself choose an implement or intensity."
+        ],
+        "order": 8
+      }
     },
     {
       "id": "receive_stingy_impact",
@@ -8604,7 +9479,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8625,7 +9500,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "surface_feeling_interest",
+        "examples": [
+          "“Stingy” describes a sharp feeling at the skin’s surface.",
+          "A sensation preference does not by itself choose an implement or intensity."
+        ],
+        "order": 9
+      }
     },
     {
       "id": "give_rhythmic_impact",
@@ -8639,7 +9523,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8660,7 +9544,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "rhythm_interest",
+        "examples": [
+          "The repeating pattern is the focus, rather than a particular implement.",
+          "A preference for rhythm does not specify the force of each impact."
+        ],
+        "order": 4
+      }
     },
     {
       "id": "receive_rhythmic_impact",
@@ -8674,7 +9567,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8695,7 +9588,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "rhythm_interest",
+        "examples": [
+          "The repeating pattern is the focus, rather than a particular implement.",
+          "A preference for rhythm does not specify the force of each impact."
+        ],
+        "order": 5
+      }
     },
     {
       "id": "give_punishment_impact_roleplay",
@@ -8709,7 +9611,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8730,7 +9632,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "fictional_punishment_interest",
+        "examples": [
+          "The punishment belongs to an acted-out story or scene.",
+          "This differs from setting consequences for rules broken in an ongoing relationship."
+        ],
+        "order": 18
+      }
     },
     {
       "id": "receive_punishment_impact_roleplay",
@@ -8744,7 +9655,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8765,7 +9676,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "fictional_punishment_interest",
+        "examples": [
+          "The punishment belongs to an acted-out story or scene.",
+          "This differs from setting consequences for rules broken in an ongoing relationship."
+        ],
+        "order": 19
+      }
     },
     {
       "id": "give_impact_marks",
@@ -8779,7 +9699,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8800,7 +9720,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "marks_interest",
+        "examples": [
+          "Here the interest includes an after-effect that remains after the activity.",
+          "That is separate from liking impact only while it is happening."
+        ],
+        "order": 20
+      }
     },
     {
       "id": "receive_impact_marks",
@@ -8814,7 +9743,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": null,
@@ -8835,7 +9764,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "marks_interest",
+        "examples": [
+          "Here the interest includes an after-effect that remains after the activity.",
+          "That is separate from liking impact only while it is happening."
+        ],
+        "order": 21
+      }
     },
     {
       "id": "give_pain_general",
@@ -14103,7 +15041,7 @@
     },
     {
       "id": "give_urethral_sounding",
-      "categoryId": "toys_devices",
+      "categoryId": "medical_edge",
       "label": "Inserting a urethral sound into my partner",
       "description": "Inserting a smooth specialized instrument into my partner’s urethra, the tube urine passes through.",
       "priority": "specialized",
@@ -14134,7 +15072,7 @@
     },
     {
       "id": "receive_urethral_sounding",
-      "categoryId": "toys_devices",
+      "categoryId": "medical_edge",
       "label": "Having my partner insert a urethral sound into me",
       "description": "Having my partner insert a smooth specialized instrument into my urethra, the tube urine passes through.",
       "priority": "specialized",
@@ -14165,7 +15103,7 @@
     },
     {
       "id": "give_catheter_fetish",
-      "categoryId": "toys_devices",
+      "categoryId": "medical_edge",
       "label": "Inserting or using a catheter with my partner as sexual or kink play",
       "description": "Using a catheter, a tube entering the bladder through the urethra, with my partner during play.",
       "priority": "specialized",
@@ -14196,7 +15134,7 @@
     },
     {
       "id": "receive_catheter_fetish",
-      "categoryId": "toys_devices",
+      "categoryId": "medical_edge",
       "label": "Having my partner insert or use a catheter with me as sexual or kink play",
       "description": "Having my partner use a catheter with me, involving a tube entering the bladder through my urethra.",
       "priority": "specialized",
@@ -31669,7 +32607,7 @@
       "tags": [
         "giving"
       ],
-      "detailProfileId": "impact_with_partner_body_general",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -31693,7 +32631,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "crop_interest",
+        "examples": [
+          "A riding crop is a short flexible implement with a small striking tip.",
+          "Its roleplay associations and appearance are distinct from a preference about sensation."
+        ],
+        "order": 16,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "give_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "receive_riding_crop_play",
@@ -31707,7 +32663,7 @@
       "tags": [
         "receiving"
       ],
-      "detailProfileId": "impact_with_partner_body_general",
+      "detailProfileId": "impact_guided_details",
       "boundaryCapability": "activity_only",
       "scopeRevision": 1,
       "applicability": {
@@ -31731,7 +32687,25 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 2
+      "explorationIntensity": 2,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "crop_interest",
+        "examples": [
+          "A riding crop is a short flexible implement with a small striking tip.",
+          "Its roleplay associations and appearance are distinct from a preference about sensation."
+        ],
+        "order": 17,
+        "followUps": [
+          {
+            "fieldId": "impact_pacing",
+            "optionId": "choice_2",
+            "activityIds": [
+              "receive_rhythmic_impact"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "punch_partner",
@@ -31746,7 +32720,7 @@
         "giving",
         "impact"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "aliases": [
         "punching",
         "punch play"
@@ -31771,7 +32745,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "giving",
+      "learning": {
+        "primaryDetailFieldId": "fist_impact_interest",
+        "examples": [
+          "This uses a closed fist rather than an open hand or separate implement.",
+          "Interest in slapping or spanking does not imply interest in closed-fist impact."
+        ],
+        "order": 26
+      }
     },
     {
       "id": "be_punched",
@@ -31786,7 +32769,7 @@
         "receiving",
         "impact"
       ],
-      "detailProfileId": "impact",
+      "detailProfileId": "impact_guided_details",
       "aliases": [
         "punching",
         "punch play"
@@ -31811,7 +32794,16 @@
         }
       ],
       "sameActivityComparison": false,
-      "explorationIntensity": 3
+      "explorationIntensity": 3,
+      "guidedRole": "receiving",
+      "learning": {
+        "primaryDetailFieldId": "fist_impact_interest",
+        "examples": [
+          "This uses a closed fist rather than an open hand or separate implement.",
+          "Interest in slapping or spanking does not imply interest in closed-fist impact."
+        ],
+        "order": 27
+      }
     },
     {
       "id": "self_masturbation_sleeves",
@@ -35953,1049 +36945,6 @@
       ]
     },
     {
-      "id": "bondage",
-      "fields": [
-        {
-          "id": "methods",
-          "type": "preference_matrix",
-          "label": "Restraint methods",
-          "options": [
-            {
-              "id": "rope",
-              "label": "Rope"
-            },
-            {
-              "id": "cuffs",
-              "label": "Cuffs"
-            },
-            {
-              "id": "leather",
-              "label": "Leather restraints"
-            },
-            {
-              "id": "fabric",
-              "label": "Fabric restraints"
-            },
-            {
-              "id": "furniture",
-              "label": "Furniture attachment"
-            },
-            {
-              "id": "harness",
-              "label": "Harness / body restraint"
-            },
-            {
-              "id": "wrapping",
-              "label": "Wrapping / enclosure"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_wrist_restraint",
-            "receive_wrist_restraint",
-            "give_ankle_restraint",
-            "receive_ankle_restraint",
-            "give_arm_restraint",
-            "receive_arm_restraint",
-            "give_leg_restraint",
-            "receive_leg_restraint",
-            "give_full_body_restraint",
-            "receive_full_body_restraint",
-            "give_hands_behind_back",
-            "receive_hands_behind_back",
-            "give_arms_overhead",
-            "receive_arms_overhead",
-            "give_spread_position_restraint",
-            "receive_spread_position_restraint",
-            "give_standing_restraint",
-            "receive_standing_restraint",
-            "give_kneeling_restraint",
-            "receive_kneeling_restraint",
-            "give_hogtie_style_restraint",
-            "receive_hogtie_style_restraint",
-            "give_partial_immobilization",
-            "receive_partial_immobilization",
-            "give_full_immobilization",
-            "receive_full_immobilization"
-          ]
-        },
-        {
-          "id": "preferred_areas",
-          "type": "preference_matrix",
-          "label": "Body areas involved",
-          "options": [
-            {
-              "id": "wrists",
-              "label": "Wrists"
-            },
-            {
-              "id": "arms",
-              "label": "Arms"
-            },
-            {
-              "id": "torso",
-              "label": "Torso"
-            },
-            {
-              "id": "thighs",
-              "label": "Thighs / legs"
-            },
-            {
-              "id": "ankles",
-              "label": "Ankles"
-            },
-            {
-              "id": "multiple",
-              "label": "Multiple areas / full body"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_standing_restraint",
-            "receive_standing_restraint",
-            "give_kneeling_restraint",
-            "receive_kneeling_restraint",
-            "give_hogtie_style_restraint",
-            "receive_hogtie_style_restraint",
-            "give_cuffs",
-            "receive_cuffs",
-            "give_leather_restraints",
-            "receive_leather_restraints",
-            "give_fabric_restraints",
-            "receive_fabric_restraints",
-            "give_spreader_bars",
-            "receive_spreader_bars",
-            "give_stocks",
-            "receive_stocks",
-            "give_bondage_harness",
-            "receive_bondage_harness",
-            "give_partial_immobilization",
-            "receive_partial_immobilization",
-            "give_full_immobilization",
-            "receive_full_immobilization"
-          ]
-        },
-        {
-          "id": "preferred_positions",
-          "type": "preference_matrix",
-          "label": "Positions that fit this interest",
-          "options": [
-            {
-              "id": "hands_front",
-              "label": "Hands in front"
-            },
-            {
-              "id": "hands_back",
-              "label": "Hands behind back"
-            },
-            {
-              "id": "arms_overhead",
-              "label": "Arms overhead"
-            },
-            {
-              "id": "kneeling",
-              "label": "Kneeling"
-            },
-            {
-              "id": "standing",
-              "label": "Standing"
-            },
-            {
-              "id": "lying",
-              "label": "Lying down"
-            },
-            {
-              "id": "spread",
-              "label": "Spread position"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_wrist_restraint",
-            "receive_wrist_restraint",
-            "give_ankle_restraint",
-            "receive_ankle_restraint",
-            "give_arm_restraint",
-            "receive_arm_restraint",
-            "give_leg_restraint",
-            "receive_leg_restraint",
-            "give_full_body_restraint",
-            "receive_full_body_restraint",
-            "give_cuffs",
-            "receive_cuffs",
-            "give_leather_restraints",
-            "receive_leather_restraints",
-            "give_fabric_restraints",
-            "receive_fabric_restraints",
-            "give_bondage_harness",
-            "receive_bondage_harness",
-            "give_partial_immobilization",
-            "receive_partial_immobilization",
-            "give_full_immobilization",
-            "receive_full_immobilization"
-          ]
-        },
-        {
-          "id": "restriction",
-          "type": "paired_select",
-          "label": "Restriction level",
-          "options": [
-            {
-              "id": "very_light",
-              "label": "Very light"
-            },
-            {
-              "id": "light",
-              "label": "Light"
-            },
-            {
-              "id": "moderate",
-              "label": "Moderate"
-            },
-            {
-              "id": "strong",
-              "label": "Strong"
-            },
-            {
-              "id": "very_strong",
-              "label": "Very strong"
-            }
-          ],
-          "placeholder": "Choose",
-          "preferredLabel": "Preferred restriction",
-          "maximumLabel": "Maximum restriction",
-          "excludeForActivityIds": [
-            "give_furniture_restraint",
-            "receive_furniture_restraint",
-            "give_bed_restraint",
-            "receive_bed_restraint",
-            "give_chair_restraint",
-            "receive_chair_restraint",
-            "give_partial_immobilization",
-            "receive_partial_immobilization",
-            "give_full_immobilization",
-            "receive_full_immobilization",
-            "give_bondage_with_sex",
-            "receive_bondage_with_sex",
-            "give_bondage_without_sex",
-            "receive_bondage_without_sex",
-            "gag_partner",
-            "be_gagged",
-            "give_blindfolds",
-            "receive_blindfolds",
-            "give_hoods",
-            "receive_hoods",
-            "give_earplugs",
-            "receive_earplugs",
-            "give_headphones_sensory_control",
-            "receive_headphones_sensory_control",
-            "give_mittens_hand_control",
-            "receive_mittens_hand_control",
-            "give_darkness",
-            "receive_darkness",
-            "give_silence",
-            "receive_silence",
-            "give_sensory_deprivation_combo",
-            "receive_sensory_deprivation_combo",
-            "give_sensory_overload",
-            "receive_sensory_overload",
-            "give_unknown_next_action",
-            "receive_unknown_next_action",
-            "give_controlled_environment",
-            "receive_controlled_environment"
-          ]
-        },
-        {
-          "id": "duration",
-          "type": "single_select",
-          "label": "Preferred duration",
-          "options": [
-            {
-              "id": "brief",
-              "label": "Brief"
-            },
-            {
-              "id": "short",
-              "label": "Short"
-            },
-            {
-              "id": "moderate",
-              "label": "Moderate"
-            },
-            {
-              "id": "long",
-              "label": "Long"
-            },
-            {
-              "id": "extended",
-              "label": "Extended"
-            }
-          ],
-          "placeholder": "Choose one",
-          "excludeForActivityIds": [
-            "give_furniture_restraint",
-            "receive_furniture_restraint",
-            "give_bed_restraint",
-            "receive_bed_restraint",
-            "give_chair_restraint",
-            "receive_chair_restraint",
-            "give_bondage_with_sex",
-            "receive_bondage_with_sex",
-            "give_bondage_without_sex",
-            "receive_bondage_without_sex",
-            "gag_partner",
-            "be_gagged"
-          ]
-        },
-        {
-          "id": "mobility_preferences",
-          "type": "preference_matrix",
-          "label": "Mobility level",
-          "options": [
-            {
-              "id": "mostly_mobile",
-              "label": "Mostly mobile"
-            },
-            {
-              "id": "limited",
-              "label": "Limited mobility"
-            },
-            {
-              "id": "mostly_immobile",
-              "label": "Mostly immobile"
-            },
-            {
-              "id": "fully_immobile",
-              "label": "Fully immobile"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_wrist_restraint",
-            "receive_wrist_restraint",
-            "give_ankle_restraint",
-            "receive_ankle_restraint",
-            "give_arm_restraint",
-            "receive_arm_restraint",
-            "give_leg_restraint",
-            "receive_leg_restraint",
-            "give_full_body_restraint",
-            "receive_full_body_restraint",
-            "give_hands_behind_back",
-            "receive_hands_behind_back",
-            "give_arms_overhead",
-            "receive_arms_overhead",
-            "give_spread_position_restraint",
-            "receive_spread_position_restraint",
-            "give_standing_restraint",
-            "receive_standing_restraint",
-            "give_kneeling_restraint",
-            "receive_kneeling_restraint",
-            "give_hogtie_style_restraint",
-            "receive_hogtie_style_restraint",
-            "give_cuffs",
-            "receive_cuffs",
-            "give_leather_restraints",
-            "receive_leather_restraints",
-            "give_fabric_restraints",
-            "receive_fabric_restraints",
-            "give_spreader_bars",
-            "receive_spreader_bars",
-            "give_stocks",
-            "receive_stocks",
-            "give_bondage_harness",
-            "receive_bondage_harness",
-            "give_mummification",
-            "receive_mummification",
-            "give_straitjacket_style",
-            "receive_straitjacket_style",
-            "give_cage_confinement",
-            "receive_cage_confinement",
-            "give_predicament_bondage",
-            "receive_predicament_bondage"
-          ]
-        },
-        {
-          "id": "visibility_preferences",
-          "type": "preference_matrix",
-          "label": "Visibility / display context",
-          "options": [
-            {
-              "id": "hidden",
-              "label": "Hidden / discreet"
-            },
-            {
-              "id": "private",
-              "label": "Visible in private"
-            },
-            {
-              "id": "partner",
-              "label": "Visible to partner(s)"
-            },
-            {
-              "id": "consenting_display",
-              "label": "Display among consenting people"
-            }
-          ],
-          "excludeForActivityIds": [
-            "give_furniture_restraint",
-            "receive_furniture_restraint",
-            "give_bed_restraint",
-            "receive_bed_restraint",
-            "give_chair_restraint",
-            "receive_chair_restraint",
-            "give_bondage_with_sex",
-            "receive_bondage_with_sex",
-            "give_bondage_without_sex",
-            "receive_bondage_without_sex",
-            "gag_partner",
-            "be_gagged",
-            "give_blindfolds",
-            "receive_blindfolds",
-            "give_hoods",
-            "receive_hoods",
-            "give_earplugs",
-            "receive_earplugs",
-            "give_headphones_sensory_control",
-            "receive_headphones_sensory_control",
-            "give_mittens_hand_control",
-            "receive_mittens_hand_control",
-            "give_darkness",
-            "receive_darkness",
-            "give_silence",
-            "receive_silence",
-            "give_sensory_deprivation_combo",
-            "receive_sensory_deprivation_combo",
-            "give_sensory_overload",
-            "receive_sensory_overload",
-            "give_unknown_next_action",
-            "receive_unknown_next_action",
-            "give_controlled_environment",
-            "receive_controlled_environment"
-          ]
-        },
-        {
-          "id": "confinement_style",
-          "type": "preference_matrix",
-          "label": "What about confinement would fit?",
-          "options": [
-            {
-              "id": "enclosed_space",
-              "label": "Enclosed space"
-            },
-            {
-              "id": "limited_exit",
-              "label": "Limited ability to leave"
-            },
-            {
-              "id": "display",
-              "label": "Display / presentation"
-            },
-            {
-              "id": "waiting",
-              "label": "Waiting / being kept"
-            },
-            {
-              "id": "ritual",
-              "label": "Ritual / protocol"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_cage_confinement",
-            "receive_cage_confinement"
-          ]
-        },
-        {
-          "id": "predicament_focus",
-          "type": "preference_matrix",
-          "label": "What kind of predicament would fit?",
-          "options": [
-            {
-              "id": "balance",
-              "label": "Balance / maintaining position"
-            },
-            {
-              "id": "choice",
-              "label": "Difficult choice"
-            },
-            {
-              "id": "movement_consequence",
-              "label": "Movement changes the sensation"
-            },
-            {
-              "id": "endurance",
-              "label": "Endurance / holding"
-            },
-            {
-              "id": "psychological",
-              "label": "Psychological tension"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_predicament_bondage",
-            "receive_predicament_bondage"
-          ]
-        },
-        {
-          "id": "rope_purpose",
-          "type": "preference_matrix",
-          "label": "What about rope would fit?",
-          "options": [
-            {
-              "id": "decorative",
-              "label": "Decorative / aesthetic"
-            },
-            {
-              "id": "restrictive",
-              "label": "Restriction"
-            },
-            {
-              "id": "sensory",
-              "label": "Pressure / texture"
-            },
-            {
-              "id": "ritual",
-              "label": "Ritual / protocol"
-            },
-            {
-              "id": "floor",
-              "label": "Floor-based"
-            },
-            {
-              "id": "suspension",
-              "label": "Suspension roleplay / practice"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_rope_bondage_general",
-            "receive_rope_bondage_general"
-          ]
-        },
-        {
-          "id": "rope_style",
-          "type": "preference_matrix",
-          "label": "Rope style",
-          "options": [
-            {
-              "id": "minimal",
-              "label": "Minimal / simple"
-            },
-            {
-              "id": "geometric",
-              "label": "Geometric / patterned"
-            },
-            {
-              "id": "harness_like",
-              "label": "Harness-like",
-              "excludeForActivityIds": [
-                "give_rope_harness",
-                "receive_rope_harness",
-                "give_chest_harness_rope",
-                "receive_chest_harness_rope",
-                "give_hip_harness_rope",
-                "receive_hip_harness_rope"
-              ]
-            },
-            {
-              "id": "functional",
-              "label": "Functional / restraint-focused",
-              "excludeForActivityIds": [
-                "give_functional_rope",
-                "receive_functional_rope"
-              ]
-            },
-            {
-              "id": "ceremonial",
-              "label": "Ceremonial / ritualized",
-              "excludeForActivityIds": [
-                "give_rope_protocol",
-                "receive_rope_protocol"
-              ]
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_decorative_rope",
-            "receive_decorative_rope",
-            "give_functional_rope",
-            "receive_functional_rope",
-            "give_rope_harness",
-            "receive_rope_harness",
-            "give_chest_harness_rope",
-            "receive_chest_harness_rope",
-            "give_hip_harness_rope",
-            "receive_hip_harness_rope",
-            "give_limb_rope",
-            "receive_limb_rope",
-            "give_floor_rope",
-            "receive_floor_rope",
-            "give_partial_suspension",
-            "receive_partial_suspension",
-            "give_full_suspension",
-            "receive_full_suspension",
-            "give_rope_sensation",
-            "receive_rope_sensation",
-            "give_rope_protocol",
-            "receive_rope_protocol"
-          ]
-        },
-        {
-          "id": "rope_body_focus",
-          "type": "preference_matrix",
-          "label": "Body focus",
-          "options": [
-            {
-              "id": "upper_body",
-              "label": "Upper body"
-            },
-            {
-              "id": "hips",
-              "label": "Hips / waist"
-            },
-            {
-              "id": "limbs",
-              "label": "Limbs"
-            },
-            {
-              "id": "full_body",
-              "label": "Full body"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_rope_bondage_general",
-            "receive_rope_bondage_general",
-            "give_decorative_rope",
-            "receive_decorative_rope",
-            "give_functional_rope",
-            "receive_functional_rope",
-            "give_rope_harness",
-            "receive_rope_harness",
-            "give_floor_rope",
-            "receive_floor_rope",
-            "give_rope_sensation",
-            "receive_rope_sensation",
-            "give_rope_protocol",
-            "receive_rope_protocol"
-          ]
-        },
-        {
-          "id": "rope_position_context",
-          "type": "preference_matrix",
-          "label": "Position / setup",
-          "options": [
-            {
-              "id": "standing",
-              "label": "Standing"
-            },
-            {
-              "id": "kneeling",
-              "label": "Kneeling"
-            },
-            {
-              "id": "seated",
-              "label": "Seated"
-            },
-            {
-              "id": "lying",
-              "label": "Lying down"
-            },
-            {
-              "id": "movement_allowed",
-              "label": "Some movement allowed"
-            },
-            {
-              "id": "stillness",
-              "label": "Mostly still"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_rope_bondage_general",
-            "receive_rope_bondage_general",
-            "give_decorative_rope",
-            "receive_decorative_rope",
-            "give_functional_rope",
-            "receive_functional_rope",
-            "give_rope_harness",
-            "receive_rope_harness",
-            "give_chest_harness_rope",
-            "receive_chest_harness_rope",
-            "give_hip_harness_rope",
-            "receive_hip_harness_rope",
-            "give_limb_rope",
-            "receive_limb_rope",
-            "give_floor_rope",
-            "receive_floor_rope",
-            "give_rope_sensation",
-            "receive_rope_sensation",
-            "give_rope_protocol",
-            "receive_rope_protocol"
-          ]
-        },
-        {
-          "id": "suspension_style",
-          "type": "preference_matrix",
-          "label": "What part of suspension matters?",
-          "options": [
-            {
-              "id": "weightless_feeling",
-              "label": "Weightless / lifted feeling"
-            },
-            {
-              "id": "positioning",
-              "label": "Positioning"
-            },
-            {
-              "id": "display",
-              "label": "Visual display"
-            },
-            {
-              "id": "trust",
-              "label": "Trust / surrender"
-            },
-            {
-              "id": "stillness",
-              "label": "Stillness"
-            },
-            {
-              "id": "movement",
-              "label": "Controlled movement"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_partial_suspension",
-            "receive_partial_suspension",
-            "give_full_suspension",
-            "receive_full_suspension"
-          ]
-        },
-        {
-          "id": "sensory_depth",
-          "type": "paired_select",
-          "label": "Degree of sensory control",
-          "options": [
-            {
-              "id": "very_light",
-              "label": "Very light"
-            },
-            {
-              "id": "light",
-              "label": "Light"
-            },
-            {
-              "id": "moderate",
-              "label": "Moderate"
-            },
-            {
-              "id": "strong",
-              "label": "Strong"
-            },
-            {
-              "id": "very_strong",
-              "label": "Very strong"
-            }
-          ],
-          "placeholder": "Choose",
-          "preferredLabel": "Preferred",
-          "maximumLabel": "Maximum",
-          "appliesToActivityIds": [
-            "give_blindfolds",
-            "receive_blindfolds",
-            "give_hoods",
-            "receive_hoods",
-            "give_earplugs",
-            "receive_earplugs",
-            "give_headphones_sensory_control",
-            "receive_headphones_sensory_control",
-            "give_mittens_hand_control",
-            "receive_mittens_hand_control",
-            "give_darkness",
-            "receive_darkness",
-            "give_silence",
-            "receive_silence",
-            "give_sensory_deprivation_combo",
-            "receive_sensory_deprivation_combo",
-            "give_sensory_overload",
-            "receive_sensory_overload",
-            "give_unknown_next_action",
-            "receive_unknown_next_action",
-            "give_controlled_environment",
-            "receive_controlled_environment"
-          ]
-        },
-        {
-          "id": "sensory_context",
-          "type": "preference_matrix",
-          "label": "How would it fit?",
-          "options": [
-            {
-              "id": "standalone",
-              "label": "Standalone sensory play"
-            },
-            {
-              "id": "with_restraint",
-              "label": "Combined with restraint"
-            },
-            {
-              "id": "with_sex",
-              "label": "Combined with sexual activity"
-            },
-            {
-              "id": "power_exchange",
-              "label": "Power-exchange context"
-            },
-            {
-              "id": "roleplay",
-              "label": "Roleplay / scenario"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_blindfolds",
-            "receive_blindfolds",
-            "give_hoods",
-            "receive_hoods",
-            "give_earplugs",
-            "receive_earplugs",
-            "give_headphones_sensory_control",
-            "receive_headphones_sensory_control",
-            "give_mittens_hand_control",
-            "receive_mittens_hand_control",
-            "give_darkness",
-            "receive_darkness",
-            "give_silence",
-            "receive_silence",
-            "give_sensory_deprivation_combo",
-            "receive_sensory_deprivation_combo",
-            "give_sensory_overload",
-            "receive_sensory_overload",
-            "give_unknown_next_action",
-            "receive_unknown_next_action",
-            "give_controlled_environment",
-            "receive_controlled_environment"
-          ]
-        },
-        {
-          "id": "audio_control_style",
-          "type": "preference_matrix",
-          "label": "What kind of controlled audio?",
-          "options": [
-            {
-              "id": "music",
-              "label": "Music"
-            },
-            {
-              "id": "voice",
-              "label": "Partner voice / commands"
-            },
-            {
-              "id": "ambient",
-              "label": "Ambient / soundscape"
-            },
-            {
-              "id": "noise_masking",
-              "label": "Noise masking"
-            },
-            {
-              "id": "silence_breaks",
-              "label": "Alternating sound and silence"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_headphones_sensory_control",
-            "receive_headphones_sensory_control"
-          ]
-        },
-        {
-          "id": "combined_senses",
-          "type": "preference_matrix",
-          "label": "Which senses would be reduced?",
-          "options": [
-            {
-              "id": "vision",
-              "label": "Vision"
-            },
-            {
-              "id": "hearing",
-              "label": "Hearing"
-            },
-            {
-              "id": "touch_dexterity",
-              "label": "Touch / hand dexterity"
-            },
-            {
-              "id": "orientation",
-              "label": "Orientation / environmental cues"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_sensory_deprivation_combo",
-            "receive_sensory_deprivation_combo"
-          ]
-        },
-        {
-          "id": "overload_sources",
-          "type": "preference_matrix",
-          "label": "What kinds of sensory input?",
-          "options": [
-            {
-              "id": "touch",
-              "label": "Touch / texture"
-            },
-            {
-              "id": "sound",
-              "label": "Sound"
-            },
-            {
-              "id": "light_visual",
-              "label": "Light / visual input"
-            },
-            {
-              "id": "temperature",
-              "label": "Temperature"
-            },
-            {
-              "id": "multiple",
-              "label": "Multiple at once"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_sensory_overload",
-            "receive_sensory_overload"
-          ]
-        },
-        {
-          "id": "uncertainty_scope",
-          "type": "preference_matrix",
-          "label": "What should stay unknown?",
-          "options": [
-            {
-              "id": "timing",
-              "label": "Timing"
-            },
-            {
-              "id": "which_agreed_action",
-              "label": "Which pre-agreed action"
-            },
-            {
-              "id": "sequence",
-              "label": "Sequence"
-            },
-            {
-              "id": "duration",
-              "label": "Duration"
-            },
-            {
-              "id": "who_initiates",
-              "label": "Who initiates"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_unknown_next_action",
-            "receive_unknown_next_action"
-          ]
-        },
-        {
-          "id": "environment_controls",
-          "type": "preference_matrix",
-          "label": "Which parts of the environment are controlled?",
-          "options": [
-            {
-              "id": "light",
-              "label": "Lighting"
-            },
-            {
-              "id": "sound",
-              "label": "Sound"
-            },
-            {
-              "id": "temperature",
-              "label": "Temperature"
-            },
-            {
-              "id": "movement",
-              "label": "Movement / position"
-            },
-            {
-              "id": "timing",
-              "label": "Timing / pacing"
-            },
-            {
-              "id": "access",
-              "label": "Access to objects / space"
-            }
-          ],
-          "appliesToActivityIds": [
-            "give_controlled_environment",
-            "receive_controlled_environment"
-          ]
-        },
-        {
-          "id": "gag_type",
-          "type": "preference_matrix",
-          "label": "Gag type",
-          "options": [
-            {
-              "id": "ball",
-              "label": "Ball gag"
-            },
-            {
-              "id": "bit",
-              "label": "Bit gag"
-            },
-            {
-              "id": "cloth",
-              "label": "Cloth / bandana"
-            },
-            {
-              "id": "tape_style",
-              "label": "Tape-style gag"
-            },
-            {
-              "id": "ring_open_mouth",
-              "label": "Ring / open-mouth gag"
-            },
-            {
-              "id": "other",
-              "label": "Other"
-            }
-          ],
-          "appliesToActivityIds": [
-            "gag_partner",
-            "be_gagged"
-          ]
-        },
-        {
-          "id": "gag_appeal",
-          "type": "preference_matrix",
-          "label": "What appeals?",
-          "options": [
-            {
-              "id": "restrained",
-              "label": "Feeling restrained"
-            },
-            {
-              "id": "speech_limited",
-              "label": "Not being able to speak normally"
-            },
-            {
-              "id": "drooling_mess",
-              "label": "Drooling / mess"
-            },
-            {
-              "id": "appearance",
-              "label": "Appearance"
-            },
-            {
-              "id": "power_exchange",
-              "label": "Power exchange"
-            },
-            {
-              "id": "mouth_open",
-              "label": "Mouth held open"
-            }
-          ],
-          "appliesToActivityIds": [
-            "gag_partner",
-            "be_gagged"
-          ]
-        }
-      ]
-    },
-    {
       "id": "exhibition",
       "fields": [
         {
@@ -40136,161 +40085,6 @@
             "receive_clothing_grabbing",
             "give_wall_pin_roleplay",
             "receive_wall_pin_roleplay"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "impact_with_partner_body_general",
-      "fields": [
-        {
-          "id": "body_area_preferences",
-          "type": "preference_matrix",
-          "label": "Body-area preferences",
-          "options": [
-            {
-              "id": "buttocks",
-              "label": "Buttocks"
-            },
-            {
-              "id": "upper_thighs",
-              "label": "Upper thighs"
-            },
-            {
-              "id": "upper_back",
-              "label": "Upper back"
-            },
-            {
-              "id": "shoulders",
-              "label": "Shoulders"
-            },
-            {
-              "id": "chest",
-              "label": "Chest"
-            },
-            {
-              "id": "calves",
-              "label": "Calves"
-            },
-            {
-              "id": "feet",
-              "label": "Feet"
-            }
-          ]
-        },
-        {
-          "id": "impact_character",
-          "type": "preference_matrix",
-          "label": "Character / rhythm",
-          "options": [
-            {
-              "id": "thuddy",
-              "label": "Thuddy / heavy"
-            },
-            {
-              "id": "stingy",
-              "label": "Stingy / sharp"
-            },
-            {
-              "id": "rhythmic",
-              "label": "Rhythmic"
-            },
-            {
-              "id": "slow_build",
-              "label": "Slow build"
-            },
-            {
-              "id": "playful",
-              "label": "Playful"
-            },
-            {
-              "id": "punishment",
-              "label": "Punishment-themed"
-            }
-          ]
-        },
-        {
-          "id": "impact_intensity",
-          "type": "paired_select",
-          "label": "Impact intensity",
-          "options": [
-            {
-              "id": "very_light",
-              "label": "Very light"
-            },
-            {
-              "id": "light",
-              "label": "Light"
-            },
-            {
-              "id": "moderate",
-              "label": "Moderate"
-            },
-            {
-              "id": "strong",
-              "label": "Strong"
-            },
-            {
-              "id": "very_strong",
-              "label": "Very strong"
-            }
-          ],
-          "placeholder": "Choose",
-          "preferredLabel": "Preferred",
-          "maximumLabel": "Maximum"
-        },
-        {
-          "id": "mark_preferences",
-          "type": "preference_matrix",
-          "label": "Marks / visible after-effects",
-          "options": [
-            {
-              "id": "no_marks",
-              "label": "Prefer no marks"
-            },
-            {
-              "id": "light_temporary",
-              "label": "Light temporary marks"
-            },
-            {
-              "id": "visible_temporary",
-              "label": "More visible temporary marks"
-            }
-          ]
-        },
-        {
-          "id": "emotional_framing",
-          "type": "preference_matrix",
-          "label": "Emotional framing",
-          "options": [
-            {
-              "id": "playful",
-              "label": "Playful"
-            },
-            {
-              "id": "affectionate",
-              "label": "Affectionate / connected"
-            },
-            {
-              "id": "strict",
-              "label": "Strict"
-            },
-            {
-              "id": "punishment",
-              "label": "Punishment-themed"
-            },
-            {
-              "id": "humiliation",
-              "label": "Humiliation-themed"
-            },
-            {
-              "id": "praise",
-              "label": "Praise / approval"
-            },
-            {
-              "id": "ritual",
-              "label": "Ritual / protocol"
-            }
           ]
         }
       ]
@@ -48125,6 +47919,1270 @@
           "sharedPreference": true
         }
       ]
+    },
+    {
+      "id": "rope_guided_details",
+      "fields": [
+        {
+          "id": "rope_interest",
+          "type": "multi_select",
+          "label": "Which parts of rope bondage appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Making or wearing decorative patterns"
+            },
+            {
+              "id": "choice_2",
+              "label": "Restricting selected movements"
+            },
+            {
+              "id": "choice_3",
+              "label": "The feel or texture of rope"
+            },
+            {
+              "id": "choice_4",
+              "label": "A harness-like arrangement"
+            },
+            {
+              "id": "choice_5",
+              "label": "A repeated tying ritual"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_rope_bondage_general",
+            "receive_rope_bondage_general"
+          ]
+        },
+        {
+          "id": "decorative_focus",
+          "type": "multi_select",
+          "label": "What would you enjoy about decorative rope?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Simple lines or patterns"
+            },
+            {
+              "id": "choice_2",
+              "label": "More elaborate visual patterns"
+            },
+            {
+              "id": "choice_3",
+              "label": "Rope as part of an outfit"
+            },
+            {
+              "id": "choice_4",
+              "label": "Having the finished arrangement admired"
+            },
+            {
+              "id": "choice_5",
+              "label": "The process of creating or wearing the pattern"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_decorative_rope",
+            "receive_decorative_rope"
+          ]
+        },
+        {
+          "id": "rope_sensation_focus",
+          "type": "multi_select",
+          "label": "Which parts of rope sensation appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Feeling the texture against skin"
+            },
+            {
+              "id": "choice_2",
+              "label": "The feeling of contact or pressure"
+            },
+            {
+              "id": "choice_3",
+              "label": "Awareness of where rope touches the body"
+            },
+            {
+              "id": "choice_4",
+              "label": "Attention to sensation during the tying process"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_rope_sensation",
+            "receive_rope_sensation"
+          ]
+        },
+        {
+          "id": "rope_restriction_focus",
+          "type": "multi_select",
+          "label": "What would you want the rope to restrict?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Hand or wrist movement"
+            },
+            {
+              "id": "choice_2",
+              "label": "Arm movement"
+            },
+            {
+              "id": "choice_3",
+              "label": "Leg movement"
+            },
+            {
+              "id": "choice_4",
+              "label": "Changing a chosen position"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_functional_rope",
+            "receive_functional_rope"
+          ]
+        },
+        {
+          "id": "harness_interest",
+          "type": "multi_select",
+          "label": "What appeals about a rope harness?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Its appearance"
+            },
+            {
+              "id": "choice_2",
+              "label": "The feel of rope around the body"
+            },
+            {
+              "id": "choice_3",
+              "label": "A defined costume or role"
+            },
+            {
+              "id": "choice_4",
+              "label": "Being positioned within the arrangement"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_rope_harness",
+            "receive_rope_harness"
+          ]
+        },
+        {
+          "id": "chest_rope_interest",
+          "type": "multi_select",
+          "label": "What appeals about a chest or torso rope harness?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The pattern across the upper body"
+            },
+            {
+              "id": "choice_2",
+              "label": "The feel of rope around the torso"
+            },
+            {
+              "id": "choice_3",
+              "label": "The appearance as part of an outfit"
+            },
+            {
+              "id": "choice_4",
+              "label": "The process of having that area tied"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_chest_harness_rope",
+            "receive_chest_harness_rope"
+          ]
+        },
+        {
+          "id": "hip_rope_interest",
+          "type": "multi_select",
+          "label": "What appeals about a hip rope harness?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The pattern around the hips"
+            },
+            {
+              "id": "choice_2",
+              "label": "The feel of rope at the hips or waist"
+            },
+            {
+              "id": "choice_3",
+              "label": "The appearance as part of an outfit"
+            },
+            {
+              "id": "choice_4",
+              "label": "The process of having that area tied"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_hip_harness_rope",
+            "receive_hip_harness_rope"
+          ]
+        },
+        {
+          "id": "limb_focus",
+          "type": "multi_select",
+          "label": "Which limbs would be the focus?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Hands or wrists"
+            },
+            {
+              "id": "choice_2",
+              "label": "Arms"
+            },
+            {
+              "id": "choice_3",
+              "label": "Legs or ankles"
+            },
+            {
+              "id": "choice_4",
+              "label": "More than one limb"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_limb_rope",
+            "receive_limb_rope"
+          ]
+        },
+        {
+          "id": "supported_rope_interest",
+          "type": "multi_select",
+          "label": "What appeals about remaining supported by the floor?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Lying down while being tied"
+            },
+            {
+              "id": "choice_2",
+              "label": "Sitting while being tied"
+            },
+            {
+              "id": "choice_3",
+              "label": "Being arranged in a supported pose"
+            },
+            {
+              "id": "choice_4",
+              "label": "Focusing on the tying process without being lifted"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_floor_rope",
+            "receive_floor_rope"
+          ]
+        },
+        {
+          "id": "rope_ritual_interest",
+          "type": "multi_select",
+          "label": "Which parts of a repeated rope ritual appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Repeating a familiar tying sequence"
+            },
+            {
+              "id": "choice_2",
+              "label": "Beginning or ending with a chosen phrase"
+            },
+            {
+              "id": "choice_3",
+              "label": "Taking a particular starting or finishing position"
+            },
+            {
+              "id": "choice_4",
+              "label": "Using rope to mark the start or end of a scene"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_rope_protocol",
+            "receive_rope_protocol"
+          ]
+        },
+        {
+          "id": "partial_suspension_interest",
+          "type": "multi_select",
+          "label": "Which parts of partial suspension appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Some weight being carried by rope"
+            },
+            {
+              "id": "choice_2",
+              "label": "The contrast between supported and suspended parts"
+            },
+            {
+              "id": "choice_3",
+              "label": "The appearance of the suspended position"
+            },
+            {
+              "id": "choice_4",
+              "label": "The chosen suspended pose"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_partial_suspension",
+            "receive_partial_suspension"
+          ]
+        },
+        {
+          "id": "full_suspension_interest",
+          "type": "multi_select",
+          "label": "Which parts of full suspension appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Being entirely clear of the floor"
+            },
+            {
+              "id": "choice_2",
+              "label": "The appearance of a suspended body"
+            },
+            {
+              "id": "choice_3",
+              "label": "The experience of rope carrying all body weight"
+            },
+            {
+              "id": "choice_4",
+              "label": "The chosen suspended pose"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_full_suspension",
+            "receive_full_suspension"
+          ]
+        },
+        {
+          "id": "rope_atmosphere",
+          "type": "multi_select",
+          "label": "What atmosphere would you enjoy?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Quiet and focused"
+            },
+            {
+              "id": "choice_2",
+              "label": "Playful"
+            },
+            {
+              "id": "choice_3",
+              "label": "Affectionate"
+            },
+            {
+              "id": "choice_4",
+              "label": "Formal or ritual-like"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_rope_bondage_general",
+            "receive_rope_bondage_general",
+            "give_decorative_rope",
+            "receive_decorative_rope",
+            "give_functional_rope",
+            "receive_functional_rope",
+            "give_rope_harness",
+            "receive_rope_harness",
+            "give_chest_harness_rope",
+            "receive_chest_harness_rope",
+            "give_hip_harness_rope",
+            "receive_hip_harness_rope",
+            "give_limb_rope",
+            "receive_limb_rope",
+            "give_floor_rope",
+            "receive_floor_rope",
+            "give_partial_suspension",
+            "receive_partial_suspension",
+            "give_full_suspension",
+            "receive_full_suspension",
+            "give_rope_sensation",
+            "receive_rope_sensation",
+            "give_rope_protocol",
+            "receive_rope_protocol"
+          ],
+          "sharedPreference": true
+        },
+        {
+          "id": "harness_focus",
+          "type": "multi_select",
+          "label": "Where would the rope harness be focused?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Chest or torso"
+            },
+            {
+              "id": "choice_2",
+              "label": "Hips or waist"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_rope_harness",
+            "receive_rope_harness"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sensory_guided_details",
+      "fields": [
+        {
+          "id": "blindfold_interest",
+          "type": "multi_select",
+          "label": "Which effects of a blindfold appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Focusing more on touch or sound"
+            },
+            {
+              "id": "choice_2",
+              "label": "Not seeing a familiar action coming"
+            },
+            {
+              "id": "choice_3",
+              "label": "Letting a partner guide attention"
+            },
+            {
+              "id": "choice_4",
+              "label": "The appearance or symbolism of a blindfold"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_blindfolds",
+            "receive_blindfolds"
+          ]
+        },
+        {
+          "id": "darkness_interest",
+          "type": "multi_select",
+          "label": "Which parts of darkness appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Being in a darkened space"
+            },
+            {
+              "id": "choice_2",
+              "label": "Attention shifting toward sounds or touch"
+            },
+            {
+              "id": "choice_3",
+              "label": "A partner controlling when light returns"
+            },
+            {
+              "id": "choice_4",
+              "label": "A setting without wearing an eye covering"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_darkness",
+            "receive_darkness"
+          ]
+        },
+        {
+          "id": "reduced_hearing_interest",
+          "type": "multi_select",
+          "label": "Which effects of reduced hearing appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Background sounds becoming less noticeable"
+            },
+            {
+              "id": "choice_2",
+              "label": "Attention shifting toward other sensations"
+            },
+            {
+              "id": "choice_3",
+              "label": "A sense of separation from the surroundings"
+            },
+            {
+              "id": "choice_4",
+              "label": "A partner controlling this part of the experience"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_earplugs",
+            "receive_earplugs"
+          ]
+        },
+        {
+          "id": "audio_choice",
+          "type": "multi_select",
+          "label": "Which kinds of selected audio appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Music"
+            },
+            {
+              "id": "choice_2",
+              "label": "A partner’s spoken directions"
+            },
+            {
+              "id": "choice_3",
+              "label": "An ambient soundscape"
+            },
+            {
+              "id": "choice_4",
+              "label": "Sounds that mask the surrounding room"
+            },
+            {
+              "id": "choice_5",
+              "label": "Alternating sound and silence"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_headphones_sensory_control",
+            "receive_headphones_sensory_control"
+          ]
+        },
+        {
+          "id": "hand_cover_interest",
+          "type": "multi_select",
+          "label": "Which effects of hand coverings appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Being unable to use individual fingers freely"
+            },
+            {
+              "id": "choice_2",
+              "label": "Grasping or handling objects being limited"
+            },
+            {
+              "id": "choice_3",
+              "label": "The appearance of covered hands"
+            },
+            {
+              "id": "choice_4",
+              "label": "A role involving less independent hand use"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_mittens_hand_control",
+            "receive_mittens_hand_control"
+          ]
+        },
+        {
+          "id": "speech_limits",
+          "type": "multi_select",
+          "label": "Which limits on speaking appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Remaining silent for a chosen part of play"
+            },
+            {
+              "id": "choice_2",
+              "label": "Asking before speaking"
+            },
+            {
+              "id": "choice_3",
+              "label": "Speaking only to answer a question"
+            },
+            {
+              "id": "choice_4",
+              "label": "Using a chosen gesture instead of ordinary conversation"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_silence",
+            "receive_silence"
+          ]
+        },
+        {
+          "id": "uncertainty_interest",
+          "type": "multi_select",
+          "label": "Which parts would you enjoy leaving unknown?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "When the next action will happen"
+            },
+            {
+              "id": "choice_2",
+              "label": "Which of the selected actions comes next"
+            },
+            {
+              "id": "choice_3",
+              "label": "The order of familiar actions"
+            },
+            {
+              "id": "choice_4",
+              "label": "Pauses between familiar actions"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_unknown_next_action",
+            "receive_unknown_next_action"
+          ]
+        },
+        {
+          "id": "hood_interest",
+          "type": "multi_select",
+          "label": "Which parts of a sensory-control hood appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Sight being blocked"
+            },
+            {
+              "id": "choice_2",
+              "label": "Sound being muffled"
+            },
+            {
+              "id": "choice_3",
+              "label": "The feel of a covering around the head"
+            },
+            {
+              "id": "choice_4",
+              "label": "Its appearance or role symbolism"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_hoods",
+            "receive_hoods"
+          ]
+        },
+        {
+          "id": "combined_controls",
+          "type": "multi_select",
+          "label": "Which kinds of control would you want to combine?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Sight reduced together with hearing"
+            },
+            {
+              "id": "choice_2",
+              "label": "Sight reduced together with hand dexterity"
+            },
+            {
+              "id": "choice_3",
+              "label": "Hearing reduced together with hand dexterity"
+            },
+            {
+              "id": "choice_4",
+              "label": "Sight, hearing, and hand dexterity together"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_sensory_deprivation_combo",
+            "receive_sensory_deprivation_combo"
+          ]
+        },
+        {
+          "id": "environment_choices",
+          "type": "multi_select",
+          "label": "Which parts of the surroundings would be controlled?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Lighting"
+            },
+            {
+              "id": "choice_2",
+              "label": "Sound or music"
+            },
+            {
+              "id": "choice_3",
+              "label": "Which familiar sensations are introduced"
+            },
+            {
+              "id": "choice_4",
+              "label": "The timing and sequence of selected experiences"
+            },
+            {
+              "id": "choice_5",
+              "label": "Access to selected objects or props"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_controlled_environment",
+            "receive_controlled_environment"
+          ]
+        },
+        {
+          "id": "overload_interest",
+          "type": "multi_select",
+          "label": "Which parts of several intense sensations appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "More than one sensation competing for attention"
+            },
+            {
+              "id": "choice_2",
+              "label": "Sound together with touch"
+            },
+            {
+              "id": "choice_3",
+              "label": "Visual input together with touch"
+            },
+            {
+              "id": "choice_4",
+              "label": "The contrast between quieter and busier moments"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_sensory_overload",
+            "receive_sensory_overload"
+          ]
+        },
+        {
+          "id": "sensory_atmosphere",
+          "type": "multi_select",
+          "label": "What atmosphere would you enjoy?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Quiet and focused"
+            },
+            {
+              "id": "choice_2",
+              "label": "Playful anticipation"
+            },
+            {
+              "id": "choice_3",
+              "label": "Affectionate"
+            },
+            {
+              "id": "choice_4",
+              "label": "Formal or ritual-like"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_blindfolds",
+            "receive_blindfolds",
+            "give_hoods",
+            "receive_hoods",
+            "give_earplugs",
+            "receive_earplugs",
+            "give_headphones_sensory_control",
+            "receive_headphones_sensory_control",
+            "give_mittens_hand_control",
+            "receive_mittens_hand_control",
+            "give_darkness",
+            "receive_darkness",
+            "give_silence",
+            "receive_silence",
+            "give_sensory_deprivation_combo",
+            "receive_sensory_deprivation_combo",
+            "give_sensory_overload",
+            "receive_sensory_overload",
+            "give_unknown_next_action",
+            "receive_unknown_next_action",
+            "give_controlled_environment",
+            "receive_controlled_environment"
+          ],
+          "sharedPreference": true
+        }
+      ]
+    },
+    {
+      "id": "impact_guided_details",
+      "fields": [
+        {
+          "id": "spanking_interest",
+          "type": "multi_select",
+          "label": "Which parts of hand spanking appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The sensation of a hand striking"
+            },
+            {
+              "id": "choice_2",
+              "label": "The sound"
+            },
+            {
+              "id": "choice_3",
+              "label": "Direct contact with a hand rather than an implement"
+            },
+            {
+              "id": "choice_4",
+              "label": "A repeated rhythm"
+            },
+            {
+              "id": "choice_5",
+              "label": "The interaction between partners"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_hand_spanking",
+            "receive_hand_spanking"
+          ]
+        },
+        {
+          "id": "body_slapping_interest",
+          "type": "multi_select",
+          "label": "Which parts of body slapping appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The sensation of an open-hand strike"
+            },
+            {
+              "id": "choice_2",
+              "label": "The sound of contact"
+            },
+            {
+              "id": "choice_3",
+              "label": "A single emphasized moment"
+            },
+            {
+              "id": "choice_4",
+              "label": "A repeated pattern"
+            },
+            {
+              "id": "choice_5",
+              "label": "The interaction with a partner"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_slapping_body",
+            "receive_slapping_body"
+          ]
+        },
+        {
+          "id": "rhythm_interest",
+          "type": "multi_select",
+          "label": "What appeals about a repeated rhythm?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "A predictable pattern"
+            },
+            {
+              "id": "choice_2",
+              "label": "A steady tempo"
+            },
+            {
+              "id": "choice_3",
+              "label": "Pauses between repeated sequences"
+            },
+            {
+              "id": "choice_4",
+              "label": "A shared sense of timing"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_rhythmic_impact",
+            "receive_rhythmic_impact"
+          ]
+        },
+        {
+          "id": "heavy_feeling_interest",
+          "type": "multi_select",
+          "label": "What appeals about a deep, heavy-feeling impact?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The broad feeling of contact"
+            },
+            {
+              "id": "choice_2",
+              "label": "An aching rather than sharply stinging quality"
+            },
+            {
+              "id": "choice_3",
+              "label": "The contrast with surface-focused sensation"
+            },
+            {
+              "id": "choice_4",
+              "label": "The physical feedback between partners"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_thudding_impact",
+            "receive_thudding_impact"
+          ]
+        },
+        {
+          "id": "surface_feeling_interest",
+          "type": "multi_select",
+          "label": "What appeals about a sharp, surface-focused impact?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "A brief, sharply defined sensation"
+            },
+            {
+              "id": "choice_2",
+              "label": "The contrast with deeper aching sensation"
+            },
+            {
+              "id": "choice_3",
+              "label": "Distinct separate contacts"
+            },
+            {
+              "id": "choice_4",
+              "label": "Attention focused on the skin’s surface"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_stingy_impact",
+            "receive_stingy_impact"
+          ]
+        },
+        {
+          "id": "paddle_interest",
+          "type": "multi_select",
+          "label": "Which parts of paddling appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The appearance of the paddle"
+            },
+            {
+              "id": "choice_2",
+              "label": "The sound of contact"
+            },
+            {
+              "id": "choice_3",
+              "label": "The sensation of a broad striking surface"
+            },
+            {
+              "id": "choice_4",
+              "label": "The symbolism of the implement"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_paddling",
+            "receive_paddling"
+          ]
+        },
+        {
+          "id": "flogger_interest",
+          "type": "multi_select",
+          "label": "Which parts of flogging appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The appearance or movement of the tails"
+            },
+            {
+              "id": "choice_2",
+              "label": "The feeling of multiple flexible tails"
+            },
+            {
+              "id": "choice_3",
+              "label": "The sound"
+            },
+            {
+              "id": "choice_4",
+              "label": "A repeated flowing rhythm"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_flogging",
+            "receive_flogging"
+          ]
+        },
+        {
+          "id": "strap_interest",
+          "type": "multi_select",
+          "label": "Which parts of strap impact appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The flexible appearance of the strap"
+            },
+            {
+              "id": "choice_2",
+              "label": "The sound"
+            },
+            {
+              "id": "choice_3",
+              "label": "The feeling of a flexible strip making contact"
+            },
+            {
+              "id": "choice_4",
+              "label": "The implement’s roleplay associations"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_strapping",
+            "receive_strapping"
+          ]
+        },
+        {
+          "id": "crop_interest",
+          "type": "multi_select",
+          "label": "Which parts of riding-crop impact appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The appearance of the crop"
+            },
+            {
+              "id": "choice_2",
+              "label": "Its roleplay associations"
+            },
+            {
+              "id": "choice_3",
+              "label": "The sound of the tip making contact"
+            },
+            {
+              "id": "choice_4",
+              "label": "The distinct sensation of the small striking end"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_riding_crop_play",
+            "receive_riding_crop_play"
+          ]
+        },
+        {
+          "id": "fictional_punishment_interest",
+          "type": "multi_select",
+          "label": "Which parts of fictional punishment roleplay appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "An acted-out reason for the punishment"
+            },
+            {
+              "id": "choice_2",
+              "label": "A formal role or manner of address"
+            },
+            {
+              "id": "choice_3",
+              "label": "Counting as part of the scene"
+            },
+            {
+              "id": "choice_4",
+              "label": "Praise or reassurance within the roleplay"
+            },
+            {
+              "id": "choice_5",
+              "label": "A clear ending to the fictional punishment"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_punishment_impact_roleplay",
+            "receive_punishment_impact_roleplay"
+          ]
+        },
+        {
+          "id": "marks_interest",
+          "type": "multi_select",
+          "label": "What appeals about temporary marks after impact?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Their appearance"
+            },
+            {
+              "id": "choice_2",
+              "label": "A reminder of the shared experience"
+            },
+            {
+              "id": "choice_3",
+              "label": "A private symbol between partners"
+            },
+            {
+              "id": "choice_4",
+              "label": "Having the marks noticed by the partner involved"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_impact_marks",
+            "receive_impact_marks"
+          ]
+        },
+        {
+          "id": "cane_interest",
+          "type": "multi_select",
+          "label": "Which parts of caning appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The appearance of the cane"
+            },
+            {
+              "id": "choice_2",
+              "label": "Its formal or roleplay associations"
+            },
+            {
+              "id": "choice_3",
+              "label": "The sharply defined sensation"
+            },
+            {
+              "id": "choice_4",
+              "label": "The sound"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_caning",
+            "receive_caning"
+          ]
+        },
+        {
+          "id": "whip_interest",
+          "type": "multi_select",
+          "label": "Which parts of whipping appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The appearance of a whip"
+            },
+            {
+              "id": "choice_2",
+              "label": "Its movement"
+            },
+            {
+              "id": "choice_3",
+              "label": "The sound"
+            },
+            {
+              "id": "choice_4",
+              "label": "Its roleplay symbolism"
+            },
+            {
+              "id": "choice_5",
+              "label": "The sensation of whip impact"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_whipping",
+            "receive_whipping"
+          ]
+        },
+        {
+          "id": "fist_impact_interest",
+          "type": "multi_select",
+          "label": "Which parts of closed-fist impact appeal to you?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "The blunt sensation"
+            },
+            {
+              "id": "choice_2",
+              "label": "The visual or roleplay symbolism"
+            },
+            {
+              "id": "choice_3",
+              "label": "The physical interaction between partners"
+            }
+          ],
+          "appliesToActivityIds": [
+            "punch_partner",
+            "be_punched"
+          ]
+        },
+        {
+          "id": "impact_atmosphere",
+          "type": "multi_select",
+          "label": "What atmosphere would you enjoy?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Playful"
+            },
+            {
+              "id": "choice_2",
+              "label": "Affectionate"
+            },
+            {
+              "id": "choice_3",
+              "label": "Quiet and focused"
+            },
+            {
+              "id": "choice_4",
+              "label": "Formal or ritual-like"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_hand_spanking",
+            "receive_hand_spanking",
+            "give_paddling",
+            "receive_paddling",
+            "give_flogging",
+            "receive_flogging",
+            "give_caning",
+            "receive_caning",
+            "give_whipping",
+            "receive_whipping",
+            "give_strapping",
+            "receive_strapping",
+            "give_slapping_body",
+            "receive_slapping_body",
+            "give_thudding_impact",
+            "receive_thudding_impact",
+            "give_stingy_impact",
+            "receive_stingy_impact",
+            "give_rhythmic_impact",
+            "receive_rhythmic_impact",
+            "give_punishment_impact_roleplay",
+            "receive_punishment_impact_roleplay",
+            "give_impact_marks",
+            "receive_impact_marks",
+            "give_riding_crop_play",
+            "receive_riding_crop_play",
+            "punch_partner",
+            "be_punched"
+          ],
+          "sharedPreference": true
+        },
+        {
+          "id": "impact_pacing",
+          "type": "multi_select",
+          "label": "Which pacing would fit this particular activity?",
+          "options": [
+            {
+              "id": "choice_1",
+              "label": "Separate impacts with pauses"
+            },
+            {
+              "id": "choice_2",
+              "label": "A steady repeated rhythm"
+            },
+            {
+              "id": "choice_3",
+              "label": "Short sequences with pauses"
+            },
+            {
+              "id": "choice_4",
+              "label": "A changing rhythm"
+            }
+          ],
+          "appliesToActivityIds": [
+            "give_hand_spanking",
+            "receive_hand_spanking",
+            "give_paddling",
+            "receive_paddling",
+            "give_flogging",
+            "receive_flogging",
+            "give_caning",
+            "receive_caning",
+            "give_whipping",
+            "receive_whipping",
+            "give_strapping",
+            "receive_strapping",
+            "give_slapping_body",
+            "receive_slapping_body",
+            "give_thudding_impact",
+            "receive_thudding_impact",
+            "give_stingy_impact",
+            "receive_stingy_impact",
+            "give_punishment_impact_roleplay",
+            "receive_punishment_impact_roleplay",
+            "give_impact_marks",
+            "receive_impact_marks",
+            "give_riding_crop_play",
+            "receive_riding_crop_play",
+            "punch_partner",
+            "be_punched"
+          ]
+        }
+      ]
     }
   ],
   "relationships": [
@@ -55287,7 +56345,6 @@
       },
       "rationale": "Actual self-yielding questions may suggest following/submissive exploration. This never silently assigns activity answers or confirms roles.",
       "sourceQuestionIds": [
-        "fp_core_surrender_02",
         "fp_core_possession_belonging_01",
         "fp_core_surrender_01",
         "fp_core_control_permission_01",
@@ -55311,7 +56368,6 @@
       "rationale": "Providing service concerns giving useful attention, not dominance; source catalog direction inversions are already audited.",
       "sourceQuestionIds": [
         "fp_core_service_usefulness_01",
-        "fp_discriminator_praise_approval_01",
         "fp_discriminator_service_usefulness_01",
         "fp_deep_dive_service_usefulness_01"
       ]

@@ -44,7 +44,7 @@ for (const a of catalog.activities) {
   )
   if (a.learning) {
     assert.ok(Number.isFinite(a.learning.order), a.id)
-    assert.ok(['directing', 'following', 'restraining', 'being_restrained'].includes(a.guidedRole), a.id)
+    assert.ok(['directing', 'following', 'restraining', 'being_restrained', 'giving', 'receiving'].includes(a.guidedRole), a.id)
     assert.ok(Array.isArray(a.learning.examples) && a.learning.examples.length >= 2 && a.learning.examples.every(text => typeof text === 'string' && text.trim()), a.id)
     const fields = detailFieldsForActivity(catalog, a)
     assert.equal(fields[0]?.id, a.learning.primaryDetailFieldId, a.id)

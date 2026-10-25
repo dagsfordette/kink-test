@@ -1,4 +1,14 @@
 import { paintedViews } from '../../lib/bodyPaint.js'
+import { hasRoleplayMarks } from '../../lib/roleplayInterests.js'
+import { TATTOO_GROUP, BODY_SCENT_GROUP, TOY_GROUPS, hasFeatureMarks } from '../../lib/featureInterests.js'
+import SensorySummary from './SensorySummary.jsx'
+import ToySummary from './ToySummary.jsx'
+import BodyScentSummary from './BodyScentSummary.jsx'
+import TattooSummary from './TattooSummary.jsx'
+import FeatureSummary from './FeatureSummary.jsx'
+import ContextSummary from './ContextSummary.jsx'
+import RoleplaySummary from './RoleplaySummary.jsx'
+import MaterialInterestsSummary from './MaterialInterestsSummary.jsx'
 import BodyPaintSummary from './BodyPaintSummary.jsx'
 import { buildShareProjection } from '../../lib/boundaryReview.js'
 import { useMemo, useState } from 'react'
@@ -35,6 +45,14 @@ export default function ActivityResults({
     [catalog, activityState, view]
   )
   const { groups, unansweredCount, answeredCount, consideredCount } = resultData
+  const hasToys = hasFeatureMarks(activityState.exploration?.featureInterests, TOY_GROUPS)
+  const hasScent = hasFeatureMarks(activityState.exploration?.featureInterests, [BODY_SCENT_GROUP])
+  const hasSensory = Object.keys(activityState.exploration?.sensoryInterests || {}).length > 0
+  const hasFeatures = hasFeatureMarks(activityState.exploration?.featureInterests)
+  const hasTattoos = hasFeatureMarks(activityState.exploration?.featureInterests, [TATTOO_GROUP])
+  const hasContexts = Object.keys(activityState.exploration?.contextInterests || {}).length > 0
+  const hasRoleplay = hasRoleplayMarks(activityState.exploration?.roleplayInterests)
+  const hasMaterials = Object.keys(activityState.exploration?.materialInterests || {}).length > 0
   const hasBodyMaps = paintedViews(activityState.exploration?.bodyPaint).length > 0
   const stanceLabels = new Map(
     catalog.stanceScale.map((row) => [row.id, row.label])
@@ -73,6 +91,14 @@ export default function ActivityResults({
         </header>
 
         <BodyPaintSummary paint={activityState.exploration?.bodyPaint} />
+        {(hasToys || activityState.exploration?.guided?.toysComplete) && <ToySummary interests={activityState.exploration?.featureInterests} privateDetails onEdit={() => onEdit("toy-interests")} />}
+        {(hasScent || activityState.exploration?.guided?.scentComplete) && <BodyScentSummary interests={activityState.exploration?.featureInterests} privateDetails onEdit={() => onEdit("scent-interests")} />}
+        {(hasSensory || activityState.exploration?.guided?.sensoryComplete) && <SensorySummary interests={activityState.exploration?.sensoryInterests} privateDetails onEdit={() => onEdit("sensory-interests")} />}
+        {(hasTattoos || activityState.exploration?.guided?.tattoosComplete) && <TattooSummary interests={activityState.exploration?.featureInterests} privateDetails onEdit={() => onEdit("tattoo-interests")} />}
+        {(hasFeatures || activityState.exploration?.guided?.featuresComplete) && <FeatureSummary interests={activityState.exploration?.featureInterests} privateDetails onEdit={() => onEdit("feature-interests")} />}
+        {(hasContexts || activityState.exploration?.guided?.contextsComplete) && <ContextSummary interests={activityState.exploration?.contextInterests} privateDetails onEdit={() => onEdit("context-interests")} />}
+        {(hasRoleplay || activityState.exploration?.guided?.roleplayComplete) && <RoleplaySummary interests={activityState.exploration?.roleplayInterests} privateDetails onEdit={() => onEdit("roleplay-interests")} />}
+        {(hasMaterials || activityState.exploration?.guided?.materialsComplete) && <MaterialInterestsSummary interests={activityState.exploration?.materialInterests} privateDetails onEdit={() => onEdit("material-interests")} />}
 
         <section className="activity-unanswered-summary">
           <div>
@@ -99,7 +125,7 @@ export default function ActivityResults({
           )}
         </section>
 
-        {answeredCount === 0 ? (
+        {answeredCount === 0 && !hasToys && !hasScent && !hasSensory && !hasTattoos && !hasFeatures && !hasContexts && !hasRoleplay && !hasMaterials && !hasBodyMaps ? (
           <section className="activity-empty-state activity-results-empty">
             <h2>{hasBodyMaps ? 'Your body maps are saved.' : 'You haven’t answered anything yet.'}</h2>
             <p>
@@ -185,7 +211,7 @@ export default function ActivityResults({
                 <span className="kicker">Share with a partner</span>
                 <h2>Share only what you want them to see.</h2>
                 <p>
-                  The share file includes painted body maps, activity stances, experience and
+                  The share file includes sensory interests, toy/device, body-feature, tattoo and body-scent ratings, setting preferences, role and pairing ratings, clothing and material ratings, painted body maps, activity stances, experience and
                   reviewed boundary scope—not private notes, detailed
                   preferences, or Fantasy Profile. You can separately choose to
                   include Play Preferences, which may contain sensitive text.

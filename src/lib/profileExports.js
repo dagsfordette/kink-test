@@ -1,3 +1,8 @@
+import { normalizeSensoryInterests } from './sensoryInterests.js'
+import { normalizeFeatureInterests } from './featureInterests.js'
+import { normalizeContextInterests } from './contextInterests.js'
+import { normalizeRoleplayInterests } from './roleplayInterests.js'
+import { normalizeMaterialInterests } from './materialInterests.js'
 import { normalizeBodyPaint, parsePublicBodyMaps } from './bodyPaint.js'
 import {
   buildShareProjection,
@@ -261,6 +266,11 @@ export function parsePartnerShareExport(value, activityCatalog) {
     },
     boundaryContext,
     bodyMaps: parsePublicBodyMaps(value.bodyMaps),
+    materialInterests: normalizeMaterialInterests(value.materialInterests, { strict: true, publicOnly: true }),
+    roleplayInterests: normalizeRoleplayInterests(value.roleplayInterests, { strict: true, publicOnly: true }),
+    contextInterests: normalizeContextInterests(value.contextInterests, { strict: true, publicOnly: true }),
+    featureInterests: normalizeFeatureInterests(value.featureInterests, { strict: true, publicOnly: true }),
+    sensoryInterests: normalizeSensoryInterests(value.sensoryInterests, { strict: true, publicOnly: true }),
     contextNote:
       'Boundary context is the sender’s declared scope and exact exceptions. Private answer dependencies and consent are not independently verified. Uncertainty and soft limits need discussion.',
     playPreferences: value.playPreferences
@@ -374,5 +384,10 @@ export function parsePrivateBackup(value, activityCatalog, fantasyProfile) {
   )
     throw new Error('This backup contains an invalid session.')
   normalizeBodyPaint(state.exploration.bodyPaint, { strict: true })
+  normalizeMaterialInterests(state.exploration.materialInterests, { strict: true })
+  normalizeRoleplayInterests(state.exploration.roleplayInterests, { strict: true })
+  normalizeContextInterests(state.exploration.contextInterests, { strict: true })
+  normalizeFeatureInterests(state.exploration.featureInterests, { strict: true })
+  normalizeSensoryInterests(state.exploration.sensoryInterests, { strict: true })
   return clone(state)
 }

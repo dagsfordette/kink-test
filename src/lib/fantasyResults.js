@@ -1,5 +1,6 @@
 import {
   buildFantasySuggestions,
+  fantasySuggestionEvidence,
   scoreFantasyProfile
 } from './fantasyProfile.js'
 
@@ -16,161 +17,6 @@ function dimensionMap(profile) {
   return new Map(
     (profile.dimensions || []).map((dimension) => [dimension.id, dimension])
   )
-}
-
-// Directional themes are scored independently on both sides. A strong score on
-// one side never reduces the score on the other, so someone can be high on both.
-const DIRECTIONAL_ROLE_PAIRS = {
-  helplessness_vulnerability: {
-    left: 'experience_self',
-    leftLabel: 'Being helpless or vulnerable',
-    right: 'evoke_partner',
-    rightLabel: 'A partner being helpless or vulnerable'
-  },
-  anticipation_denial: {
-    left: 'receive',
-    leftLabel: 'Being made to wait',
-    right: 'give',
-    rightLabel: 'Making a partner wait'
-  },
-  fear_adrenaline: {
-    left: 'experience_self',
-    leftLabel: 'Feeling fear or adrenaline',
-    right: 'evoke_partner',
-    rightLabel: 'Making a partner feel fear or adrenaline'
-  },
-  pain_intensity: {
-    left: 'receive',
-    leftLabel: 'Experiencing pain',
-    right: 'give',
-    rightLabel: 'Causing pain'
-  },
-  humiliation_embarrassment: {
-    left: 'receive',
-    leftLabel: 'Being humiliated or embarrassed',
-    right: 'give',
-    rightLabel: 'Humiliating or embarrassing a partner'
-  },
-  praise_approval: {
-    left: 'receive',
-    leftLabel: 'Receiving praise or approval',
-    right: 'give',
-    rightLabel: 'Giving praise or approval'
-  },
-  being_desired_attention: {
-    left: 'receive',
-    leftLabel: 'Being intensely desired',
-    right: 'evoke_partner',
-    rightLabel: 'Making a partner feel intensely desired'
-  },
-  possession_belonging: {
-    left: 'give',
-    leftLabel: 'Possessing a partner',
-    right: 'receive',
-    rightLabel: 'Being possessed by a partner'
-  },
-  tenderness_care: {
-    left: 'give',
-    leftLabel: 'Caring for a partner',
-    right: 'receive',
-    rightLabel: 'Being cared for by a partner'
-  },
-  control_permission: {
-    left: 'give',
-    leftLabel: 'Being in control',
-    right: 'receive',
-    rightLabel: 'Giving a partner control'
-  },
-  rules_ritual_protocol: {
-    left: 'give',
-    leftLabel: 'Setting rules',
-    right: 'receive',
-    rightLabel: 'Following a partner’s rules'
-  },
-  service_usefulness: {
-    left: 'give',
-    leftLabel: 'Serving a partner',
-    right: 'receive',
-    rightLabel: 'Being served by a partner'
-  },
-  restraint_confinement: {
-    left: 'give',
-    leftLabel: 'Restraining a partner',
-    right: 'receive',
-    rightLabel: 'Being restrained by a partner'
-  },
-  objectification_use: {
-    left: 'give',
-    leftLabel: 'Objectifying or using a partner',
-    right: 'receive',
-    rightLabel: 'Being objectified or used'
-  },
-  exposure_being_seen: {
-    left: 'be_observed',
-    leftLabel: 'Being exposed or seen',
-    right: 'observe',
-    rightLabel: 'Seeing a partner exposed'
-  },
-  watching_observation: {
-    left: 'observe',
-    leftLabel: 'Watching a partner',
-    right: 'be_observed',
-    rightLabel: 'Being watched by a partner'
-  },
-  sensory_focus_alteration: {
-    left: 'experience_self',
-    leftLabel: 'Having my senses altered',
-    right: 'give',
-    rightLabel: 'Altering a partner’s senses'
-  },
-  romance: {
-    left: 'receive',
-    leftLabel: 'Being deeply loved',
-    right: 'give',
-    rightLabel: 'Loving a partner deeply'
-  },
-  transformation: {
-    left: 'receive',
-    leftLabel: 'Being transformed',
-    right: 'give',
-    rightLabel: 'Transforming someone else'
-  },
-  becoming_huge: {
-    left: 'experience_self',
-    leftLabel: 'Becoming huge',
-    right: 'observe',
-    rightLabel: 'Someone else becoming huge'
-  },
-  being_tiny: {
-    left: 'experience_self',
-    leftLabel: 'Being tiny',
-    right: 'observe',
-    rightLabel: 'Someone else being tiny'
-  },
-  animal_transformation: {
-    left: 'experience_self',
-    leftLabel: 'Turning into an animal',
-    right: 'observe',
-    rightLabel: 'Seeing someone else transform'
-  },
-  mind_control: {
-    left: 'receive',
-    leftLabel: 'Being mentally controlled',
-    right: 'give',
-    rightLabel: 'Controlling someone else’s mind'
-  },
-  nonconsent: {
-    left: 'receive',
-    leftLabel: 'Having my consent overridden',
-    right: 'give',
-    rightLabel: 'Overriding a partner’s consent'
-  },
-  monsters_supernatural: {
-    left: 'receive',
-    leftLabel: 'Being with a nonhuman being',
-    right: 'experience_self',
-    rightLabel: 'Being the nonhuman character'
-  }
 }
 
 const AUTHORITY_THEMES = ['authority_responsibility', 'surrender']
@@ -190,8 +36,6 @@ export function fantasyThemePresentation(profile, dimensionId) {
 }
 
 function directionPairForDimension(dimension) {
-  if (DIRECTIONAL_ROLE_PAIRS[dimension.id])
-    return DIRECTIONAL_ROLE_PAIRS[dimension.id]
   if (dimension.directionPairs?.length) return dimension.directionPairs[0]
   return null
 }
@@ -277,8 +121,9 @@ export function fantasyRoleBreakdown(profile, answers, dimensionId) {
       summary = `Your answers lean toward ${lowerFirst(pair.rightLabel)}.`
     }
   } else {
-    const sampled = left?.observations ? pair.leftLabel : pair.rightLabel
-    summary = `You showed some signal for ${lowerFirst(sampled)}, but there isn’t enough information to compare both sides yet.`
+    const sampled = left?.observations ? { label: pair.leftLabel, metric: left } : { label: pair.rightLabel, metric: right }
+    if (sampled.metric.score >= 0.35)
+      summary = `You showed some signal for ${lowerFirst(sampled.label)}, but there isn’t enough information to compare both sides yet.`
   }
 
   return { dimensionId, roles, summary }
@@ -393,7 +238,7 @@ export function nearbyFantasyThemes(
   maxCount = 4
 ) {
   const counts = new Map()
-  const evidence = scoreFantasyProfile(profile, answers)
+  const evidence = fantasySuggestionEvidence(profile, answers)
   for (const question of profile.questions || []) {
     const ids = [
       ...new Set((question.signals || []).map((signal) => signal.dimensionId))
@@ -438,18 +283,20 @@ export function fantasySuggestionDetails(profile, answers, suggestionId) {
   )
   if (!suggestion || !rule) return null
   const dimensions = dimensionMap(profile)
-  const evidence = scoreFantasyProfile(profile, answers)
-  const conditionIds = [
-    ...new Set(
-      [
-        ...(rule.requiredEvidence || []),
-        ...(rule.supportingEvidence || [])
-      ].map((condition) => condition.dimensionId)
-    )
-  ].filter((id) => POSITIVE_BANDS.has(evidence[id]?.band))
-  const examples = []
-  for (const id of conditionIds)
-    examples.push(...contributingAnswers(profile, answers, id, 2))
+  const conditionIds = suggestion.matchedEvidence.map((row) => row.dimensionId)
+  const labels = responseLabelMap(profile)
+  const examples = suggestion.matchedEvidence.flatMap(({ dimensionId, perspective }) =>
+    profile.questions.filter((question) =>
+      POSITIVE_STATES.has(answers[question.id]) && question.signals?.some((signal) =>
+        signal.dimensionId === dimensionId && (!perspective || signal.perspective === perspective)
+      )
+    ).slice(0, 2).map((question) => ({
+      questionId: question.id,
+      statement: question.statement,
+      response: answers[question.id],
+      responseLabel: labels.get(answers[question.id])
+    }))
+  )
   const uniqueExamples = [
     ...new Map(examples.map((row) => [row.questionId, row])).values()
   ].slice(0, 4)
@@ -460,8 +307,23 @@ export function fantasySuggestionDetails(profile, answers, suggestionId) {
   }
 }
 
+export function specificFantasyAnswers(profile, answers, dimensionId = null) {
+  const labels = responseLabelMap(profile)
+  return profile.questions.filter((question) =>
+    question.detailKey && labels.has(answers[question.id]) &&
+    (!dimensionId || question.parentDimensionId === dimensionId ||
+      question.activation?.conditions?.some((condition) => condition.dimensionId === dimensionId))
+  ).map((question) => ({
+    questionId: question.id,
+    statement: question.statement,
+    response: answers[question.id],
+    responseLabel: labels.get(answers[question.id])
+  }))
+}
+
 export function buildFantasyResults(profile, answers) {
   return {
+    specifics: specificFantasyAnswers(profile, answers),
     drivers: rankedFantasyThemes(profile, answers, 'driver', 6),
     patterns: rankedFantasyThemes(profile, answers, 'motif', 10),
     directions: fantasyDirectionality(profile, answers, 6),

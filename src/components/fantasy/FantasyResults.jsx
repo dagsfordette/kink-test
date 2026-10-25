@@ -1,3 +1,4 @@
+import FantasySpecificAnswers from './FantasySpecificAnswers.jsx'
 import { fantasySuggestionDetails } from '../../lib/fantasyResults.js'
 
 function EmptyResult({ children }) {
@@ -165,8 +166,18 @@ export default function FantasyResults({
         )}
       </section>
 
+      {results.specifics.length > 0 && (
+        <section className="fantasy-result-section">
+          <div className="fantasy-section-number">4</div>
+          <div className="fantasy-section-heading">
+            <h2>Specific fantasies</h2>
+          </div>
+          <FantasySpecificAnswers rows={results.specifics} />
+        </section>
+      )}
+
       <section className="fantasy-result-section">
-        <div className="fantasy-section-number">4</div>
+        <div className="fantasy-section-number">{results.specifics.length ? 5 : 4}</div>
         <div className="fantasy-section-heading">
           <span className="kicker">Words you might want to look up</span>
           <h2>Kink areas that overlap with your results</h2>

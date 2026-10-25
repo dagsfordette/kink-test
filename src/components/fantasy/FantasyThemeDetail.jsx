@@ -1,5 +1,7 @@
+import FantasySpecificAnswers from './FantasySpecificAnswers.jsx'
 import {
   contributingAnswers,
+  specificFantasyAnswers,
   fantasyRoleBreakdown,
   fantasyThemePresentation,
   kinkAreasForTheme,
@@ -7,6 +9,7 @@ import {
 } from '../../lib/fantasyResults.js'
 import {
   describeFantasyDimension,
+  selectDeepDiveQuestions,
   scoreFantasyProfile
 } from '../../lib/fantasyProfile.js'
 
@@ -35,16 +38,17 @@ export default function FantasyThemeDetail({
     (id) => kinkAreasForTheme(profile, answers, id)
   ).map((row) => [row.id, row])).values()]
   const direction = fantasyRoleBreakdown(profile, answers, dimensionId)
+  const specifics = [...new Map(theme.dimensionIds.flatMap((id) =>
+    specificFantasyAnswers(profile, answers, id)
+  ).map((row) => [row.questionId, row])).values()]
   const followUps = theme.dimensionIds.map((id) => ({
     id,
     label: profile.dimensions.find((row) => row.id === id).label,
-    count: profile.questions.filter(
-      (question) =>
-        question.stage === 'deep_dive' &&
-        !Object.prototype.hasOwnProperty.call(answers, question.id) &&
-        (question.signals?.some((signal) => signal.dimensionId === id) ||
-          question.parentDimensionId === id)
-    ).length
+    count: selectDeepDiveQuestions(profile, answers, {
+      dimensionId: id,
+      priorQuestionIds: Object.keys(answers),
+      maxCount: 3
+    }).length
   }))
 
   return (
@@ -60,7 +64,7 @@ export default function FantasyThemeDetail({
         <span className="kicker">A closer look</span>
         <h1>{theme.label}</h1>
         <p className="fantasy-detail-definition">{theme.description}</p>
-        {theme.dimensionIds.length === 1 && evidence?.band !== 'insufficient' && (
+        {theme.dimensionIds.length === 1 && direction?.roles.length === 1 && evidence?.band !== 'insufficient' && (
           <p className="fantasy-theme-summary">{summary}</p>
         )}
       </section>
@@ -83,6 +87,13 @@ export default function FantasyThemeDetail({
           </p>
         )}
       </section>
+
+      {specifics.length > 0 && (
+        <section className="fantasy-detail-section">
+          <h2>Specific fantasies</h2>
+          <FantasySpecificAnswers rows={specifics} />
+        </section>
+      )}
 
       {direction?.roles?.length > 0 && (
         <section className="fantasy-detail-section">

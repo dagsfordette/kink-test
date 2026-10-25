@@ -1,4 +1,4 @@
-import { sharedFields, preferenceKey, describePreference, validValue } from '../../lib/guidedExploration.js'
+import { sharedFields, preferenceKey, describePreference } from '../../lib/guidedExploration.js'
 import { detailFieldsForActivity } from '../../lib/activityProfile.js'
 
 function toggleArray(current, option, options) {
@@ -116,7 +116,7 @@ export default function ActivityDetails({
   onNote,
   guided = false,
   sharedPreferences = {},
-  onRemember
+  sharedDecisions = {}
 }) {
   const details = answer?.details || {}
   const allFields = ['hard_limit', 'dont_want'].includes(answer?.stance) ? [] : detailFieldsForActivity(catalog, activity, details)
@@ -127,7 +127,7 @@ export default function ActivityDetails({
   const cut = fields.findIndex((f, i) => i >= primaryCount && !f.showWhen)
   const primary = guided && cut >= 0 ? fields.slice(0, cut) : fields
   const more = guided && cut >= 0 ? fields.slice(cut) : []
-  const sharedIntroduction = catalog.categories.find(c => c.id === activity.categoryId)?.guidedDetails
+  const customizable = shared.filter(field => sharedPreferences[preferenceKey(activity, field)] || sharedDecisions[preferenceKey(activity, field)] || Object.hasOwn(details, field.id))
   const renderField = field => <Field key={field.id} field={field} value={details[field.id]} onChange={value => onDetails({ ...details, [field.id]: value })} />
   const riskMap = new Map(catalog.riskDomains.map((row) => [row.id, row]))
   const riskRows = (activity.riskDomains || [])
@@ -152,15 +152,13 @@ export default function ActivityDetails({
     <div className="activity-details-panel">
       {primary.map(renderField)}
       {more.length > 0 && <details className="guided-more-details"><summary>More details</summary>{more.map(renderField)}</details>}
-      {shared.length > 0 && <details className="guided-more-details"><summary>{sharedIntroduction?.title || 'Explore broader preferences'}</summary>
-        <p>{sharedIntroduction?.help || 'You can leave these preferences undecided. Remembered choices are suggestions for other activities in the same role.'}</p>
-        {shared.map(field => {
+      {customizable.length > 0 && <details className="guided-more-details"><summary>Customize for this activity</summary>
+        {customizable.map(field => {
           const remembered = sharedPreferences[preferenceKey(activity, field)]
           return <div key={field.id}>
-            {remembered && <div className="guided-remembered"><p>Previously chosen in this role: <strong>{describePreference(field, remembered)}</strong></p>
+            {remembered && <div className="guided-remembered"><p>Your general preference: <strong>{describePreference(field, remembered)}</strong></p>
               <button type="button" className="text-button" onClick={() => onDetails({ ...details, [field.id]: remembered })}>Use for this activity</button></div>}
             {renderField(field)}
-            {onRemember && validValue(field, details[field.id]) && JSON.stringify(details[field.id]) !== JSON.stringify(remembered) && <button type="button" className="text-button" onClick={() => onRemember(field, details[field.id])}>Remember this choice for this role</button>}
             <button type="button" className="text-button" onClick={() => {
               const next = { ...details }; delete next[field.id]; onDetails(next)
             }}>I’m not sure yet</button>

@@ -43,7 +43,7 @@ export default function ActivityCard({
   onClear,
   guided = false,
   sharedPreferences = {},
-  onRemember
+  sharedDecisions = {}
 }) {
   const [expanded, setExpanded] = useState(
     Boolean(focused || answer?.stance === 'soft_limit' || (activity.learning && answer?.stance && !['dont_want','hard_limit'].includes(answer.stance)))
@@ -61,7 +61,7 @@ export default function ActivityCard({
           <legend>Have you tried it?</legend>
           <div className="activity-detail-chips">
             {catalog.experienceScale.map((row) => (
-              <button type="button" key={row.id} disabled={!answer?.stance}
+              <button type="button" key={row.id}
                 aria-pressed={answer?.experience === row.id}
                 className={`chip ${answer?.experience === row.id ? 'selected' : ''}`}
                 onClick={() => onExperience(answer?.experience === row.id ? '' : row.id)}>{row.label}</button>
@@ -111,6 +111,8 @@ export default function ActivityCard({
         ))}
       </div>
 
+      <div className="activity-secondary-controls">{experienceControl}</div>
+
       {expanded && answer?.stance && (
         <ActivityDetails
           catalog={catalog}
@@ -120,13 +122,11 @@ export default function ActivityCard({
           onNote={onNote}
           guided={guided}
           sharedPreferences={sharedPreferences}
-          onRemember={onRemember}
+          sharedDecisions={sharedDecisions}
         />
       )}
 
-      <div className="activity-secondary-controls">
-        {(!guided || answer?.stance) && (activity.learning ? <details className="guided-experience"><summary>Experience</summary>{experienceControl}</details> : experienceControl)}
-
+      {(answer?.stance || answer?.experience) && <div className="activity-secondary-controls">
         <div className="activity-card-actions no-print">
           {answer?.stance && answer.stance !== 'hard_limit' && (
             <button
@@ -150,14 +150,13 @@ export default function ActivityCard({
               {expanded ? 'Close' : 'Add a private note'}
             </button>
           )}
-          {answer?.stance && (
+          {(answer?.stance || answer?.experience) && (
             <button type="button" className="text-button" onClick={onClear}>
               Clear
             </button>
           )}
         </div>
-      </div>
-
+      </div>}
 
     </article>
   )

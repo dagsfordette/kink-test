@@ -1,3 +1,8 @@
+import { normalizeSensoryInterests } from './sensoryInterests.js'
+import { normalizeFeatureInterests } from './featureInterests.js'
+import { normalizeContextInterests } from './contextInterests.js'
+import { normalizeRoleplayInterests } from './roleplayInterests.js'
+import { normalizeMaterialInterests } from './materialInterests.js'
 import { publicBodyMaps } from './bodyPaint.js'
 import { normalizePlayPreferences } from './playPreferences.js'
 import { relationshipGraph, traverse } from './relationships.js'
@@ -372,6 +377,21 @@ export function buildShareProjection(catalog, state, options = {}) {
   const review = reviewBoundaries(catalog, state)
   if (!review.allowed)
     return { allowed: false, blockers: review.blockers, payload: null }
+  let sensoryInterests
+  try { sensoryInterests = normalizeSensoryInterests(state.exploration?.sensoryInterests, { strict: true, publicOnly: true }) }
+  catch { return { allowed: false, blockers: [{ code: "sensory_interests", message: "A sensory preference needs repair before sharing." }], payload: null } }
+  let featureInterests
+  try { featureInterests = normalizeFeatureInterests(state.exploration?.featureInterests, { strict: true, publicOnly: true }) }
+  catch { return { allowed: false, blockers: [{ code: "feature_interests", message: "A body-feature activity preference needs repair before sharing." }], payload: null } }
+  let contextInterests
+  try { contextInterests = normalizeContextInterests(state.exploration?.contextInterests, { strict: true, publicOnly: true }) }
+  catch { return { allowed: false, blockers: [{ code: "context_interests", message: "A setting preference needs repair before sharing." }], payload: null } }
+  let roleplayInterests
+  try { roleplayInterests = normalizeRoleplayInterests(state.exploration?.roleplayInterests, { strict: true, publicOnly: true }) }
+  catch { return { allowed: false, blockers: [{ code: "roleplay_interests", message: "A roleplay preference needs repair before sharing." }], payload: null } }
+  let materialInterests
+  try { materialInterests = normalizeMaterialInterests(state.exploration?.materialInterests, { strict: true, publicOnly: true }) }
+  catch { return { allowed: false, blockers: [{ code: "material_interests", message: "A clothing or material preference needs repair before sharing." }], payload: null } }
   let bodyMaps
   try { bodyMaps = publicBodyMaps(state.exploration?.bodyPaint) }
   catch { return { allowed: false, blockers: [{ code: 'body_maps', message: 'A saved body map needs repair before sharing.' }], payload: null } }
@@ -418,6 +438,11 @@ export function buildShareProjection(catalog, state, options = {}) {
       },
       activities: { answers },
       bodyMaps,
+      materialInterests,
+      roleplayInterests,
+      contextInterests,
+      featureInterests,
+      sensoryInterests,
       boundaryContext,
       ...(options.includePlayPreferences === true
         ? { playPreferences: normalizePlayPreferences(options.playPreferences) }

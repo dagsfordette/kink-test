@@ -204,25 +204,11 @@ export function restartFantasyProfile(profile) {
 
 export function addThemeDeepDive(profile, fantasy, dimensionId, maxCount = 3) {
   const current = reconcileFantasyState(profile, fantasy)
-  const alreadyUsed = new Set(current.questionSequence)
-  const candidates = (profile.questions || []).filter(
-    (question) =>
-      question.stage === 'deep_dive' &&
-      !alreadyUsed.has(question.id) &&
-      (question.signals?.some((signal) => signal.dimensionId === dimensionId) ||
-        question.parentDimensionId === dimensionId)
-  )
-  const extra = []
-  let lastMirror =
-    profile.questions.find(
-      (question) => question.id === current.questionSequence.at(-1)
-    )?.mirrorGroup || null
-  for (const question of candidates) {
-    if (extra.length >= maxCount) break
-    if (lastMirror && question.mirrorGroup === lastMirror) continue
-    extra.push(question.id)
-    lastMirror = question.mirrorGroup || null
-  }
+  const extra = selectDeepDiveQuestions(profile, activeFantasyAnswers(current), {
+    dimensionId,
+    maxCount,
+    priorQuestionIds: current.questionSequence
+  }).map((question) => question.id)
   if (!extra.length) return current
 
   const next = reconcileFantasyState(profile, {

@@ -85,8 +85,8 @@ export function normalizeActivityState(catalog, saved) {
     )
   ]
 
-  function answer(id, raw) {
-    if (!activities.has(id) || !STANCE_SET.has(raw?.stance)) return null
+  function answer(id, raw, allowExperienceOnly = false) {
+    if (!activities.has(id) || (!STANCE_SET.has(raw?.stance) && !(allowExperienceOnly && EXPERIENCE_SET.has(raw?.experience)))) return null
     const rawDetails =
       raw.details &&
       typeof raw.details === 'object' &&
@@ -119,7 +119,7 @@ export function normalizeActivityState(catalog, saved) {
         })
     )
     return {
-      stance: raw.stance,
+      ...(STANCE_SET.has(raw.stance) ? { stance: raw.stance } : {}),
       ...(typeof raw.eventId === 'string' ? { eventId: raw.eventId } : {}),
       ...(EXPERIENCE_SET.has(raw.experience)
         ? { experience: raw.experience }
@@ -131,10 +131,10 @@ export function normalizeActivityState(catalog, saved) {
       note: typeof raw.note === 'string' ? raw.note : ''
     }
   }
-  const answers = (raw) =>
+  const answers = (raw, allowExperienceOnly = false) =>
     Object.fromEntries(
       Object.entries(raw || {})
-        .map(([id, value]) => [id, answer(id, value)])
+        .map(([id, value]) => [id, answer(id, value, allowExperienceOnly)])
         .filter(([, value]) => value)
     )
   function navigation(raw = {}) {
@@ -160,7 +160,7 @@ export function normalizeActivityState(catalog, saved) {
   const last = saved.lastSave
   return {
     answers: answers(saved.answers),
-    drafts: answers(saved.drafts),
+    drafts: answers(saved.drafts, true),
     navigation: navigation(saved.navigation || {}),
     lastSave: activities.has(last?.activityId)
       ? {
@@ -206,8 +206,8 @@ export function setActivityStance(state, activityId, stance) {
 }
 
 export function setActivityExperience(state, activityId, experience) {
-  const previous = state.answers?.[activityId]
-  if (!previous?.stance) return state
+  if (experience !== '' && !EXPERIENCE_SET.has(experience)) return state
+  const previous = state.answers?.[activityId] || {}
   const next = { ...previous }
   if (EXPERIENCE_SET.has(experience)) next.experience = experience
   else delete next.experience
@@ -299,6 +299,7 @@ function scopedActivities(
     state.fantasyEvidence
   )
   return (catalog.activities || [])
+    .filter((a) => !['fetish_materials', 'roleplay', 'sexual_context', 'body_features', 'tattoo_interests', 'sensory_fetishes', 'body_scent', 'toys_devices'].includes(a.categoryId))
     .filter((a) => categoryId === 'all' || a.categoryId === categoryId)
     .filter((a) => {
       const derived = evaluateActivity(a, context, {
@@ -440,6 +441,7 @@ export function filterActivities(
     createEligibilityContext(catalog, effective, state.fantasyEvidence)
   const rows = catalog.activities.filter(
     (a) =>
+      !['fetish_materials', 'roleplay', 'sexual_context', 'body_features', 'tattoo_interests', 'sensory_fetishes', 'body_scent', 'toys_devices'].includes(a.categoryId) &&
       (nav.categoryId === 'all' ||
         !nav.categoryId ||
         a.categoryId === nav.categoryId) &&
@@ -528,6 +530,7 @@ export function groupActivityResults(catalog, state, mode = 'stance') {
   }
 
   for (const activity of catalog?.activities || []) {
+    if (['fetish_materials', 'roleplay', 'sexual_context', 'body_features', 'tattoo_interests', 'sensory_fetishes', 'body_scent', 'toys_devices'].includes(activity.categoryId)) continue
     const answer = state.answers?.[activity.id]
     const answered = isActivityAnswered(answer)
     const hiddenFromPath = !evaluateActivity(activity, context, {
@@ -615,7 +618,7 @@ export function comparisonProfileFromActivityState(state, catalog) {
 export function editActivityDraft(state, activityId, updater) {
   const answer = state.drafts?.[activityId] || state.answers?.[activityId]
   const edited = updater({ ...state, answers: { [activityId]: answer } })
-  if (!edited.answers[activityId]?.stance) return state
+  if (!edited.answers[activityId]?.stance && !EXPERIENCE_SET.has(edited.answers[activityId]?.experience)) return discardActivityDraft(state, activityId)
   return {
     ...state,
     drafts: { ...state.drafts, [activityId]: edited.answers[activityId] }

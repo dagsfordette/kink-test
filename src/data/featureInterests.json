@@ -1,0 +1,443 @@
+[
+  {
+    "id": "hair",
+    "label": "Body hair",
+    "description": "Stroking body hair as part of affectionate or intimate touch.",
+    "rows": [
+      [
+        "stroke_partner",
+        "Stroking my partner’s body hair"
+      ],
+      [
+        "stroke_self",
+        "Having my partner stroke my body hair"
+      ]
+    ],
+    "noteLabel": "Particular areas or kinds of touch",
+    "categoryId": "body_features"
+  },
+  {
+    "id": "pubic",
+    "label": "Pubic hair",
+    "description": "Touching pubic hair or shaving it for each other.",
+    "rows": [
+      [
+        "touch_partner",
+        "Running my fingers through my partner’s pubic hair"
+      ],
+      [
+        "touch_self",
+        "Having my partner run their fingers through my pubic hair"
+      ],
+      [
+        "shave_partner",
+        "Shaving my partner’s pubic hair"
+      ],
+      [
+        "shave_self",
+        "Having my partner shave my pubic hair"
+      ]
+    ],
+    "noteLabel": "Particular kinds of touch, areas to shave or leave, or other conditions",
+    "categoryId": "body_features"
+  },
+  {
+    "id": "facial",
+    "label": "Facial hair",
+    "description": "Stroking facial hair, feeling it while kissing, or shaving it for each other.",
+    "rows": [
+      [
+        "stroke_partner",
+        "Stroking my partner’s beard or moustache"
+      ],
+      [
+        "stroke_self",
+        "Having my partner stroke my beard or moustache"
+      ],
+      [
+        "kiss_partner",
+        "Having my partner rub their facial hair against my skin while kissing"
+      ],
+      [
+        "kiss_self",
+        "Rubbing my facial hair against my partner’s skin while kissing"
+      ],
+      [
+        "shave_partner",
+        "Shaving my partner’s facial hair"
+      ],
+      [
+        "shave_self",
+        "Having my partner shave my facial hair"
+      ]
+    ],
+    "noteLabel": "Particular kinds of touch, areas to shave or leave, or other conditions",
+    "categoryId": "body_features"
+  },
+  {
+    "id": "muscles",
+    "label": "Muscles",
+    "description": "Feeling muscles flex or showing them off to each other.",
+    "rows": [
+      [
+        "flex_partner",
+        "Feeling my partner’s muscles as they flex"
+      ],
+      [
+        "flex_self",
+        "Having my partner feel my muscles as I flex"
+      ],
+      [
+        "show_partner",
+        "Having my partner show off their muscles for me"
+      ],
+      [
+        "show_self",
+        "Showing off my muscles for my partner"
+      ]
+    ],
+    "noteLabel": "Particular muscles, poses, or ways of touching",
+    "categoryId": "body_features"
+  },
+  {
+    "id": "tattoos",
+    "label": "Tattoos",
+    "description": "Tracing or kissing tattoos during affectionate or intimate touch.",
+    "rows": [
+      [
+        "trace_partner",
+        "Tracing my partner’s tattoos"
+      ],
+      [
+        "trace_self",
+        "Having my partner trace my tattoos"
+      ],
+      [
+        "kiss_partner",
+        "Kissing my partner’s tattoos"
+      ],
+      [
+        "kiss_self",
+        "Having my partner kiss my tattoos"
+      ]
+    ],
+    "noteLabel": "Particular tattoos, kinds of touch, or conditions",
+    "categoryId": "tattoo_interests"
+  },
+  {
+    "id": "body_scent",
+    "label": "Body scent",
+    "description": "Enjoying natural body scent, such as the smell of skin or hair.",
+    "rows": [
+      [
+        "partner_scent",
+        "Enjoying my partner’s natural body scent"
+      ],
+      [
+        "self_scent",
+        "Having my partner enjoy my natural body scent"
+      ]
+    ],
+    "noteLabel": "Particular scents, body areas, or preferences",
+    "categoryId": "body_scent"
+  },
+  {
+    "id": "toy_vibrators",
+    "label": "Vibrators",
+    "categoryId": "toys_devices",
+    "description": "Motorized toys that provide buzzing or pulsing stimulation.",
+    "rows": [
+      [
+        "self",
+        "Using a vibrator on myself"
+      ],
+      [
+        "give",
+        "Using a vibrator on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner use a vibrator on me"
+      ]
+    ],
+    "noteLabel": "Shapes, vibration patterns, or preferences",
+    "sources": {
+      "give": "give_vibrators",
+      "receive": "receive_vibrators"
+    }
+  },
+  {
+    "id": "toy_dildos",
+    "label": "Dildos",
+    "categoryId": "toys_devices",
+    "description": "Shaped toys used for external contact or penetration.",
+    "rows": [
+      [
+        "self",
+        "Using a dildo on myself"
+      ],
+      [
+        "give",
+        "Using a dildo on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner use a dildo on me"
+      ]
+    ],
+    "noteLabel": "Shapes, sizes, or intended uses",
+    "sources": {
+      "give": "give_dildos",
+      "receive": "receive_dildos"
+    }
+  },
+  {
+    "id": "toy_nipple_clamps",
+    "label": "Nipple clamps",
+    "categoryId": "toys_devices",
+    "description": "Clips that squeeze the nipples and stay in place.",
+    "rows": [
+      [
+        "self",
+        "Putting nipple clamps on myself"
+      ],
+      [
+        "give",
+        "Putting nipple clamps on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner put nipple clamps on me"
+      ]
+    ],
+    "noteLabel": "Clamp styles, pressure preferences, or conditions",
+    "sources": {
+      "give": "give_nipple_clamps",
+      "receive": "receive_nipple_clamps"
+    }
+  },
+  {
+    "id": "toy_genital_clamps",
+    "label": "Genital clamps",
+    "categoryId": "toys_devices",
+    "description": "Clips designed to squeeze parts of the genitals.",
+    "rows": [
+      [
+        "self",
+        "Putting genital clamps on myself"
+      ],
+      [
+        "give",
+        "Putting genital clamps on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner put genital clamps on me"
+      ]
+    ],
+    "noteLabel": "Clamp styles or conditions",
+    "sources": {
+      "give": "give_genital_clamps",
+      "receive": "receive_genital_clamps"
+    }
+  },
+  {
+    "id": "toy_sex_swings",
+    "label": "Sex swings",
+    "categoryId": "toys_devices",
+    "description": "Suspended straps or a seat that supports a person’s position during sex.",
+    "rows": [
+      [
+        "give",
+        "Positioning my partner in a sex swing"
+      ],
+      [
+        "receive",
+        "Having my partner position me in a sex swing"
+      ]
+    ],
+    "noteLabel": "Support, positioning preferences, or conditions",
+    "sources": {
+      "give": "give_sex_swings",
+      "receive": "receive_sex_swings"
+    }
+  },
+  {
+    "id": "toy_vacuum_pumps",
+    "label": "Vacuum pumps",
+    "categoryId": "toys_devices",
+    "description": "Cylinders or cups that create suction around part of the body.",
+    "rows": [
+      [
+        "self",
+        "Using a vacuum pump on myself"
+      ],
+      [
+        "give",
+        "Using a vacuum pump on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner use a vacuum pump on me"
+      ]
+    ],
+    "noteLabel": "Types of pump or preferences",
+    "sources": {
+      "give": "give_vacuum_pumps",
+      "receive": "receive_vacuum_pumps"
+    }
+  },
+  {
+    "id": "toy_suction_cups",
+    "label": "Suction cups",
+    "categoryId": "toys_devices",
+    "description": "Cups that attach by suction and pull on the skin.",
+    "rows": [
+      [
+        "self",
+        "Using suction cups on myself"
+      ],
+      [
+        "give",
+        "Using suction cups on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner use suction cups on me"
+      ]
+    ],
+    "noteLabel": "Cup styles, sensations, or preferences",
+    "sources": {
+      "give": "give_suction_cups",
+      "receive": "receive_suction_cups"
+    }
+  },
+  {
+    "id": "toy_electrostimulation",
+    "label": "Electrical stimulation devices",
+    "categoryId": "toys_devices",
+    "description": "Devices that provide electrical pulses felt as tingling, pulsing, or muscle movement.",
+    "rows": [
+      [
+        "self",
+        "Using an electrical stimulation device on myself"
+      ],
+      [
+        "give",
+        "Using an electrical stimulation device on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner use an electrical stimulation device on me"
+      ]
+    ],
+    "noteLabel": "Types of sensation or conditions",
+    "sources": {
+      "give": "give_electrostimulation",
+      "receive": "receive_electrostimulation"
+    }
+  },
+  {
+    "id": "toy_masturbation_sleeves",
+    "label": "Masturbation sleeves",
+    "categoryId": "toys_devices",
+    "description": "Soft sleeves or strokers used around a penis.",
+    "rows": [
+      [
+        "self",
+        "Using a masturbation sleeve on myself"
+      ],
+      [
+        "give",
+        "Using a masturbation sleeve on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner use a masturbation sleeve on me"
+      ]
+    ],
+    "noteLabel": "Styles, textures, or preferences",
+    "sources": {
+      "self": "self_masturbation_sleeves",
+      "give": "give_masturbation_sleeves",
+      "receive": "receive_masturbation_sleeves"
+    }
+  },
+  {
+    "id": "toy_prostate_toys",
+    "label": "Prostate-focused toys",
+    "categoryId": "toys_devices",
+    "description": "Toys shaped for prostate stimulation.",
+    "rows": [
+      [
+        "self",
+        "Using a prostate-focused toy on myself"
+      ],
+      [
+        "give",
+        "Using a prostate-focused toy on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner use a prostate-focused toy on me"
+      ]
+    ],
+    "noteLabel": "Toy shapes or preferences",
+    "sources": {
+      "self": "self_prostate_toys",
+      "give": "give_prostate_toys",
+      "receive": "receive_prostate_toys"
+    }
+  },
+  {
+    "id": "toy_powered_machines",
+    "label": "Powered sex machines",
+    "categoryId": "toys_devices",
+    "description": "Motorized devices that move a dildo or another attachment.",
+    "rows": [
+      [
+        "self",
+        "Using a powered sex machine on myself"
+      ],
+      [
+        "give",
+        "Operating a powered sex machine for my partner"
+      ],
+      [
+        "receive",
+        "Having my partner operate a powered sex machine for me"
+      ]
+    ],
+    "noteLabel": "Attachments, control preferences, or conditions",
+    "sources": {
+      "self": "self_powered_sex_machines",
+      "give": "give_powered_sex_machines",
+      "receive": "receive_powered_sex_machines"
+    }
+  },
+  {
+    "id": "toy_genital_weights",
+    "label": "Genital weights",
+    "categoryId": "toys_devices",
+    "description": "Weights attached to the genitals to create a pulling or weighted sensation.",
+    "rows": [
+      [
+        "self",
+        "Putting genital weights on myself"
+      ],
+      [
+        "give",
+        "Putting genital weights on my partner"
+      ],
+      [
+        "receive",
+        "Having my partner put genital weights on me"
+      ]
+    ],
+    "noteLabel": "Types of weight or conditions",
+    "sources": {
+      "give": "put_genital_weights_on_partner",
+      "receive": "wear_genital_weights"
+    }
+  }
+]

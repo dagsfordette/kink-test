@@ -115,6 +115,7 @@ export function compareActivityProfiles(
       note: 'The relationship data needs repair.'
     }
   for (const activity of catalog?.activities || []) {
+    if (['fetish_materials', 'roleplay', 'sexual_context', 'body_features', 'tattoo_interests', 'sensory_fetishes', 'body_scent', 'toys_devices'].includes(activity.categoryId)) continue
     const counterpartIds = (catalog.relationships || [])
       .filter(
         (e) =>

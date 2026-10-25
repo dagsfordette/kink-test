@@ -2,7 +2,7 @@
   "questionnaire": {
     "id": "fantasy_profile",
     "name": "Fantasy Profile",
-    "version": "1.1.8-prototype",
+    "version": "1.1.11-prototype",
     "purpose": "A private questionnaire for noticing what kinds of fantasies, feelings, and dynamics you respond to.",
     "prompt": "As a fantasy, how does this land for you?",
     "targetMinutes": [
@@ -10,12 +10,12 @@
       18
     ],
     "administration": {
-      "coreCount": 66,
+      "coreCount": 64,
       "maxDiscriminatorCount": 12,
       "maxDeepDiveCount": 12,
       "typicalResponseRange": [
-        66,
-        90
+        64,
+        88
       ],
       "selection": "deterministic_adaptive",
       "maxDetailDiscriminatorCount": 4,
@@ -99,7 +99,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "experience_self",
+          "leftLabel": "Being helpless or vulnerable",
+          "right": "evoke_partner",
+          "rightLabel": "A partner being helpless or vulnerable"
+        }
+      ]
     },
     {
       "id": "trust_safety",
@@ -125,7 +133,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "receive",
+          "leftLabel": "Being made to wait",
+          "right": "give",
+          "rightLabel": "Making a partner wait"
+        }
+      ]
     },
     {
       "id": "fear_adrenaline",
@@ -138,7 +154,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "experience_self",
+          "leftLabel": "Feeling fear or adrenaline",
+          "right": "evoke_partner",
+          "rightLabel": "Making a partner feel fear or adrenaline"
+        }
+      ]
     },
     {
       "id": "pain_intensity",
@@ -151,7 +175,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "receive",
+          "leftLabel": "Experiencing pain",
+          "right": "give",
+          "rightLabel": "Causing pain"
+        }
+      ]
     },
     {
       "id": "humiliation_embarrassment",
@@ -164,7 +196,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "receive",
+          "leftLabel": "Being humiliated or embarrassed",
+          "right": "give",
+          "rightLabel": "Humiliating or embarrassing a partner"
+        }
+      ]
     },
     {
       "id": "praise_approval",
@@ -177,7 +217,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "receive",
+          "leftLabel": "Receiving praise or approval",
+          "right": "give",
+          "rightLabel": "Giving praise or approval"
+        }
+      ]
     },
     {
       "id": "being_desired_attention",
@@ -190,7 +238,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "receive",
+          "leftLabel": "Being intensely desired",
+          "right": "evoke_partner",
+          "rightLabel": "Making a partner feel intensely desired"
+        }
+      ]
     },
     {
       "id": "possession_belonging",
@@ -203,7 +259,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Possessing a partner",
+          "right": "receive",
+          "rightLabel": "Being possessed by a partner"
+        }
+      ]
     },
     {
       "id": "tenderness_care",
@@ -216,7 +280,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Caring for a partner",
+          "right": "receive",
+          "rightLabel": "Being cared for by a partner"
+        }
+      ]
     },
     {
       "id": "control_permission",
@@ -229,7 +301,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Being in control",
+          "right": "receive",
+          "rightLabel": "Giving a partner control"
+        }
+      ]
     },
     {
       "id": "rules_ritual_protocol",
@@ -242,7 +322,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Setting rules",
+          "right": "receive",
+          "rightLabel": "Following a partner’s rules"
+        }
+      ]
     },
     {
       "id": "service_usefulness",
@@ -255,7 +343,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Serving a partner",
+          "right": "receive",
+          "rightLabel": "Being served by a partner"
+        }
+      ]
     },
     {
       "id": "restraint_confinement",
@@ -268,7 +364,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Restraining a partner",
+          "right": "receive",
+          "rightLabel": "Being restrained by a partner"
+        }
+      ]
     },
     {
       "id": "objectification_use",
@@ -281,7 +385,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Objectifying or using a partner",
+          "right": "receive",
+          "rightLabel": "Being objectified or used"
+        }
+      ]
     },
     {
       "id": "exposure_being_seen",
@@ -294,7 +406,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "be_observed",
+          "leftLabel": "Being exposed or seen",
+          "right": "observe",
+          "rightLabel": "Seeing a partner exposed"
+        }
+      ]
     },
     {
       "id": "watching_observation",
@@ -307,7 +427,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "observe",
+          "leftLabel": "Watching a partner",
+          "right": "be_observed",
+          "rightLabel": "Being watched by a partner"
+        }
+      ]
     },
     {
       "id": "sensory_focus_alteration",
@@ -320,7 +448,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "experience_self",
+          "leftLabel": "Having my senses altered",
+          "right": "give",
+          "rightLabel": "Altering a partner’s senses"
+        }
+      ]
     },
     {
       "id": "roleplay_transformation",
@@ -333,7 +469,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "experience_self",
+          "leftLabel": "Playing a different character",
+          "right": "observe",
+          "rightLabel": "A partner playing a different character"
+        }
+      ]
     },
     {
       "id": "primal_struggle_competition",
@@ -346,7 +490,15 @@
         "type": "baseline",
         "minCoreObservations": 2,
         "minTotalObservations": 5
-      }
+      },
+      "directionPairs": [
+        {
+          "left": "give",
+          "leftLabel": "Chasing or overpowering a partner",
+          "right": "receive",
+          "rightLabel": "Being chased or overpowered"
+        }
+      ]
     },
     {
       "id": "taboo_transgression",
@@ -420,9 +572,9 @@
       "directionPairs": [
         {
           "left": "receive",
-          "leftLabel": "being intensely loved",
+          "leftLabel": "Being deeply loved",
           "right": "give",
-          "rightLabel": "loving someone intensely"
+          "rightLabel": "Loving a partner deeply"
         }
       ]
     },
@@ -446,9 +598,9 @@
       "directionPairs": [
         {
           "left": "receive",
-          "leftLabel": "being transformed",
+          "leftLabel": "Being transformed",
           "right": "give",
-          "rightLabel": "transforming someone else"
+          "rightLabel": "Transforming someone else"
         }
       ],
       "searchTerms": [
@@ -476,9 +628,9 @@
       "directionPairs": [
         {
           "left": "experience_self",
-          "leftLabel": "becoming huge",
+          "leftLabel": "Becoming huge",
           "right": "observe",
-          "rightLabel": "someone else becoming huge"
+          "rightLabel": "Someone else becoming huge"
         }
       ],
       "searchTerms": [
@@ -506,9 +658,9 @@
       "directionPairs": [
         {
           "left": "experience_self",
-          "leftLabel": "being tiny",
+          "leftLabel": "Being tiny",
           "right": "observe",
-          "rightLabel": "someone else becoming tiny"
+          "rightLabel": "Someone else being tiny"
         }
       ],
       "searchTerms": [
@@ -536,9 +688,9 @@
       "directionPairs": [
         {
           "left": "experience_self",
-          "leftLabel": "turning into an animal",
+          "leftLabel": "Turning into an animal",
           "right": "observe",
-          "rightLabel": "someone else transforming"
+          "rightLabel": "Seeing someone else transform"
         }
       ],
       "searchTerms": [
@@ -565,9 +717,9 @@
       "directionPairs": [
         {
           "left": "receive",
-          "leftLabel": "being mentally controlled",
+          "leftLabel": "Being mentally controlled",
           "right": "give",
-          "rightLabel": "controlling someone else's mind"
+          "rightLabel": "Controlling someone else’s mind"
         }
       ]
     },
@@ -590,9 +742,9 @@
       "directionPairs": [
         {
           "left": "receive",
-          "leftLabel": "having your consent overridden",
+          "leftLabel": "Having my consent overridden",
           "right": "give",
-          "rightLabel": "overriding someone else's consent"
+          "rightLabel": "Overriding a partner’s consent"
         }
       ]
     },
@@ -615,9 +767,9 @@
       "directionPairs": [
         {
           "left": "receive",
-          "leftLabel": "interacting with a nonhuman being",
+          "leftLabel": "Being with a nonhuman being",
           "right": "experience_self",
-          "rightLabel": "being the nonhuman character"
+          "rightLabel": "Being the nonhuman character"
         }
       ],
       "searchTerms": [
@@ -864,28 +1016,6 @@
       ]
     },
     {
-      "id": "fp_core_surrender_02",
-      "statement": "Choosing to let a partner take the lead completely, so they decide what happens next.",
-      "stage": "core",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "surrender",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "authority_responsibility",
-        "nonconsent"
-      ],
-      "mirrorGroup": "complete_lead",
-      "suggestionLinks": [
-        "power_exchange",
-        "relationship_dynamics"
-      ]
-    },
-    {
       "id": "fp_core_group_social_multipartner_01",
       "statement": "Being desired by more than one person at the same time.",
       "stage": "core",
@@ -948,26 +1078,6 @@
       ],
       "mirrorGroup": "mind_control_receive",
       "suggestionLinks": []
-    },
-    {
-      "id": "fp_core_taboo_transgression_02",
-      "statement": "Violating a powerful social expectation about how people are supposed to behave.",
-      "stage": "core",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "taboo_transgression",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "novelty_experimentation"
-      ],
-      "mirrorGroup": "expectation_breaking",
-      "suggestionLinks": [
-        "psychological_play"
-      ]
     },
     {
       "id": "fp_core_helplessness_vulnerability_02",
@@ -1457,7 +1567,7 @@
       "signals": [
         {
           "dimensionId": "animal_transformation",
-          "perspective": "none",
+          "perspective": "experience_self",
           "weight": 1
         }
       ],
@@ -2289,7 +2399,7 @@
         "restraint_confinement",
         "nonconsent"
       ],
-      "mirrorGroup": "helpless_without_restraint",
+      "mirrorGroup": "fp_discriminator_helplessness_vulnerability_01",
       "suggestionLinks": [
         "psychological_play",
         "bondage_restraint"
@@ -2332,7 +2442,7 @@
         "rules_ritual_protocol",
         "control_permission"
       ],
-      "mirrorGroup": "waiting_vs_rules",
+      "mirrorGroup": "fp_discriminator_anticipation_denial_01",
       "suggestionLinks": [
         "orgasm_control",
         "chastity",
@@ -2354,7 +2464,7 @@
       "discriminates": [
         "pain_intensity"
       ],
-      "mirrorGroup": "fear_vs_pain",
+      "mirrorGroup": "fp_discriminator_fear_adrenaline_01",
       "suggestionLinks": [
         "psychological_play",
         "pet_primal"
@@ -2376,7 +2486,7 @@
         "humiliation_embarrassment",
         "rules_ritual_protocol"
       ],
-      "mirrorGroup": "pain_without_status",
+      "mirrorGroup": "fp_discriminator_pain_intensity_01",
       "suggestionLinks": [
         "impact_pain"
       ]
@@ -2397,36 +2507,9 @@
         "pain_intensity",
         "objectification_use"
       ],
-      "mirrorGroup": "lowered_status",
+      "mirrorGroup": "fp_discriminator_humiliation_embarrassment_01",
       "suggestionLinks": [
         "humiliation_degradation"
-      ]
-    },
-    {
-      "id": "fp_discriminator_praise_approval_01",
-      "statement": "Receiving clear approval from a partner when I please them.",
-      "stage": "discriminator",
-      "intensity": "ordinary",
-      "signals": [
-        {
-          "dimensionId": "praise_approval",
-          "perspective": "receive",
-          "weight": 1
-        },
-        {
-          "dimensionId": "service_usefulness",
-          "perspective": "give",
-          "weight": 0.35
-        }
-      ],
-      "discriminates": [
-        "rules_ritual_protocol",
-        "romance"
-      ],
-      "mirrorGroup": "approval_vs_rules",
-      "suggestionLinks": [
-        "praise_worship",
-        "service_protocol"
       ]
     },
     {
@@ -2450,7 +2533,7 @@
         "exposure_being_seen",
         "romance"
       ],
-      "mirrorGroup": "desire_vs_exposure",
+      "mirrorGroup": "fp_discriminator_being_desired_attention_01",
       "suggestionLinks": [
         "praise_worship",
         "exhibition_observation"
@@ -2472,7 +2555,7 @@
         "control_permission",
         "romance"
       ],
-      "mirrorGroup": "belonging_vs_orders",
+      "mirrorGroup": "fp_discriminator_possession_belonging_01",
       "suggestionLinks": [
         "power_exchange",
         "relationship_dynamics"
@@ -2530,28 +2613,6 @@
       ]
     },
     {
-      "id": "fp_discriminator_rules_ritual_protocol_01",
-      "statement": "Repeating a formal ritual because the structure itself feels charged, even without punishment.",
-      "stage": "discriminator",
-      "intensity": "ordinary",
-      "signals": [
-        {
-          "dimensionId": "rules_ritual_protocol",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "humiliation_embarrassment",
-        "control_permission"
-      ],
-      "mirrorGroup": "ritual_without_punishment",
-      "suggestionLinks": [
-        "service_protocol",
-        "power_exchange"
-      ]
-    },
-    {
       "id": "fp_discriminator_service_usefulness_01",
       "statement": "Wanting to be useful even when nobody gives me orders.",
       "stage": "discriminator",
@@ -2588,7 +2649,7 @@
         "helplessness_vulnerability",
         "fear_adrenaline"
       ],
-      "mirrorGroup": "restraint_without_fear",
+      "mirrorGroup": "fp_discriminator_restraint_confinement_01",
       "suggestionLinks": [
         "bondage_restraint"
       ]
@@ -2631,7 +2692,7 @@
         "being_desired_attention",
         "humiliation_embarrassment"
       ],
-      "mirrorGroup": "exposure_vs_desire",
+      "mirrorGroup": "fp_discriminator_exposure_being_seen_01",
       "suggestionLinks": [
         "exhibition_observation"
       ]
@@ -2652,7 +2713,7 @@
         "being_desired_attention",
         "exposure_being_seen"
       ],
-      "mirrorGroup": "observer_not_focus",
+      "mirrorGroup": "fp_discriminator_watching_observation_01",
       "suggestionLinks": [
         "exhibition_observation"
       ]
@@ -2672,31 +2733,10 @@
       "discriminates": [
         "restraint_confinement"
       ],
-      "mirrorGroup": "sensory_vs_restraint",
+      "mirrorGroup": "fp_discriminator_sensory_focus_alteration_01",
       "suggestionLinks": [
         "sensory_deprivation",
         "fetish_material_interests"
-      ]
-    },
-    {
-      "id": "fp_discriminator_roleplay_transformation_01",
-      "statement": "Changing my name, character, or social role while staying physically myself.",
-      "stage": "discriminator",
-      "intensity": "ordinary",
-      "signals": [
-        {
-          "dimensionId": "roleplay_transformation",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "transformation",
-        "fetish_focus"
-      ],
-      "mirrorGroup": "role_vs_object",
-      "suggestionLinks": [
-        "roleplay"
       ]
     },
     {
@@ -2931,7 +2971,7 @@
       "discriminates": [
         "pain_intensity"
       ],
-      "mirrorGroup": "kept_wanting",
+      "mirrorGroup": "fp_discriminator_anticipation_denial_02",
       "suggestionLinks": [
         "orgasm_control",
         "chastity",
@@ -2980,7 +3020,7 @@
       "discriminates": [
         "fear_adrenaline"
       ],
-      "mirrorGroup": "pain_vs_fear",
+      "mirrorGroup": "fp_discriminator_pain_intensity_02",
       "suggestionLinks": [
         "impact_pain"
       ]
@@ -3028,7 +3068,7 @@
     },
     {
       "id": "fp_discriminator_being_desired_attention_02",
-      "statement": "Having several people' attention fixed on me at once because they all desire me.",
+      "statement": "Having several people's attention fixed on me at once because they all desire me.",
       "stage": "discriminator",
       "intensity": "strong",
       "signals": [
@@ -3311,7 +3351,7 @@
     },
     {
       "id": "fp_discriminator_roleplay_transformation_02",
-      "statement": "Being treated as if I have a different status, name, or purpose while still being physically myself.",
+      "statement": "A partner treating me as though I have a different status or identity, even when they know who I really am.",
       "stage": "discriminator",
       "intensity": "strong",
       "signals": [
@@ -3345,7 +3385,7 @@
       "signals": [
         {
           "dimensionId": "primal_struggle_competition",
-          "perspective": "experience_self",
+          "perspective": "receive",
           "weight": 1
         }
       ],
@@ -3525,7 +3565,7 @@
         "restraint_confinement",
         "nonconsent"
       ],
-      "mirrorGroup": "at_mercy",
+      "mirrorGroup": "fp_deep_dive_helplessness_vulnerability_01",
       "suggestionLinks": [
         "psychological_play",
         "bondage_restraint",
@@ -3579,7 +3619,7 @@
       "discriminates": [
         "novelty_experimentation"
       ],
-      "mirrorGroup": "denial_over_release",
+      "mirrorGroup": "fp_deep_dive_anticipation_denial_01",
       "suggestionLinks": [
         "orgasm_control",
         "chastity",
@@ -3602,7 +3642,7 @@
       "discriminates": [
         "helplessness_vulnerability"
       ],
-      "mirrorGroup": "frightening_fantasy",
+      "mirrorGroup": "fp_deep_dive_fear_adrenaline_01",
       "suggestionLinks": [
         "psychological_play",
         "pet_primal"
@@ -3628,7 +3668,7 @@
       "discriminates": [
         "fear_adrenaline"
       ],
-      "mirrorGroup": "overwhelming_pain",
+      "mirrorGroup": "fp_deep_dive_pain_intensity_01",
       "suggestionLinks": [
         "impact_pain",
         "sensory_deprivation",
@@ -3655,7 +3695,7 @@
       "discriminates": [
         "objectification_use"
       ],
-      "mirrorGroup": "personal_mortification",
+      "mirrorGroup": "fp_deep_dive_humiliation_embarrassment_01",
       "suggestionLinks": [
         "humiliation_degradation",
         "psychological_play",
@@ -3683,124 +3723,10 @@
         "being_desired_attention",
         "romance"
       ],
-      "mirrorGroup": "overwhelming_approval",
+      "mirrorGroup": "fp_deep_dive_praise_approval_01",
       "suggestionLinks": [
         "praise_worship",
         "power_exchange"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_being_desired_attention_01",
-      "statement": "Feeling almost consumed by the intensity of how badly a partner wants me.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "being_desired_attention",
-          "perspective": "receive",
-          "weight": 1
-        },
-        {
-          "dimensionId": "possession_belonging",
-          "perspective": "receive",
-          "weight": 0.25
-        }
-      ],
-      "discriminates": [
-        "possession_belonging",
-        "romance"
-      ],
-      "mirrorGroup": "consuming_desire",
-      "suggestionLinks": [
-        "praise_worship",
-        "exhibition_observation",
-        "power_exchange",
-        "relationship_dynamics"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_possession_belonging_01",
-      "statement": "A partner's claim over me being total and unmistakable.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "possession_belonging",
-          "perspective": "receive",
-          "weight": 1
-        },
-        {
-          "dimensionId": "control_permission",
-          "perspective": "receive",
-          "weight": 0.5
-        }
-      ],
-      "discriminates": [
-        "objectification_use",
-        "romance"
-      ],
-      "mirrorGroup": "total_claim",
-      "suggestionLinks": [
-        "power_exchange",
-        "relationship_dynamics",
-        "orgasm_control",
-        "chastity"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_tenderness_care_01",
-      "statement": "Fierce control or roughness giving way to unmistakable tenderness.",
-      "stage": "deep_dive",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "tenderness_care",
-          "perspective": "experience_self",
-          "weight": 1
-        },
-        {
-          "dimensionId": "trust_safety",
-          "perspective": "experience_self",
-          "weight": 0.45
-        }
-      ],
-      "discriminates": [
-        "pain_intensity",
-        "authority_responsibility",
-        "romance"
-      ],
-      "mirrorGroup": "tenderness_contrast",
-      "suggestionLinks": [
-        "relationship_dynamics"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_control_permission_01",
-      "statement": "Nearly every meaningful choice requiring one person's permission.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "control_permission",
-          "perspective": "none",
-          "weight": 1
-        },
-        {
-          "dimensionId": "rules_ritual_protocol",
-          "perspective": "none",
-          "weight": 0.45
-        }
-      ],
-      "discriminates": [
-        "rules_ritual_protocol",
-        "mind_control"
-      ],
-      "mirrorGroup": "permission_everywhere",
-      "suggestionLinks": [
-        "power_exchange",
-        "orgasm_control",
-        "chastity",
-        "service_protocol"
       ]
     },
     {
@@ -3851,7 +3777,7 @@
       "discriminates": [
         "rules_ritual_protocol"
       ],
-      "mirrorGroup": "total_service",
+      "mirrorGroup": "fp_deep_dive_service_usefulness_01",
       "suggestionLinks": [
         "service_protocol",
         "power_exchange"
@@ -3877,7 +3803,7 @@
       "discriminates": [
         "surrender"
       ],
-      "mirrorGroup": "near_total_restraint",
+      "mirrorGroup": "fp_deep_dive_restraint_confinement_01",
       "suggestionLinks": [
         "bondage_restraint",
         "psychological_play"
@@ -3905,7 +3831,7 @@
         "humiliation_embarrassment",
         "transformation"
       ],
-      "mirrorGroup": "personhood_recedes",
+      "mirrorGroup": "fp_deep_dive_objectification_use_01",
       "suggestionLinks": [
         "objectification",
         "humiliation_degradation",
@@ -3933,7 +3859,7 @@
       "discriminates": [
         "being_desired_attention"
       ],
-      "mirrorGroup": "on_display",
+      "mirrorGroup": "fp_deep_dive_exposure_being_seen_01",
       "suggestionLinks": [
         "exhibition_observation",
         "humiliation_degradation"
@@ -3954,7 +3880,7 @@
       "discriminates": [
         "exposure_being_seen"
       ],
-      "mirrorGroup": "close_observation",
+      "mirrorGroup": "fp_deep_dive_watching_observation_01",
       "suggestionLinks": [
         "exhibition_observation"
       ]
@@ -3974,31 +3900,10 @@
       "discriminates": [
         "helplessness_vulnerability"
       ],
-      "mirrorGroup": "sensory_absorption",
+      "mirrorGroup": "fp_deep_dive_sensory_focus_alteration_01",
       "suggestionLinks": [
         "sensory_deprivation",
         "fetish_material_interests"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_roleplay_transformation_01",
-      "statement": "My everyday identity giving way to a radically different character or social role without my body changing.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "roleplay_transformation",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "transformation",
-        "objectification_use"
-      ],
-      "mirrorGroup": "identity_disappears",
-      "suggestionLinks": [
-        "roleplay"
       ]
     },
     {
@@ -4021,51 +3926,9 @@
       "discriminates": [
         "helplessness_vulnerability"
       ],
-      "mirrorGroup": "hunted_caught",
+      "mirrorGroup": "fp_deep_dive_primal_struggle_competition_01",
       "suggestionLinks": [
         "pet_primal",
-        "psychological_play"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_taboo_transgression_01",
-      "statement": "Crossing a boundary that feels deeply forbidden or socially unacceptable.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "taboo_transgression",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "fear_adrenaline"
-      ],
-      "mirrorGroup": "deep_forbiddenness",
-      "suggestionLinks": [
-        "psychological_play"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_novelty_experimentation_01",
-      "statement": "Moving continuously into unfamiliar roles, settings, or activities rather than settling into one familiar pattern.",
-      "stage": "deep_dive",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "novelty_experimentation",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "fetish_focus",
-        "roleplay_transformation"
-      ],
-      "mirrorGroup": "constant_novelty",
-      "suggestionLinks": [
-        "roleplay",
         "psychological_play"
       ]
     },
@@ -4090,29 +3953,8 @@
       ]
     },
     {
-      "id": "fp_deep_dive_fetish_focus_01",
-      "statement": "One material, object, sensation, or body area becoming the main focus to the point that everything else fades into the background.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "fetish_focus",
-          "perspective": "none",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "roleplay_transformation"
-      ],
-      "mirrorGroup": "all_consuming_focus",
-      "suggestionLinks": [
-        "fetish_material_interests",
-        "body_part_interests"
-      ]
-    },
-    {
       "id": "fp_discriminator_romance_01",
-      "statement": "Falling for each other, with mutual romantic attachment mattering more than simple tenderness.",
+      "statement": "Falling in love with each other, with mutual romantic attachment central to the fantasy.",
       "stage": "discriminator",
       "intensity": "ordinary",
       "signals": [
@@ -4140,7 +3982,7 @@
       "signals": [
         {
           "dimensionId": "romance",
-          "perspective": "experience_self",
+          "perspective": "give",
           "weight": 1
         }
       ],
@@ -4154,49 +3996,6 @@
         "romantic_connection"
       ],
       "routingBoost": 1.25
-    },
-    {
-      "id": "fp_discriminator_romance_03",
-      "statement": "Wanting deep romantic devotion without needing to belong to each other or be claimed.",
-      "stage": "discriminator",
-      "intensity": "ordinary",
-      "signals": [
-        {
-          "dimensionId": "romance",
-          "perspective": "mutual",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "possession_belonging"
-      ],
-      "mirrorGroup": "romance_without_claim",
-      "suggestionLinks": [
-        "romantic_connection"
-      ]
-    },
-    {
-      "id": "fp_deep_dive_romance_01",
-      "statement": "The connection feeling like part of a love story, not just attraction, safety, praise, or care.",
-      "stage": "deep_dive",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "romance",
-          "perspective": "mutual",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "being_desired_attention",
-        "trust_safety",
-        "praise_approval",
-        "tenderness_care"
-      ],
-      "mirrorGroup": "romance_love_story",
-      "suggestionLinks": [
-        "romantic_connection"
-      ]
     },
     {
       "id": "fp_discriminator_transformation_01",
@@ -4213,7 +4012,7 @@
       "discriminates": [
         "roleplay_transformation"
       ],
-      "mirrorGroup": "transform_process",
+      "mirrorGroup": "fp_discriminator_transformation_01",
       "suggestionLinks": [],
       "routingBoost": 1.5
     },
@@ -4225,7 +4024,7 @@
       "signals": [
         {
           "dimensionId": "transformation",
-          "perspective": "experience_self",
+          "perspective": "receive",
           "weight": 1
         }
       ],
@@ -4255,9 +4054,9 @@
       "suggestionLinks": []
     },
     {
-      "id": "fp_discriminator_object_transformation_01",
+      "id": "fp_deep_dive_optional_object_transformation_01",
       "statement": "Literally becoming an object rather than only being treated like one.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [
         {
@@ -4283,12 +4082,13 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.5
+      "routingBoost": 1.5,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_object_transformation_02",
+      "id": "fp_deep_dive_optional_object_transformation_02",
       "statement": "Someone else literally becoming an object rather than only being treated like one.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [
         {
@@ -4314,12 +4114,13 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.5
+      "routingBoost": 1.5,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_body_swap_01",
+      "id": "fp_deep_dive_optional_body_swap_01",
       "statement": "Waking up in someone else's body after our bodies have been exchanged.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "strong",
       "signals": [
         {
@@ -4345,12 +4146,13 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.25
+      "routingBoost": 1.25,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_sex_characteristics_01",
+      "id": "fp_deep_dive_optional_sex_characteristics_01",
       "statement": "My body changing sex characteristics as a physical change rather than a change in social role or presentation.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "strong",
       "signals": [
         {
@@ -4376,7 +4178,8 @@
           "unsure"
         ]
       },
-      "routingBoost": 1
+      "routingBoost": 1,
+      "optionalOnly": true
     },
     {
       "id": "fp_deep_dive_transformation_01",
@@ -4386,14 +4189,14 @@
       "signals": [
         {
           "dimensionId": "transformation",
-          "perspective": "experience_self",
+          "perspective": "receive",
           "weight": 1
         }
       ],
       "discriminates": [
         "novelty_experimentation"
       ],
-      "mirrorGroup": "impossible_change",
+      "mirrorGroup": "fp_deep_dive_transformation_01",
       "suggestionLinks": []
     },
     {
@@ -4422,7 +4225,8 @@
           "intriguing",
           "unsure"
         ]
-      }
+      },
+      "optionalOnly": true
     },
     {
       "id": "fp_discriminator_becoming_huge_01",
@@ -4439,7 +4243,7 @@
       "discriminates": [
         "authority_responsibility"
       ],
-      "mirrorGroup": "huge_other",
+      "mirrorGroup": "fp_discriminator_becoming_huge_01",
       "suggestionLinks": [],
       "activation": {
         "type": "question_response",
@@ -4483,37 +4287,6 @@
       }
     },
     {
-      "id": "fp_deep_dive_becoming_huge_01",
-      "statement": "Becoming gigantic, with the change in size itself as the main focus.",
-      "stage": "deep_dive",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "becoming_huge",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "authority_responsibility",
-        "helplessness_vulnerability",
-        "fear_adrenaline"
-      ],
-      "mirrorGroup": "huge_without_power",
-      "suggestionLinks": [],
-      "activation": {
-        "type": "question_response",
-        "questionId": "fp_core_becoming_huge_01",
-        "responses": [
-          "strong_turn_on",
-          "turn_on",
-          "intriguing",
-          "unsure"
-        ],
-        "priorityBoost": 4.5
-      }
-    },
-    {
       "id": "fp_discriminator_being_tiny_01",
       "statement": "Watching someone shrink until they are extremely small.",
       "stage": "discriminator",
@@ -4528,7 +4301,7 @@
       "discriminates": [
         "helplessness_vulnerability"
       ],
-      "mirrorGroup": "tiny_other",
+      "mirrorGroup": "fp_discriminator_being_tiny_01",
       "suggestionLinks": [],
       "activation": {
         "type": "question_response",
@@ -4558,35 +4331,6 @@
         "authority_responsibility"
       ],
       "mirrorGroup": "tiny_interaction",
-      "suggestionLinks": [],
-      "activation": {
-        "type": "question_response",
-        "questionId": "fp_core_being_tiny_01",
-        "responses": [
-          "strong_turn_on",
-          "turn_on",
-          "intriguing",
-          "unsure"
-        ],
-        "priorityBoost": 4.5
-      }
-    },
-    {
-      "id": "fp_deep_dive_being_tiny_01",
-      "statement": "Becoming extremely tiny, with my size itself as the main focus.",
-      "stage": "deep_dive",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "being_tiny",
-          "perspective": "experience_self",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "helplessness_vulnerability"
-      ],
-      "mirrorGroup": "tiny_without_helplessness",
       "suggestionLinks": [],
       "activation": {
         "type": "question_response",
@@ -4660,7 +4404,7 @@
     },
     {
       "id": "fp_deep_dive_animal_transformation_01",
-      "statement": "Actually becoming an animal, rather than only acting animal-like.",
+      "statement": "Turning completely into an animal, rather than only developing a few animal features.",
       "stage": "deep_dive",
       "intensity": "strong",
       "signals": [
@@ -4674,7 +4418,7 @@
         "primal_struggle_competition",
         "roleplay_transformation"
       ],
-      "mirrorGroup": "animal_change_not_role",
+      "mirrorGroup": "fp_deep_dive_animal_transformation_01",
       "suggestionLinks": [],
       "activation": {
         "type": "question_response",
@@ -4704,14 +4448,14 @@
         "control_permission",
         "authority_responsibility"
       ],
-      "mirrorGroup": "mind_no_choice",
+      "mirrorGroup": "fp_discriminator_mind_control_01",
       "suggestionLinks": [],
       "routingBoost": 1.5
     },
     {
-      "id": "fp_discriminator_hypnosis_01",
+      "id": "fp_deep_dive_optional_hypnosis_01",
       "statement": "Being put into hypnosis or a trance and following suggestions because my mind has been altered.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [
         {
@@ -4737,12 +4481,13 @@
           "unsure"
         ]
       },
-      "routingBoost": 1.25
+      "routingBoost": 1.25,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_memory_01",
+      "id": "fp_deep_dive_optional_memory_01",
       "statement": "Having memories changed or erased so they alter what I think or do.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [
         {
@@ -4766,12 +4511,13 @@
           "unsure"
         ]
       },
-      "routingBoost": 1
+      "routingBoost": 1,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_possession_01",
+      "id": "fp_deep_dive_optional_possession_01",
       "statement": "A separate mind or force taking over my body while my own control fades.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [
         {
@@ -4797,7 +4543,8 @@
           "unsure"
         ]
       },
-      "routingBoost": 1
+      "routingBoost": 1,
+      "optionalOnly": true
     },
     {
       "id": "fp_deep_dive_mind_control_01",
@@ -4845,7 +4592,8 @@
           "intriguing",
           "unsure"
         ]
-      }
+      },
+      "optionalOnly": true
     },
     {
       "id": "fp_discriminator_nonconsent_01",
@@ -4864,14 +4612,14 @@
         "restraint_confinement",
         "primal_struggle_competition"
       ],
-      "mirrorGroup": "nonconsent_itself",
+      "mirrorGroup": "fp_discriminator_nonconsent_01",
       "suggestionLinks": [],
       "routingBoost": 1.5
     },
     {
-      "id": "fp_discriminator_kidnapped_01",
+      "id": "fp_deep_dive_optional_kidnapped_01",
       "statement": "Being kidnapped and taken somewhere against my will.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [
         {
@@ -4898,12 +4646,13 @@
           "unsure"
         ],
         "priorityBoost": 3
-      }
+      },
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_kidnapping_01",
+      "id": "fp_deep_dive_optional_kidnapping_01",
       "statement": "Kidnapping someone and taking them somewhere against their will.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [
         {
@@ -4930,44 +4679,8 @@
           "unsure"
         ],
         "priorityBoost": 3
-      }
-    },
-    {
-      "id": "fp_deep_dive_nonconsent_01",
-      "statement": "Resisting because my refusal is genuine, not because resistance is part of an agreed struggle.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "nonconsent",
-          "perspective": "receive",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "primal_struggle_competition",
-        "helplessness_vulnerability"
-      ],
-      "mirrorGroup": "nonconsent_resistance",
-      "suggestionLinks": []
-    },
-    {
-      "id": "fp_deep_dive_nonconsent_02",
-      "statement": "Another person genuinely refusing or withdrawing consent.",
-      "stage": "deep_dive",
-      "intensity": "intense",
-      "signals": [
-        {
-          "dimensionId": "nonconsent",
-          "perspective": "give",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "authority_responsibility"
-      ],
-      "mirrorGroup": "nonconsent_other",
-      "suggestionLinks": []
+      },
+      "optionalOnly": true
     },
     {
       "id": "fp_discriminator_monsters_supernatural_01",
@@ -4984,14 +4697,14 @@
       "discriminates": [
         "fear_adrenaline"
       ],
-      "mirrorGroup": "monster_without_fear",
+      "mirrorGroup": "fp_discriminator_monsters_supernatural_01",
       "suggestionLinks": [],
       "routingBoost": 1.5
     },
     {
-      "id": "fp_discriminator_creature_families_01",
+      "id": "fp_deep_dive_optional_creature_families_01",
       "statement": "A demon, vampire, werewolf, alien, dragon, robot, or other fictional being being attractive because of what it is.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "strong",
       "signals": [
         {
@@ -5017,31 +4730,13 @@
           "unsure"
         ]
       },
-      "routingBoost": 1
+      "routingBoost": 1,
+      "optionalOnly": true
     },
     {
-      "id": "fp_deep_dive_monsters_supernatural_01",
-      "statement": "The impossible or supernatural nature of the other character being central, not just their appearance or power.",
-      "stage": "deep_dive",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "monsters_supernatural",
-          "perspective": "receive",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "fear_adrenaline",
-        "authority_responsibility"
-      ],
-      "mirrorGroup": "monster_nature",
-      "suggestionLinks": []
-    },
-    {
-      "id": "fp_discriminator_worship_receive_01",
+      "id": "fp_deep_dive_optional_worship_receive_01",
       "statement": "Being worshipped with extreme devotion and adoration, not just being praised for doing well.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "strong",
       "signals": [],
       "discriminates": [
@@ -5078,12 +4773,13 @@
           }
         ]
       },
-      "routingBoost": 1.5
+      "routingBoost": 1.5,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_worship_give_01",
+      "id": "fp_deep_dive_optional_worship_give_01",
       "statement": "Worshipping someone with extreme devotion and adoration, not just praising or serving them.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "strong",
       "signals": [],
       "discriminates": [
@@ -5120,12 +4816,13 @@
           }
         ]
       },
-      "routingBoost": 1.5
+      "routingBoost": 1.5,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_horror_01",
+      "id": "fp_deep_dive_optional_horror_01",
       "statement": "Scary, grotesque, or disturbing imagery being part of what turns me on even when I do not personally feel afraid.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [],
       "discriminates": [
@@ -5161,7 +4858,8 @@
           }
         ]
       },
-      "routingBoost": 1.25
+      "routingBoost": 1.25,
+      "optionalOnly": true
     },
     {
       "id": "fp_deep_dive_fictional_violence_01",
@@ -5202,7 +4900,8 @@
             ]
           }
         ]
-      }
+      },
+      "optionalOnly": true
     },
     {
       "id": "fp_deep_dive_fictional_consequences_01",
@@ -5236,12 +4935,13 @@
             ]
           }
         ]
-      }
+      },
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_pregnancy_receive_01",
+      "id": "fp_deep_dive_optional_pregnancy_receive_01",
       "statement": "Becoming pregnant, with pregnancy itself as the main focus.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "strong",
       "signals": [],
       "discriminates": [],
@@ -5275,12 +4975,13 @@
           }
         ]
       },
-      "routingBoost": 0.75
+      "routingBoost": 0.75,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_pregnancy_give_01",
+      "id": "fp_deep_dive_optional_pregnancy_give_01",
       "statement": "Getting someone pregnant, with impregnation itself as the main focus.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "strong",
       "signals": [],
       "discriminates": [],
@@ -5314,7 +5015,8 @@
           }
         ]
       },
-      "routingBoost": 0.75
+      "routingBoost": 0.75,
+      "optionalOnly": true
     },
     {
       "id": "fp_deep_dive_impossible_pregnancy_01",
@@ -5338,12 +5040,13 @@
             ]
           }
         ]
-      }
+      },
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_vore_receive_01",
+      "id": "fp_deep_dive_optional_vore_receive_01",
       "statement": "Being swallowed whole.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [],
       "discriminates": [],
@@ -5384,12 +5087,13 @@
           }
         ]
       },
-      "routingBoost": 1.25
+      "routingBoost": 1.25,
+      "optionalOnly": true
     },
     {
-      "id": "fp_discriminator_vore_give_01",
+      "id": "fp_deep_dive_optional_vore_give_01",
       "statement": "Swallowing someone whole.",
-      "stage": "discriminator",
+      "stage": "deep_dive",
       "intensity": "intense",
       "signals": [],
       "discriminates": [],
@@ -5430,37 +5134,8 @@
           }
         ]
       },
-      "routingBoost": 1.25
-    },
-    {
-      "id": "fp_deep_dive_body_swap_01",
-      "statement": "Someone else occupying my body while I occupy theirs after we have exchanged bodies.",
-      "stage": "deep_dive",
-      "intensity": "strong",
-      "signals": [
-        {
-          "dimensionId": "transformation",
-          "perspective": "receive",
-          "weight": 1
-        }
-      ],
-      "discriminates": [
-        "roleplay_transformation"
-      ],
-      "mirrorGroup": "body_swap_occupied",
-      "suggestionLinks": [],
-      "detailKey": "body_swapping",
-      "parentDimensionId": "transformation",
-      "activation": {
-        "type": "question_response",
-        "questionId": "fp_core_transformation_01",
-        "responses": [
-          "strong_turn_on",
-          "turn_on",
-          "intriguing",
-          "unsure"
-        ]
-      }
+      "routingBoost": 1.25,
+      "optionalOnly": true
     },
     {
       "id": "fp_deep_dive_object_transformation_01",
@@ -5490,7 +5165,1975 @@
           "intriguing",
           "unsure"
         ]
+      },
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_discriminator_helplessness_vulnerability_01_evoke_partner",
+      "statement": "Seeing a partner feel helpless even without restraint, in a situation they have agreed to.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "evoke_partner",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "restraint_confinement",
+        "nonconsent"
+      ],
+      "mirrorGroup": "fp_discriminator_helplessness_vulnerability_01",
+      "suggestionLinks": [
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_helplessness_vulnerability_01_evoke_partner",
+      "statement": "A partner being completely at my mercy after choosing to give me that control.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "helplessness_vulnerability",
+          "perspective": "evoke_partner",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "restraint_confinement",
+        "nonconsent"
+      ],
+      "mirrorGroup": "fp_deep_dive_helplessness_vulnerability_01",
+      "suggestionLinks": [
+        "psychological_play",
+        "bondage_restraint",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_anticipation_denial_01_give",
+      "statement": "Keeping a partner waiting because their anticipation itself excites me, even without rules or commands.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol",
+        "control_permission"
+      ],
+      "mirrorGroup": "fp_discriminator_anticipation_denial_01",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_anticipation_denial_02_give",
+      "statement": "Bringing a partner close to satisfaction and then leaving them wanting more.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "pain_intensity"
+      ],
+      "mirrorGroup": "fp_discriminator_anticipation_denial_02",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_anticipation_denial_01_give",
+      "statement": "Keeping a partner uncertain and denying what they want for a long time.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "anticipation_denial",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "fp_deep_dive_anticipation_denial_01",
+      "suggestionLinks": [
+        "orgasm_control",
+        "chastity",
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_discriminator_fear_adrenaline_01_evoke_partner",
+      "statement": "Making a partner feel danger-like tension even when no pain is involved.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "evoke_partner",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "pain_intensity"
+      ],
+      "mirrorGroup": "fp_discriminator_fear_adrenaline_01",
+      "suggestionLinks": [
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_fear_adrenaline_01_evoke_partner",
+      "statement": "Making a partner genuinely frightened by what is happening.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "fear_adrenaline",
+          "perspective": "evoke_partner",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "fp_deep_dive_fear_adrenaline_01",
+      "suggestionLinks": [
+        "psychological_play",
+        "pet_primal"
+      ]
+    },
+    {
+      "id": "fp_discriminator_pain_intensity_01_give",
+      "statement": "Causing a partner pain even when there is no embarrassment, punishment, or lowered status attached to it.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "humiliation_embarrassment",
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "fp_discriminator_pain_intensity_01",
+      "suggestionLinks": [
+        "impact_pain"
+      ]
+    },
+    {
+      "id": "fp_discriminator_pain_intensity_02_give",
+      "statement": "Giving a partner sharp physical sensations without needing to make them afraid.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "fp_discriminator_pain_intensity_02",
+      "suggestionLinks": [
+        "impact_pain"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_pain_intensity_01_give",
+      "statement": "Causing pain intense enough to dominate a partner's attention and make everything else fall away.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "pain_intensity",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "fp_deep_dive_pain_intensity_01",
+      "suggestionLinks": [
+        "impact_pain",
+        "sensory_deprivation",
+        "fetish_material_interests"
+      ]
+    },
+    {
+      "id": "fp_discriminator_humiliation_embarrassment_01_give",
+      "statement": "Speaking to a partner in a way that lowers their status without physical pain.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "pain_intensity",
+        "objectification_use"
+      ],
+      "mirrorGroup": "fp_discriminator_humiliation_embarrassment_01",
+      "suggestionLinks": [
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_humiliation_embarrassment_01_give",
+      "statement": "Knowing exactly what would make a partner feel small or mortified and deliberately using that knowledge.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "humiliation_embarrassment",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "objectification_use"
+      ],
+      "mirrorGroup": "fp_deep_dive_humiliation_embarrassment_01",
+      "suggestionLinks": [
+        "humiliation_degradation",
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_praise_approval_01_give",
+      "statement": "A few words of approval from me having an overwhelming effect on a partner.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "praise_approval",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention",
+        "romance"
+      ],
+      "mirrorGroup": "fp_deep_dive_praise_approval_01",
+      "suggestionLinks": [
+        "praise_worship",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_being_desired_attention_01_evoke_partner",
+      "statement": "Watching a partner so intently that they know I cannot take my eyes off them.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "being_desired_attention",
+          "perspective": "evoke_partner",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "exposure_being_seen",
+        "romance"
+      ],
+      "mirrorGroup": "fp_discriminator_being_desired_attention_01",
+      "suggestionLinks": [
+        "praise_worship",
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_possession_belonging_01_give",
+      "statement": "Feeling that a partner belongs to me even when I am not giving them orders.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "possession_belonging",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "control_permission",
+        "romance"
+      ],
+      "mirrorGroup": "fp_discriminator_possession_belonging_01",
+      "suggestionLinks": [
+        "power_exchange",
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_service_usefulness_01_receive",
+      "statement": "A partner organizing their whole role around anticipating and meeting my needs.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "service_usefulness",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "rules_ritual_protocol"
+      ],
+      "mirrorGroup": "fp_deep_dive_service_usefulness_01",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange"
+      ]
+    },
+    {
+      "id": "fp_discriminator_restraint_confinement_01_give",
+      "statement": "Physically immobilizing a partner while they remain emotionally confident and unafraid.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "restraint_confinement",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability",
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "fp_discriminator_restraint_confinement_01",
+      "suggestionLinks": [
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_restraint_confinement_01_give",
+      "statement": "Almost completely immobilizing a partner, leaving them virtually no ability to move.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "restraint_confinement",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "surrender"
+      ],
+      "mirrorGroup": "fp_deep_dive_restraint_confinement_01",
+      "suggestionLinks": [
+        "bondage_restraint",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_objectification_use_01_give",
+      "statement": "A partner's personhood fading into the background while I use them for a purpose, without their body literally becoming an object.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "objectification_use",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "possession_belonging",
+        "humiliation_embarrassment",
+        "transformation"
+      ],
+      "mirrorGroup": "fp_deep_dive_objectification_use_01",
+      "suggestionLinks": [
+        "objectification",
+        "humiliation_degradation",
+        "psychological_play",
+        "bondage_restraint"
+      ]
+    },
+    {
+      "id": "fp_discriminator_exposure_being_seen_01_observe",
+      "statement": "Seeing a partner in an embarrassing or revealing state without expressing desire for them.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "perspective": "observe",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention",
+        "humiliation_embarrassment"
+      ],
+      "mirrorGroup": "fp_discriminator_exposure_being_seen_01",
+      "suggestionLinks": [
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_exposure_being_seen_01_observe",
+      "statement": "Having a partner unmistakably on display for me, unable to hide their embarrassment.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "exposure_being_seen",
+          "perspective": "observe",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention"
+      ],
+      "mirrorGroup": "fp_deep_dive_exposure_being_seen_01",
+      "suggestionLinks": [
+        "exhibition_observation",
+        "humiliation_degradation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_watching_observation_01_be_observed",
+      "statement": "Being watched closely by a partner while their own body remains out of view.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "be_observed",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "being_desired_attention",
+        "exposure_being_seen"
+      ],
+      "mirrorGroup": "fp_discriminator_watching_observation_01",
+      "suggestionLinks": [
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_watching_observation_01_be_observed",
+      "statement": "Letting a partner observe a very private moment, close enough to catch every reaction.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "watching_observation",
+          "perspective": "be_observed",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "exposure_being_seen"
+      ],
+      "mirrorGroup": "fp_deep_dive_watching_observation_01",
+      "suggestionLinks": [
+        "exhibition_observation"
+      ]
+    },
+    {
+      "id": "fp_discriminator_sensory_focus_alteration_01_give",
+      "statement": "Restricting a partner's senses while they remain free to move.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "restraint_confinement"
+      ],
+      "mirrorGroup": "fp_discriminator_sensory_focus_alteration_01",
+      "suggestionLinks": [
+        "sensory_deprivation",
+        "fetish_material_interests"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_sensory_focus_alteration_01_give",
+      "statement": "Narrowing or overwhelming a partner's senses so completely that their ordinary awareness almost disappears.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "sensory_focus_alteration",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "fp_deep_dive_sensory_focus_alteration_01",
+      "suggestionLinks": [
+        "sensory_deprivation",
+        "fetish_material_interests"
+      ]
+    },
+    {
+      "id": "fp_discriminator_roleplay_transformation_01_observe",
+      "statement": "Responding to a partner as though they have a different status or identity, even when I know who they really are.",
+      "stage": "discriminator",
+      "intensity": "ordinary",
+      "signals": [
+        {
+          "dimensionId": "roleplay_transformation",
+          "perspective": "observe",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "transformation",
+        "fetish_focus"
+      ],
+      "mirrorGroup": "fp_discriminator_roleplay_transformation_01",
+      "suggestionLinks": [
+        "roleplay"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_primal_struggle_competition_01_give",
+      "statement": "Hunting, catching, or physically overpowering a partner, with the struggle as the main focus.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "primal_struggle_competition",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "fp_deep_dive_primal_struggle_competition_01",
+      "suggestionLinks": [
+        "pet_primal",
+        "psychological_play"
+      ]
+    },
+    {
+      "id": "fp_discriminator_transformation_01_give",
+      "statement": "Changing a partner's body, with the process itself exciting even if the final form matters less.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "transformation",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "roleplay_transformation"
+      ],
+      "mirrorGroup": "fp_discriminator_transformation_01",
+      "suggestionLinks": [],
+      "routingBoost": 1.5
+    },
+    {
+      "id": "fp_deep_dive_transformation_01_give",
+      "statement": "Changing a partner's body beyond ordinary biological limits, with the impossible change itself central to the appeal.",
+      "stage": "deep_dive",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "transformation",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "novelty_experimentation"
+      ],
+      "mirrorGroup": "fp_deep_dive_transformation_01",
+      "suggestionLinks": []
+    },
+    {
+      "id": "fp_discriminator_becoming_huge_01_experience_self",
+      "statement": "Growing until I am enormous compared with another person or my surroundings.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "becoming_huge",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "fp_discriminator_becoming_huge_01",
+      "suggestionLinks": [],
+      "activation": {
+        "type": "question_response",
+        "questionId": "fp_core_becoming_huge_01",
+        "responses": [
+          "strong_turn_on",
+          "turn_on",
+          "intriguing",
+          "unsure"
+        ],
+        "priorityBoost": 4.5
       }
+    },
+    {
+      "id": "fp_discriminator_being_tiny_01_experience_self",
+      "statement": "Shrinking until I am extremely small compared with another person or my surroundings.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "being_tiny",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability"
+      ],
+      "mirrorGroup": "fp_discriminator_being_tiny_01",
+      "suggestionLinks": [],
+      "activation": {
+        "type": "question_response",
+        "questionId": "fp_core_being_tiny_01",
+        "responses": [
+          "strong_turn_on",
+          "turn_on",
+          "intriguing",
+          "unsure"
+        ],
+        "priorityBoost": 4.5
+      }
+    },
+    {
+      "id": "fp_discriminator_mind_control_01_give",
+      "statement": "Altering a partner's thoughts or will so they cannot resist a command.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "mind_control",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "control_permission",
+        "authority_responsibility"
+      ],
+      "mirrorGroup": "fp_discriminator_mind_control_01",
+      "suggestionLinks": [],
+      "routingBoost": 1.5
+    },
+    {
+      "id": "fp_discriminator_nonconsent_01_give",
+      "statement": "Ignoring a partner's refusal while they remain physically free to move.",
+      "stage": "discriminator",
+      "intensity": "intense",
+      "signals": [
+        {
+          "dimensionId": "nonconsent",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "helplessness_vulnerability",
+        "restraint_confinement",
+        "primal_struggle_competition"
+      ],
+      "mirrorGroup": "fp_discriminator_nonconsent_01",
+      "suggestionLinks": [],
+      "routingBoost": 1.5
+    },
+    {
+      "id": "fp_discriminator_monsters_supernatural_01_experience_self",
+      "statement": "Being a nonhuman creature in an intimate encounter, even when I am not frightening anyone.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "monsters_supernatural",
+          "perspective": "experience_self",
+          "weight": 1
+        }
+      ],
+      "discriminates": [
+        "fear_adrenaline"
+      ],
+      "mirrorGroup": "fp_discriminator_monsters_supernatural_01",
+      "suggestionLinks": [],
+      "routingBoost": 1.5
+    },
+    {
+      "id": "fp_deep_dive_tenderness_care_receive",
+      "statement": "Being held and gently cared for by a partner after something rough or overwhelming.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "tenderness_care_role_deep_dive",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_tenderness_care_give",
+      "statement": "Holding and gently caring for a partner after something rough or overwhelming.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "tenderness_care",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "tenderness_care_role_deep_dive",
+      "suggestionLinks": [
+        "relationship_dynamics"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_control_permission_receive",
+      "statement": "Needing a partner's permission for nearly every meaningful choice I make.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "control_permission",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "control_permission_role_deep_dive",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity",
+        "relationship_dynamics",
+        "psychological_play",
+        "service_protocol"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_control_permission_give",
+      "statement": "Nearly every meaningful choice a partner makes requiring my permission.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "control_permission",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "control_permission_role_deep_dive",
+      "suggestionLinks": [
+        "power_exchange",
+        "orgasm_control",
+        "chastity",
+        "relationship_dynamics",
+        "psychological_play",
+        "service_protocol"
+      ]
+    },
+    {
+      "id": "fp_discriminator_rules_ritual_protocol_receive",
+      "statement": "Following a partner's formal ritual because the structure itself feels charged, even without punishment.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "rules_ritual_protocol_role_discriminator",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange",
+        "relationship_dynamics",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_discriminator_rules_ritual_protocol_give",
+      "statement": "Creating a formal ritual for a partner because the structure itself feels charged, even without punishment.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "rules_ritual_protocol_role_discriminator",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange",
+        "relationship_dynamics",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_rules_ritual_protocol_give",
+      "statement": "Setting an elaborate structure of rules, rituals, and expected behavior for a partner.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "rules_ritual_protocol",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "rules_ritual_protocol_role_deep_dive",
+      "suggestionLinks": [
+        "service_protocol",
+        "power_exchange",
+        "relationship_dynamics",
+        "orgasm_control",
+        "chastity"
+      ]
+    },
+    {
+      "id": "fp_discriminator_romance_give",
+      "statement": "Loving a partner deeply without needing to possess or claim them.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "romance",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "romance_role_discriminator",
+      "suggestionLinks": [
+        "romantic_connection"
+      ]
+    },
+    {
+      "id": "fp_discriminator_romance_receive",
+      "statement": "Being deeply loved by a partner without needing to belong to them.",
+      "stage": "discriminator",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "romance",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "romance_role_discriminator",
+      "suggestionLinks": [
+        "romantic_connection"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_romance_give",
+      "statement": "My love for a partner making an intimate encounter feel like part of a love story.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "romance",
+          "perspective": "give",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "romance_role_deep_dive",
+      "suggestionLinks": [
+        "romantic_connection"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_romance_receive",
+      "statement": "A partner's love for me making an intimate encounter feel like part of a love story.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [
+        {
+          "dimensionId": "romance",
+          "perspective": "receive",
+          "weight": 1
+        }
+      ],
+      "discriminates": [],
+      "mirrorGroup": "romance_role_deep_dive",
+      "suggestionLinks": [
+        "romantic_connection"
+      ]
+    },
+    {
+      "id": "fp_deep_dive_bondage_duration_receive",
+      "statement": "Remaining restrained for hours, with the length of time itself being part of the appeal.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "bondage_duration",
+      "suggestionLinks": [],
+      "detailKey": "bondage_duration",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_bondage_duration_give",
+      "statement": "Keeping a partner restrained for hours, with the length of time itself being part of the appeal.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "bondage_duration",
+      "suggestionLinks": [],
+      "detailKey": "bondage_duration",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_ongoing_restraints_receive",
+      "statement": "Wearing restraints for days while still being able to move around and do some everyday things.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "ongoing_restraints",
+      "suggestionLinks": [],
+      "detailKey": "ongoing_restraints",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_ongoing_restraints_give",
+      "statement": "A partner wearing restraints for days while still being able to move around and do some everyday things.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "ongoing_restraints",
+      "suggestionLinks": [],
+      "detailKey": "ongoing_restraints",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_release_receive",
+      "statement": "A partner deciding when my restraints come off.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_release",
+      "suggestionLinks": [],
+      "detailKey": "restraint_release",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_release_give",
+      "statement": "Deciding when a partner's restraints come off.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_release",
+      "suggestionLinks": [],
+      "detailKey": "restraint_release",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_inescapability_receive",
+      "statement": "Knowing I cannot get out of my restraints, even when I actively try.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_inescapability",
+      "suggestionLinks": [],
+      "detailKey": "restraint_inescapability",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_inescapability_give",
+      "statement": "Knowing a partner cannot get out of their restraints, even when they actively try.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_inescapability",
+      "suggestionLinks": [],
+      "detailKey": "restraint_inescapability",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_nonsexual_bondage_receive",
+      "statement": "Being restrained while a partner keeps me company, without it leading to sexual activity.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "nonsexual_bondage",
+      "suggestionLinks": [],
+      "detailKey": "nonsexual_bondage",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_nonsexual_bondage_give",
+      "statement": "Keeping a partner restrained while I keep them company, without it leading to sexual activity.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "nonsexual_bondage",
+      "suggestionLinks": [],
+      "detailKey": "nonsexual_bondage",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_process_receive",
+      "statement": "A partner slowly tying or securing me, with the process itself being the main attraction.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_process",
+      "suggestionLinks": [],
+      "detailKey": "restraint_process",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_process_give",
+      "statement": "Slowly tying or securing a partner, with the process itself being the main attraction.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_process",
+      "suggestionLinks": [],
+      "detailKey": "restraint_process",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_comfort_receive",
+      "statement": "Feeling calm and settled because restraints hold me securely in place.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_comfort",
+      "suggestionLinks": [],
+      "detailKey": "restraint_comfort",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_restraint_comfort_give",
+      "statement": "Seeing a partner become calm and settled because my restraints hold them securely in place.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "restraint_comfort",
+      "suggestionLinks": [],
+      "detailKey": "restraint_comfort",
+      "parentDimensionId": "restraint_confinement",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "restraint_confinement",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_ongoing_authority_receive",
+      "statement": "A partner's authority over me continuing through ordinary everyday life.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "ongoing_authority",
+      "suggestionLinks": [],
+      "detailKey": "ongoing_authority",
+      "parentDimensionId": "surrender",
+      "perspective": "experience_self",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "surrender",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_ongoing_authority_give",
+      "statement": "My authority over a partner continuing through ordinary everyday life.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "ongoing_authority",
+      "suggestionLinks": [],
+      "detailKey": "ongoing_authority",
+      "parentDimensionId": "authority_responsibility",
+      "perspective": "experience_self",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "authority_responsibility",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_discipline_receive",
+      "statement": "Being punished for breaking an agreed rule, with the sense of being disciplined itself being the appeal.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "discipline",
+      "suggestionLinks": [],
+      "detailKey": "discipline",
+      "parentDimensionId": "rules_ritual_protocol",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "rules_ritual_protocol",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          },
+          {
+            "dimensionId": "control_permission",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_discipline_give",
+      "statement": "Punishing a partner for breaking an agreed rule, with the sense of disciplining them itself being the appeal.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "discipline",
+      "suggestionLinks": [],
+      "detailKey": "discipline",
+      "parentDimensionId": "rules_ritual_protocol",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "rules_ritual_protocol",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          },
+          {
+            "dimensionId": "control_permission",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_training_receive",
+      "statement": "Gradually being trained to meet a partner's expectations.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "training",
+      "suggestionLinks": [],
+      "detailKey": "training",
+      "parentDimensionId": "rules_ritual_protocol",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "rules_ritual_protocol",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          },
+          {
+            "dimensionId": "control_permission",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_training_give",
+      "statement": "Gradually training a partner to meet my expectations.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "training",
+      "suggestionLinks": [],
+      "detailKey": "training",
+      "parentDimensionId": "rules_ritual_protocol",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "rules_ritual_protocol",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          },
+          {
+            "dimensionId": "control_permission",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_earned_approval_receive",
+      "statement": "Being given a difficult task and wanting to earn a partner's approval.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "earned_approval",
+      "suggestionLinks": [],
+      "detailKey": "earned_approval",
+      "parentDimensionId": "praise_approval",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "praise_approval",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          },
+          {
+            "dimensionId": "service_usefulness",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_earned_approval_give",
+      "statement": "Giving a partner a difficult task and seeing them work to earn my approval.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "earned_approval",
+      "suggestionLinks": [],
+      "detailKey": "earned_approval",
+      "parentDimensionId": "praise_approval",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "praise_approval",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          },
+          {
+            "dimensionId": "service_usefulness",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_partner_sharing_observe",
+      "statement": "Watching a partner be intimate with someone else, with their involvement with that person being part of the appeal.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "partner_sharing",
+      "suggestionLinks": [],
+      "detailKey": "partner_sharing",
+      "parentDimensionId": "group_social_multipartner",
+      "perspective": "observe",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "group_social_multipartner",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "watching_observation",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "observe"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_partner_sharing_be_observed",
+      "statement": "A partner watching me be intimate with someone else, with their watching being part of the appeal.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "partner_sharing",
+      "suggestionLinks": [],
+      "detailKey": "partner_sharing",
+      "parentDimensionId": "group_social_multipartner",
+      "perspective": "be_observed",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "group_social_multipartner",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "watching_observation",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "be_observed"
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_jealousy_give",
+      "statement": "Feeling jealous when someone else desires or is intimate with my partner, with the jealousy itself being part of the fantasy.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "jealousy",
+      "suggestionLinks": [],
+      "detailKey": "jealousy",
+      "parentDimensionId": "possession_belonging",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "possession_belonging",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          },
+          {
+            "dimensionId": "group_social_multipartner",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "romance",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_jealousy_receive",
+      "statement": "A partner feeling jealous when someone else desires or is intimate with me, with their jealousy itself being part of the fantasy.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "jealousy",
+      "suggestionLinks": [],
+      "detailKey": "jealousy",
+      "parentDimensionId": "possession_belonging",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "possession_belonging",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          },
+          {
+            "dimensionId": "group_social_multipartner",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "romance",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_exclusivity_receive",
+      "statement": "A partner choosing to be romantically or sexually exclusive with me, making me feel specially chosen.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "exclusivity",
+      "suggestionLinks": [],
+      "detailKey": "exclusivity",
+      "parentDimensionId": "romance",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "romance",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "receive"
+          },
+          {
+            "dimensionId": "possession_belonging",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_exclusivity_give",
+      "statement": "Choosing to be romantically or sexually exclusive with a partner, with that exclusivity itself making the connection more intense.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "exclusivity",
+      "suggestionLinks": [],
+      "detailKey": "exclusivity",
+      "parentDimensionId": "romance",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "romance",
+            "bands": [
+              "strong",
+              "notable"
+            ],
+            "perspective": "give"
+          },
+          {
+            "dimensionId": "possession_belonging",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_switching_control",
+      "statement": "Trading control with a partner during the same encounter.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "switching_control",
+      "suggestionLinks": [],
+      "detailKey": "switching_control",
+      "parentDimensionId": "control_permission",
+      "perspective": "mutual",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "control_permission",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "surrender",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "authority_responsibility",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_role_reversal_receive",
+      "statement": "A partner who usually follows my lead unexpectedly taking charge.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "role_reversal",
+      "suggestionLinks": [],
+      "detailKey": "role_reversal",
+      "parentDimensionId": "control_permission",
+      "perspective": "receive",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "control_permission",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "surrender",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "authority_responsibility",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
+    },
+    {
+      "id": "fp_deep_dive_role_reversal_give",
+      "statement": "Unexpectedly taking charge with a partner whose lead I usually follow.",
+      "stage": "deep_dive",
+      "intensity": "strong",
+      "signals": [],
+      "discriminates": [],
+      "mirrorGroup": "role_reversal",
+      "suggestionLinks": [],
+      "detailKey": "role_reversal",
+      "parentDimensionId": "control_permission",
+      "perspective": "give",
+      "activation": {
+        "type": "any_dimension_band",
+        "conditions": [
+          {
+            "dimensionId": "control_permission",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "surrender",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          },
+          {
+            "dimensionId": "authority_responsibility",
+            "bands": [
+              "strong",
+              "notable"
+            ]
+          }
+        ]
+      },
+      "routingBoost": 1.5,
+      "optionalOnly": true
     }
   ],
   "suggestionRules": [
@@ -5597,7 +7240,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "You may enjoy fantasies built around serving, being useful, following rules, or having a clear structure."
+      "summary": "Serving a partner, receiving attentive service, or shaping an encounter through rules and structure overlaps with your answers."
     },
     {
       "id": "bondage_restraint",
@@ -5647,7 +7290,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "Restricted movement or being physically held in place seems to overlap with some of your stronger themes."
+      "summary": "Restraining a partner or having your own movement restricted overlaps with some of your stronger themes."
     },
     {
       "id": "sensory_deprivation",
@@ -5976,7 +7619,7 @@
         }
       ],
       "minimumEvidencePoints": 2.5,
-      "summary": "Some of your answers overlap with fantasies about being used, displayed, positioned, or treated more like an object or function."
+      "summary": "Your answers overlap with fantasies about using, displaying, or positioning a partner, or being treated that way yourself."
     },
     {
       "id": "exhibition_observation",

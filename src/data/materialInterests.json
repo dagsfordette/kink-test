@@ -1,0 +1,247 @@
+[
+  {
+    "id": "leather",
+    "label": "Leather",
+    "group": "Materials",
+    "description": "Wearing leather clothes, touching leather, or feeling it against our skin during play.",
+    "exampleActivityId": "mutual_leather_fetish"
+  },
+  {
+    "id": "latex_rubber",
+    "label": "Latex & rubber",
+    "group": "Materials",
+    "description": "Wearing stretchy rubber or latex clothing, touching it, or feeling it against each other during play.",
+    "exampleActivityId": "mutual_latex_rubber_fetish"
+  },
+  {
+    "id": "vinyl_pvc",
+    "label": "Vinyl & PVC",
+    "group": "Materials",
+    "description": "Wearing or touching clothes and materials made from shiny, smooth vinyl or PVC together.",
+    "exampleActivityId": "mutual_vinyl_pvc_fetish"
+  },
+  {
+    "id": "silk_satin",
+    "label": "Silk & satin",
+    "group": "Materials",
+    "description": "Wearing smooth silk or satin clothes, touching the fabric, or moving it over each other’s skin.",
+    "exampleActivityId": "mutual_silk_satin_fetish"
+  },
+  {
+    "id": "lace",
+    "label": "Lace",
+    "group": "Materials",
+    "description": "Wearing lace clothes, touching the patterned fabric, or feeling it against each other’s skin.",
+    "exampleActivityId": "mutual_lace_fetish"
+  },
+  {
+    "id": "denim",
+    "label": "Denim",
+    "group": "Materials",
+    "description": "Wearing denim clothes, touching the fabric, or rubbing against it during play together.",
+    "exampleActivityId": "mutual_denim_fetish"
+  },
+  {
+    "id": "uniform",
+    "label": "Uniforms",
+    "group": "Clothing",
+    "description": "Wearing uniforms together or including one person’s uniform in our play, without necessarily acting out the job.",
+    "exampleActivityId": "mutual_uniform_fetish"
+  },
+  {
+    "id": "lingerie",
+    "label": "Lingerie",
+    "group": "Clothing",
+    "description": "Wearing lingerie, showing it to each other, or touching it while one of us wears it.",
+    "exampleActivityId": "mutual_lingerie_fetish"
+  },
+  {
+    "id": "underwear",
+    "label": "Underwear",
+    "group": "Clothing",
+    "description": "Wearing underwear during play, showing it to each other, or touching the garments.",
+    "exampleActivityId": "mutual_underwear_fetish"
+  },
+  {
+    "id": "stockings",
+    "label": "Stockings",
+    "group": "Clothing",
+    "description": "Wearing stockings or tights, helping put them on, or touching them against each other’s legs.",
+    "exampleActivityId": "mutual_stockings_fetish"
+  },
+  {
+    "id": "glove",
+    "label": "Gloves",
+    "group": "Clothing",
+    "description": "Wearing gloves or touching each other with gloved hands during play.",
+    "exampleActivityId": "mutual_glove_fetish"
+  },
+  {
+    "id": "boot",
+    "label": "Boots",
+    "group": "Clothing",
+    "description": "Wearing boots during play, showing them to each other, or touching the boots themselves.",
+    "exampleActivityId": "mutual_boot_fetish"
+  },
+  {
+    "id": "shoe_heel",
+    "label": "Shoes & heels",
+    "group": "Clothing",
+    "description": "Wearing shoes or heels during play, showing them to each other, or touching the footwear.",
+    "exampleActivityId": "mutual_shoe_heel_fetish"
+  },
+  {
+    "id": "mask",
+    "label": "Masks",
+    "group": "Clothing",
+    "description": "Wearing masks together or having one person wear a mask while we play.",
+    "exampleActivityId": "mutual_mask_fetish"
+  },
+  {
+    "id": "hood",
+    "label": "Hoods",
+    "group": "Clothing",
+    "description": "Wearing head-covering hoods together or having one person wear a hood while we play.",
+    "exampleActivityId": "mutual_hood_fetish"
+  },
+  {
+    "id": "collar",
+    "label": "Collars",
+    "group": "Clothing",
+    "description": "Wearing collars, putting them on each other, or touching them during play.",
+    "exampleActivityId": "mutual_collar_fetish"
+  },
+  {
+    "id": "harness",
+    "label": "Harnesses",
+    "group": "Clothing",
+    "description": "Wearing body harnesses or helping each other put on and adjust the straps.",
+    "exampleActivityId": "mutual_harness_fetish"
+  },
+  {
+    "id": "corset",
+    "label": "Corsets",
+    "group": "Clothing",
+    "description": "Wearing corsets, helping put them on, or touching the structured fabric around each other’s torso.",
+    "exampleActivityId": "mutual_corset_fetish"
+  },
+  {
+    "id": "full_body_suit",
+    "label": "Full-body suits",
+    "group": "Clothing",
+    "description": "Wearing suits that cover most of the body, or touching each other through the covering.",
+    "exampleActivityId": "mutual_full_body_suit_fetish"
+  },
+  {
+    "id": "wet_clothing",
+    "label": "Wet clothing",
+    "group": "Clothing",
+    "description": "Wearing soaked clothes together or touching each other through the wet fabric.",
+    "exampleActivityId": "mutual_wet_clothing_fetish"
+  },
+  {
+    "id": "sportswear",
+    "label": "Sportswear",
+    "group": "Clothing",
+    "description": "Wearing athletic clothing together or including it in play through looking at or touching it.",
+    "exampleActivityId": "mutual_sportswear_fetish"
+  },
+  {
+    "id": "formalwear",
+    "label": "Formalwear",
+    "group": "Clothing",
+    "description": "Wearing dress clothes during play, such as suits, dresses, or formal shirts, or helping each other dress.",
+    "exampleActivityId": "mutual_formalwear_fetish"
+  },
+  {
+    "id": "spandex",
+    "label": "Spandex",
+    "group": "Materials",
+    "description": "Wearing stretchy spandex or Lycra clothing together or touching each other through the close-fitting fabric.",
+    "exampleActivityId": "mutual_spandex_fetish"
+  },
+  {
+    "id": "nylon_hosiery_material",
+    "label": "Nylon & hosiery fabric",
+    "group": "Materials",
+    "description": "Wearing nylon garments, such as hosiery, or touching the thin, smooth fabric against each other’s skin.",
+    "exampleActivityId": "mutual_nylon_hosiery_material_fetish"
+  },
+  {
+    "id": "neoprene",
+    "label": "Neoprene",
+    "group": "Materials",
+    "description": "Wearing neoprene together or touching each other through the thick, springy material used in wetsuits.",
+    "exampleActivityId": "mutual_neoprene_fetish"
+  },
+  {
+    "id": "fur_like_texture",
+    "label": "Fur-like textures",
+    "group": "Materials",
+    "description": "Wearing fur-like materials or stroking the soft surface against each other’s skin.",
+    "exampleActivityId": "mutual_fur_like_texture_fetish"
+  },
+  {
+    "id": "socks",
+    "label": "Socks",
+    "group": "Clothing",
+    "description": "Wearing socks together, showing them to each other, or touching the socks during play.",
+    "exampleActivityId": "mutual_socks_fetish"
+  },
+  {
+    "id": "metal_chain_aesthetic",
+    "label": "Metal & chains",
+    "group": "Materials",
+    "description": "Wearing metal or chain accessories together, touching them, or hearing them move during play.",
+    "exampleActivityId": "mutual_metal_chain_aesthetic_fetish"
+  },
+  {
+    "id": "balloon_inflatable",
+    "label": "Balloons & inflatables",
+    "group": "Objects",
+    "description": "Touching, holding, or moving balloons and inflatable objects, including the sounds or feelings they produce.",
+    "exampleActivityId": "balloon_inflatable_fetish"
+  },
+  {
+    "id": "plushie",
+    "label": "Plush toys",
+    "group": "Objects",
+    "description": "Holding, stroking, or including stuffed toys as props during play.",
+    "exampleActivityId": "plushie_fetish"
+  },
+  {
+    "id": "doll_mannequin",
+    "label": "Dolls & mannequins",
+    "group": "Objects",
+    "description": "Looking at, handling, or positioning dolls or mannequins during play, rather than having a partner act as one.",
+    "exampleActivityId": "doll_mannequin_fetish"
+  },
+  {
+    "id": "vehicle",
+    "label": "Vehicles",
+    "group": "Objects",
+    "description": "",
+    "exampleActivityId": "vehicle_fetish"
+  },
+  {
+    "id": "statue",
+    "label": "Statues",
+    "group": "Objects",
+    "description": "",
+    "exampleActivityId": "statue_fetish"
+  },
+  {
+    "id": "plant_nature_erotic_focus",
+    "label": "Plants & nature",
+    "group": "Objects",
+    "description": "",
+    "exampleActivityId": "plant_nature_erotic_focus"
+  },
+  {
+    "id": "other_object",
+    "label": "Other objects",
+    "group": "Objects",
+    "description": "",
+    "exampleActivityId": "other_object_fetish"
+  }
+]

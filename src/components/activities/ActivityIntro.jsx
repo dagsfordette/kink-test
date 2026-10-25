@@ -1,3 +1,5 @@
+import { hasRoleplayMarks } from '../../lib/roleplayInterests.js'
+
 export default function ActivityIntro({
   activity,
   adultConfirmed,
@@ -7,7 +9,7 @@ export default function ActivityIntro({
   onResults
 }) {
   const answeredCount = Object.keys(activity.answers || {}).length
-  const hasProgress = answeredCount > 0
+  const hasProgress = answeredCount > 0 || Object.keys(activity.exploration?.sensoryInterests || {}).length > 0 || Object.keys(activity.exploration?.featureInterests || {}).length > 0 || Object.keys(activity.exploration?.contextInterests || {}).length > 0 || hasRoleplayMarks(activity.exploration?.roleplayInterests) || Object.keys(activity.exploration?.materialInterests || {}).length > 0 || activity.exploration?.guided?.topicId
 
   return (
     <main className="activity-shell activity-intro-shell">
@@ -18,7 +20,7 @@ export default function ActivityIntro({
         <span className="kicker">Activity Explorer</span>
         <h1>Explore what you’d actually be up for.</h1>
         <p className="activity-lede">
-          Choose a topic and explore one activity at a time.
+          Explore one activity at a time.
         </p>
 
         {!adultConfirmed && (
@@ -53,7 +55,7 @@ export default function ActivityIntro({
           )}
         </div>
 
-        {hasProgress && (
+        {answeredCount > 0 && (
           <p className="activity-entry-progress-note">
             {answeredCount} {answeredCount === 1 ? 'answer' : 'answers'} saved
             in this browser.

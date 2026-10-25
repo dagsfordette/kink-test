@@ -1,0 +1,847 @@
+{
+  "roles": [
+    {
+      "id": "teacher",
+      "label": "Teacher",
+      "group": "Authority & instruction",
+      "description": "Giving lessons, setting expectations, and guiding learning.",
+      "counterparts": [
+        "student",
+        "teacher"
+      ],
+      "selfAppeal": [
+        "Giving instruction",
+        "Testing knowledge",
+        "Correcting mistakes",
+        "Praising progress"
+      ],
+      "partnerAppeal": [
+        "Receiving instruction",
+        "Trying to impress",
+        "Being corrected",
+        "Earning praise"
+      ],
+      "sourceActivityIds": [
+        "teacher_student_adult_roleplay"
+      ]
+    },
+    {
+      "id": "student",
+      "label": "Student",
+      "group": "Authority & instruction",
+      "description": "Learning, being assessed, or trying to meet expectations.",
+      "counterparts": [
+        "teacher",
+        "student"
+      ],
+      "selfAppeal": [
+        "Receiving instruction",
+        "Trying to impress",
+        "Playful misbehaviour",
+        "Earning praise"
+      ],
+      "partnerAppeal": [
+        "Giving instruction",
+        "Setting a challenge",
+        "Correcting mistakes",
+        "Praising progress"
+      ],
+      "sourceActivityIds": [
+        "teacher_student_adult_roleplay"
+      ]
+    },
+    {
+      "id": "boss",
+      "label": "Boss",
+      "group": "Authority & instruction",
+      "description": "Assigning work, supervising tasks, or reviewing performance.",
+      "counterparts": [
+        "employee",
+        "boss"
+      ],
+      "selfAppeal": [
+        "Assigning tasks",
+        "Reviewing performance",
+        "Giving approval",
+        "Workplace atmosphere"
+      ],
+      "partnerAppeal": [
+        "Receiving tasks",
+        "Trying to impress",
+        "Being evaluated",
+        "Workplace atmosphere"
+      ],
+      "sourceActivityIds": [
+        "boss_employee_roleplay"
+      ]
+    },
+    {
+      "id": "employee",
+      "label": "Employee",
+      "group": "Authority & instruction",
+      "description": "Carrying out tasks or responding to a fictional supervisor.",
+      "counterparts": [
+        "boss",
+        "employee"
+      ],
+      "selfAppeal": [
+        "Receiving instructions",
+        "Performance reviews",
+        "Seeking approval",
+        "Challenging authority"
+      ],
+      "partnerAppeal": [
+        "Giving instructions",
+        "Evaluating performance",
+        "Giving approval",
+        "Being challenged"
+      ],
+      "sourceActivityIds": [
+        "boss_employee_roleplay"
+      ]
+    },
+    {
+      "id": "dominant",
+      "label": "Dominant character",
+      "group": "Authority & instruction",
+      "description": "Playing a character who gives directions and holds authority within the story.",
+      "counterparts": [
+        "submissive",
+        "dominant"
+      ],
+      "selfAppeal": [
+        "Giving directions",
+        "Setting expectations",
+        "Receiving obedience",
+        "Guiding the scene"
+      ],
+      "partnerAppeal": [
+        "Following directions",
+        "Meeting expectations",
+        "Offering obedience",
+        "Being guided"
+      ],
+      "sourceActivityIds": [
+        "dominant_submissive_roleplay"
+      ]
+    },
+    {
+      "id": "submissive",
+      "label": "Submissive character",
+      "group": "Authority & instruction",
+      "description": "Playing a character who follows directions or hands over authority within the story.",
+      "counterparts": [
+        "dominant",
+        "submissive"
+      ],
+      "selfAppeal": [
+        "Following directions",
+        "Offering obedience",
+        "Trying to please",
+        "Being guided"
+      ],
+      "partnerAppeal": [
+        "Giving directions",
+        "Receiving obedience",
+        "Receiving attention",
+        "Guiding the scene"
+      ],
+      "sourceActivityIds": [
+        "dominant_submissive_roleplay"
+      ]
+    },
+    {
+      "id": "inspector",
+      "label": "Inspector",
+      "group": "Authority & instruction",
+      "description": "Inspecting another character’s appearance, posture, clothing, or performance.",
+      "counterparts": [
+        "inspection_subject",
+        "employee",
+        "student"
+      ],
+      "selfAppeal": [
+        "Conducting an inspection",
+        "Close attention",
+        "Giving feedback",
+        "Formal language"
+      ],
+      "partnerAppeal": [
+        "Being inspected",
+        "Focused attention",
+        "Receiving feedback",
+        "Formal language"
+      ],
+      "sourceActivityIds": [
+        "inspection_roleplay_authority"
+      ]
+    },
+    {
+      "id": "inspection_subject",
+      "label": "Person being inspected",
+      "group": "Authority & instruction",
+      "description": "Presenting yourself for a fictional inspection or assessment.",
+      "counterparts": [
+        "inspector",
+        "boss",
+        "teacher"
+      ],
+      "selfAppeal": [
+        "Being inspected",
+        "Trying to impress",
+        "Receiving feedback",
+        "Following instructions"
+      ],
+      "partnerAppeal": [
+        "Conducting an inspection",
+        "Observing details",
+        "Giving feedback",
+        "Giving instructions"
+      ],
+      "sourceActivityIds": [
+        "inspection_roleplay_authority"
+      ]
+    },
+    {
+      "id": "doctor",
+      "label": "Doctor",
+      "group": "Medical",
+      "description": "Playing a clinician in a fictional appointment or examination.",
+      "counterparts": [
+        "patient",
+        "nurse",
+        "doctor"
+      ],
+      "selfAppeal": [
+        "Conducting an examination",
+        "Clinical language",
+        "Directing the appointment",
+        "Explaining findings"
+      ],
+      "partnerAppeal": [
+        "Being examined",
+        "Focused attention",
+        "Following instructions",
+        "Clinical atmosphere"
+      ],
+      "sourceActivityIds": [
+        "doctor_patient_roleplay",
+        "medical_roleplay"
+      ]
+    },
+    {
+      "id": "nurse",
+      "label": "Nurse",
+      "group": "Medical",
+      "description": "Playing someone who provides care, carries out checks, or assists a clinician.",
+      "counterparts": [
+        "patient",
+        "doctor",
+        "nurse"
+      ],
+      "selfAppeal": [
+        "Providing care",
+        "Carrying out checks",
+        "Clinical language",
+        "Reassurance"
+      ],
+      "partnerAppeal": [
+        "Receiving care",
+        "Focused attention",
+        "Following instructions",
+        "Reassurance"
+      ],
+      "sourceActivityIds": [
+        "nurse_patient_roleplay",
+        "medical_roleplay"
+      ]
+    },
+    {
+      "id": "patient",
+      "label": "Patient",
+      "group": "Medical",
+      "description": "Attending a fictional medical appointment or examination.",
+      "counterparts": [
+        "doctor",
+        "nurse",
+        "patient"
+      ],
+      "selfAppeal": [
+        "Being examined",
+        "Focused attention",
+        "Following instructions",
+        "Clinical atmosphere"
+      ],
+      "partnerAppeal": [
+        "Conducting an examination",
+        "Asking questions",
+        "Directing the appointment",
+        "Reassurance and care"
+      ],
+      "sourceActivityIds": [
+        "doctor_patient_roleplay",
+        "nurse_patient_roleplay",
+        "medical_roleplay"
+      ]
+    },
+    {
+      "id": "captor",
+      "label": "Captor",
+      "group": "Captivity & pursuit",
+      "description": "Capturing or holding another character within a fictional story.",
+      "counterparts": [
+        "captive"
+      ],
+      "selfAppeal": [
+        "The capture scenario",
+        "Preventing escape",
+        "Negotiating",
+        "Giving orders"
+      ],
+      "partnerAppeal": [
+        "The capture scenario",
+        "Planning an escape",
+        "Negotiating",
+        "Following orders"
+      ],
+      "sourceActivityIds": [
+        "capture_roleplay",
+        "kidnapping_roleplay"
+      ]
+    },
+    {
+      "id": "captive",
+      "label": "Captive",
+      "group": "Captivity & pursuit",
+      "description": "Playing someone who has been captured and is responding to their situation.",
+      "counterparts": [
+        "captor",
+        "guard",
+        "captive"
+      ],
+      "selfAppeal": [
+        "The capture scenario",
+        "Planning an escape",
+        "Negotiating",
+        "Being questioned"
+      ],
+      "partnerAppeal": [
+        "The capture scenario",
+        "Preventing escape",
+        "Negotiating",
+        "Questioning"
+      ],
+      "sourceActivityIds": [
+        "capture_roleplay",
+        "kidnapping_roleplay"
+      ]
+    },
+    {
+      "id": "guard",
+      "label": "Guard",
+      "group": "Captivity & pursuit",
+      "description": "Supervising a prisoner or controlling access and movement within a fictional setting.",
+      "counterparts": [
+        "prisoner",
+        "captive",
+        "guard"
+      ],
+      "selfAppeal": [
+        "Giving orders",
+        "Supervision",
+        "Questioning",
+        "Enforcing fictional rules"
+      ],
+      "partnerAppeal": [
+        "Being watched",
+        "Testing the rules",
+        "Planning an escape",
+        "Verbal sparring"
+      ],
+      "sourceActivityIds": [
+        "prisoner_guard_roleplay"
+      ]
+    },
+    {
+      "id": "prisoner",
+      "label": "Prisoner",
+      "group": "Captivity & pursuit",
+      "description": "Playing someone living under fictional confinement and rules.",
+      "counterparts": [
+        "guard",
+        "prisoner"
+      ],
+      "selfAppeal": [
+        "Confinement as a story element",
+        "Testing the rules",
+        "Planning an escape",
+        "Verbal sparring"
+      ],
+      "partnerAppeal": [
+        "Supervision",
+        "Enforcing fictional rules",
+        "Preventing escape",
+        "Verbal sparring"
+      ],
+      "sourceActivityIds": [
+        "prisoner_guard_roleplay"
+      ]
+    },
+    {
+      "id": "interrogator",
+      "label": "Interrogator",
+      "group": "Captivity & pursuit",
+      "description": "Questioning another character or trying to obtain fictional information.",
+      "counterparts": [
+        "questioned_person"
+      ],
+      "selfAppeal": [
+        "Asking questions",
+        "Uncovering a secret",
+        "Verbal pressure",
+        "Bargaining"
+      ],
+      "partnerAppeal": [
+        "Being questioned",
+        "Keeping a secret",
+        "Verbal sparring",
+        "Bargaining"
+      ],
+      "sourceActivityIds": [
+        "interrogation_roleplay"
+      ]
+    },
+    {
+      "id": "questioned_person",
+      "label": "Person being questioned",
+      "group": "Captivity & pursuit",
+      "description": "Keeping or revealing fictional information during an interrogation.",
+      "counterparts": [
+        "interrogator"
+      ],
+      "selfAppeal": [
+        "Being questioned",
+        "Keeping a secret",
+        "Verbal sparring",
+        "Bargaining"
+      ],
+      "partnerAppeal": [
+        "Asking questions",
+        "Uncovering a secret",
+        "Verbal pressure",
+        "Bargaining"
+      ],
+      "sourceActivityIds": [
+        "interrogation_roleplay"
+      ]
+    },
+    {
+      "id": "stranger",
+      "label": "Stranger",
+      "group": "Characters & identities",
+      "description": "Pretending not to know your partner and acting out a first encounter.",
+      "counterparts": [
+        "stranger"
+      ],
+      "selfAppeal": [
+        "Making the first approach",
+        "Being approached",
+        "Inventing a backstory",
+        "A fresh introduction"
+      ],
+      "partnerAppeal": [
+        "Making the first approach",
+        "Being approached",
+        "Discovering a backstory",
+        "A fresh introduction"
+      ],
+      "sourceActivityIds": [
+        "stranger_roleplay"
+      ]
+    },
+    {
+      "id": "hero",
+      "label": "Hero",
+      "group": "Characters & identities",
+      "description": "Playing a heroic character in an imagined encounter or rivalry.",
+      "counterparts": [
+        "villain",
+        "hero",
+        "creature",
+        "alien"
+      ],
+      "selfAppeal": [
+        "A confrontation",
+        "Rescuing someone",
+        "Rivalry",
+        "A secret identity"
+      ],
+      "partnerAppeal": [
+        "A confrontation",
+        "Being rescued",
+        "Rivalry",
+        "Discovering an identity"
+      ],
+      "sourceActivityIds": [
+        "superhero_villain_roleplay",
+        "fictional_character_roleplay"
+      ]
+    },
+    {
+      "id": "villain",
+      "label": "Villain",
+      "group": "Characters & identities",
+      "description": "Playing an antagonist with a fictional scheme or rivalry.",
+      "counterparts": [
+        "hero",
+        "villain"
+      ],
+      "selfAppeal": [
+        "A fictional scheme",
+        "Rivalry",
+        "A confrontation",
+        "A dramatic reveal"
+      ],
+      "partnerAppeal": [
+        "Challenging a scheme",
+        "Rivalry",
+        "A confrontation",
+        "A dramatic reveal"
+      ],
+      "sourceActivityIds": [
+        "superhero_villain_roleplay",
+        "fictional_character_roleplay"
+      ]
+    },
+    {
+      "id": "creature",
+      "label": "Monster or creature",
+      "group": "Characters & identities",
+      "description": "Playing an invented nonhuman character through acting, costume, or imagination.",
+      "counterparts": [
+        "human",
+        "creature",
+        "hero"
+      ],
+      "selfAppeal": [
+        "Acting nonhuman",
+        "Costume and appearance",
+        "An unusual encounter",
+        "Invented behaviour"
+      ],
+      "partnerAppeal": [
+        "An unusual encounter",
+        "Costume and appearance",
+        "Discovering the character",
+        "Invented behaviour"
+      ],
+      "sourceActivityIds": [
+        "monster_nonhuman_roleplay"
+      ]
+    },
+    {
+      "id": "alien",
+      "label": "Alien",
+      "group": "Characters & identities",
+      "description": "Playing a fictional visitor from another world.",
+      "counterparts": [
+        "human",
+        "alien",
+        "hero"
+      ],
+      "selfAppeal": [
+        "Invented customs",
+        "Discovering human behaviour",
+        "Costume and appearance",
+        "An unusual encounter"
+      ],
+      "partnerAppeal": [
+        "Discovering alien customs",
+        "Explaining human behaviour",
+        "Costume and appearance",
+        "An unusual encounter"
+      ],
+      "sourceActivityIds": [
+        "alien_roleplay"
+      ]
+    },
+    {
+      "id": "human",
+      "label": "Human in a nonhuman encounter",
+      "group": "Characters & identities",
+      "description": "Playing a human who encounters an alien or fictional creature.",
+      "counterparts": [
+        "creature",
+        "alien"
+      ],
+      "selfAppeal": [
+        "An unusual encounter",
+        "Curiosity",
+        "Invented customs",
+        "Exploring differences"
+      ],
+      "partnerAppeal": [
+        "An unusual encounter",
+        "Being discovered",
+        "Invented customs",
+        "Exploring differences"
+      ],
+      "sourceActivityIds": [
+        "monster_nonhuman_roleplay",
+        "alien_roleplay"
+      ]
+    },
+    {
+      "id": "hypnotist",
+      "label": "Hypnotist",
+      "group": "Influence & vulnerability",
+      "description": "Acting as if you can place another character into a hypnotic state.",
+      "counterparts": [
+        "hypnotized_character"
+      ],
+      "selfAppeal": [
+        "Giving suggestions",
+        "Ritual and atmosphere",
+        "Verbal guidance",
+        "The fictional loss of control"
+      ],
+      "partnerAppeal": [
+        "Receiving suggestions",
+        "Ritual and atmosphere",
+        "Following verbal guidance",
+        "Pretending to lose control"
+      ],
+      "sourceActivityIds": [
+        "hypnosis_roleplay"
+      ]
+    },
+    {
+      "id": "hypnotized_character",
+      "label": "Hypnotized character",
+      "group": "Influence & vulnerability",
+      "description": "Acting as though another character’s suggestions affect your behaviour.",
+      "counterparts": [
+        "hypnotist"
+      ],
+      "selfAppeal": [
+        "Receiving suggestions",
+        "Ritual and atmosphere",
+        "Following verbal guidance",
+        "Pretending to lose control"
+      ],
+      "partnerAppeal": [
+        "Giving suggestions",
+        "Ritual and atmosphere",
+        "Verbal guidance",
+        "The fictional loss of control"
+      ],
+      "sourceActivityIds": [
+        "hypnosis_roleplay"
+      ]
+    },
+    {
+      "id": "mind_controller",
+      "label": "Mind controller",
+      "group": "Influence & vulnerability",
+      "description": "Pretending to have fictional power over another character’s thoughts or actions.",
+      "counterparts": [
+        "controlled_character"
+      ],
+      "selfAppeal": [
+        "Giving fictional commands",
+        "A transformation in behaviour",
+        "Invented powers",
+        "A dramatic reveal"
+      ],
+      "partnerAppeal": [
+        "Following fictional commands",
+        "Acting differently",
+        "Invented powers",
+        "A dramatic reveal"
+      ],
+      "sourceActivityIds": [
+        "mind_control_roleplay"
+      ]
+    },
+    {
+      "id": "controlled_character",
+      "label": "Mind-controlled character",
+      "group": "Influence & vulnerability",
+      "description": "Acting as though a fictional power directs your character’s thoughts or actions.",
+      "counterparts": [
+        "mind_controller"
+      ],
+      "selfAppeal": [
+        "Following fictional commands",
+        "Acting differently",
+        "Invented powers",
+        "A dramatic reveal"
+      ],
+      "partnerAppeal": [
+        "Giving fictional commands",
+        "A transformation in behaviour",
+        "Invented powers",
+        "A dramatic reveal"
+      ],
+      "sourceActivityIds": [
+        "mind_control_roleplay"
+      ]
+    },
+    {
+      "id": "pretend_sleeping",
+      "label": "Pretending to sleep",
+      "group": "Influence & vulnerability",
+      "description": "Acting as if you are asleep while staying awake and responsive.",
+      "counterparts": [
+        "active_partner"
+      ],
+      "selfAppeal": [
+        "Feigning sleep",
+        "Being the focus of attention",
+        "Pretending not to notice",
+        "The vulnerability of the role"
+      ],
+      "partnerAppeal": [
+        "Taking the active role",
+        "Focused attention",
+        "A pretend secret encounter",
+        "The vulnerability of the other role"
+      ],
+      "sourceActivityIds": [
+        "receive_sleep_vulnerability_roleplay",
+        "give_sleep_vulnerability_roleplay"
+      ]
+    },
+    {
+      "id": "active_partner",
+      "label": "Active partner in a pretend-sleep scene",
+      "group": "Influence & vulnerability",
+      "description": "Playing the active character while your partner pretends to sleep and remains awake and responsive.",
+      "counterparts": [
+        "pretend_sleeping"
+      ],
+      "selfAppeal": [
+        "Taking the active role",
+        "Focused attention",
+        "A pretend secret encounter",
+        "The vulnerability of the other role"
+      ],
+      "partnerAppeal": [
+        "Feigning sleep",
+        "Being the focus of attention",
+        "Pretending not to notice",
+        "The vulnerability of the role"
+      ],
+      "sourceActivityIds": [
+        "give_sleep_vulnerability_roleplay",
+        "receive_sleep_vulnerability_roleplay"
+      ]
+    }
+  ],
+  "themes": [
+    {
+      "id": "uniform",
+      "label": "Uniforms and occupations",
+      "description": "Using a uniform, job, or rank to establish the fictional character.",
+      "sourceActivityIds": [
+        "uniform_roleplay"
+      ]
+    },
+    {
+      "id": "medical",
+      "label": "Medical settings",
+      "description": "A fictional appointment, examination, or care setting. Choosing the theme does not select medical procedures.",
+      "sourceActivityIds": [
+        "medical_roleplay"
+      ]
+    },
+    {
+      "id": "capture",
+      "label": "Capture scenarios",
+      "description": "A story involving capture, pursuit, or escape.",
+      "sourceActivityIds": [
+        "capture_roleplay"
+      ]
+    },
+    {
+      "id": "kidnapping",
+      "label": "Kidnapping scenarios",
+      "description": "An imagined abduction or captivity plot.",
+      "sourceActivityIds": [
+        "kidnapping_roleplay"
+      ]
+    },
+    {
+      "id": "resistance",
+      "label": "Acted resistance",
+      "description": "Playing out physical or verbal resistance within the fictional scene.",
+      "sourceActivityIds": [
+        "consensual_resistance_roleplay"
+      ]
+    },
+    {
+      "id": "cnc",
+      "label": "Consensual non-consent (CNC)",
+      "description": "An agreed fictional scenario in which acted refusal is part of the story; a real withdrawal of participation still ends the scene.",
+      "sourceActivityIds": [
+        "consensual_nonconsent_roleplay"
+      ]
+    },
+    {
+      "id": "historical",
+      "label": "Historical settings",
+      "description": "Characters, clothing, or customs from a particular historical period.",
+      "sourceActivityIds": [
+        "historical_roleplay"
+      ]
+    },
+    {
+      "id": "fictional",
+      "label": "Fictional characters",
+      "description": "Existing or invented characters and their stories.",
+      "sourceActivityIds": [
+        "fictional_character_roleplay"
+      ]
+    },
+    {
+      "id": "transformation",
+      "label": "Transformation",
+      "description": "Pretending a character’s body, identity, species, or social role changes.",
+      "sourceActivityIds": [
+        "transformation_roleplay"
+      ]
+    },
+    {
+      "id": "gender_expression",
+      "label": "Different gender expression",
+      "description": "Exploring a different gender presentation, identity, or role within the story.",
+      "sourceActivityIds": [
+        "gender_expression_roleplay"
+      ]
+    },
+    {
+      "id": "alternate_identity",
+      "label": "Disguises and alternate identities",
+      "description": "Adopting a character through a disguise, name, costume, or backstory.",
+      "sourceActivityIds": [
+        "costume_identity_roleplay"
+      ]
+    },
+    {
+      "id": "age_difference",
+      "label": "Age differences between adult characters",
+      "description": "Playing adult characters with an imagined age difference.",
+      "sourceActivityIds": [
+        "adult_age_difference_roleplay"
+      ]
+    },
+    {
+      "id": "age_play",
+      "label": "Age-based characters",
+      "description": "Adults adopting an imagined age or age-based role within a fictional scenario.",
+      "sourceActivityIds": [
+        "adult_age_play_roleplay"
+      ]
+    }
+  ]
+}
